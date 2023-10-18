@@ -1,10 +1,10 @@
 export default function matchingdata() {
   return (
-    <main>
+    <main id="visibleMENTORS">
       <div className="pageHeaderSection">
         <h1>Matching Information</h1>
       </div>
-      <div id="universityInformationSectionMENTORS">
+      <div id="universityInformationSection_visibleMENTORS">
         <h2>University Information</h2>
 
         <div id="submitNew">
@@ -108,7 +108,7 @@ export default function matchingdata() {
         <div id="showSubmitted">
           <h3>Submitted University Background</h3>
           <p>To add more, submit another degree in the form above</p>
-          <table className="audittable">
+          <table>
             <thead>
               <tr>
                 <th> </th>
@@ -120,7 +120,7 @@ export default function matchingdata() {
                 <th>Edit</th>
               </tr>
             </thead>
-            <tbody className="table-body">
+            <tbody>
               <tr>
                 <td>1.</td>
                 <td>UniX</td>
@@ -132,7 +132,65 @@ export default function matchingdata() {
             </tbody>
           </table>
         </div>
+        <div id="moreSubjectSupport">
+          <label htmlFor="moreSubjectSupport">
+            Are there other subjects that you could support a mentee's
+            application in? If yes, please select them here:
+          </label>
+          <input id="moreSubjectSupport" required />
+        </div>
+        <button id="submitAllUniInformation">
+          Submit all University Information
+        </button>
       </div>
+      <div id="matchingInformationSection_visibleMENTORS">
+        <h2>Matching Information</h2>
+        <form>
+          <h3>Maximum Capacity</h3>
+          <p>
+            We expect mentors to commit around 1-2 hours per month per mentee.
+          </p>
+          <label htmlFor="maximum_capacity">
+            Please indicate the maximum number of mentees you would like to
+            mentor at the same time. You can change this number any time:
+          </label>
+          <input id="maximum_capacity" type="number" min="1" defaultValue={1} />
+          <h3>Safeguarding</h3>
+          <p>
+            The safety of our mentees is incredibly important to us. Therefore,
+            every mentor has to strictly adhere to our safeguarding guidelines.
+          </p>
+          <a
+            // check how to download a pdf
+
+            href="/#"
+          >
+            Safeguarding Contract Download
+          </a>
+          <label htmlFor="safeguarding_upload">
+            Please download the safeguarding contract, read it carefully and
+            upload a signed version here:
+          </label>
+          <input
+            id="safeguarding_upload"
+            // check how to upload a pdf
+          />
+          <button id="submitAllUniInformation">
+            Submit further matching Information
+          </button>
+        </form>
+      </div>
+      <p>
+        After clicking the "Register" button below our team will review your
+        registration. After your registration is approved, you will join the
+        active mentor pool. Mentees will then be able to request you as their
+        mentor after you have been suggested as a fitting mentor. After a
+        mentee's request, you will have one week to accept the request to start
+        your mentorship journey together. You can always set your mentorship to
+        inactive in the future, in case you would like to take a break or
+        discontinue mentoring.
+      </p>
+      <button id="registerAsAMentor">Register as a mentor</button>
     </main>
   );
 }
