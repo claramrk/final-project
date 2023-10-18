@@ -1,20 +1,32 @@
-export default function LoginPage() {
+export default function loginPage() {
   return (
     <main>
+      <div className="pageHeaderSection">
+        <h1>SignIn Page</h1>
+      </div>
       <div id="SignInSection">
+        <h2>SignIn </h2>
+
         <form id="signInForm">
-          <legend>Sign In</legend>
-          <label htmlFor="emailInput">Email:</label>
+          <label htmlFor="emailInput">
+            Email:<span id="required">*</span>
+          </label>
           <input id="emailInput" required />
-          <label htmlFor="passwordInput">Password:</label>
+          <label htmlFor="passwordInput">
+            Password:<span id="required">*</span>
+          </label>
           <input id="passwordInput" required />
           <button id="signInButton">Sign in</button>
         </form>
         <a href="/#">Forgot your Password?</a>
       </div>
       <div id="SignUpSection">
+        <h2>SignUp </h2>
+
         <form id="signUpForm">
-          <legend>Sign Up as:</legend>
+          <legend>
+            Sign up as:<span id="required">*</span>
+          </legend>
           <label htmlFor="mentor">
             A Mentor: Help someone to get into their dream uni
           </label>
@@ -35,19 +47,25 @@ export default function LoginPage() {
           />
           <br />
 
-          <label htmlFor="emailInput">Email:</label>
+          <label htmlFor="emailInput">
+            Email:<span id="required">*</span>
+          </label>
           <input id="emailInput" required />
 
-          <label htmlFor="passwordInput">Password:</label>
+          <label htmlFor="passwordInput">
+            Password:<span id="required">*</span>
+          </label>
           <input id="passwordInput" required />
-          <label htmlFor="passwordInput">Password:</label>
+          <label htmlFor="passwordInput">
+            Confirm Password:<span id="required">*</span>
+          </label>
           <input id="passwordInput" required />
           <button
-            id="signInButtonMentor"
+            id="signUpButton"
             // Button text changes depending on radio button input
             // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
           >
-            Sign up as a Mentor
+            Sign up
           </button>
         </form>
       </div>
