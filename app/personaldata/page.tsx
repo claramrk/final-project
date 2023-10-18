@@ -2,7 +2,7 @@ export default function personalData() {
   return (
     <main>
       <div className="pageHeaderSection">
-        <h1>Personal Data Page</h1>
+        <h1>My Personal Data</h1>
       </div>
       <div id="personalDataSection">
         <h2>Personal Data Section</h2>

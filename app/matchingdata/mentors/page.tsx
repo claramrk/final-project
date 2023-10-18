@@ -2,7 +2,7 @@ export default function matchingdata() {
   return (
     <main id="visibleMENTORS">
       <div className="pageHeaderSection">
-        <h1>Matching Information</h1>
+        <h1>My Matching Information</h1>
       </div>
       <div id="universityInformationSection_visibleMENTORS">
         <h2>University Information</h2>

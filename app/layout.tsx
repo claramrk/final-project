@@ -22,15 +22,15 @@ export default function RootLayout({
           <img
             src="https://images.squarespace-cdn.com/content/5a1abda8aeb6251ef0a76deb/1585339723404-IGGZ5G14107C6804B7HJ/logo_header.png?content-type=image%2Fpng"
             alt="logo"
-            height="20"
+            height="40"
           />
           <Navigation />
-          <br />
+          <hr />
         </header>
         {children}
         <footer>
-          <br />
-          <p>Footer</p>
+          <hr />
+          <p>Impressum</p>
         </footer>
       </body>
     </html>

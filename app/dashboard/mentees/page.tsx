@@ -2,7 +2,7 @@ export default function dashboardMentees() {
   return (
     <main>
       <div className="pageHeaderSection">
-        <h1>USERNAME'S Dashboard</h1>
+        <h1>My Dashboard</h1>
       </div>
       <div id="matchingHighlightsSection">
         <h2>My Matching Highlights</h2>

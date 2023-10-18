@@ -2,7 +2,7 @@ export default function matchingOverviewMentees() {
   return (
     <main id="visibleMENTEES">
       <div className="pageHeaderSection">
-        <h1>Matching Information</h1>
+        <h1>My Matching Overview</h1>
       </div>
       <div id="activeMatchesSection">
         <h2>Active Matches</h2>
