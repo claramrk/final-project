@@ -1,4 +1,4 @@
-export default function dashboardMentors() {
+export default function dashboardMentees() {
   return (
     <main>
       <div className="pageHeaderSection">
