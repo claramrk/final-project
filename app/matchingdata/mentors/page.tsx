@@ -190,7 +190,9 @@ export default function matchingdata() {
         inactive in the future, in case you would like to take a break or
         discontinue mentoring.
       </p>
-      <button id="registerAsAMentor">Register as a mentor</button>
+      <button id="registerAsAMentor">
+        Complete your registration as a mentor
+      </button>
     </main>
   );
 }
