@@ -4,7 +4,7 @@ export default function personalData() {
       <div className="pageHeaderSection">
         <h1>Personal Data Page</h1>
       </div>
-      <div className="personalDataSection">
+      <div id="personalDataSection">
         <h2>Personal Data Section</h2>
         <p>Please enter your personal data here</p>
         <form
