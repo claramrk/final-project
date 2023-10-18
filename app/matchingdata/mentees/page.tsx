@@ -147,7 +147,7 @@ export default function matchingdata() {
         to start your mentorship journey together. You will also be supported
         through additional support programs - stay tuned!
       </p>
-      <button id="registerAsAMentor">
+      <button id="registerAsAMentee">
         Complete your registration as a mentee
       </button>
     </main>
