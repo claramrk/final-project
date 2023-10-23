@@ -14,8 +14,12 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id INTEGER NOT NULL REFERENCES user(id),
     studylevel INTEGER NOT NULL ,
-    university_ids INTEGER NOT NULL REFERENCES universities(id),
-    subject_ids INTEGER NOT NULL REFERENCES subjects(id)
+    first_university_id INTEGER NOT NULL REFERENCES universities(id),
+    first_subject_id INTEGER NOT NULL REFERENCES subjects(id)
+    second_university_id INTEGER NOT NULL REFERENCES universities(id),
+    second_subject_id INTEGER NOT NULL REFERENCES subjects(id)
+    third_university_id INTEGER NOT NULL REFERENCES universities(id),
+    third_subject_id INTEGER NOT NULL REFERENCES subjects(id)
 );`;
 }
 
