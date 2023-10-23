@@ -1,0 +1,29 @@
+import { Sql } from 'postgres';
+
+export type MentorUniversityBackground = {
+  id: number;
+  user_id: number;
+  studylevel: string;
+  attendance_type: string;
+  university_id: number;
+  subject_id: number;
+};
+
+export async function up(sql: Sql) {
+  await sql`
+    CREATE TABLE  mentor_university_backgrounds(
+    id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id INTEGER NOT NULL,
+    studylevel varchar(300) NOT NULL,
+    attendance_type varchar(300) NOT NULL,
+    university_id INTEGER NOT NULL,
+    subject_id INTEGER NOT NULL
+);
+  `;
+}
+
+export async function down(sql: Sql) {
+  await sql`
+DROP TABLE mentor_university_backgrounds
+`;
+}
