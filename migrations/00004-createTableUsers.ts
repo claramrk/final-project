@@ -29,7 +29,7 @@ export async function up(sql: Sql) {
     pronouns INTEGER NOT NULL,
     phone_number INTEGER NOT NULL,
     birthdate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    country_id INTEGER NOT NULL REFERENCES country(id),
+    country_id INTEGER NOT NULL REFERENCES countries(id),
     photo VARCHAR(255) NULL,
     role_id INTEGER NOT NULL REFERENCES roles(id),
     last_update TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,

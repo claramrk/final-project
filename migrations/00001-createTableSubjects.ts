@@ -10,8 +10,8 @@ export async function up(sql: Sql) {
   await sql`
     CREATE TABLE subjects (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-      name varchar(30) NOT NULL,
-      discipline varchar (30) NOT NULL
+      name varchar(255) NOT NULL,
+      discipline varchar (255) NOT NULL
     );
   `;
 }
