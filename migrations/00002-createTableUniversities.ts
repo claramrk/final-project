@@ -3,7 +3,7 @@ import { Sql } from 'postgres';
 export type University = {
   id: number;
   name: string;
-  country: number;
+  country_id: number;
 };
 
 export async function up(sql: Sql) {
@@ -11,7 +11,7 @@ export async function up(sql: Sql) {
     CREATE TABLE universities (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       name varchar(30) NOT NULL,
-      country integer NOT NULL,
+      country_id integer NOT NULL REFERENCES countries(id),
     );
   `;
 }

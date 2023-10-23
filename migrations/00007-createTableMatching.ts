@@ -2,8 +2,8 @@ import { Sql } from 'postgres';
 
 export type Match = {
   id: number;
-  mentee_uinversity_wishes_id: number;
-  mentor_university_background_id: number;
+  mentee_university_wish_id: number;
+  mentor_university_backgrounds_id: number;
   request_date: Date;
   response_date: Date;
   respone: string;
@@ -14,8 +14,8 @@ export async function up(sql: Sql) {
   await sql`
     CREATE TABLE matches(
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    mentee_uinversity_wishes_id INTEGER NOT NULL,
-    mentor_university_background_id INTEGER NOT NULL,
+    mentee_university_wish_id INTEGER NOT NULL REFERENCES mentee_university_wishes(id) ON DELETE CASCADE,
+    mentor_university_background_id INTEGER NOT NULL REFERENCES mentor_university_backgrounds(id) ON DELETE CASCADE,
     request_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
     response_date TIMESTAMP(0) WITHOUT TIME ZONE NULL,
     response VARCHAR(255) NULL,

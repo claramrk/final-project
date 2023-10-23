@@ -13,11 +13,11 @@ export async function up(sql: Sql) {
   await sql`
     CREATE TABLE  mentor_university_backgrounds(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES users(id),
     studylevel varchar(300) NOT NULL,
     attendance_type varchar(300) NOT NULL,
-    university_id INTEGER NOT NULL,
-    subject_id INTEGER NOT NULL
+    university_id INTEGER NOT NULL REFERENCES universities(id),
+    subject_id INTEGER NOT NULL REFERENCES subjects(id),
 );
   `;
 }
