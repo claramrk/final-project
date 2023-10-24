@@ -16,8 +16,8 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     mentee_university_wish_id INTEGER NOT NULL REFERENCES mentee_university_wishes(id) ON DELETE CASCADE,
     mentor_university_background_id INTEGER NOT NULL REFERENCES mentor_university_backgrounds(id) ON DELETE CASCADE,
-    request_date TIMESTAMP(0) NOT NULL,
-    response_date TIMESTAMP(0) NULL,
+    request_date TIMESTAMP NOT NULL,
+    response_date TIMESTAMP NULL,
     response VARCHAR(255) NULL,
     status_internal VARCHAR(255) NOT NULL);`;
 }

@@ -9,7 +9,7 @@ export type User = {
   pronouns: number;
   phone_number: number;
   birthdate: Date;
-  country_id: number;
+  country_id: string;
   photo: string;
   role_id: number;
   last_update: Date;
@@ -29,7 +29,7 @@ export async function up(sql: Sql) {
     pronouns INTEGER NOT NULL,
     phone_number INTEGER NOT NULL,
     birthdate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    country_name varchar(255) NOT NULL REFERENCES countries(name),
+    country_id varchar(10) NOT NULL REFERENCES countries(id),
     photo VARCHAR(255) NULL,
     role_id INTEGER NOT NULL REFERENCES roles(id),
     last_activity TIMESTAMP(0) NOT NULL,

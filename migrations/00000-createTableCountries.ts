@@ -1,15 +1,15 @@
 import { Sql } from 'postgres';
 
 export type Country = {
-  id: number;
+  id: string;
   name: string;
 };
 
 export async function up(sql: Sql) {
   await sql`
   CREATE TABLE countries (
-    id integer GENERATED ALWAYS AS IDENTITY,
-      name varchar(255) PRIMARY KEY NOT NULL
+    id varchar (10) PRIMARY KEY NOT NULL,
+      name varchar(255)  NOT NULL
     );
   `;
 }

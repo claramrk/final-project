@@ -3,135 +3,168 @@ import { Sql } from 'postgres';
 const universitylist = [
   {
     name: 'University of Edinburgh',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'Edinburgh',
   },
   {
     name: 'Trinity College Dublin',
-    country: 'Ireland',
+    country: 'IRL',
+    abbreviation: 'Trinity',
   },
   {
     name: 'University of Oxford',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'Oxford',
   },
   {
     name: 'Harvard University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Harvard',
   },
   {
     name: 'Sciences Po',
-    country: 'France',
+    country: 'FRA',
+    abbreviation: 'Sciences Po',
   },
   {
     name: 'Brown University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Brown',
   },
   {
     name: 'Columbia University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Columbia',
   },
   {
     name: 'Cornell University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Cornell',
   },
   {
     name: 'Dartmouth College',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Dartmouth',
   },
   {
     name: 'ETH Zurich',
-    country: 'Switzerland',
+    country: 'CHE',
+    abbreviation: 'ETH',
   },
   {
     name: 'Imperial College London',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'UCL',
   },
   {
     name: 'Johns Hopkins University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'JHU',
   },
   {
     name: 'Princeton University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Princeton',
   },
   {
     name: 'Stanford University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Stanford',
   },
   {
-    name: 'University College London (UCL)',
-    country: 'United Kingdom',
+    name: 'University College London',
+    country: 'GBR',
+    abbreviation: 'UCL',
   },
   {
     name: 'University of California, Berkeley',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'UC Berkeley',
   },
   {
     name: 'University of Cambridge',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'Cambridge',
   },
   {
     name: 'University of St. Andrews',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'St. Andrews',
   },
   {
     name: 'University of Warwick',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'Warwick',
   },
   {
     name: 'Yale University',
-    country: 'United States',
+    country: 'USA',
+    abbreviation: 'Yale',
   },
   {
     name: 'Bocconi University',
-    country: 'Italy',
+    country: 'ITA',
+    abbreviation: 'Bocconi',
   },
   {
     name: 'University of Durham',
-    country: 'United Kingdom',
+    country: 'GBR',
+    abbreviation: 'Durham',
   },
   {
-    name: 'California Institute of Technology (Caltech)',
-    country: 'United States',
+    name: 'California Institute of Technology',
+    country: 'USA',
+    abbreviation: 'CalTech',
   },
   {
-    name: 'Copenhagen Business School (CBS)',
-    country: 'Denmark',
+    name: 'Copenhagen Business School',
+    country: 'DNK',
+    abbreviation: 'CBS',
   },
   {
-    name: 'Hong Kong University (HKU)',
-    country: 'China',
+    name: 'Hong Kong University',
+    country: 'CHN',
+    abbreviation: 'HKU',
   },
   {
-    name: 'King’s College London (KCL)',
-    country: 'United Kingdom',
+    name: 'King’s College London',
+    country: 'GBR',
+    abbreviation: 'KCL',
   },
   {
-    name: 'London School of Economics and Political Science (LSE)',
-    country: 'United Kingdom',
+    name: 'London School of Economics and Political Science',
+    country: 'GBR',
+    abbreviation: 'LSE',
   },
   {
-    name: 'Massachusetts Institute of Technology (MIT)',
-    country: 'United States',
+    name: 'Massachusetts Institute of Technology',
+    country: 'USA',
+    abbreviation: 'MIT',
   },
   {
-    name: 'National University of Singapore (NUS)',
-    country: 'Singapore',
+    name: 'National University of Singapore',
+    country: 'SGP',
+    abbreviation: 'NUS',
   },
   {
-    name: 'New York University (NYU)',
-    country: 'United States',
+    name: 'New York University',
+    country: 'USA',
+    abbreviation: 'NYU',
   },
   {
-    name: 'University of Amsterdam (UvA)',
-    country: 'Netherlands',
+    name: 'University of Amsterdam',
+    country: 'NLD',
+    abbreviation: 'UvA',
   },
   {
-    name: 'University of California, Los Angeles (UCLA)',
-    country: 'United States',
+    name: 'University of California, Los Angeles',
+    country: 'USA',
+    abbreviation: 'UCLA',
   },
   {
-    name: 'University of Pennsylvania (UPenn)',
-    country: 'United States',
+    name: 'University of Pennsylvania',
+    country: 'USA',
+    abbreviation: 'UPenn',
   },
 ];
 
@@ -141,9 +174,9 @@ export async function up(sql: Sql) {
   for (const university of universitylist) {
     await sql`
   INSERT INTO universities (
-      name, country_name)
+    name, country_id, abbreviation)
     VALUES
-    (${university.name}, ${university.country})
+    (${university.name}, ${university.country}, ${university.abbreviation})
   `;
   }
 }
