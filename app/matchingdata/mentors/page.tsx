@@ -1,4 +1,12 @@
-export default function matchingdata() {
+import { attendancetype } from '../../../database/attendancetype';
+import { degreetype } from '../../../database/degreetype';
+import { getSubjects } from '../../../database/subjects';
+import { getUniversities } from '../../../database/universities';
+
+export default async function matchingdata() {
+  const subjects = await getSubjects();
+  const universities = await getUniversities();
+
   return (
     <main id="visibleMENTORS">
       <div className="pageHeaderSection">
@@ -17,90 +25,76 @@ export default function matchingdata() {
           <form
           // will need to be moved into use client component
           >
-            <label htmlFor="universityName">
+            <label htmlFor="selectUniversity">
               Name of the university<span id="required">*</span>
             </label>
-            <input
-              id="universityName"
-              required
-              // will need to be a datalist or dropdown. will need to provide list of data
-            />
-            <label htmlFor="subjectName">
+            <select id="selectUniversity" name="selectUniversity" required>
+              <option key="dataID-default-select" value="default-select">
+                --Please choose your university--
+              </option>
+
+              {universities.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.id}`} value={d.id}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
+
+            <label htmlFor="selectSubject">
               Name of the subject<span id="required">*</span>
             </label>
-            <input
-              id="subjectName"
-              required
-              // will need to be a datalist or dropdown. will need to provide list of data
-            />
+
+            <select id="selectSubject" name="selectSubject" required>
+              <option key="dataID-default-select" value="default-select">
+                --Please choose your subject--
+              </option>
+
+              {subjects.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.id}`} value={d.id}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
             <legend>
               DegreeType<span id="required">*</span>
             </legend>
-            <label htmlFor="undergraduate">
-              Undergraduate - Bachelors Degree
-            </label>
-            <input
-              type="radio"
-              id="undergraduate"
-              name="degreeType"
-              value="undergraduate"
-            />
-            <label htmlFor="postgraduate_masters">
-              Postgraduate - Masters Degree
-            </label>
-            <input
-              type="radio"
-              id="postgraduate_masters"
-              name="degreeType"
-              value="postgraduate_masters"
-            />
-            <label htmlFor="postgraduate_phd">Postgraduate - PhD</label>
-            <input
-              type="radio"
-              id="postgraduate_phd"
-              name="degreeType"
-              value="postgraduate_phd"
-            />
+            <select id="selectDegreetype" name="selectDegreetype" required>
+              <option key="dataID-default-select" value="default-select">
+                --Please choose your degreetype--
+              </option>
+
+              {degreetype.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.id}`} value={d.name}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
             <legend>
               ApplicationStatus<span id="required">*</span>
             </legend>
-            <label htmlFor="accepted">
-              I was accepted to this degree but did not attend
-            </label>
-            <input
-              type="radio"
-              id="accepted"
-              name="applicationStatus"
-              value="undergraduate"
-            />
-            <label htmlFor="attending">
-              I am currently attending this degree
-            </label>
-            <input
-              type="radio"
-              id="attending"
-              name="degreeType"
-              value="attending"
-            />
-            <label htmlFor="postgraduate_phd">I completed this degree</label>
-            <input
-              type="radio"
-              id="completed"
-              name="degreeType"
-              value="completed"
-            />
-            <label htmlFor="graduationYear">
-              (Expected) Year of Graduation:<span id="required">*</span>
-            </label>
-            <input
-              id="graduationYear"
+            <select
+              id="selectAttendancetype"
+              name="selectAttendancetype"
               required
-              type="number"
-              min="1900"
-              max="2099"
-              step="1"
-              defaultValue={new Date().getFullYear()}
-            />
+            >
+              <option key="dataID-default-select" value="default-select">
+                --Please choose your attendancetype--
+              </option>
+
+              {attendancetype.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.id}`} value={d.name}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
 
             <button id="submitPersonalDetails">Submit my details</button>
           </form>
