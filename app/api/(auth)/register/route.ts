@@ -4,22 +4,19 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../database/sessions';
-import {
-  createUser,
-  getUserByEmail,
-  UserRegister,
-} from '../../../../database/users';
+import { createUser, getUserByEmail } from '../../../../database/users';
+import { UserIdEmailRole } from '../../../../migrations/00004-createTableUsers';
 import { secureCookieOptions } from '../../../../util/secureCookieOptions';
 
 const registerSchema = z.object({
   email: z.string().min(3),
   password: z.string().min(3),
-  role: z.number(),
+  role: z.number().min(1),
 });
 
 export type RegisterResponseBodyPost =
   | {
-      user: UserRegister;
+      user: UserIdEmailRole;
     }
   | {
       errors: { message: string }[];

@@ -3,18 +3,36 @@ import { Sql } from 'postgres';
 export type User = {
   id: number;
   email: string;
+  roleId: number;
+  passwordHash: string;
   firstname: string | undefined;
   lastname: string | undefined;
   pronouns: number | undefined;
-  phone_number: number | undefined;
+  phoneNumber: number | undefined;
   birthdate: Date | undefined;
-  country_id: string | undefined;
+  countryId: string | undefined;
   photo: string | undefined;
-  role_id: number;
-  last_update: Date | undefined;
-  pause_until: Date | undefined;
-  max_capacity: number | undefined;
-  contract_doc_url: string | undefined;
+  lastUpdate: Date | undefined;
+  pauseUntil: Date | undefined;
+  maxCapacity: number | undefined;
+  contractDocUrl: string | undefined;
+};
+
+export type UserIdEmailOnly = {
+  id: number;
+  email: string;
+};
+
+export type UserIdEmailPassword = {
+  id: number;
+  email: string;
+  passwordHash: string;
+};
+
+export type UserIdEmailRole = {
+  id: number;
+  email: string;
+  roleId: number | null;
 };
 
 export async function up(sql: Sql) {

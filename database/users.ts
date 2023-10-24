@@ -1,22 +1,14 @@
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { User } from '../migrations/00004-createTableUsers';
-
-export type UserWithPasswordHash = UserLogin & {
-  passwordHash: string;
-};
-
-export type UserRegister = {
-  id: number;
-  email: string;
-  roleId: number;
-};
-
-export type UserLogin = { id: number; email: string };
+import {
+  UserIdEmailOnly,
+  UserIdEmailPassword,
+  UserIdEmailRole,
+} from '../migrations/00004-createTableUsers';
 
 export const createUser = cache(
   async (email: string, passwordHash: string, roleId: number) => {
-    const [user] = await sql<UserRegister[]>`
+    const [user] = await sql<UserIdEmailRole[]>`
       INSERT INTO users
         (email, password_hash, role_id)
       VALUES
@@ -24,14 +16,14 @@ export const createUser = cache(
       RETURNING
         id,
         email,
-         role_id
+        role_id
     `;
     return user;
   },
 );
 
 export const getUserByEmail = cache(async (email: string) => {
-  const [user] = await sql<UserLogin[]>`
+  const [user] = await sql<UserIdEmailOnly[]>`
     SELECT
       id,
       email
@@ -44,7 +36,7 @@ export const getUserByEmail = cache(async (email: string) => {
 });
 
 export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
-  const [user] = await sql<UserWithPasswordHash[]>`
+  const [user] = await sql<UserIdEmailPassword[]>`
     SELECT
       id, email, password_hash
     FROM
@@ -56,7 +48,7 @@ export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
 });
 
 export const getUserBySessionToken = cache(async (token: string) => {
-  const [user] = await sql<UserLogin[]>`
+  const [user] = await sql<UserIdEmailOnly[]>`
    SELECT
       users.id,
       users.email
