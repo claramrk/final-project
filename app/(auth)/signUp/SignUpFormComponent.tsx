@@ -32,9 +32,6 @@ export default function SignUpForm(props: Props) {
 
     const data: RegisterResponseBodyPost = await response.json();
 
-    await console.log(email);
-    await console.log(password);
-    await console.log(role);
     await console.log(
       JSON.stringify({
         email,

@@ -6,17 +6,16 @@ import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 
 type Props = { returnTo?: string | string[] };
 
-export default function SignUpForm(props: Props) {
+export default function SignInFormComponent(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
   async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = await fetch('/api/register', {
+    const response = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -25,6 +24,9 @@ export default function SignUpForm(props: Props) {
     });
 
     const data: RegisterResponseBodyPost = await response.json();
+
+    console.log(email);
+    console.log(password);
 
     if ('errors' in data) {
       setErrors(data.errors);
@@ -73,7 +75,7 @@ export default function SignUpForm(props: Props) {
           // Button text changes depending on radio button input
           // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
         >
-          Sign up
+          Sign in
         </button>
         {errors.map((error) => (
           <div className="error" key={`error-${error.message}`}>
