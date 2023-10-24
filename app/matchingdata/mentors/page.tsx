@@ -19,8 +19,8 @@ export default async function matchingdata() {
           <h3>Submit new University Background</h3>
 
           <p>
-            Please submit this form for each degree you have completed or have
-            been accepted to{' '}
+            Please submit each degree you have completed or have been accepted
+            to{' '}
           </p>
           <form
           // will need to be moved into use client component
@@ -101,7 +101,6 @@ export default async function matchingdata() {
         </div>
         <div id="showSubmitted">
           <h3>Submitted University Background</h3>
-          <p>To add more, submit another degree in the form above</p>
           <table>
             <thead>
               <tr>
@@ -110,7 +109,6 @@ export default async function matchingdata() {
                 <th>Degree</th>
                 <th>Degree Type</th>
                 <th>Status</th>
-                <th>Graduation Year</th>
                 <th>Edit</th>
               </tr>
             </thead>
@@ -121,17 +119,9 @@ export default async function matchingdata() {
                 <td>DegreeY</td>
                 <td>PG - Masters</td>
                 <td>Completed</td>
-                <td>2020</td>
               </tr>
             </tbody>
           </table>
-        </div>
-        <div id="moreSubjectSupport">
-          <label htmlFor="moreSubjectSupport">
-            Are there other subjects that you could support a mentee's
-            application in? If yes, please select them here:
-          </label>
-          <input id="moreSubjectSupport" required />
         </div>
         <button id="submitAllUniInformation">
           Submit all University Information
