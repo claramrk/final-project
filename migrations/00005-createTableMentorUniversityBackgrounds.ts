@@ -16,8 +16,8 @@ export async function up(sql: Sql) {
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     studylevel varchar(255) NOT NULL,
     attendance_type varchar(255) NOT NULL,
-    university_id INTEGER NOT NULL REFERENCES universities(id),
-    subject_id INTEGER NOT NULL REFERENCES subjects(id)
+    university_id INTEGER NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
+    subject_id INTEGER NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE
 );
   `;
 }

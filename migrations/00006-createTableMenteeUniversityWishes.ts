@@ -14,12 +14,12 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     studylevel integer NOT NULL,
-    first_university_id integer NOT NULL REFERENCES universities(id),
-    first_subject_id integer NOT NULL REFERENCES subjects(id),
-    second_university_id integer NOT NULL REFERENCES universities(id),
-    second_subject_id integer NOT NULL REFERENCES subjects(id),
-    third_university_id integer NOT NULL REFERENCES universities(id),
-    third_subject_id integer NOT NULL REFERENCES subjects(id)
+    first_university_id integer NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
+    first_subject_id integer NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE,
+    second_university_id integer NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
+    second_subject_id integer NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE,
+    third_university_id integer NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
+    third_subject_id integer NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE
 );`;
 }
 

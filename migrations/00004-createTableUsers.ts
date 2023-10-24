@@ -26,16 +26,16 @@ export async function up(sql: Sql) {
     password_hash VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     lastname VARCHAR(255) NOT NULL,
-    pronouns INTEGER NOT NULL,
-    phone_number INTEGER NOT NULL,
+    pronouns integer NOT NULL,
+    phone_number integer NOT NULL,
     birthdate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    country_id varchar(10) NOT NULL REFERENCES countries(id),
+    country_id varchar(10) NOT NULL REFERENCES countries(id) ON UPDATE CASCADE,
     photo VARCHAR(255) NULL,
-    role_id INTEGER NOT NULL REFERENCES roles(id),
+    role_id integer NOT NULL REFERENCES roles(id) ON UPDATE CASCADE,
     last_activity TIMESTAMP(0) NOT NULL,
     last_update TIMESTAMP(0) NOT NULL,
     pause_until TIMESTAMP(0) NOT NULL,
-    max_capacity INTEGER NULL,
+    max_capacity integer NULL,
     contract_doc_url VARCHAR(255) NULL
     );
   `;
