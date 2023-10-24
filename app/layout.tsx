@@ -5,8 +5,8 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { getUserBySessionToken } from '../database/users';
-import Navigation from '../util/Navigation';
 import SignOutButton from './(auth)/signOut/signOutFormComponent';
+import Navigation from './components/Navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +35,31 @@ export default async function RootLayout(props: Props) {
             alt="logo"
             height="40"
           />
-          <Navigation />
+          <nav>
+            <ul>
+              <li>
+                <a href="/personaldata">Profile Page</a>
+              </li>
+              <li>
+                <a href="/dashboard/mentors">Dashboard Mentor</a>
+              </li>
+              <li>
+                <a href="/matchingoverview/mentors">Matching Overview Mentor</a>
+              </li>
+              <li>
+                <a href="/matchingdata/mentors">Matching Data Mentor</a>
+              </li>
+              <li>
+                <a href="/dashboard/mentees">Dashboard Mentee</a>
+              </li>
+              <li>
+                <a href="/matchingoverview/mentees">Matching Overview Mentee</a>
+              </li>
+              <li>
+                <a href="/matchingdata/mentees">Matching Data Mentee</a>
+              </li>
+            </ul>
+          </nav>
           <div>
             {user ? (
               <>

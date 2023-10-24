@@ -6,7 +6,11 @@ export type UserWithPasswordHash = UserLogin & {
   passwordHash: string;
 };
 
-export type UserRegister = { id: number; email: string; roleId: number };
+export type UserRegister = {
+  id: number;
+  email: string;
+  roleId: number;
+};
 
 export type UserLogin = { id: number; email: string };
 

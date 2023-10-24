@@ -34,3 +34,11 @@ a {
     color-scheme: dark;
   }
 }
+
+header {
+  display: flex;
+}
+
+ul {
+  display: flex;
+}
