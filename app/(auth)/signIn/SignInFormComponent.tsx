@@ -61,6 +61,7 @@ export default function SignInFormComponent(props: Props) {
         </label>
         <input
           id="passwordInput"
+          type="password"
           required
           onChange={(event) => setPassword(event.currentTarget.value)}
         />

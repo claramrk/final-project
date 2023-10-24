@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { sql } from '../database/connect';
 import { User } from '../migrations/00004-createTableUsers';
 
-export type UserWithPasswordHash = User & {
+export type UserWithPasswordHash = UserLogin & {
   passwordHash: string;
 };
 
@@ -42,11 +42,28 @@ export const getUserByEmail = cache(async (email: string) => {
 export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
   const [user] = await sql<UserWithPasswordHash[]>`
     SELECT
-      *
+      id, email, password_hash
     FROM
       users
     WHERE
       email = ${email.toLowerCase()}
+  `;
+  return user;
+});
+
+export const getUserBySessionToken = cache(async (token: string) => {
+  const [user] = await sql<UserLogin[]>`
+   SELECT
+      users.id,
+      users.email
+    FROM
+      users
+    INNER JOIN
+      sessions ON (
+        sessions.token = ${token} AND
+        sessions.user_id = users.id AND
+        sessions.expiry_timestamp > now()
+      )
   `;
   return user;
 });

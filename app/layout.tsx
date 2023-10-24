@@ -1,7 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
+import Link from 'next/link';
+import { ReactNode } from 'react';
+import { getUserBySessionToken } from '../database/users';
 import Navigation from '../util/Navigation';
+import SignOutButton from './(auth)/signOut/signOutFormComponent';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,11 +15,17 @@ export const metadata: Metadata = {
   description: 'Mentors helping Mentees',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+type Props = {
+  children: ReactNode;
+};
+
+export default async function RootLayout(props: Props) {
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get('sessionToken');
+
+  const user =
+    sessionToken && (await getUserBySessionToken(sessionToken.value));
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -25,9 +36,22 @@ export default function RootLayout({
             height="40"
           />
           <Navigation />
+          <div>
+            {user ? (
+              <>
+                <div>{user.email}</div>
+                <SignOutButton />
+              </>
+            ) : (
+              <>
+                <Link href="/signUp">Register</Link>
+                <Link href="/signIn">Login</Link>
+              </>
+            )}
+          </div>
           <hr />
         </header>
-        {children}
+        {props.children}
         <footer>
           <hr />
           <p>Impressum</p>
