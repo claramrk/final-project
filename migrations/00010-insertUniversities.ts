@@ -168,8 +168,6 @@ const universitylist = [
   },
 ];
 
-// find out how to do insert into where?
-
 export async function up(sql: Sql) {
   for (const university of universitylist) {
     await sql`
