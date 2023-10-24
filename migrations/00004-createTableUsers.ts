@@ -29,11 +29,12 @@ export async function up(sql: Sql) {
     pronouns INTEGER NOT NULL,
     phone_number INTEGER NOT NULL,
     birthdate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    country_id INTEGER NOT NULL REFERENCES countries(id),
+    country_name varchar(255) NOT NULL REFERENCES countries(name),
     photo VARCHAR(255) NULL,
     role_id INTEGER NOT NULL REFERENCES roles(id),
-    last_update TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    pause_until DATE NULL,
+    last_activity TIMESTAMP(0) NOT NULL,
+    last_update TIMESTAMP(0) NOT NULL,
+    pause_until TIMESTAMP(0) NOT NULL,
     max_capacity INTEGER NULL,
     contract_doc_url VARCHAR(255) NULL
     );

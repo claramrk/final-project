@@ -141,9 +141,9 @@ export async function up(sql: Sql) {
   for (const university of universitylist) {
     await sql`
   INSERT INTO universities (
-      name, country_id)
+      name, country_name)
     VALUES
-    (${university.name}, ${university.country_id})
+    (${university.name}, ${university.country})
   `;
   }
 }

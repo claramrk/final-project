@@ -13,7 +13,7 @@ export async function up(sql: Sql) {
   await sql`
     CREATE TABLE  mentor_university_backgrounds(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     studylevel varchar(255) NOT NULL,
     attendance_type varchar(255) NOT NULL,
     university_id INTEGER NOT NULL REFERENCES universities(id),
