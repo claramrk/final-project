@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { updateUserById } from '../../../../database/users';
-import { User } from '../../../../migrations/00004-createTableUsers';
+import { updateUserById } from '../../../database/users';
+import { User } from '../../../migrations/00004-createTableUsers';
 
 const personalDataSchema = z.object({
   firstName: z.string().min(3),
@@ -12,7 +12,11 @@ const personalDataSchema = z.object({
   countryId: z.string().min(3),
 });
 
-type UserResponseBodyPut = { user: User };
+export type UserResponseBodyPut =
+  | { user: User }
+  | {
+      error: string;
+    };
 
 export async function PUT(
   request: NextRequest,

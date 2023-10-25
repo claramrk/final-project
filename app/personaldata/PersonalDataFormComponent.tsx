@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { pronountypes } from '../../database/pronouns';
 import { Country } from '../../migrations/00000-createTableCountries';
-import { PersonalDataResponseBodyPost } from '../api/(auth)/personaldata/route';
+import { UserResponseBodyPut } from '../api/personaldata/route';
 
 type Props = { countries: Country[] };
 
@@ -16,7 +16,7 @@ export default function PersonalDataFormComponent(props: Props) {
   const [birthdate, setBirthdate] = useState('');
   const [originCountry, setOriginCountry] = useState('');
 
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [errors, setErrors] = useState('');
   const router = useRouter();
 
   async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
@@ -30,15 +30,14 @@ export default function PersonalDataFormComponent(props: Props) {
         pronouns,
         phoneNumber,
         birthdate,
-        originCountry
+        originCountry,
       }),
     });
 
-    const data: PersonalDataResponseBodyPost = await response.json();
+    const data: UserResponseBodyPut = await response.json();
 
-
-    if ('errors' in data) {
-      setErrors(data.errors);
+    if ('error' in data) {
+      setErrors(data.error);
       return;
     }
 
