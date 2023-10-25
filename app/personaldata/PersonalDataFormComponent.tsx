@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { pronountypes } from '../../database/pronouns';
 import { Country } from '../../migrations/00000-createTableCountries';
-import { UserResponseBodyPut } from '../api/personaldata/route';
+import { UserResponseBodyPut } from '../api/users/[userid]/route';
 
 type Props = { countries: Country[] };
 
@@ -19,7 +19,7 @@ export default function PersonalDataFormComponent(props: Props) {
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
-  async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
+  async function handlePersonalData(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const response = await fetch('/api/personaldata', {
@@ -33,7 +33,7 @@ export default function PersonalDataFormComponent(props: Props) {
         originCountry,
       }),
     });
-
+    console.log(response);
     const data: UserResponseBodyPut = await response.json();
 
     if ('error' in data) {
@@ -50,19 +50,33 @@ export default function PersonalDataFormComponent(props: Props) {
     <div id="personalDataSection">
       <h2>Personal Data Section</h2>
       <p>Please enter your personal data here</p>
-      <form>
+      <form onSubmit={async (event) => await handlePersonalData(event)}>
         <label htmlFor="firstName">
           Your first name:<span id="required">*</span>
         </label>
-        <input id="firstName" required />
+        <input
+          id="firstName"
+          required
+          onChange={(event) => setFirstName(event.currentTarget.value)}
+        />
         <label htmlFor="lastName">
           Your last name:<span id="required">*</span>
         </label>
-        <input id="lastName" required />
+        <input
+          id="lastName"
+          required
+          onChange={(event) => setLastName(event.currentTarget.value)}
+        />
+
         <label htmlFor="pronouns">
           Your pronouns:<span id="required">*</span>
         </label>
-        <select id="selectPronouns" name="selectPronouns" required>
+        <select
+          id="selectPronouns"
+          name="selectPronouns"
+          required
+          onChange={(event) => setPronouns(event.currentTarget.value)}
+        >
           <option key="dataID-default-select" value="default-select">
             --Please choose your pronouns--
           </option>
@@ -78,15 +92,34 @@ export default function PersonalDataFormComponent(props: Props) {
         <label htmlFor="phoneNumber">
           Your phone number (incl. country code):<span id="required">*</span>
         </label>
-        <input id="phoneNumber" type="tel" required />
+        <input
+          id="phoneNumber"
+          type="tel"
+          required
+          onChange={(event) => setPhoneNumber(event.currentTarget.value)}
+        />
+
         <label htmlFor="birthDate">
           Your birthdate:<span id="required">*</span>
         </label>
-        <input id="birthDate" required type="date" />
+        <input
+          id="birthDate"
+          required
+          type="date"
+          onChange={(event) =>
+            setBirthdate(JSON.stringify(event.currentTarget.value))
+          }
+        />
+
         <label htmlFor="countryOrigin">
           Your country of origin:<span id="required">*</span>
         </label>
-        <select id="selectOriginCountry" name="selectOriginCountry" required>
+        <select
+          id="selectOriginCountry"
+          name="selectOriginCountry"
+          required
+          onChange={(event) => setOriginCountry(event.currentTarget.value)}
+        >
           <option key="dataID-default-select" value="default-select">
             --Please choose your country of origin--
           </option>
@@ -100,6 +133,7 @@ export default function PersonalDataFormComponent(props: Props) {
           })}
         </select>
         <button id="submitPersonalDetails">Submit my details</button>
+        {errors ? 'there was an error' : ''}
       </form>
     </div>
   );

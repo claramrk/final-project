@@ -3,19 +3,19 @@ import { Sql } from 'postgres';
 export type User = {
   id: number;
   email: string;
-  roleId: number;
   passwordHash: string;
-  firstname: string | undefined;
-  lastname: string | undefined;
-  pronouns: string | undefined;
-  phoneNumber: number | undefined;
-  birthdate: Date | undefined;
-  countryId: string | undefined;
-  photo: string | undefined;
-  lastUpdate: Date | undefined;
-  pauseUntil: Date | undefined;
-  maxCapacity: number | undefined;
-  contractDocUrl: string | undefined;
+  roleId: number | null;
+  firstname: string | null;
+  lastname: string | null;
+  pronouns: string | null;
+  phoneNumber: number | null;
+  birthdate: string | null;
+  countryId: string | null;
+  photo: string | null;
+  lastUpdate: string | null;
+  pauseUntil: string | null;
+  maxCapacity: number | null;
+  contractDocUrl: string | null;
 };
 
 export type UserIdEmailOnly = {
@@ -34,16 +34,6 @@ export type UserIdEmailRole = {
   email: string;
   roleId: number | null;
 };
-
-export type UserPersonalInfo = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  pronouns: string;
-  phoneNumber: number;
-  birthdate: Date;
-  countryId: string;
-};
 // issue, why is this potentially null? but typescript didnt leave me alone in the create users fucntion otherwise
 
 export async function up(sql: Sql) {
@@ -56,7 +46,7 @@ export async function up(sql: Sql) {
     lastname VARCHAR(255),
     pronouns VARCHAR(255),
     phone_number integer ,
-    birthdate date ,
+    birthdate TIMESTAMP,
     country_id varchar(10)  REFERENCES countries(id) ON UPDATE CASCADE,
     photo VARCHAR(255),
     role_id integer REFERENCES roles(id) ON UPDATE CASCADE,

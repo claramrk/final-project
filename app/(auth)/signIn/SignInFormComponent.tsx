@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 
+// type Props = { returnTo?: string | string[] };
 type Props = { returnTo?: string | string[] };
 
 export default function SignInFormComponent(props: Props) {

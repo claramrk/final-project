@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { updateUserById } from '../../../database/users';
-import { User } from '../../../migrations/00004-createTableUsers';
+import { updateUserbyID } from '../../../../database/users';
+import { User } from '../../../../migrations/00004-createTableUsers';
 
 const personalDataSchema = z.object({
   firstName: z.string().min(3),
   lastName: z.string().min(3),
   pronouns: z.string().min(3),
   phoneNumber: z.number().min(1),
-  birthdate: z.date(),
+  birthdate: z.string().min(3),
   countryId: z.string().min(3),
 });
 
@@ -24,10 +24,12 @@ export async function PUT(
 ): Promise<NextResponse<UserResponseBodyPut>> {
   const userId = Number(params.userId);
 
+  //getsessiontoken instead!
+
   if (!userId) {
     return NextResponse.json(
       {
-        error: 'Animal id is not valid',
+        error: ' id is not valid',
       },
       { status: 400 },
     );
@@ -50,7 +52,7 @@ export async function PUT(
   }
 
   // query the database to update the animal
-  const user = await updateUserById(
+  const updatedUser = await updateUserbyID(
     userId,
     result.data.firstName,
     result.data.lastName,
@@ -60,7 +62,7 @@ export async function PUT(
     result.data.countryId,
   );
 
-  if (!user) {
+  if (!updatedUser) {
     return NextResponse.json(
       {
         error: 'Error updating the animal',
@@ -70,6 +72,6 @@ export async function PUT(
   }
 
   return NextResponse.json({
-    user: user,
+    user: updatedUser,
   });
 }

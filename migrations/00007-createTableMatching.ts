@@ -4,8 +4,8 @@ export type Match = {
   id: number;
   mentee_university_wish_id: number;
   mentor_university_backgrounds_id: number;
-  request_date: Date;
-  response_date: Date;
+  request_date: string;
+  response_date: string;
   respone: string;
   status_internal: string;
 };
