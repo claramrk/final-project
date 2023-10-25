@@ -87,6 +87,7 @@ export default function SignUpForm(props: Props) {
         <input
           onChange={(event) => setEmail(event.currentTarget.value)}
           id="emailInput"
+          type="email"
           required
         />
 

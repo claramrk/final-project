@@ -4,6 +4,7 @@ import {
   UserIdEmailOnly,
   UserIdEmailPassword,
   UserIdEmailRole,
+  UserPersonalInfo,
 } from '../migrations/00004-createTableUsers';
 
 export const createUser = cache(
@@ -63,3 +64,59 @@ export const getUserBySessionToken = cache(async (token: string) => {
   `;
   return user;
 });
+
+export const updateUserById = cache(
+  async (
+    id: number,
+    firstName: string,
+    lastName: string,
+    pronouns: string,
+    phoneNumber: number,
+    birthdate: Date,
+    countryId: string,
+  ) => {
+    const [users] = await sql<User[]>`
+      UPDATE
+        users
+      SET
+        firstname = ${firstName},
+        lastname = ${lastName},
+        pronouns = ${pronouns},
+        phone_number =${phoneNumber},
+        birthdate =${birthdate},
+        country_id =${countryId}
+
+      WHERE id = ${id}
+      RETURNING *
+    `;
+    return users;
+  },
+);
+
+/*
+export const setPersonalInfoToUser = cache(
+  async (
+    firstName: string,
+    lastName: string,
+    pronouns: string,
+    phoneNumber: number,
+    birthdate: Date,
+    countryId: string,
+  ) => {
+    const [user] = await sql<UserPersonalInfo[]>`
+      INSERT INTO users
+        (firstname, lastname, pronouns, phone_Number, birthdate, country_id)
+      VALUES
+        (${firstName}, ${lastName}, ${pronouns}, ${phoneNumber},  ${birthdate}, ${countryId})
+      RETURNING
+        id,
+        firstname,
+        lastname,
+        phone_number,
+        birthdate,
+        country_id
+    `;
+    return user;
+  },
+);
+*/

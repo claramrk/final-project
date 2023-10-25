@@ -10,7 +10,6 @@
     "migrate": "ley --require tsm"
   },
   "dependencies": {
-    "@types/bcrypt": "^5.0.1",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "ley": "^0.8.1",
@@ -26,10 +25,11 @@
   },
   "devDependencies": {
     "@ts-safeql/eslint-plugin": "^2.0.3",
+    "@types/bcrypt": "^5.0.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint-config-upleveled": "^5.1.0",
+    "eslint-config-upleveled": "^5.1.1",
     "libpg-query": "^15.0.2",
     "stylelint": "^15.11.0",
     "stylelint-config-upleveled": "^1.0.2",
