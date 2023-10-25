@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { pronountypes } from '../../database/pronouns';
-import { Country } from '../../migrations/00000-createTableCountries';
-import { UserResponseBodyPut } from '../api/users/[userid]/route';
+import { pronountypes } from '../../../database/pronouns';
+import { Country } from '../../../migrations/00000-createTableCountries';
+import { UserResponseBodyPut } from '../../api/users/[userid]/route';
 
 type Props = { countries: Country[] };
 

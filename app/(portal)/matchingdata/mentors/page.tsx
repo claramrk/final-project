@@ -1,7 +1,7 @@
-import { attendancetype } from '../../../database/attendancetype';
-import { degreetype } from '../../../database/degreetype';
-import { getSubjects } from '../../../database/subjects';
-import { getUniversities } from '../../../database/universities';
+import { attendancetype } from '../../../../database/attendancetype';
+import { degreetype } from '../../../../database/degreetype';
+import { getSubjects } from '../../../../database/subjects';
+import { getUniversities } from '../../../../database/universities';
 
 export default async function matchingdata() {
   const subjects = await getSubjects();
