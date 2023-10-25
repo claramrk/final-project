@@ -11,7 +11,7 @@ type Props = { roles: Role[] };
 export default function SignUpForm(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState(10);
+  const [role, setRole] = useState(1);
 
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();

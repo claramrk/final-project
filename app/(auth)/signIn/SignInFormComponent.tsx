@@ -34,9 +34,8 @@ export default function SignInFormComponent(props: Props) {
     }
 
     router.push(`/dashboard/mentors`);
+    // should be dependent on role whether i get redirected to profile page, or mentors, etc
 
-    // revalidatePath() throws unnecessary error, will be used when stable
-    // revalidatePath('/(auth)/login', 'page');
     router.refresh();
   }
   return (

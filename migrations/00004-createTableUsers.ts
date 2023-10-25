@@ -34,6 +34,7 @@ export type UserIdEmailRole = {
   email: string;
   roleId: number | null;
 };
+// issue, why is this potentially null? but typescript didnt leave me alone in the create users fucntion otherwise
 
 export async function up(sql: Sql) {
   await sql`
