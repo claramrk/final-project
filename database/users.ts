@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import {
   User,
+  UserAll,
   UserIdEmailOnly,
   UserIdEmailPassword,
   UserIdEmailRole,
@@ -77,7 +78,7 @@ export const updateUserbyID = cache(
     birthdate: string,
     countryId: string,
   ) => {
-    const [user] = await sql<User[]>`
+    const [user] = await sql<UserAll[]>`
     UPDATE
       users
     SET

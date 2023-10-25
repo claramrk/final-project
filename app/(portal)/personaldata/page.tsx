@@ -9,19 +9,18 @@ export default async function personalData() {
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
 
-  const user =
+  const currentUser =
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  if (!user) redirect('/login?returnTo=/notes');
+  if (!currentUser) redirect('/login?returnTo=/notes');
 
   return (
     <main>
       <div className="pageHeaderSection">
         <h1>My Personal Data</h1>
       </div>
-      {user.email}
-      <PersonalDataFormComponent countries={countries} />
+      <PersonalDataFormComponent countries={countries} userdata={currentUser} />
     </main>
   );
 }

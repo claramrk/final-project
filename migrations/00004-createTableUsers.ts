@@ -1,21 +1,21 @@
 import { Sql } from 'postgres';
 
-export type User = {
+export type UserAll = {
   id: number;
   email: string;
   passwordHash: string;
-  roleId: number | null;
-  firstname: string | null;
-  lastname: string | null;
-  pronouns: string | null;
-  phoneNumber: number | null;
-  birthdate: string | null;
-  countryId: string | null;
-  photo: string | null;
-  lastUpdate: string | null;
-  pauseUntil: string | null;
-  maxCapacity: number | null;
-  contractDocUrl: string | null;
+  roleId?: number;
+  firstname?: string;
+  lastname?: string;
+  pronouns?: string;
+  phoneNumber?: number;
+  birthdate?: string;
+  countryId?: string;
+  photo?: string;
+  lastUpdate?: string;
+  pauseUntil?: string;
+  maxCapacity?: number;
+  contractDocUrl?: string;
 };
 
 export type UserIdEmailOnly = {
