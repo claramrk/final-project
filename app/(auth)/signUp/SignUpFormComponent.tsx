@@ -45,7 +45,7 @@ export default function SignUpForm(props: Props) {
       return;
     }
 
-    router.push(`/personaldata`);
+    router.push(`/users`);
 
     // revalidatePath() throws unnecessary error, will be used when stable
     // revalidatePath('/(auth)/login', 'page');

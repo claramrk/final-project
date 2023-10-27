@@ -13,7 +13,7 @@ export type UserResponseBodyPutNoPassword =
       error: string;
     };
 
-export default function PersonalDataFormComponent(props: Props) {
+export default function UsersFormComponent(props: Props) {
   const countries = props.countries;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -27,11 +27,11 @@ export default function PersonalDataFormComponent(props: Props) {
 
   const user = props.userdata;
 
-  async function handlePersonalData(event: React.FormEvent<HTMLFormElement>) {
+  async function handleUsers(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     // this sends the api the data
-    const response = await fetch(`/../api/users/${props.userdata.id}/`, {
+    const response = await fetch(`/../../api/users/${props.userdata.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         id: user.id,
@@ -58,11 +58,11 @@ export default function PersonalDataFormComponent(props: Props) {
     router.refresh();
   }
   return (
-    <div id="personalDataSection">
+    <div id="usersSection">
       <h2>Personal Data Section</h2>
       <p>Please enter your personal data here</p>
       {props.userdata.id}
-      <form onSubmit={async (event) => await handlePersonalData(event)}>
+      <form onSubmit={async (event) => await handleUsers(event)}>
         <label htmlFor="firstName">
           Your first name:<span id="required">*</span>
         </label>

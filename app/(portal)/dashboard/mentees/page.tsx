@@ -14,7 +14,7 @@ export default function dashboardMentees() {
       <div id="profileSection">
         <h2>My Profile Highlights</h2>
         <p>User Photo | User Name | User Role | User activity status</p>
-        <a href="/personaldata">Go to Profile Page</a>
+        <a href="/users">Go to Profile Page</a>
       </div>
       <div id="communicationSection">
         <h2>More Information</h2>

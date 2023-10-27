@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { updateUserbyID } from '../../../../database/users';
-import {
-  UserAll,
-  UserAllNoPassword,
-} from '../../../../migrations/00004-createTableUsers';
+import { UserAll } from '../../../../migrations/00004-createTableUsers';
 
 // update personal data
-const personalDataSchema = z.object({
+const UsersSchema = z.object({
   id: z.number(),
   firstName: z.string().min(3),
   lastName: z.string().min(3),
@@ -31,7 +28,7 @@ export async function PUT(
 
   /*
   // zod please verify the body matches my schema
-  const result = personalDataSchema.safeParse(body);
+  const result = usersSchema.safeParse(body);
 
   if (!result.success) {
     // zod send you details about the error

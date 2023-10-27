@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default async function personalDataLayout(props: Props) {
+export default async function usersLayout(props: Props) {
   const headersList = headers();
 
   // 1. Check if the sessionToken cookie exit

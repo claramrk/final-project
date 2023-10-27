@@ -38,7 +38,7 @@ export default async function RootLayout(props: Props) {
           <nav>
             <ul>
               <li>
-                <a href="/personaldata">Profile Page</a>
+                <a href="/users">Profile Page</a>
               </li>
               <li>
                 <a href="/dashboard/mentors">Dashboard Mentor</a>
