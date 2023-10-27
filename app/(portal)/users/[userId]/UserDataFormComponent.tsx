@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { pronountypes } from '../../../database/pronouns';
-import { Country } from '../../../migrations/00000-createTableCountries';
-import { UserAll } from '../../../migrations/00004-createTableUsers';
+import { pronountypes } from '../../../../database/pronouns';
+import { Country } from '../../../../migrations/00000-createTableCountries';
+import { UserAll } from '../../../../migrations/00004-createTableUsers';
 
 type Props = { countries: Country[]; userdata: UserAll };
 export type UserResponseBodyPut =
@@ -29,7 +29,10 @@ export default function UsersFormComponent(props: Props) {
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
-  async function handleUsers(event: React.FormEvent<HTMLFormElement>) {
+  async function handleUsers(
+    event: React.FormEvent<HTMLFormElement>,
+    id: number,
+  ) {
     event.preventDefault();
     const user = props.userdata;
 

@@ -55,7 +55,10 @@ export type UserResponseBodyPut =
 
 export async function PUT(
   request: NextRequest,
+  { params }: { params: Record<string, string | string[]> },
 ): Promise<NextResponse<UserResponseBodyPut>> {
+  const userId = Number(params.id);
+
   const body = await request.json();
 
   /*
