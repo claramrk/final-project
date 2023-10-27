@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import {
-  User,
   UserAll,
+  UserAllNoPassword,
   UserIdEmailOnly,
   UserIdEmailPassword,
   UserIdEmailRole,
@@ -37,6 +37,30 @@ export const getUserByEmail = cache(async (email: string) => {
   return user;
 });
 
+export const getAllUsers = cache(async () => {
+  const [users] = await sql<UserAll[]>`
+    SELECT
+      *
+    FROM
+      users
+
+  `;
+  return users;
+});
+
+export const getUserById = cache(async (id: number) => {
+  const [user] = await sql<UserIdEmailOnly[]>`
+    SELECT
+      id,
+      email
+    FROM
+      users
+    WHERE
+      id = ${id}
+  `;
+  return user;
+});
+
 export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
   const [user] = await sql<UserIdEmailPassword[]>`
     SELECT
@@ -50,10 +74,25 @@ export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
 });
 
 export const getUserBySessionToken = cache(async (token: string) => {
-  const [user] = await sql<UserIdEmailOnly[]>`
+  const [user] = await sql<UserAll[]>`
    SELECT
-      users.id,
-      users.email
+    users.id,
+    users.email,
+    users.password_hash,
+    users.firstname,
+    users.lastname,
+    users.pronouns,
+    users.phone_number,
+    users.birthdate,
+    users.country_id,
+    users.photo,
+    users.role_id,
+    users.last_activity,
+    users.last_update,
+    users.pause_until,
+    users.max_capacity,
+    users.contract_doc_url
+
     FROM
       users
     INNER JOIN
@@ -75,7 +114,34 @@ export const updateUserbyID = cache(
     lastName: string,
     pronouns: string,
     phoneNumber: number,
-    birthdate: string,
+    birthdate: Date,
+    countryId: string,
+  ) => {
+    const [user] = await sql<UserAllNoPassword[]>`
+    UPDATE
+      users
+    SET
+    firstname=${firstName},
+      lastname=${lastName},
+      pronouns=${pronouns},
+      phone_number=${phoneNumber},
+      birthdate=${birthdate},
+      country_id=${countryId}
+    WHERE id=${id}
+    RETURNING *
+`;
+    return user;
+  },
+);
+
+export const updateUser = cache(
+  async (
+    id: number,
+    firstName: string,
+    lastName: string,
+    pronouns: string,
+    phoneNumber: number,
+    birthdate: Date,
     countryId: string,
   ) => {
     const [user] = await sql<UserAll[]>`
@@ -83,8 +149,16 @@ export const updateUserbyID = cache(
       users
     SET
       firstname=${firstName},
-      lastname=${lastName}
-    WHERE id=${id}
+      lastname=${lastName},
+      pronouns=${pronouns},
+      phone_number=${phoneNumber},
+      birthdate=${birthdate},
+      country_id=${countryId}
+WHERE
+id = ${id}
+
+
+    RETURNING *
 `;
     return user;
   },

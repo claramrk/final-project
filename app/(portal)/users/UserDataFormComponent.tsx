@@ -7,6 +7,11 @@ import { UserAll } from '../../../migrations/00004-createTableUsers';
 import { UserResponseBodyPut } from '../../api/users/[userid]/route';
 
 type Props = { countries: Country[]; userdata: UserAll };
+export type UserResponseBodyPutNoPassword =
+  | { user: UserAll }
+  | {
+      error: string;
+    };
 
 export default function PersonalDataFormComponent(props: Props) {
   const countries = props.countries;
@@ -20,22 +25,27 @@ export default function PersonalDataFormComponent(props: Props) {
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
+  const user = props.userdata;
+
   async function handlePersonalData(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = await fetch('/api/personaldata', {
-      method: 'POST',
+    // this sends the api the data
+    const response = await fetch(`/../api/users/${props.userdata.id}/`, {
+      method: 'PUT',
       body: JSON.stringify({
-        firstName,
-        lastName,
-        pronouns,
-        phoneNumber,
-        birthdate,
-        originCountry,
+        id: user.id,
+        firstname: firstName,
+        lastname: lastName,
+        pronouns: pronouns,
+        phone_number: phoneNumber,
+        birthdate: birthdate,
+        country_id: originCountry,
       }),
     });
     console.log(response);
-    const data: UserResponseBodyPut = await response.json();
+
+    const data: UserResponseBodyPutNoPassword = await response.json();
 
     if ('error' in data) {
       setErrors(data.error);
@@ -51,6 +61,7 @@ export default function PersonalDataFormComponent(props: Props) {
     <div id="personalDataSection">
       <h2>Personal Data Section</h2>
       <p>Please enter your personal data here</p>
+      {props.userdata.id}
       <form onSubmit={async (event) => await handlePersonalData(event)}>
         <label htmlFor="firstName">
           Your first name:<span id="required">*</span>
@@ -107,9 +118,7 @@ export default function PersonalDataFormComponent(props: Props) {
           id="birthDate"
           required
           type="date"
-          onChange={(event) =>
-            setBirthdate(JSON.stringify(event.currentTarget.value))
-          }
+          onChange={(event) => setBirthdate(event.currentTarget.value)}
         />
 
         <label htmlFor="countryOrigin">

@@ -4,18 +4,38 @@ export type UserAll = {
   id: number;
   email: string;
   passwordHash: string;
-  roleId?: number;
-  firstname?: string;
-  lastname?: string;
-  pronouns?: string;
-  phoneNumber?: number;
-  birthdate?: string;
-  countryId?: string;
-  photo?: string;
-  lastUpdate?: string;
-  pauseUntil?: string;
-  maxCapacity?: number;
-  contractDocUrl?: string;
+  roleId: number | null;
+  firstname: string | null;
+  lastname: string | null;
+  pronouns: string | null;
+  phoneNumber: number | null;
+  birthdate: Date | null;
+  countryId: string | null;
+  photo: string | null;
+  lastActivity: Date | null;
+  lastUpdate: Date | null;
+  pauseUntil: Date | null;
+  maxCapacity: number | null;
+  contractDocUrl: string | null;
+};
+
+export type UserAllNoPassword = {
+  id: number;
+  email: string;
+  passwordHash: string;
+  roleId: number | null;
+  firstname: string | null;
+  lastname: string | null;
+  pronouns: string | null;
+  phoneNumber: number | null;
+  birthdate: Date | null;
+  countryId: string | null;
+  photo: string | null;
+  lastActivity: Date | null;
+  lastUpdate: Date | null;
+  pauseUntil: Date | null;
+  maxCapacity: number | null;
+  contractDocUrl: string | null;
 };
 
 export type UserIdEmailOnly = {
