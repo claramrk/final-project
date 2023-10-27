@@ -26,9 +26,6 @@ export default function SignInFormComponent(props: Props) {
 
     const data: RegisterResponseBodyPost = await response.json();
 
-    console.log(email);
-    console.log(password);
-
     if ('errors' in data) {
       setErrors(data.errors);
       return;

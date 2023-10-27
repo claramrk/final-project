@@ -22,7 +22,6 @@ export type UserAll = {
 export type UserAllNoPassword = {
   id: number;
   email: string;
-  passwordHash: string;
   roleId: number | null;
   firstname: string | null;
   lastname: string | null;

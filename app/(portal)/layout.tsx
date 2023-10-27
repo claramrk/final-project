@@ -18,8 +18,6 @@ export default async function usersLayout(props: Props) {
     sessionTokenCookie &&
     (await getValidSessionByToken(sessionTokenCookie.value));
 
-  console.log('Check Xpath: ', headersList.get('x-pathname'));
-
   // User has to be an admin
   // Get user from the database that meets the admin requirements
 

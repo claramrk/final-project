@@ -1,7 +1,6 @@
 import { cache } from 'react';
 import {
   UserAll,
-  UserAllNoPassword,
   UserIdEmailOnly,
   UserIdEmailPassword,
   UserIdEmailRole,
@@ -49,10 +48,9 @@ export const getAllUsers = cache(async () => {
 });
 
 export const getUserById = cache(async (id: number) => {
-  const [user] = await sql<UserIdEmailOnly[]>`
+  const [user] = await sql<UserAll[]>`
     SELECT
-      id,
-      email
+     *
     FROM
       users
     WHERE
@@ -117,7 +115,26 @@ export const updateUserbyID = cache(
     birthdate: Date,
     countryId: string,
   ) => {
-    const [user] = await sql<UserAllNoPassword[]>`
+    const [user] = await sql<
+      {
+        id: number;
+        email: string;
+        passwordHash: string;
+        firstname: string | null;
+        lastname: string | null;
+        pronouns: string | null;
+        phoneNumber: number | null;
+        birthdate: Date | null;
+        countryId: string | null;
+        photo: string | null;
+        roleId: number | null;
+        lastActivity: Date | null;
+        lastUpdate: Date | null;
+        pauseUntil: Date | null;
+        maxCapacity: number | null;
+        contractDocUrl: string | null;
+      }[]
+    >`
     UPDATE
       users
     SET

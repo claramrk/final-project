@@ -4,15 +4,19 @@ import { useState } from 'react';
 import { pronountypes } from '../../../database/pronouns';
 import { Country } from '../../../migrations/00000-createTableCountries';
 import { UserAll } from '../../../migrations/00004-createTableUsers';
-import { UserResponseBodyPut } from '../../api/users/[userid]/route';
 
 type Props = { countries: Country[]; userdata: UserAll };
-export type UserResponseBodyPutNoPassword =
+export type UserResponseBodyPut =
   | { user: UserAll }
   | {
       error: string;
     };
 
+type UserResponseBodyGet =
+  | { user: UserAll }
+  | {
+      error: string;
+    };
 export default function UsersFormComponent(props: Props) {
   const countries = props.countries;
   const [firstName, setFirstName] = useState('');
@@ -25,10 +29,9 @@ export default function UsersFormComponent(props: Props) {
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
-  const user = props.userdata;
-
   async function handleUsers(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const user = props.userdata;
 
     // this sends the api the data
     const response = await fetch(`/../../api/users/${props.userdata.id}`, {
@@ -45,7 +48,7 @@ export default function UsersFormComponent(props: Props) {
     });
     console.log(response);
 
-    const data: UserResponseBodyPutNoPassword = await response.json();
+    const data: UserResponseBodyPut = await response.json();
 
     if ('error' in data) {
       setErrors(data.error);
@@ -57,12 +60,35 @@ export default function UsersFormComponent(props: Props) {
 
     router.refresh();
   }
+
+  async function getUserInfo(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const user = props.userdata;
+
+    // this sends the api the data
+    const response = await fetch(`/../../api/users/${props.userdata.id}`, {
+      method: 'GET',
+    });
+
+    const data: UserResponseBodyGet = await response.json();
+
+    if ('error' in data) {
+      setErrors(data.error);
+      return;
+    }
+
+    router.push(`/#`);
+    // should be dependent on role whether i get redirected to profile page, or mentors, etc
+
+    router.refresh();
+  }
+
   return (
     <div id="usersSection">
       <h2>Personal Data Section</h2>
       <p>Please enter your personal data here</p>
       {props.userdata.id}
-      <form onSubmit={async (event) => await handleUsers(event)}>
+      <form onSubmit={async (event) => await getUserInfo(event)}>
         <label htmlFor="firstName">
           Your first name:<span id="required">*</span>
         </label>

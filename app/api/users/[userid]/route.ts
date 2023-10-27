@@ -1,7 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { updateUserbyID } from '../../../../database/users';
+import { getUserById, updateUserbyID } from '../../../../database/users';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
+
+// get user
+type UserResponseBodyGet =
+  | { user: UserAll }
+  | {
+      error: string;
+    };
+
+const userSchema = z.object({
+  firstName: z.string(),
+  type: z.string(),
+  accessory: z.string().optional(),
+});
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Record<string, string | string[]> },
+): Promise<NextResponse<UserResponseBodyGet>> {
+  const userId = Number(1);
+
+  const user = await getUserById(userId);
+
+  if (!user) {
+    return NextResponse.json(
+      {
+        error: 'User Not Found',
+      },
+      { status: 404 },
+    );
+  }
+
+  return NextResponse.json({ user: user });
+}
 
 // update personal data
 const UsersSchema = z.object({
@@ -24,7 +57,6 @@ export async function PUT(
   request: NextRequest,
 ): Promise<NextResponse<UserResponseBodyPut>> {
   const body = await request.json();
-  console.log(body);
 
   /*
   // zod please verify the body matches my schema
