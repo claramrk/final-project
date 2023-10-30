@@ -24,7 +24,6 @@ export default async function matchingdataMentors() {
 
   if (!currentUser) redirect('/login?returnTo=/notes');
 
-  // get users background
 
   return (
     <main id="visibleMENTORS">

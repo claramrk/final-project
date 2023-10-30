@@ -1,4 +1,28 @@
-export default function matchingdata() {
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { degreetype } from '../../../../database/degreetype';
+import { getMentorUniversityBackgroundbyUserID } from '../../../../database/mentorUniversityBackground';
+import { getSubjects } from '../../../../database/subjects';
+import { getUniversities } from '../../../../database/universities';
+import { getUserBySessionToken } from '../../../../database/users';
+import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
+
+export default async function matchingdata() {
+  const subjects = await getSubjects();
+  const universities = await getUniversities();
+
+  // 1. Checking if the sessionToken cookie exists
+  const sessionTokenCookie = cookies().get('sessionToken');
+
+  const currentUser =
+    sessionTokenCookie &&
+    (await getUserBySessionToken(sessionTokenCookie.value));
+
+  const userBackground = await getMentorUniversityBackgroundbyUserID(
+    Number(currentUser?.id),
+  );
+
+  if (!currentUser) redirect('/login?returnTo=/notes');
   return (
     <main id="visibleMENTEES">
       <div className="pageHeaderSection">
@@ -6,110 +30,18 @@ export default function matchingdata() {
       </div>
       <div id="universityInformationSection">
         <h2>Study Information</h2>
-        <h3>Submit new University Background</h3>
-        <legend>
-          Indicate your application level:<span id="required">*</span>
-        </legend>
-        <label htmlFor="accepted">
-          I know exactly where I want to study and am in the process of writing
-          my application
-        </label>
-        <input
-          type="radio"
-          id="accepted"
-          name="applicationStatus"
-          value="undergraduate"
-        />
-        <label htmlFor="attending">
-          I have a good idea of where I want to study but am not working on my
-          application yet
-        </label>
-        <input
-          type="radio"
-          id="attending"
-          name="degreeType"
-          value="attending"
-        />
-        <label htmlFor="postgraduate_phd">
-          I only have a broad idea of where I want to study and have only
-          superficially engaged with the application process so far
-        </label>
-        <input
-          type="radio"
-          id="completed"
-          name="degreeType"
-          value="completed"
-        />
-        <label htmlFor="postgraduate_phd">
-          I do not even know yet whether I want to study abroad but I am
-          interested
-        </label>
-        <input
-          type="radio"
-          id="completed"
-          name="degreeType"
-          value="completed"
-        />
+        <h3>Indicate the universities & subjects you want ot apply for!</h3>
         <p>
           The following information will also be used to match your mentor, so
           we encourage you to give your submission prior thought! In case you do
           not know some answers yet, just provide the information that is the
           most accurate.
         </p>
-        <form
-        // will need to be moved into use client component
-        >
-          <label htmlFor="universityName">
-            Indicate your top three university choices:
-            <span id="required">*</span>
-          </label>
-          <input
-            id="universityName"
-            required
-            // will need to be a datalist or dropdown with multiple select! will need to provide list of data. min 1 max 3 choices
-          />
-          <label htmlFor="subjectName">
-            Indicate your top three subject choices:
-            <span id="required">*</span>
-          </label>
-          <input
-            id="subjectName"
-            required
-            // will need to be a datalist or dropdown with multiple select. will need to provide list of data. min 1 max 3 choices
-          />
-          <legend>
-            Indicate the degree type you will be applying for
-            <span id="required">*</span>
-          </legend>
-          <label htmlFor="undergraduate">
-            Undergraduate - Bachelors Degree
-          </label>
-          <input
-            type="radio"
-            id="undergraduate"
-            name="degreeType"
-            value="undergraduate"
-          />
-          <label htmlFor="postgraduate_masters">
-            Postgraduate - Masters Degree
-          </label>
-          <input
-            type="radio"
-            id="postgraduate_masters"
-            name="degreeType"
-            value="postgraduate_masters"
-          />
-          <label htmlFor="postgraduate_phd">Postgraduate - PhD</label>
-          <input
-            type="radio"
-            id="postgraduate_phd"
-            name="degreeType"
-            value="postgraduate_phd"
-          />
-          <button id="submitAllUniInformation">
-            Submit all University Information
-          </button>
-        </form>
+        <MenteeTargetUniversitySubjectFormComponent
+          universities={universities}
+          subjects={subjects}
+          userdata={currentUser}
+        />
       </div>
       <div id="matchingInformationSection">
         <h2>Further Information</h2>
