@@ -36,8 +36,9 @@ export default function SignUpForm(props: Props) {
       setErrors(data.errors);
       return;
     }
+    const currentUserId = data.user.id;
 
-    router.push(`/users/6`);
+    router.push(`/users/${Number(currentUserId)}`);
 
     // revalidatePath() throws unnecessary error, will be used when stable
     // revalidatePath('/(auth)/login', 'page');

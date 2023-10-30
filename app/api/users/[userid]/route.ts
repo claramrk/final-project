@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getUserById, updateUserbyID } from '../../../../database/users';
+import { getUserById, updateUserById } from '../../../../database/users';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
 
 // get user
@@ -55,11 +55,9 @@ export type UserResponseBodyPut =
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Record<string, string | string[]> },
 ): Promise<NextResponse<UserResponseBodyPut>> {
-  const userId = Number(params.id);
-
   const body = await request.json();
+  console.log(body);
 
   /*
   // zod please verify the body matches my schema
@@ -80,8 +78,8 @@ export async function PUT(
 
   // what is happening here? this is actually posting the user query the database to update the animal
 
-  const updatedUser = await updateUserbyID(
-    body.data.id,
+  const updatedUser = await updateUserById(
+    Number(body.data.id),
     body.data.firstName,
     body.data.lastName,
     body.data.pronouns,

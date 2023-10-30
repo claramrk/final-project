@@ -105,53 +105,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
 
 // update user by ID
 
-export const updateUserbyID = cache(
-  async (
-    id: number,
-    firstName: string,
-    lastName: string,
-    pronouns: string,
-    phoneNumber: number,
-    birthdate: Date,
-    countryId: string,
-  ) => {
-    const [user] = await sql<
-      {
-        id: number;
-        email: string;
-        passwordHash: string;
-        firstname: string | null;
-        lastname: string | null;
-        pronouns: string | null;
-        phoneNumber: number | null;
-        birthdate: Date | null;
-        countryId: string | null;
-        photo: string | null;
-        roleId: number | null;
-        lastActivity: Date | null;
-        lastUpdate: Date | null;
-        pauseUntil: Date | null;
-        maxCapacity: number | null;
-        contractDocUrl: string | null;
-      }[]
-    >`
-    UPDATE
-      users
-    SET
-    firstname=${firstName},
-      lastname=${lastName},
-      pronouns=${pronouns},
-      phone_number=${phoneNumber},
-      birthdate=${birthdate},
-      country_id=${countryId}
-    WHERE id=${id}
-    RETURNING *
-`;
-    return user;
-  },
-);
-
-export const updateUser = cache(
+export const updateUserById = cache(
   async (
     id: number,
     firstName: string,
@@ -172,7 +126,7 @@ export const updateUser = cache(
       birthdate=${birthdate},
       country_id=${countryId}
 WHERE
-id = ${id}
+id = ${Number(id)}
 
 
     RETURNING *

@@ -29,18 +29,15 @@ export default function UsersFormComponent(props: Props) {
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
-  async function handleUsers(
-    event: React.FormEvent<HTMLFormElement>,
-    id: number,
-  ) {
-    event.preventDefault();
-    const user = props.userdata;
+  async function handleUsers() {
+    const userId = props.userdata.id;
+    console.log(userId);
 
     // this sends the api the data
-    const response = await fetch(`/../../api/users/${props.userdata.id}`, {
+    const response = await fetch(`/../../api/users/${userId}`, {
       method: 'PUT',
       body: JSON.stringify({
-        id: user.id,
+        id: userId,
         firstname: firstName,
         lastname: lastName,
         pronouns: pronouns,
@@ -49,7 +46,6 @@ export default function UsersFormComponent(props: Props) {
         country_id: originCountry,
       }),
     });
-    console.log(response);
 
     const data: UserResponseBodyPut = await response.json();
 
@@ -69,7 +65,7 @@ export default function UsersFormComponent(props: Props) {
     const user = props.userdata;
 
     // this sends the api the data
-    const response = await fetch(`/../../api/users/${props.userdata.id}`, {
+    const response = await fetch(`/../../api/users/${user.id}`, {
       method: 'GET',
     });
 
@@ -91,7 +87,7 @@ export default function UsersFormComponent(props: Props) {
       <h2>Personal Data Section</h2>
       <p>Please enter your personal data here</p>
       {props.userdata.id}
-      <form onSubmit={async (event) => await getUserInfo(event)}>
+      <form>
         <label htmlFor="firstName">
           Your first name:<span id="required">*</span>
         </label>
@@ -171,7 +167,14 @@ export default function UsersFormComponent(props: Props) {
             );
           })}
         </select>
-        <button id="submitPersonalDetails">Submit my details</button>
+        <button
+          id="submitPersonalDetails"
+          onClick={async (event) => {
+            await handleUsers();
+          }}
+        >
+          Submit my details
+        </button>
         {errors ? 'there was an error' : ''}
       </form>
     </div>
