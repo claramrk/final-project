@@ -19,7 +19,7 @@ export type RegisterResponseBodyPost =
       user: UserIdEmailRole;
     }
   | {
-      errors: { message: string }[];
+      errors: { message: string | number }[];
     };
 
 export async function POST(

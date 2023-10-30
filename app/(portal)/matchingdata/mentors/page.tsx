@@ -1,11 +1,24 @@
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { attendancetype } from '../../../../database/attendancetype';
 import { degreetype } from '../../../../database/degreetype';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
+import { getUserBySessionToken } from '../../../../database/users';
+import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroundFormComponent';
 
-export default async function matchingdata() {
+export default async function matchingdataMentors() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
+
+  // 1. Checking if the sessionToken cookie exists
+  const sessionTokenCookie = cookies().get('sessionToken');
+
+  const currentUser =
+    sessionTokenCookie &&
+    (await getUserBySessionToken(sessionTokenCookie.value));
+
+  if (!currentUser) redirect('/login?returnTo=/notes');
 
   return (
     <main id="visibleMENTORS">
@@ -22,82 +35,11 @@ export default async function matchingdata() {
             Please submit each degree you have completed or have been accepted
             to{' '}
           </p>
-          <form
-          // will need to be moved into use client component
-          >
-            <label htmlFor="selectUniversity">
-              Name of the university<span id="required">*</span>
-            </label>
-            <select id="selectUniversity" name="selectUniversity" required>
-              <option key="dataID-default-select" value="default-select">
-                --Please choose your university--
-              </option>
-
-              {universities.map((d) => {
-                return (
-                  <option key={`dataID-select-${d.id}`} value={d.id}>
-                    {d.name}
-                  </option>
-                );
-              })}
-            </select>
-
-            <label htmlFor="selectSubject">
-              Name of the subject<span id="required">*</span>
-            </label>
-
-            <select id="selectSubject" name="selectSubject" required>
-              <option key="dataID-default-select" value="default-select">
-                --Please choose your subject--
-              </option>
-
-              {subjects.map((d) => {
-                return (
-                  <option key={`dataID-select-${d.id}`} value={d.id}>
-                    {d.name}
-                  </option>
-                );
-              })}
-            </select>
-            <legend>
-              DegreeType<span id="required">*</span>
-            </legend>
-            <select id="selectDegreetype" name="selectDegreetype" required>
-              <option key="dataID-default-select" value="default-select">
-                --Please choose your degreetype--
-              </option>
-
-              {degreetype.map((d) => {
-                return (
-                  <option key={`dataID-select-${d.id}`} value={d.name}>
-                    {d.name}
-                  </option>
-                );
-              })}
-            </select>
-            <legend>
-              ApplicationStatus<span id="required">*</span>
-            </legend>
-            <select
-              id="selectAttendancetype"
-              name="selectAttendancetype"
-              required
-            >
-              <option key="dataID-default-select" value="default-select">
-                --Please choose your attendancetype--
-              </option>
-
-              {attendancetype.map((d) => {
-                return (
-                  <option key={`dataID-select-${d.id}`} value={d.name}>
-                    {d.name}
-                  </option>
-                );
-              })}
-            </select>
-
-            <button id="submitPersonalDetails">Submit my details</button>
-          </form>
+          <MentorUniversityBackgroundFormComponent
+            universities={universities}
+            subjects={subjects}
+            userdata={currentUser}
+          />
         </div>
         <div id="showSubmitted">
           <h3>Submitted University Background</h3>
@@ -123,9 +65,6 @@ export default async function matchingdata() {
             </tbody>
           </table>
         </div>
-        <button id="submitAllUniInformation">
-          Submit all University Information
-        </button>
       </div>
       <div id="matchingInformationSection_visibleMENTORS">
         <h2>Matching Information</h2>

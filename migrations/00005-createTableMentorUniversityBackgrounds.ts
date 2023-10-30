@@ -2,11 +2,11 @@ import { Sql } from 'postgres';
 
 export type MentorUniversityBackground = {
   id: number;
-  user_id: number;
+  userId: number;
   studylevel: string;
-  attendance_type: string;
-  university_id: number;
-  subject_id: number;
+  attendanceType: string;
+  universityId: number;
+  subjectId: number;
 };
 
 export async function up(sql: Sql) {

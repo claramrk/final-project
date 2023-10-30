@@ -17,7 +17,7 @@ export type LoginResponseBodyPost =
       user: { email: string };
     }
   | {
-      errors: { message: string }[];
+      errors: { message: string | number }[];
     };
 
 export async function POST(
