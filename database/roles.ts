@@ -23,3 +23,16 @@ export const getRoleById = cache(async (id: number) => {
   `;
   return role;
 });
+
+export const getRoleByName = cache(async (name: string) => {
+  // Postgres returns an array
+  const [role] = await sql<Role[]>`
+    SELECT
+      *
+    FROM
+      roles
+    WHERE
+      name = ${name}
+  `;
+  return role;
+});

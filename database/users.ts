@@ -102,3 +102,17 @@ export const getUserBySessionToken = cache(async (token: string) => {
   `;
   return user;
 });
+
+export const putUserRole = cache(async (userId: number, roleId: number) => {
+  // return roles;
+  const user = await sql<UserAll[]>`
+    UPDATE
+    users
+    SET
+   role_id=${Number(roleId)}
+    WHERE
+    id = ${userId}
+    RETURNING *
+  `;
+  return user;
+});

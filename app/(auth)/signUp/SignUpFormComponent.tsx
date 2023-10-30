@@ -13,7 +13,7 @@ export default function SignUpForm(props: Props) {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(1);
 
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();
 
   const roles = props.roles;
@@ -40,8 +40,6 @@ export default function SignUpForm(props: Props) {
 
     router.push(`/users/${Number(currentUserId)}`);
 
-    // revalidatePath() throws unnecessary error, will be used when stable
-    // revalidatePath('/(auth)/login', 'page');
     router.refresh();
   }
   return (

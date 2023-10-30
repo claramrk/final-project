@@ -1,16 +1,17 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { degreetype } from '../../../../database/degreetype';
 import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/menteeTargetUniversitySubject';
-import { getMentorUniversityBackgroundbyUserID } from '../../../../database/mentorUniversityBackground';
+import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import CompleteRegistrationButtonComponent from './CompleteRegistrationButtonComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 
-export default async function matchingdata() {
+export default async function menteeMatchingData() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
+  const roleAsId = await getRoleByName('complete mentee');
 
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -24,6 +25,10 @@ export default async function matchingdata() {
   );
 
   if (!currentUser) redirect('/login?returnTo=/notes');
+  if (!roleAsId) {
+    console.log('issue with role!');
+  }
+
   return (
     <main id="visibleMENTEES">
       <div className="pageHeaderSection">
@@ -81,9 +86,11 @@ export default async function matchingdata() {
         to start your mentorship journey together. You will also be supported
         through additional support programs - stay tuned!
       </p>
-      <button id="registerAsAMentee">
-        Complete your registration as a mentee
-      </button>
+      <CompleteRegistrationButtonComponent
+        userdata={currentUser}
+        roleAsId={roleAsId?.id}
+        // should be available only when other info has been submitted
+      />
     </main>
   );
 }

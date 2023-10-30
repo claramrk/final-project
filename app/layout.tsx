@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 import { getUserBySessionToken } from '../database/users';
 import SignOutButton from './(auth)/signOut/signOutFormComponent';
-import Navigation from './components/Navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +22,7 @@ export default async function RootLayout(props: Props) {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
 
-  const user =
+  const currentUser =
     sessionToken && (await getUserBySessionToken(sessionToken.value));
 
   return (
@@ -38,7 +37,7 @@ export default async function RootLayout(props: Props) {
           <nav>
             <ul>
               <li>
-                <a href="/users">Profile Page</a>
+                <a href={`/users/${Number(currentUser?.id)}`}>Profile Page</a>
               </li>
               <li>
                 <a href="/dashboard/mentors">Dashboard Mentor</a>
@@ -61,9 +60,9 @@ export default async function RootLayout(props: Props) {
             </ul>
           </nav>
           <div>
-            {user ? (
+            {currentUser ? (
               <>
-                <div>{user.email}</div>
+                <div>{currentUser.email}</div>
                 <SignOutButton />
               </>
             ) : (
