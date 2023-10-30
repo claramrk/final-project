@@ -4,6 +4,7 @@ import { getMentorUniversityBackgroundbyUserID } from '../../../../database/ment
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import MentorMatchingInfoFormComponent from './MentorMatchingInfoFormComponent';
 import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroundFormComponent';
 
 export default async function matchingdataMentors() {
@@ -16,13 +17,10 @@ export default async function matchingdataMentors() {
   const currentUser =
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
-  console.log(currentUser);
 
   const userBackground = await getMentorUniversityBackgroundbyUserID(
     Number(currentUser?.id),
   );
-
-  console.log(userBackground);
 
   if (!currentUser) redirect('/login?returnTo=/notes');
 
@@ -83,40 +81,7 @@ export default async function matchingdataMentors() {
       </div>
       <div id="matchingInformationSection_visibleMENTORS">
         <h2>Matching Information</h2>
-        <form>
-          <h3>Maximum Capacity</h3>
-          <p>
-            We expect mentors to commit around 1-2 hours per month per mentee.
-          </p>
-          <label htmlFor="maximum_capacity">
-            Please indicate the maximum number of mentees you would like to
-            mentor at the same time. You can change this number any time:
-          </label>
-          <input id="maximum_capacity" type="number" min="1" defaultValue={1} />
-          <h3>Safeguarding</h3>
-          <p>
-            The safety of our mentees is incredibly important to us. Therefore,
-            every mentor has to strictly adhere to our safeguarding guidelines.
-          </p>
-          <a
-            // check how to download a pdf
-
-            href="/#"
-          >
-            Safeguarding Contract Download
-          </a>
-          <label htmlFor="safeguarding_upload">
-            Please download the safeguarding contract, read it carefully and
-            upload a signed version here:
-          </label>
-          <input
-            id="safeguarding_upload"
-            // check how to upload a pdf
-          />
-          <button id="submitAllUniInformation">
-            Submit further matching Information
-          </button>
-        </form>
+        <MentorMatchingInfoFormComponent userdata={currentUser} />
       </div>
       <p>
         After clicking the "Register" button below our team will review your

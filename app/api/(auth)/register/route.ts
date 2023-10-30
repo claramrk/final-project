@@ -61,7 +61,7 @@ export async function POST(
   const newUser = await createUser(
     result.data.email,
     passwordHash,
-    result.data.role,
+    Number(result.data.role),
   );
 
   if (!newUser) {

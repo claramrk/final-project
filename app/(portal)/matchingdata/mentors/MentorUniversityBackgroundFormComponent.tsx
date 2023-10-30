@@ -24,7 +24,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
   async function handleCreateMentorUniversityBackground() {
     const currentUserID = await Number(props.userdata.id);
 
-    await fetch('/../../../api/matchingdata/mentors', {
+    await fetch('/../../../api/matchingdata/mentorUniversityBackground', {
       method: 'POST',
       body: JSON.stringify({
         userId: Number(currentUserID),

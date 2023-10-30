@@ -29,37 +29,6 @@ export default function UsersFormComponent(props: Props) {
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
-  async function handleUsers() {
-    const userId = props.userdata.id;
-    console.log(userId);
-
-    // this sends the api the data
-    const response = await fetch(`/../../api/users/${userId}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        id: userId,
-        firstname: firstName,
-        lastname: lastName,
-        pronouns: pronouns,
-        phone_number: phoneNumber,
-        birthdate: birthdate,
-        country_id: originCountry,
-      }),
-    });
-
-    const data: UserResponseBodyPut = await response.json();
-
-    if ('error' in data) {
-      setErrors(data.error);
-      return;
-    }
-
-    router.push(`/dashboard/mentors`);
-    // should be dependent on role whether i get redirected to profile page, or mentors, etc
-
-    router.refresh();
-  }
-
   async function getUserInfo(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const user = props.userdata;
@@ -167,14 +136,7 @@ export default function UsersFormComponent(props: Props) {
             );
           })}
         </select>
-        <button
-          id="submitPersonalDetails"
-          onClick={async (event) => {
-            await handleUsers();
-          }}
-        >
-          Submit my details
-        </button>
+        <button id="submitPersonalDetails">Submit my details</button>
         {errors ? 'there was an error' : ''}
       </form>
     </div>
