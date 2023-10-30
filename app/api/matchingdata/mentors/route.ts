@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createMentorUniversityBackground } from '../../../../database/mentorUniversityBackground';
+import {
+  createMentorUniversityBackground,
+  getMentorUniversityBackgroundbyUserID,
+} from '../../../../database/mentorUniversityBackground';
+import { getUserById } from '../../../../database/users';
 import { MentorUniversityBackground } from '../../../../migrations/00005-createTableMentorUniversityBackgrounds';
 
 export type MentorUniversityBackgroundBodyPost =
@@ -45,5 +49,35 @@ export async function POST(
 
   return NextResponse.json({
     mentorUniversityBackground: newMentorUniversityBackground,
+  });
+}
+
+// get user
+export type MentorUniversityBackgroundBodyGet =
+  | {
+      mentorUniversityBackground: MentorUniversityBackground[];
+    }
+  | {
+      error: string | number;
+    };
+
+export async function GET(
+  request: NextRequest,
+  userId: number,
+): Promise<NextResponse<MentorUniversityBackgroundBodyGet>> {
+  if (!userId) {
+    return NextResponse.json(
+      {
+        error: 'no User Id',
+      },
+      { status: 404 },
+    );
+  }
+
+  const mentorUniversityBackgroundByUserId =
+    await getMentorUniversityBackgroundbyUserID(userId);
+
+  return NextResponse.json({
+    mentorUniversityBackground: mentorUniversityBackgroundByUserId,
   });
 }

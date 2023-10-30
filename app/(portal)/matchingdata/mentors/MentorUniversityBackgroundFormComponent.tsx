@@ -3,8 +3,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { attendancetype } from '../../../../database/attendancetype';
 import { degreetype } from '../../../../database/degreetype';
-import { getSubjects } from '../../../../database/subjects';
-import { getUniversities } from '../../../../database/universities';
 import { Subject } from '../../../../migrations/00001-createTableSubjects';
 import { University } from '../../../../migrations/00002-createTableUniversities';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
@@ -29,14 +27,14 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
     await fetch('/../../../api/matchingdata/mentors', {
       method: 'POST',
       body: JSON.stringify({
-        userId: currentUserID,
-        studyLevel: studyLevelIdInput,
-        attendanceType: attendanceTypeIdInput,
-        universityId: universityIdInput,
-        subjectId: subjectIdInput,
+        userId: Number(currentUserID),
+        studyLevel: Number(studyLevelIdInput),
+        attendanceType: Number(attendanceTypeIdInput),
+        universityId: Number(universityIdInput),
+        subjectId: Number(subjectIdInput),
       }),
     });
-    // await router.refresh();
+    await router.refresh();
   }
 
   return (

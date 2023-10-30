@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { attendancetype } from '../../../../database/attendancetype';
-import { degreetype } from '../../../../database/degreetype';
+import { getMentorUniversityBackgroundbyUserID } from '../../../../database/mentorUniversityBackground';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
@@ -17,8 +16,17 @@ export default async function matchingdataMentors() {
   const currentUser =
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
+  console.log(currentUser);
+
+  const userBackground = await getMentorUniversityBackgroundbyUserID(
+    Number(currentUser?.id),
+  );
+
+  console.log(userBackground);
 
   if (!currentUser) redirect('/login?returnTo=/notes');
+
+  // get users background
 
   return (
     <main id="visibleMENTORS">
@@ -46,22 +54,29 @@ export default async function matchingdataMentors() {
           <table>
             <thead>
               <tr>
-                <th> </th>
                 <th>University</th>
                 <th>Degree</th>
                 <th>Degree Type</th>
-                <th>Status</th>
+                <th>Attendance Type</th>
                 <th>Edit</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1.</td>
-                <td>UniX</td>
-                <td>DegreeY</td>
-                <td>PG - Masters</td>
-                <td>Completed</td>
-              </tr>
+              {!userBackground
+                ? ''
+                : await userBackground.map((u) => {
+                    return (
+                      <tr
+                        className="exampleMentorUniversityBackground"
+                        key={`uniqueID-${u.id}`}
+                      >
+                        <td>{u.universityId}</td>
+                        <td>{u.subjectId}</td>
+                        <td>{u.studylevel}</td>
+                        <td>{u.attendanceType}</td>
+                      </tr>
+                    );
+                  })}
             </tbody>
           </table>
         </div>
