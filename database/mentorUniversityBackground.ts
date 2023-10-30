@@ -5,7 +5,7 @@ import { sql } from './connect';
 export const createMentorUniversityBackground = cache(
   async (
     userId: number,
-    studyLevel: string,
+    studylevel: string,
     attendanceType: string,
     universityId: number,
     subjectId: number,
@@ -14,7 +14,7 @@ export const createMentorUniversityBackground = cache(
       INSERT INTO mentor_university_backgrounds
         (user_id, studylevel, attendance_type, university_id, subject_id)
       VALUES
-        (${Number(userId)}, ${Number(studyLevel)}, ${Number(
+        (${Number(userId)}, ${Number(studylevel)}, ${Number(
       attendanceType,
     )}, ${Number(universityId)}, ${Number(subjectId)} )
       RETURNING

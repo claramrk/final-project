@@ -36,13 +36,6 @@ export async function PUT(
     Number(body.maxCapacity),
   );
 
-  if (!updatedUserWithMatchingInfo) {
-    return NextResponse.json(
-      { errors: [{ message: 'Error adding matchingInfo to the user' }] },
-      { status: 406 },
-    );
-  }
-
   return NextResponse.json({
     user: updatedUserWithMatchingInfo,
   });

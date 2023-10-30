@@ -3,7 +3,6 @@ import {
   createMentorUniversityBackground,
   getMentorUniversityBackgroundbyUserID,
 } from '../../../../database/mentorUniversityBackground';
-import { getUserById } from '../../../../database/users';
 import { MentorUniversityBackground } from '../../../../migrations/00005-createTableMentorUniversityBackgrounds';
 
 export type MentorUniversityBackgroundBodyPost =
@@ -34,7 +33,7 @@ export async function POST(
 */
   const newMentorUniversityBackground = await createMentorUniversityBackground(
     body.userId,
-    body.studyLevel,
+    body.studylevel,
     body.attendanceType,
     body.universityId,
     body.subjectId,

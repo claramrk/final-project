@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { degreetype } from '../../../../database/degreetype';
 import { Subject } from '../../../../migrations/00001-createTableSubjects';
@@ -15,7 +16,7 @@ type Props = {
 export default function MenteeTargetUniversitySubjectFormComponent(
   props: Props,
 ) {
-  const [studyLevelIdInput, setStudyLevelIdInput] = useState(1);
+  const [studylevelIdInput, setstudylevelIdInput] = useState(1);
   const [universityIdInputOne, setUniversityIdInputOne] = useState(1);
   const [universityIdInputTwo, setUniversityIdInputTwo] = useState(1);
   const [universityIdInputThree, setUniversityIdInputThree] = useState(1);
@@ -23,8 +24,34 @@ export default function MenteeTargetUniversitySubjectFormComponent(
   const [subjectIdInputTwo, setSubjectIdInputTwo] = useState(1);
   const [subjectIdInputThree, setSubjectIdInputThree] = useState(1);
 
+  const router = useRouter();
+
+  async function handleCreateMenteeTargetUniversitySubject() {
+    const currentUserID = await Number(props.userdata.id);
+
+    await fetch('/../../../api/matchingdata/menteeTargetUniversitySubject', {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: Number(currentUserID),
+        studylevel: Number(studylevelIdInput),
+        firstUniversityID: Number(universityIdInputOne),
+        secondUniversityID: Number(universityIdInputTwo),
+        thirdUniversityID: Number(universityIdInputThree),
+        firstSubjectID: Number(subjectIdInputOne),
+        secondSubjectID: Number(subjectIdInputTwo),
+        thirdSubjectID: Number(subjectIdInputThree),
+      }),
+    });
+    await router.refresh();
+  }
+
   return (
-    <form>
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await handleCreateMenteeTargetUniversitySubject();
+      }}
+    >
       <legend>
         Indicate the degree type you will be applying for
         <span id="required">*</span>
@@ -36,7 +63,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         id="selectDegreetype"
         name="selectDegreetype"
         onChange={(event) =>
-          setStudyLevelIdInput(Number(event.currentTarget.value))
+          setstudylevelIdInput(Number(event.currentTarget.value))
         }
         required
       >

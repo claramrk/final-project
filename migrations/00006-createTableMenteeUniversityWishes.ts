@@ -1,11 +1,15 @@
 import { Sql } from 'postgres';
 
-export type MenteeUniversityWishes = {
+export type MenteeTargetUniversitySubject = {
   id: number;
-  user_id: number;
+  userId: number;
   studylevel: number;
-  university_ids: number;
-  subject_ids: number;
+  firstUniversityId: number;
+  firstSubjectId: number;
+  secondUniversityId: number;
+  secondSubjectId: number;
+  thirdUniversityId: number;
+  thirdSubjectId: number;
 };
 
 export async function up(sql: Sql) {

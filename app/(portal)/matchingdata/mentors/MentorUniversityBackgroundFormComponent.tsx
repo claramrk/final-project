@@ -17,7 +17,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
   const [universityIdInput, setUniversityIdInput] = useState(1);
   const [subjectIdInput, setSubjectIdInput] = useState(1);
   const [attendanceTypeIdInput, setAttendanceTypeIdInput] = useState(1);
-  const [studyLevelIdInput, setStudyLevelIdInput] = useState(1);
+  const [studylevelIdInput, setstudylevelIdInput] = useState(1);
 
   const router = useRouter();
 
@@ -28,7 +28,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
       method: 'POST',
       body: JSON.stringify({
         userId: Number(currentUserID),
-        studyLevel: Number(studyLevelIdInput),
+        studylevel: Number(studylevelIdInput),
         attendanceType: Number(attendanceTypeIdInput),
         universityId: Number(universityIdInput),
         subjectId: Number(subjectIdInput),
@@ -99,7 +99,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         id="selectDegreetype"
         name="selectDegreetype"
         onChange={(event) =>
-          setStudyLevelIdInput(Number(event.currentTarget.value))
+          setstudylevelIdInput(Number(event.currentTarget.value))
         }
         required
       >

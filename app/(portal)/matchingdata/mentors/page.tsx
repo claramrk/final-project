@@ -24,7 +24,6 @@ export default async function matchingdataMentors() {
 
   if (!currentUser) redirect('/login?returnTo=/notes');
 
-
   return (
     <main id="visibleMENTORS">
       <div className="pageHeaderSection">
