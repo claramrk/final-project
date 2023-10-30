@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { degreetype } from '../../../../database/degreetype';
+import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/menteeTargetUniversitySubject';
 import { getMentorUniversityBackgroundbyUserID } from '../../../../database/mentorUniversityBackground';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
@@ -18,7 +19,7 @@ export default async function matchingdata() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  const userBackground = await getMentorUniversityBackgroundbyUserID(
+  const userTargets = await getMenteeTargetUniversitySubjectbyUserID(
     Number(currentUser?.id),
   );
 
@@ -42,6 +43,7 @@ export default async function matchingdata() {
           subjects={subjects}
           userdata={currentUser}
         />
+        <p>Current indications: {JSON.stringify(userTargets)}</p>
       </div>
       <div id="matchingInformationSection">
         <h2>Further Information</h2>

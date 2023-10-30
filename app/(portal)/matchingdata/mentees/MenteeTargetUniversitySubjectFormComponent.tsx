@@ -16,7 +16,7 @@ type Props = {
 export default function MenteeTargetUniversitySubjectFormComponent(
   props: Props,
 ) {
-  const [studylevelIdInput, setstudylevelIdInput] = useState(1);
+  const [studylevelIdInput, setStudylevelIdInput] = useState(1);
   const [universityIdInputOne, setUniversityIdInputOne] = useState(1);
   const [universityIdInputTwo, setUniversityIdInputTwo] = useState(1);
   const [universityIdInputThree, setUniversityIdInputThree] = useState(1);
@@ -34,12 +34,12 @@ export default function MenteeTargetUniversitySubjectFormComponent(
       body: JSON.stringify({
         userId: Number(currentUserID),
         studylevel: Number(studylevelIdInput),
-        firstUniversityID: Number(universityIdInputOne),
-        secondUniversityID: Number(universityIdInputTwo),
-        thirdUniversityID: Number(universityIdInputThree),
-        firstSubjectID: Number(subjectIdInputOne),
-        secondSubjectID: Number(subjectIdInputTwo),
-        thirdSubjectID: Number(subjectIdInputThree),
+        firstUniversityId: Number(universityIdInputOne),
+        firstSubjectId: Number(subjectIdInputOne),
+        secondUniversityId: Number(universityIdInputTwo),
+        secondSubjectId: Number(subjectIdInputTwo),
+        thirdUniversityId: Number(universityIdInputThree),
+        thirdSubjectId: Number(subjectIdInputThree),
       }),
     });
     await router.refresh();
@@ -63,7 +63,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         id="selectDegreetype"
         name="selectDegreetype"
         onChange={(event) =>
-          setstudylevelIdInput(Number(event.currentTarget.value))
+          setStudylevelIdInput(Number(event.currentTarget.value))
         }
         required
       >
