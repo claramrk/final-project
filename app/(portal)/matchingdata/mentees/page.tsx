@@ -5,7 +5,7 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
-import CompleteRegistrationButtonComponent from './CompleteRegistrationButtonComponent';
+import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 
 export default async function menteeMatchingData() {
@@ -86,9 +86,11 @@ export default async function menteeMatchingData() {
         to start your mentorship journey together. You will also be supported
         through additional support programs - stay tuned!
       </p>
-      <CompleteRegistrationButtonComponent
+      <UpdateRolesButtonComponent
         userdata={currentUser}
         roleAsId={roleAsId?.id}
+        buttonText="Complete your registration as a mentee"
+        redirectTo="/dashboard/mentees"
         // should be available only when other info has been submitted
       />
     </main>

@@ -1,15 +1,18 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMentorUniversityBackgroundbyUserID } from '../../../../database/mentorUniversityBackground';
+import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 import MentorMatchingInfoFormComponent from './MentorMatchingInfoFormComponent';
 import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroundFormComponent';
 
 export default async function matchingdataMentors() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
+  const roleAsId = await getRoleByName('complete mentor');
 
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -91,9 +94,14 @@ export default async function matchingdataMentors() {
         inactive in the future, in case you would like to take a break or
         discontinue mentoring.
       </p>
-      <button id="registerAsAMentor">
-        Complete your registration as a mentor
-      </button>
+      <UpdateRolesButtonComponent
+        userdata={currentUser}
+        roleAsId={roleAsId?.id}
+        buttonText="Complete your registration as a mentor"
+        redirectTo='/dashboard/mentors'
+
+        // should be available only when other info has been submitted
+      />
     </main>
   );
 }

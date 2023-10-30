@@ -1,14 +1,16 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import { UserAll } from '../../migrations/00004-createTableUsers';
 
 type Props = {
   userdata: UserAll;
   roleAsId: number | undefined;
+  buttonText: string;
+  redirectTo: string;
 };
 
-export default function CompleteRegistrationButtonComponent(props: Props) {
+export default function UpdateRolesButtonComponent(props: Props) {
   const router = useRouter();
 
   async function handleCompleteRegistration() {
@@ -19,7 +21,7 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
         roleId: Number(props.roleAsId),
       }),
     });
-    await router.push(`/dashboard/mentees`);
+    await router.push(`http://localhost:3000${props.redirectTo}`);
 
     await router.refresh();
   }
@@ -27,7 +29,7 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
   return (
     <form>
       <button formAction={handleCompleteRegistration}>
-        Complete your registration as a mentee
+        {props.buttonText}
       </button>
     </form>
   );
