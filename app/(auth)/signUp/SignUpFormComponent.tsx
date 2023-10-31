@@ -47,96 +47,100 @@ export default function SignUpForm(props: Props) {
     router.refresh();
   }
   return (
-    <form
-      id="signUpForm"
-      onSubmit={async (event) => await handleRegister(event)}
-    >
-      <legend>
-        Sign up as:<span id="required">*</span>
-      </legend>
-      {filteredRolesMentee.map((d) => {
-        return (
-          <div key={`dataID-radio-${d.id}`}>
-            <input
-              key={`dataID-input-${d.id}`}
-              type="radio"
-              id={`dataID-input-${d.id}`}
-              name="selectRole"
-              value={Number(d.id)}
-              onClick={(event) => setRole(Number(event.currentTarget.value))}
-            />
-            <label
-              key={`dataID-label-${d.id}`}
-              htmlFor={`dataID-select-${d.id}`}
-            >
-              Mentee - Applying for uni!
-            </label>
-          </div>
-        );
-      })}
-      {filteredRolesMentor.map((d) => {
-        return (
-          <div key={`dataID-radio-${d.id}`}>
-            <input
-              key={`dataID-input-${d.id}`}
-              type="radio"
-              id={`dataID-input-${d.id}`}
-              name="selectRole"
-              value={Number(d.id)}
-              onClick={(event) => setRole(Number(event.currentTarget.value))}
-            />
-            <label
-              key={`dataID-label-${d.id}`}
-              htmlFor={`dataID-select-${d.id}`}
-            >
-              Mentor - Support others!
-            </label>
-          </div>
-        );
-      })}
-
-      <label htmlFor="emailInput">
-        Email:<span id="required">*</span>
-      </label>
-      <input
-        className="input input-bordered w-full max-w-xs"
-        onChange={(event) => setEmail(event.currentTarget.value)}
-        id="emailInput"
-        type="email"
-        required
-      />
-
-      <label htmlFor="passwordInput">
-        Password:<span id="required">*</span>
-      </label>
-      <input
-        className="input input-bordered w-full max-w-xs"
-        id="passwordInput"
-        type="password"
-        required
-        onChange={(event) => setPassword(event.currentTarget.value)}
-      />
-
-      {/* <label htmlFor="passwordInput">
-          Confirm Password:<span id="required">*</span>
-        </label>
-  <input id="passwordInput"
-  className="input input-bordered w-full max-w-xs"
-  required />*/}
-
-      <button
-        className="btn max-w-xs		"
-        id="signUpButton"
-        // Button text changes depending on radio button input
-        // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
+    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form
+        className="card-body"
+        id="signUpForm"
+        onSubmit={async (event) => await handleRegister(event)}
       >
-        Sign up
-      </button>
-      {errors.map((error) => (
-        <div className="error" key={`error-${error.message}`}>
-          Error: {error.message}
+        <div className="form-control">
+          <legend>
+            Sign up as:<span id="required">*</span>
+          </legend>
+          {filteredRolesMentee.map((d) => {
+            return (
+              <div key={`dataID-radio-${d.id}`}>
+                <input
+                  key={`dataID-input-${d.id}`}
+                  type="radio"
+                  id={`dataID-input-${d.id}`}
+                  name="selectRole"
+                  value={Number(d.id)}
+                  onClick={(event) =>
+                    setRole(Number(event.currentTarget.value))
+                  }
+                />
+                <label
+                  key={`dataID-label-${d.id}`}
+                  htmlFor={`dataID-select-${d.id}`}
+                >
+                  Mentee - Applying for uni!
+                </label>
+              </div>
+            );
+          })}
+          {filteredRolesMentor.map((d) => {
+            return (
+              <div key={`dataID-radio-${d.id}`}>
+                <input
+                  key={`dataID-input-${d.id}`}
+                  type="radio"
+                  id={`dataID-input-${d.id}`}
+                  name="selectRole"
+                  value={Number(d.id)}
+                  onClick={(event) =>
+                    setRole(Number(event.currentTarget.value))
+                  }
+                />
+                <label
+                  key={`dataID-label-${d.id}`}
+                  htmlFor={`dataID-select-${d.id}`}
+                >
+                  Mentor - Support others!
+                </label>
+              </div>
+            );
+          })}
+
+          <label className="label" htmlFor="email">
+            <span className="label-text">
+              Email<span id="required">*</span>
+            </span>
+          </label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            onChange={(event) => setEmail(event.currentTarget.value)}
+            id="emailInput"
+            placeholder="email"
+            type="email"
+            required
+          />
         </div>
-      ))}
-    </form>
+        <div className="form-control">
+          <label className="label" htmlFor="password">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            id="passwordInput"
+            type="password"
+            placeholder="password"
+            required
+            onChange={(event) => setPassword(event.currentTarget.value)}
+          />
+          <label className="label" htmlFor="ForgotPassword">
+            <a href="/#" className="label-text-alt link link-hover">
+              Forgot password?
+            </a>
+          </label>
+        </div>
+        <div className="form-control mt-6">
+          <button className="btn btn-primary" id="signUpButton">
+            {' '}
+            Sign up
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

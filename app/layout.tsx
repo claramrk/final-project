@@ -15,8 +15,8 @@ type Props = {
 
 export default function RootLayout(props: Props) {
   return (
-    <html lang="en">
-      <body className="flex flex-col min-h-screen">
+    <html lang="en" className="h-full">
+      <body className="h-full flex flex-col min-h-screen">
         <header>
           <Navigation />
         </header>
