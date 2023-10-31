@@ -116,3 +116,29 @@ export const putUserRole = cache(async (userId: number, roleId: number) => {
   `;
   return user;
 });
+
+export const putPersonalDataByUserID = cache(
+  async (
+    userId: number,
+    firstname: string,
+    lastname: string,
+    pronouns: string,
+    phoneNumber: number,
+  ) => {
+    // return roles;
+    const personalDataInfoUsers = await sql<UserAll[]>`
+    UPDATE
+    users
+    SET
+    firstname=${firstname},
+    lastname=${lastname},
+    pronouns=${pronouns},
+    phone_number=${phoneNumber}
+
+    WHERE
+    id = ${userId}
+    RETURNING *
+  `;
+    return personalDataInfoUsers;
+  },
+);

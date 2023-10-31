@@ -6,59 +6,49 @@ import { Country } from '../../../migrations/00000-createTableCountries';
 import { UserAll } from '../../../migrations/00004-createTableUsers';
 
 type Props = { countries: Country[]; userdata: UserAll };
-export type UserResponseBodyPut =
-  | { user: UserAll }
-  | {
-      error: string;
-    };
 
-type UserResponseBodyGet =
-  | { user: UserAll }
-  | {
-      error: string;
-    };
 export default function UsersFormComponent(props: Props) {
   const countries = props.countries;
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [pronouns, setPronouns] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [birthdate, setBirthdate] = useState('');
-  const [originCountry, setOriginCountry] = useState('');
-  const [profilePicture, setProfilePicture] = useState('');
+  const [firstnameInput, setFirstnameInput] = useState('');
+  const [lastnameInput, setLastnameInput] = useState('');
+  const [pronounsInput, setPronounsInput] = useState('');
+  const [phoneNumberInput, setPhoneNumberInput] = useState('');
+  const [birthdateInput, setBirthdateInput] = useState('');
+  const [originCountryInput, setOriginCountryInput] = useState('');
+  const [profilePictureInput, setProfilePictureInput] = useState('');
 
   const [errors, setErrors] = useState('');
   const router = useRouter();
 
-  async function getUserInfo(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const user = props.userdata;
+  async function handlePutPersonalData() {
+    const currentUserID = await Number(props.userdata.id);
 
-    // this sends the api the data
-    const response = await fetch(`/../../api/users/${user.id}`, {
-      method: 'GET',
+    await fetch('/../../api/users/personaldata', {
+      method: 'PUT',
+      body: JSON.stringify({
+        userId: Number(currentUserID),
+        firstname: firstnameInput,
+        lastname: lastnameInput,
+        pronouns: pronounsInput,
+        phone_number: phoneNumberInput,
+      }),
     });
-
-    const data: UserResponseBodyGet = await response.json();
-
-    if ('error' in data) {
-      setErrors(data.error);
-      return;
-    }
-
-    router.push(`/#`);
-    // should be dependent on role whether i get redirected to profile page, or mentors, etc
-
     router.refresh();
   }
 
+  console.log(firstnameInput);
   return (
     <div id="usersSection" className="card blurry">
       <h2 className="text-2xl">Personal Data Section</h2>
       <p className="text-md">Please enter your personal data here</p>
-      <form>
+      <form
+        onSubmit={async (event) => {
+          event.preventDefault();
+          await handlePutPersonalData();
+        }}
+      >
         <div className="form-control">
-          <label className="label" htmlFor="firstName">
+          <label className="label" htmlFor="firstname">
             <span className="label-text">
               Your first name:<span id="required">*</span>
             </span>
@@ -67,16 +57,16 @@ export default function UsersFormComponent(props: Props) {
             <span>First name</span>
             <input
               type="text"
-              name="firstName"
+              name="firstname"
               placeholder="Jane"
               className="input input-bordered w-full max-w-xs"
               required
-              onChange={(event) => setFirstName(event.currentTarget.value)}
+              onChange={(event) => setFirstnameInput(event.currentTarget.value)}
             />
           </label>
         </div>
         <div className="form-control">
-          <label className="label" htmlFor="lastName">
+          <label className="label" htmlFor="lastname">
             <span className="label-text">
               Your last name:<span id="required">*</span>
             </span>
@@ -85,11 +75,11 @@ export default function UsersFormComponent(props: Props) {
             <span>Last name</span>
             <input
               type="text"
-              name="lastName"
+              name="lastname"
               placeholder="Doe"
               className="input input-bordered w-full max-w-xs"
               required
-              onChange={(event) => setLastName(event.currentTarget.value)}
+              onChange={(event) => setLastnameInput(event.currentTarget.value)}
             />
           </label>
         </div>
@@ -106,7 +96,7 @@ export default function UsersFormComponent(props: Props) {
               name="selectPronouns"
               required
               placeholder="--Choose pronouns--"
-              onChange={(event) => setPronouns(event.currentTarget.value)}
+              onChange={(event) => setPronounsInput(event.currentTarget.value)}
             >
               <option
                 key="dataID-default-select"
@@ -141,7 +131,9 @@ export default function UsersFormComponent(props: Props) {
               placeholder="+43 676 1929482"
               className="input input-bordered w-full max-w-xs"
               required
-              onChange={(event) => setPhoneNumber(event.currentTarget.value)}
+              onChange={(event) =>
+                setPhoneNumberInput(event.currentTarget.value)
+              }
             />
           </label>
         </div>
@@ -158,7 +150,7 @@ export default function UsersFormComponent(props: Props) {
               name="birthDate"
               className="input input-bordered w-full max-w-xs"
               required
-              onChange={(event) => setBirthdate(event.currentTarget.value)}
+              onChange={(event) => setBirthdateInput(event.currentTarget.value)}
             />
           </label>
         </div>
@@ -175,7 +167,9 @@ export default function UsersFormComponent(props: Props) {
               name="countryOrigin"
               required
               placeholder="--Choose country of origin--"
-              onChange={(event) => setOriginCountry(event.currentTarget.value)}
+              onChange={(event) =>
+                setOriginCountryInput(event.currentTarget.value)
+              }
             >
               <option
                 key="dataID-default-select"
@@ -208,7 +202,9 @@ export default function UsersFormComponent(props: Props) {
               type="file"
               className="input input-bordered w-full max-w-xs"
               required
-              onChange={(event) => setProfilePicture(event.currentTarget.value)}
+              onChange={(event) =>
+                setProfilePictureInput(event.currentTarget.value)
+              }
             />
           </label>
         </div>

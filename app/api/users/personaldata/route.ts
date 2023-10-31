@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { getUserById, putUserRole } from '../../../database/users';
-import { UserAll } from '../../../migrations/00004-createTableUsers';
+import {
+  getUserById,
+  putPersonalDataByUserID,
+} from '../../../../database/users';
+import { UserAll } from '../../../../migrations/00004-createTableUsers';
 
 // get user
 type UserResponseBodyGet =
@@ -30,9 +32,9 @@ export async function GET(
   return NextResponse.json({ user: user });
 }
 
-// put user roll
+// put personal data
 
-export type PutUserRoleBodyPost =
+export type PersonalDataBodyPost =
   | {
       user: UserAll[];
     }
@@ -42,16 +44,31 @@ export type PutUserRoleBodyPost =
 
 export async function PUT(
   request: NextRequest,
-): Promise<NextResponse<PutUserRoleBodyPost>> {
+): Promise<NextResponse<PersonalDataBodyPost>> {
   //  Get the user data from the request
   const body = await request.json();
 
-  const updatedUserWithMatchingInfo = await putUserRole(
+  // Validate the user data
+  /* const result = registerSchema.safeParse(body);
+
+  if (!body.success) {
+    return NextResponse.json(
+      { errors: body.error.issues },
+      {
+        status: 400,
+      },
+    );
+  }
+*/
+  const updatedUserWithPersonalInfo = await putPersonalDataByUserID(
     Number(body.userId),
-    Number(body.roleId),
+    body.firstname,
+    body.lastname,
+    body.pronouns,
+    body.phone_number,
   );
 
   return NextResponse.json({
-    user: updatedUserWithMatchingInfo,
+    user: updatedUserWithPersonalInfo,
   });
 }

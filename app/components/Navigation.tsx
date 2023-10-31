@@ -1,4 +1,3 @@
-import '../../public/mockProfile.png';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
@@ -300,10 +299,7 @@ export default async function Navigation() {
           {currentUser ? (
             <div className="avatar mr-4">
               <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img
-                  src="../../public/mockProfile.png"
-                  alt={`${currentUser.email}`}
-                />
+                <img alt={`${currentUser.email}`} />
               </div>
             </div>
           ) : (
