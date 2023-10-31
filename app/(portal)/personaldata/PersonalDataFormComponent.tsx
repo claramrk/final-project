@@ -7,7 +7,7 @@ import { UserAll } from '../../../migrations/00004-createTableUsers';
 
 type Props = { countries: Country[]; userdata: UserAll };
 
-export default function UsersFormComponent(props: Props) {
+export default function PersonalDataFormComponent(props: Props) {
   const countries = props.countries;
   const [firstnameInput, setFirstnameInput] = useState('');
   const [lastnameInput, setLastnameInput] = useState('');
@@ -58,9 +58,11 @@ export default function UsersFormComponent(props: Props) {
           <label className="input-group">
             <span>First name</span>
             <input
-              type="text"
               name="firstname"
               placeholder="Jane"
+              defaultValue={
+                props.userdata.firstname ? props.userdata.firstname : ''
+              }
               className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setFirstnameInput(event.currentTarget.value)}
@@ -76,9 +78,11 @@ export default function UsersFormComponent(props: Props) {
           <label className="input-group">
             <span>Last name</span>
             <input
-              type="text"
               name="lastname"
               placeholder="Doe"
+              defaultValue={
+                props.userdata.lastname ? props.userdata.lastname : ''
+              }
               className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setLastnameInput(event.currentTarget.value)}
@@ -98,16 +102,11 @@ export default function UsersFormComponent(props: Props) {
               name="selectPronouns"
               required
               placeholder="--Choose pronouns--"
+              defaultValue={
+                props.userdata.pronouns ? props.userdata.pronouns : ''
+              }
               onChange={(event) => setPronounsInput(event.currentTarget.value)}
             >
-              <option
-                key="dataID-default-select"
-                value="default-select"
-                disabled
-                selected
-              >
-                --Choose pronouns--
-              </option>
               {pronountypes.map((d) => {
                 return (
                   <option key={`dataID-select-${d.name}`} value={d.name}>
@@ -130,6 +129,9 @@ export default function UsersFormComponent(props: Props) {
             <input
               type="tel"
               name="phoneNumber"
+              defaultValue={
+                props.userdata.phoneNumber ? props.userdata.phoneNumber : ''
+              }
               placeholder="+43 676 1929482"
               className="input input-bordered w-full max-w-xs"
               required
@@ -168,14 +170,14 @@ export default function UsersFormComponent(props: Props) {
               className="select select-bordered  w-full max-w-xs"
               name="countryOrigin"
               required
-              placeholder="--Choose country of origin--"
+              defaultValue="--Choose country of origin--"
               onChange={(event) =>
                 setOriginCountryInput(event.currentTarget.value)
               }
             >
               <option
                 key="dataID-default-select"
-                value="default-select"
+                value="--Choose origin country--"
                 disabled
                 selected
               >

@@ -17,6 +17,12 @@ export default function SignUpForm(props: Props) {
   const router = useRouter();
 
   const roles = props.roles;
+  const filteredRolesMentee = roles.filter(
+    (r) => r.name === 'incomplete mentee',
+  );
+  const filteredRolesMentor = roles.filter(
+    (r) => r.name === 'incomplete mentor',
+  );
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,25 +54,46 @@ export default function SignUpForm(props: Props) {
       <legend>
         Sign up as:<span id="required">*</span>
       </legend>
-      <select
-        className="select select-bordered  w-full max-w-xs"
-        id="selectRole"
-        name="selectRole"
-        required
-        onChange={(event) => setRole(Number(event.currentTarget.value))}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose role--
-        </option>
-
-        {roles.map((d) => {
-          return (
-            <option key={`dataID-select-${d.id}`} value={Number(d.id)}>
-              {d.name}
-            </option>
-          );
-        })}
-      </select>
+      {filteredRolesMentee.map((d) => {
+        return (
+          <div key={`dataID-radio-${d.id}`}>
+            <input
+              key={`dataID-input-${d.id}`}
+              type="radio"
+              id={`dataID-input-${d.id}`}
+              name="selectRole"
+              value={Number(d.id)}
+              onClick={(event) => setRole(Number(event.currentTarget.value))}
+            />
+            <label
+              key={`dataID-label-${d.id}`}
+              htmlFor={`dataID-select-${d.id}`}
+            >
+              Mentee - Applying for uni!
+            </label>
+          </div>
+        );
+      })}
+      {filteredRolesMentor.map((d) => {
+        return (
+          <div key={`dataID-radio-${d.id}`}>
+            <input
+              key={`dataID-input-${d.id}`}
+              type="radio"
+              id={`dataID-input-${d.id}`}
+              name="selectRole"
+              value={Number(d.id)}
+              onClick={(event) => setRole(Number(event.currentTarget.value))}
+            />
+            <label
+              key={`dataID-label-${d.id}`}
+              htmlFor={`dataID-select-${d.id}`}
+            >
+              Mentor - Support others!
+            </label>
+          </div>
+        );
+      })}
 
       <label htmlFor="emailInput">
         Email:<span id="required">*</span>

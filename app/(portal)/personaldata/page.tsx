@@ -2,9 +2,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getCountries } from '../../../database/countries';
 import { getUserBySessionToken } from '../../../database/users';
-import UsersFormComponent from './UserDataFormComponent';
+import PersonalDataFormComponent from './PersonalDataFormComponent';
 
-export default async function users() {
+export default async function personaldata() {
   const countries = await getCountries();
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -20,7 +20,7 @@ export default async function users() {
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="text-3xl">My Personal Data</h1>
       </div>
-      <UsersFormComponent countries={countries} userdata={currentUser} />
+      <PersonalDataFormComponent countries={countries} userdata={currentUser} />
     </main>
   );
 }
