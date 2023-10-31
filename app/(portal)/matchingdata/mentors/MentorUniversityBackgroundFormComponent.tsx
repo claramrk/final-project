@@ -17,7 +17,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
   const [universityIdInput, setUniversityIdInput] = useState(1);
   const [subjectIdInput, setSubjectIdInput] = useState(1);
   const [attendanceTypeIdInput, setAttendanceTypeIdInput] = useState(1);
-  const [studylevelIdInput, setstudylevelIdInput] = useState(1);
+  const [studylevelIdInput, setStudylevelIdInput] = useState(1);
 
   const router = useRouter();
 
@@ -99,7 +99,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         id="selectDegreetype"
         name="selectDegreetype"
         onChange={(event) =>
-          setstudylevelIdInput(Number(event.currentTarget.value))
+          setStudylevelIdInput(Number(event.currentTarget.value))
         }
         required
       >

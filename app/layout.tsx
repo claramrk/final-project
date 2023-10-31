@@ -1,8 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
-import { getUserBySessionToken } from '../database/users';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 

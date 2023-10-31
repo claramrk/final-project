@@ -64,7 +64,7 @@ export default async function matchingdataMentors() {
               </tr>
             </thead>
             <tbody>
-              {!userBackground
+              {userBackground.length<1
                 ? ''
                 : await userBackground.map((u) => {
                     return (

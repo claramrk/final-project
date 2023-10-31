@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 
 // type Props = { returnTo?: string | string[] };
-type Props = { returnTo?: string | string[] };
+// type Props = { returnTo?: string | string[] };
 
-export default function SignInFormComponent(props: Props) {
+export default function SignInFormComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
