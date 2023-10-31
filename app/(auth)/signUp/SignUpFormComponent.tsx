@@ -56,7 +56,7 @@ export default function SignUpForm(props: Props) {
         onChange={(event) => setRole(Number(event.currentTarget.value))}
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your role--
+          --Choose role--
         </option>
 
         {roles.map((d) => {

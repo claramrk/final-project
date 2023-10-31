@@ -54,7 +54,7 @@ export default function UsersFormComponent(props: Props) {
 
   return (
     <div id="usersSection" className="card blurry">
-      <h2 className="text-xl">Personal Data Section</h2>
+      <h2 className="text-2xl">Personal Data Section</h2>
       <p className="text-md">Please enter your personal data here</p>
       <form>
         <div className="form-control">

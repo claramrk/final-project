@@ -34,7 +34,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         await handlePutMentorMatchingInfo();
       }}
     >
-      <h3>Maximum Capacity</h3>
+      <h3 className="text-xl">Maximum Capacity</h3>
       <p>We expect mentors to commit around 1-2 hours per month per mentee.</p>
       <label htmlFor="maximum_capacity">
         Please indicate the maximum number of mentees you would like to mentor
@@ -53,7 +53,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         }
       />
       <p>Current indicated capacity: {currentUser.maxCapacity}</p>
-      <h3>Safeguarding</h3>
+      <h3 className="text-xl">Safeguarding</h3>
       <p>
         The safety of our mentees is incredibly important to us. Therefore,
         every mentor has to strictly adhere to our safeguarding guidelines.

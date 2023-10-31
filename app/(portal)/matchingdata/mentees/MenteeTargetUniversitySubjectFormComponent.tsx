@@ -69,7 +69,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your degreetype--
+          --Choose degreetype--
         </option>
 
         {degreetype.map((d) => {
@@ -94,7 +94,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your university--
+          --Choose university--
         </option>
 
         {props.universities.map((d) => {
@@ -116,7 +116,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your university--
+          --Choose university--
         </option>
 
         {props.universities.map((d) => {
@@ -137,7 +137,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your university--
+          --Choose university--
         </option>
 
         {props.universities.map((d) => {
@@ -162,7 +162,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your subject--
+          --Choose subject--
         </option>
 
         {props.subjects.map((d) => {
@@ -183,7 +183,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your subject--
+          --Choose subject--
         </option>
 
         {props.subjects.map((d) => {
@@ -195,8 +195,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         })}
       </select>
       <select
-                    className="select select-bordered  w-full max-w-xs"
-
+        className="select select-bordered  w-full max-w-xs"
         id="selectSubject"
         name="selectSubject"
         onChange={(event) =>
@@ -205,7 +204,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your subject--
+          --Choose subject--
         </option>
 
         {props.subjects.map((d) => {

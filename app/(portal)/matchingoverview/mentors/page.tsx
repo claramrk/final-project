@@ -2,10 +2,10 @@ export default function matchingOverviewMentors() {
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-2xl">My Matching Overview</h1>
+        <h1 className="text-3xl">My Matching Overview</h1>
       </div>
       <div id="activeMatchesSection" className="card blurry">
-        <h2 className="text-xl">Active Matches</h2>
+        <h2 className="text-2xl">Active Matches</h2>
         <p>Indicated max. capacity: XYZ</p>
         <div
           id="exampleActiveMatchesList"
@@ -31,7 +31,7 @@ export default function matchingOverviewMentors() {
         </div>
       </div>
       <div id="requestedMatchesSection" className="card blurry">
-        <h2 className="text-xl">Requested Matches</h2>
+        <h2 className="text-2xl">Requested Matches</h2>
         <p>
           You have one week to respond to a match request. Afterwards, the
           request will automatically be rejected.
@@ -75,7 +75,7 @@ export default function matchingOverviewMentors() {
         </div>
       </div>
       <div id="rejectedMatchesSection" className="card blurry">
-        <h2 className="text-xl">Rejected Matches</h2>
+        <h2 className="text-2xl">Rejected Matches</h2>
         <p id="exampleRejectedMatch" className="card sub-blurry">
           Rejected Match #1: Menteephoto | Menteename | Mentee targetunis |
           Mentee targetsubjects | mentee targetstudylevel | Rejection Reason |
@@ -88,7 +88,7 @@ export default function matchingOverviewMentors() {
         </p>
       </div>
       <div id="pastMatchesSection" className="card blurry">
-        <h2 className="text-xl">Past Matches</h2>
+        <h2 className="text-2xl">Past Matches</h2>
         <p id="examplePastMatch" className="card sub-blurry">
           Past Match #1: Menteephoto | Menteename | Mentee contact info | Mentee
           targetunis | Mentee targetsubjects | mentee targetstudylevel | Match

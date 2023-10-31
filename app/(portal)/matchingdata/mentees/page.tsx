@@ -32,11 +32,13 @@ export default async function menteeMatchingData() {
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-2xl">My Matching Information</h1>
+        <h1 className="text-3xl">My Matching Information</h1>
       </div>
       <div id="universityInformationSection" className="card blurry">
-        <h2 className="text-xl">Study Information</h2>
-        <h3>Indicate the universities & subjects you want ot apply for!</h3>
+        <h2 className="text-2xl">Study Information</h2>
+        <h3 className="text-xl">
+          Indicate the universities & subjects you want ot apply for!
+        </h3>
         <p>
           The following information will also be used to match your mentor, so
           we encourage you to give your submission prior thought! In case you do
@@ -51,9 +53,9 @@ export default async function menteeMatchingData() {
         <p>Current indications: {JSON.stringify(userTargets)}</p>
       </div>
       <div id="matchingInformationSection" className="card blurry">
-        <h2 className="text-xl">Further Information</h2>
+        <h2 className="text-2xl">Further Information</h2>
         <form>
-          <h3>Mentee Guidelines</h3>
+          <h3 className="text-xl">Mentee Guidelines</h3>
           <p>
             Our mentors take their time to help mentees on a voluntary basis. We
             hope you use this time respectfully. Therefore, we have set up

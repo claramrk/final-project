@@ -2,10 +2,10 @@ export default function matchingOverviewMentees() {
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-2xl">My Matching Overview</h1>
+        <h1 className="text-3xl">My Matching Overview</h1>
       </div>
       <div id="activeMatchesSection" className="card blurry">
-        <h2 className="text-xl">Active Matches</h2>
+        <h2 className="text-2xl">Active Matches</h2>
         <div
           id="exampleActiveMatch"
           className="card sub-blurry"
@@ -26,7 +26,7 @@ export default function matchingOverviewMentees() {
           id="sentRequests"
           // filter matching list here. only active if no active mentor and if there is a mentor request
         >
-          <h2 className="text-xl">Requested Matches</h2>
+          <h2 className="text-2xl">Requested Matches</h2>
           <p>
             A mentor has one week to accept or reject your match request. If
             they have not answered, the request will automatically be rejected
@@ -50,7 +50,7 @@ export default function matchingOverviewMentees() {
           id="requestMentor"
           // filter matching list here. only active if no active mentor and if there is no active mentor request
         >
-          <h3>Mentor Suggestions</h3>
+          <h3 className="text-xl">Mentor Suggestions</h3>
           <p>
             Below you can find three mentors from our pool that are currently
             available and that fit best to your university and subject
@@ -84,7 +84,7 @@ export default function matchingOverviewMentees() {
               indications
             </p>
             <form className="card sub-blurry">
-              <h3>Send your Request</h3>
+              <h3 className="text-xl">Send your Request</h3>
               <div className="card sub-blurry">
                 <legend>
                   Which mentor would you like to request?
@@ -134,7 +134,7 @@ export default function matchingOverviewMentees() {
         </div>
       </div>
       <div id="pastMatchesSection" className="card blurry">
-        <h2 className="text-xl">Past Matches</h2>
+        <h2 className="text-2xl">Past Matches</h2>
         <p id="examplePastMatch" className="card sub-blurry">
           Past Match #1: Mentorphoto | Mentorname | Mentor contact info | Mentor
           uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |

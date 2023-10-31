@@ -30,16 +30,16 @@ export default async function matchingdataMentors() {
   return (
     <main id="visibleMENTORS">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-2xl">My Matching Information</h1>
+        <h1 className="text-3xl">My Matching Information</h1>
       </div>
       <div
         id="universityInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2 className="text-xl">University Information</h2>
+        <h2 className="text-2xl">University Information</h2>
 
         <div id="submitNew">
-          <h3>Submit new University Background</h3>
+          <h3 className="text-xl">Submit new University Background</h3>
 
           <p>
             Please submit each degree you have completed or have been accepted
@@ -52,42 +52,67 @@ export default async function matchingdataMentors() {
           />
         </div>
         <div id="showSubmitted">
-          <h3>Submitted University Background</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>University</th>
-                <th>Degree</th>
-                <th>Degree Type</th>
-                <th>Attendance Type</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userBackground.length < 1
-                ? ''
-                : await userBackground.map((u) => {
-                    return (
-                      <tr
-                        className="exampleMentorUniversityBackground"
-                        key={`uniqueID-${u.id}`}
-                      >
-                        <td>{u.universityId}</td>
-                        <td>{u.subjectId}</td>
-                        <td>{u.studylevel}</td>
-                        <td>{u.attendanceType}</td>
-                      </tr>
-                    );
-                  })}
-            </tbody>
-          </table>
+          <h3 className="text-xl">Submitted University Background</h3>
+
+          <div className="overflow-x-auto">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>University</th>
+                  <th>Degree</th>
+                  <th>Degree Type</th>
+                  <th>Attendance Type</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userBackground.length < 1
+                  ? ''
+                  : await userBackground.map((u) => {
+                      return (
+                        <tr
+                          className="exampleMentorUniversityBackground"
+                          key={`uniqueID-${u.id}`}
+                        >
+                          <td>
+                            <div className="flex items-center space-x-3">
+                              <div className="avatar">{u.universityId}</div>
+                              <div>
+                                <div className="font-bold">University Name</div>
+                                <div className="text-sm opacity-50">
+                                  University Country
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            {u.subjectId} Name
+                            <br />
+                            <span className="badge badge-ghost badge-sm">
+                              Discipline?
+                            </span>
+                          </td>
+                          <td>{u.studylevel}</td>
+                          <td>{u.attendanceType}</td>
+                          <td>
+                            <button className="btn btn-ghost btn-xs">
+                              details
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div
         id="matchingInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2 className="text-xl">Matching Information</h2>
+        <h2 className="text-2xl">Matching Information</h2>
         <MentorMatchingInfoFormComponent userdata={currentUser} />
       </div>
       <div id="finalizeRegistrationSection" className="card blurry">

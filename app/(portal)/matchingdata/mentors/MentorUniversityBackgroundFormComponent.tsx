@@ -57,7 +57,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your university--
+          --Choose university--
         </option>
 
         {props.universities.map((d) => {
@@ -83,7 +83,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your subject--
+          --Choose subject--
         </option>
 
         {props.subjects.map((d) => {
@@ -107,7 +107,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your degreetype--
+          --Choose degreetype--
         </option>
 
         {degreetype.map((d) => {
@@ -131,7 +131,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         required
       >
         <option key="dataID-default-select" value="default-select">
-          --Please choose your attendancetype--
+          --Choose attendancetype--
         </option>
 
         {attendancetype.map((d) => {
