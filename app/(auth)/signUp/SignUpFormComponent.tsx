@@ -36,9 +36,7 @@ export default function SignUpForm(props: Props) {
       setErrors(data.errors);
       return;
     }
-    const currentUserId = data.user.id;
-
-    router.push(`/users/${Number(currentUserId)}`);
+    router.push(`/dashboard/mentors`);
 
     router.refresh();
   }

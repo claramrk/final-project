@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getCountries } from '../../../../database/countries';
-import { getUserBySessionToken } from '../../../../database/users';
+import { getCountries } from '../../../database/countries';
+import { getUserBySessionToken } from '../../../database/users';
 import UsersFormComponent from './UserDataFormComponent';
 
-export default async function Users() {
+export default async function users() {
   const countries = await getCountries();
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');

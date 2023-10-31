@@ -10,7 +10,7 @@ type Props = { returnTo?: string | string[] };
 export default function SignInFormComponent(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();
 
   async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {

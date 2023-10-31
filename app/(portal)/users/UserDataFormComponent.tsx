@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { pronountypes } from '../../../../database/pronouns';
-import { Country } from '../../../../migrations/00000-createTableCountries';
-import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import { pronountypes } from '../../../database/pronouns';
+import { Country } from '../../../migrations/00000-createTableCountries';
+import { UserAll } from '../../../migrations/00004-createTableUsers';
 
 type Props = { countries: Country[]; userdata: UserAll };
 export type UserResponseBodyPut =
@@ -25,6 +25,7 @@ export default function UsersFormComponent(props: Props) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [originCountry, setOriginCountry] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
 
   const [errors, setErrors] = useState('');
   const router = useRouter();
@@ -136,6 +137,14 @@ export default function UsersFormComponent(props: Props) {
             );
           })}
         </select>
+        <label htmlFor="firstName">
+          Upload a profile photo:<span id="required">*</span>
+        </label>
+        <input
+          id="firstName"
+          required
+          onChange={(event) => setProfilePicture(event.currentTarget.value)}
+        />
         <button id="submitPersonalDetails">Submit my details</button>
         {errors ? 'there was an error' : ''}
       </form>

@@ -44,7 +44,9 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         id="maximum_capacity"
         type="number"
         min="1"
-        defaultValue={1}
+        defaultValue={
+          props.userdata.maxCapacity ? props.userdata.maxCapacity : 1
+        }
         onChange={(event) =>
           setMaxCapacityInput(Number(event.currentTarget.value))
         }
