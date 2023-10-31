@@ -1,10 +1,10 @@
 export default function matchingOverviewMentees() {
   return (
     <main id="visibleMENTEES">
-      <div className="pageHeaderSection">
-        <h1>My Matching Overview</h1>
+      <div id="pageHeaderSection" className="card blurry">
+        <h1 className="text-2xl">My Matching Overview</h1>
       </div>
-      <div id="activeMatchesSection">
+      <div id="activeMatchesSection" className="card blurry">
         <h2>Active Matches</h2>
         <div
           id="exampleActiveMatch"
@@ -15,10 +15,10 @@ export default function matchingOverviewMentees() {
             uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
             Mentor uni & subject & studylevel 3 | Match active since: DATE
           </p>
-          <button>EDIT? how is a mentorship ended?</button>
+          <button className="btn">EDIT? how is a mentorship ended?</button>
         </div>
       </div>
-      <div id="requestedMatchesSection">
+      <div id="requestedMatchesSection" className="card blurry">
         <div
           id="sentRequests"
           // filter matching list here. only active if no active mentor and if there is a mentor request
@@ -109,12 +109,12 @@ export default function matchingOverviewMentees() {
                 <span id="required">*</span>
               </label>
               <input id="mentorMessage" />
-              <button>Send mentor request</button>
+              <button className="btn">Send mentor request</button>
             </form>
           </div>
         </div>
       </div>
-      <div id="pastMatchesSection">
+      <div id="pastMatchesSection" className="card blurry">
         <h2>Past Matches</h2>
         <p>
           Past Match #1: Mentorphoto | Mentorname | Mentor contact info | Mentor

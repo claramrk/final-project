@@ -6,7 +6,10 @@ export default async function signUpPage() {
 
   return (
     <main>
-      <SignUpForm roles={roles} />;
+      <div id="SignUpSection" className="card blurry">
+        <h1 className="text-2xl">Sign Up</h1>
+        <SignUpForm roles={roles} />
+      </div>
     </main>
   );
 }

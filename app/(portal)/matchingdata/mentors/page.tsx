@@ -29,10 +29,13 @@ export default async function matchingdataMentors() {
 
   return (
     <main id="visibleMENTORS">
-      <div className="pageHeaderSection">
-        <h1>My Matching Information</h1>
+      <div id="pageHeaderSection" className="card blurry">
+        <h1 className="text-2xl">My Matching Information</h1>
       </div>
-      <div id="universityInformationSection_visibleMENTORS">
+      <div
+        id="universityInformationSection_visibleMENTORS"
+        className="card blurry"
+      >
         <h2>University Information</h2>
 
         <div id="submitNew">
@@ -80,28 +83,33 @@ export default async function matchingdataMentors() {
           </table>
         </div>
       </div>
-      <div id="matchingInformationSection_visibleMENTORS">
+      <div
+        id="matchingInformationSection_visibleMENTORS"
+        className="card blurry"
+      >
         <h2>Matching Information</h2>
         <MentorMatchingInfoFormComponent userdata={currentUser} />
       </div>
-      <p>
-        After clicking the "Register" button below our team will review your
-        registration. After your registration is approved, you will join the
-        active mentor pool. Mentees will then be able to request you as their
-        mentor after you have been suggested as a fitting mentor. After a
-        mentee's request, you will have one week to accept the request to start
-        your mentorship journey together. You can always set your mentorship to
-        inactive in the future, in case you would like to take a break or
-        discontinue mentoring.
-      </p>
-      <UpdateRolesButtonComponent
-        userdata={currentUser}
-        roleAsId={roleAsId?.id}
-        buttonText="Complete your registration as a mentor"
-        redirectTo='/dashboard/mentors'
+      <div id="finalizeRegistrationSection" className="card blurry">
+        <p>
+          After clicking the "Register" button below our team will review your
+          registration. After your registration is approved, you will join the
+          active mentor pool. Mentees will then be able to request you as their
+          mentor after you have been suggested as a fitting mentor. After a
+          mentee's request, you will have one week to accept the request to
+          start your mentorship journey together. You can always set your
+          mentorship to inactive in the future, in case you would like to take a
+          break or discontinue mentoring.
+        </p>
+        <UpdateRolesButtonComponent
+          userdata={currentUser}
+          roleAsId={roleAsId?.id}
+          buttonText="Complete your registration as a mentor"
+          redirectTo="/dashboard/mentors"
 
-        // should be available only when other info has been submitted
-      />
+          // should be available only when other info has been submitted
+        />
+      </div>
     </main>
   );
 }

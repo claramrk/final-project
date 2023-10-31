@@ -17,8 +17,8 @@ export default async function users() {
 
   return (
     <main>
-      <div className="pageHeaderSection">
-        <h1>My Personal Data</h1>
+      <div id="pageHeaderSection" className="card blurry">
+        <h1 className="text-2xl">My Personal Data</h1>
       </div>
       <UsersFormComponent countries={countries} userdata={currentUser} />
     </main>

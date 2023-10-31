@@ -53,99 +53,170 @@ export default function UsersFormComponent(props: Props) {
   }
 
   return (
-    <div id="usersSection">
-      <h2>Personal Data Section</h2>
-      <p>Please enter your personal data here</p>
-      {props.userdata.id}
+    <div id="usersSection" className="card blurry">
+      <h2 className="text-xl">Personal Data Section</h2>
+      <p className="text-md">Please enter your personal data here</p>
       <form>
-        <label htmlFor="firstName">
-          Your first name:<span id="required">*</span>
-        </label>
-        <input
-          id="firstName"
-          required
-          onChange={(event) => setFirstName(event.currentTarget.value)}
-        />
-        <label htmlFor="lastName">
-          Your last name:<span id="required">*</span>
-        </label>
-        <input
-          id="lastName"
-          required
-          onChange={(event) => setLastName(event.currentTarget.value)}
-        />
-
-        <label htmlFor="pronouns">
-          Your pronouns:<span id="required">*</span>
-        </label>
-        <select
-          id="selectPronouns"
-          name="selectPronouns"
-          required
-          onChange={(event) => setPronouns(event.currentTarget.value)}
-        >
-          <option key="dataID-default-select" value="default-select">
-            --Please choose your pronouns--
-          </option>
-
-          {pronountypes.map((d) => {
-            return (
-              <option key={`dataID-select-${d.name}`} value={d.name}>
-                {d.name}
+        <div className="form-control">
+          <label className="label" htmlFor="firstName">
+            <span className="label-text">
+              Your first name:<span id="required">*</span>
+            </span>
+          </label>
+          <label className="input-group">
+            <span>First name</span>
+            <input
+              type="text"
+              name="firstName"
+              placeholder="Jane"
+              className="input input-bordered"
+              required
+              onChange={(event) => setFirstName(event.currentTarget.value)}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label" htmlFor="lastName">
+            <span className="label-text">
+              Your last name:<span id="required">*</span>
+            </span>
+          </label>
+          <label className="input-group">
+            <span>Last name</span>
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Doe"
+              className="input input-bordered"
+              required
+              onChange={(event) => setLastName(event.currentTarget.value)}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label" htmlFor="pronouns">
+            <span className="label-text">
+              Your pronouns:<span id="required">*</span>{' '}
+            </span>
+          </label>
+          <label className="input-group">
+            <span>Pronouns</span>
+            <select
+              className="select select-bordered"
+              name="selectPronouns"
+              required
+              placeholder="--Choose pronouns--"
+              onChange={(event) => setPronouns(event.currentTarget.value)}
+            >
+              <option
+                key="dataID-default-select"
+                value="default-select"
+                disabled
+                selected
+              >
+                --Choose pronouns--
               </option>
-            );
-          })}
-        </select>
-        <label htmlFor="phoneNumber">
-          Your phone number (incl. country code):<span id="required">*</span>
-        </label>
-        <input
-          id="phoneNumber"
-          type="tel"
-          required
-          onChange={(event) => setPhoneNumber(event.currentTarget.value)}
-        />
-
-        <label htmlFor="birthDate">
-          Your birthdate:<span id="required">*</span>
-        </label>
-        <input
-          id="birthDate"
-          required
-          type="date"
-          onChange={(event) => setBirthdate(event.currentTarget.value)}
-        />
-
-        <label htmlFor="countryOrigin">
-          Your country of origin:<span id="required">*</span>
-        </label>
-        <select
-          id="selectOriginCountry"
-          name="selectOriginCountry"
-          required
-          onChange={(event) => setOriginCountry(event.currentTarget.value)}
-        >
-          <option key="dataID-default-select" value="default-select">
-            --Please choose your country of origin--
-          </option>
-
-          {countries.map((d) => {
-            return (
-              <option key={`dataID-select-${d.id}`} value={d.id}>
-                {d.name}
+              {pronountypes.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.name}`} value={d.name}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label" htmlFor="phoneNumber">
+            <span className="label-text">
+              Your phone number (incl. country code):
+              <span id="required">*</span>{' '}
+            </span>
+          </label>
+          <label className="input-group">
+            <span>Phone Number</span>
+            <input
+              type="tel"
+              name="phoneNumber"
+              placeholder="+43 676 1929482"
+              className="input input-bordered"
+              required
+              onChange={(event) => setPhoneNumber(event.currentTarget.value)}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label" htmlFor="birthDate">
+            <span className="label-text">
+              Your birthdate:<span id="required">*</span>{' '}
+            </span>
+          </label>
+          <label className="input-group">
+            <span>Birthdate</span>
+            <input
+              type="date"
+              name="birthDate"
+              className="input input-bordered"
+              required
+              onChange={(event) => setBirthdate(event.currentTarget.value)}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label" htmlFor="countryOrigin">
+            <span className="label-text">
+              Your country of origin:<span id="required">*</span>
+            </span>
+          </label>
+          <label className="input-group">
+            <span>Origin Country</span>
+            <select
+              className="select select-bordered"
+              name="countryOrigin"
+              required
+              placeholder="--Choose country of origin--"
+              onChange={(event) => setOriginCountry(event.currentTarget.value)}
+            >
+              <option
+                key="dataID-default-select"
+                value="default-select"
+                disabled
+                selected
+              >
+                --Choose origin country--
               </option>
-            );
-          })}
-        </select>
-        <label htmlFor="firstName">
-          Upload a profile photo:<span id="required">*</span>
-        </label>
-        <input
-          id="firstName"
-          required
-          onChange={(event) => setProfilePicture(event.currentTarget.value)}
-        />
-        <button id="submitPersonalDetails">Submit my details</button>
+              {countries.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.id}`} value={d.id}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label" htmlFor="profilePhoto">
+            <span className="label-text">
+              Upload a profile photo:<span id="required">*</span>
+            </span>
+          </label>
+          <label className="input-group">
+            <span>Profile Photo</span>
+            <input
+              name="profilePhoto"
+              type="file"
+              className="file-input w-full max-w-xs
+              "
+              required
+              onChange={(event) => setProfilePicture(event.currentTarget.value)}
+            />
+          </label>
+        </div>
+
+        <button id="submitPersonalDetails" className="btn">
+          Submit my details
+        </button>
         {errors ? 'there was an error' : ''}
       </form>
     </div>

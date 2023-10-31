@@ -31,10 +31,10 @@ export default async function menteeMatchingData() {
 
   return (
     <main id="visibleMENTEES">
-      <div className="pageHeaderSection">
-        <h1>My Matching Information</h1>
+      <div id="pageHeaderSection" className="card blurry">
+        <h1 className="text-2xl">My Matching Information</h1>
       </div>
-      <div id="universityInformationSection">
+      <div id="universityInformationSection" className="card blurry">
         <h2>Study Information</h2>
         <h3>Indicate the universities & subjects you want ot apply for!</h3>
         <p>
@@ -50,7 +50,7 @@ export default async function menteeMatchingData() {
         />
         <p>Current indications: {JSON.stringify(userTargets)}</p>
       </div>
-      <div id="matchingInformationSection">
+      <div id="matchingInformationSection" className="card blurry">
         <h2>Further Information</h2>
         <form>
           <h3>Mentee Guidelines</h3>
@@ -73,26 +73,28 @@ export default async function menteeMatchingData() {
             id="mentee_guideline_upload"
             // check how to upload a pdf
           />
-          <button id="submitAllUniInformation">
+          <button className="btn" id="submitAllUniInformation">
             Submit further information
           </button>
         </form>
       </div>
-      <p>
-        After clicking the "Register" button below our team will review your
-        registration. After your registration is approved, you will then be able
-        to request one mentor from our suggestion of fitting mentors. After
-        sending your request, mentors will have one week to accept your request
-        to start your mentorship journey together. You will also be supported
-        through additional support programs - stay tuned!
-      </p>
-      <UpdateRolesButtonComponent
-        userdata={currentUser}
-        roleAsId={roleAsId?.id}
-        buttonText="Complete your registration as a mentee"
-        redirectTo="/dashboard/mentees"
-        // should be available only when other info has been submitted
-      />
+      <div id="finalizeRegistrationSection" className="card blurry">
+        <p>
+          After clicking the "Register" button below our team will review your
+          registration. After your registration is approved, you will then be
+          able to request one mentor from our suggestion of fitting mentors.
+          After sending your request, mentors will have one week to accept your
+          request to start your mentorship journey together. You will also be
+          supported through additional support programs - stay tuned!
+        </p>
+        <UpdateRolesButtonComponent
+          userdata={currentUser}
+          roleAsId={roleAsId?.id}
+          buttonText="Complete your registration as a mentee"
+          redirectTo="/dashboard/mentees"
+          // should be available only when other info has been submitted
+        />
+      </div>
     </main>
   );
 }

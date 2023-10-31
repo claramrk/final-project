@@ -72,7 +72,9 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         id="safeguarding_upload"
         // check how to upload a pdf
       />
-      <button id="submitAllUniInformation">Submit matching Information</button>
+      <button className="btn" id="submitAllUniInformation">
+        Submit matching Information
+      </button>
     </form>
   );
 }

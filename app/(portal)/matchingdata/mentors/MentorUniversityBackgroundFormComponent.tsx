@@ -139,7 +139,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         })}
       </select>
 
-      <button id="submitPersonalDetails">
+      <button className="btn" id="submitPersonalDetails">
         Add degree to my submitted Background
       </button>
     </form>

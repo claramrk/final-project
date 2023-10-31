@@ -1,10 +1,10 @@
 export default function dashboardMentors() {
   return (
     <main>
-      <div className="pageHeaderSection">
-        <h1>My Dashboard</h1>
+      <div id="pageHeaderSection" className="card blurry">
+        <h1 className="text-2xl">My Dashboard</h1>
       </div>
-      <div id="matchingHighlightsSection">
+      <div id="matchingHighlightsSection" className="card blurry">
         <h2>My Matching Highlights</h2>
         <h3>My Pendings Requests: </h3>
         <p>
@@ -12,7 +12,8 @@ export default function dashboardMentors() {
           request: DATE
         </p>
         <button
-        // leads to matching page
+          className="btn"
+          // leads to matching page
         >
           Respond to match request
         </button>
@@ -22,12 +23,12 @@ export default function dashboardMentors() {
         </p>
         <a href="/matchingoverview/mentors">Go to Matching Page</a>
       </div>
-      <div id="profileSection">
+      <div id="profileSection" className="card blurry">
         <h2>My Profile Highlights</h2>
         <p>User Photo | User Name | User Role | User activity status</p>
         <a href="/users">Go to Profile Page</a>
       </div>
-      <div id="communicationSection">
+      <div id="communicationSection" className="card blurry">
         <h2>More Information</h2>
         <p>Info 1</p>
         <p>Info 2</p>

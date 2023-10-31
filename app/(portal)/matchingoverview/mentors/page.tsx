@@ -1,10 +1,10 @@
 export default function matchingOverviewMentors() {
   return (
     <main>
-      <div className="pageHeaderSection">
-        <h1>My Matching Overview</h1>
+      <div id="pageHeaderSection" className="card blurry">
+        <h1 className="text-2xl">My Matching Overview</h1>
       </div>
-      <div id="activeMatchesSection">
+      <div id="activeMatchesSection" className="card blurry">
         <h2>Active Matches</h2>
         <p>Indicated max. capacity: XYZ</p>
         <div
@@ -16,16 +16,16 @@ export default function matchingOverviewMentors() {
             Mentee targetunis | Mentee targetsubjects | mentee targetstudylevel
             | Match active since: DATE
           </p>
-          <button>EDIT? how is a mentorship ended?</button>
+          <button className="btn">EDIT? how is a mentorship ended?</button>
           <p>
             Active Match #2: Menteephoto | Menteename | Mentee contact info |
             Mentee targetunis | Mentee targetsubjects | mentee targetstudylevel
             | Match active since: DATE
           </p>
-          <button>EDIT? how is a mentorship ended?</button>
+          <button className="btn">EDIT? how is a mentorship ended?</button>
         </div>
       </div>
-      <div id="requestedMatchesSection">
+      <div id="requestedMatchesSection" className="card blurry">
         <h2>Requested Matches</h2>
         <p>
           You have one week to respond to a match request. Afterwards, the
@@ -41,8 +41,8 @@ export default function matchingOverviewMentors() {
             Mentee targetsubjects | mentee targetstudylevel | Message from
             mentee | Date of request: DATE
           </p>
-          <button>Accept match request</button>
-          <button>Reject match request</button>
+          <button className="btn">Accept match request</button>
+          <button className="btn">Reject match request</button>
           <label htmlFor="reasonRejection">
             Please briefly indicate the reason for your rejection:
             <span id="required">*</span>
@@ -54,8 +54,8 @@ export default function matchingOverviewMentors() {
             Mentee targetsubjects | mentee targetstudylevel | Message from
             mentee | Date of request: DATE
           </p>
-          <button>Accept match request</button>
-          <button>Reject match request</button>
+          <button className="btn">Accept match request</button>
+          <button className="btn">Reject match request</button>
           <label htmlFor="reasonRejection">
             Please briefly indicate the reason for your rejection:
             <span id="required">*</span>
@@ -63,7 +63,7 @@ export default function matchingOverviewMentors() {
           <input id="reasonRejection" />
         </div>
       </div>
-      <div id="rejectedMatchesSection">
+      <div id="rejectedMatchesSection" className="card blurry">
         <h2>Rejected Matches</h2>
         <p>
           Rejected Match #1: Menteephoto | Menteename | Mentee targetunis |
@@ -76,7 +76,7 @@ export default function matchingOverviewMentors() {
           Match rejected on : DATE
         </p>
       </div>
-      <div id="pastMatchesSection">
+      <div id="pastMatchesSection" className="card blurry">
         <h2>Past Matches</h2>
         <p>
           Past Match #1: Menteephoto | Menteename | Mentee contact info | Mentee

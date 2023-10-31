@@ -37,50 +37,44 @@ export default function SignInFormComponent(props: Props) {
     router.refresh();
   }
   return (
-    <div id="SignInSection">
-      <h2>SignIn </h2>
+    <form id="signInForm" onSubmit={async (event) => await handleSignIn(event)}>
+      <label htmlFor="emailInput">
+        Email:<span id="required">*</span>
+      </label>
+      <input
+        onChange={(event) => setEmail(event.currentTarget.value)}
+        id="emailInput"
+        required
+      />
 
-      <form
-        id="signInForm"
-        onSubmit={async (event) => await handleSignIn(event)}
-      >
-        <label htmlFor="emailInput">
-          Email:<span id="required">*</span>
-        </label>
-        <input
-          onChange={(event) => setEmail(event.currentTarget.value)}
-          id="emailInput"
-          required
-        />
+      <label htmlFor="passwordInput">
+        Password:<span id="required">*</span>
+      </label>
+      <input
+        id="passwordInput"
+        type="password"
+        required
+        onChange={(event) => setPassword(event.currentTarget.value)}
+      />
 
-        <label htmlFor="passwordInput">
-          Password:<span id="required">*</span>
-        </label>
-        <input
-          id="passwordInput"
-          type="password"
-          required
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-
-        {/* <label htmlFor="passwordInput">
+      {/* <label htmlFor="passwordInput">
           Confirm Password:<span id="required">*</span>
         </label>
   <input id="passwordInput" required />*/}
 
-        <button
-          id="signUpButton"
-          // Button text changes depending on radio button input
-          // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
-        >
-          Sign in
-        </button>
-        {errors.map((error) => (
-          <div className="error" key={`error-${error.message}`}>
-            Error: {error.message}
-          </div>
-        ))}
-      </form>
-    </div>
+      <button
+        className="btn"
+        id="signUpButton"
+        // Button text changes depending on radio button input
+        // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
+      >
+        Sign in
+      </button>
+      {errors.map((error) => (
+        <div className="error" key={`error-${error.message}`}>
+          Error: {error.message}
+        </div>
+      ))}
+    </form>
   );
 }
