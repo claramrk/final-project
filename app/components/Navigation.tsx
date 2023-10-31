@@ -1,3 +1,4 @@
+import '../../public/mockProfile.png';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
@@ -115,27 +116,38 @@ export default async function Navigation() {
           </li>
         </ul>
       </div>
-      <div className="navbar-end card blurry flex flex-row">
-        {currentUser ? (
-          <>
-            <div className="avatar">
-              <div className="w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="/../../public/logo:header.png" alt="profilepicture" />
-              </div>
-            </div>
-            <div>{currentUser.email}</div>
+      <div className="navbar-end">
+        <div className="card blurry flex flex-row">
+          <div className="card">
+            {currentUser ? (
+              <>
+                <div className="avatar">
+                  <div className="w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                      src="../../public/mockProfile.png"
+                      alt="profilepicture"
+                    />
+                  </div>
+                </div>
+                <div>{currentUser.email}</div>
+              </>
+            ) : (
+              ''
+            )}
+          </div>
+          {currentUser ? (
             <SignOutButton />
-          </>
-        ) : (
-          <>
-            <Link href="/signUp" className="btn">
-              Register
-            </Link>
-            <Link href="/signIn" className="btn">
-              Login
-            </Link>
-          </>
-        )}
+          ) : (
+            <>
+              <Link href="/signUp" className="btn">
+                Register
+              </Link>
+              <Link href="/signIn" className="btn">
+                Login
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
