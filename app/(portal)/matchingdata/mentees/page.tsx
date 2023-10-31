@@ -35,7 +35,7 @@ export default async function menteeMatchingData() {
         <h1 className="text-2xl">My Matching Information</h1>
       </div>
       <div id="universityInformationSection" className="card blurry">
-        <h2>Study Information</h2>
+        <h2 className="text-xl">Study Information</h2>
         <h3>Indicate the universities & subjects you want ot apply for!</h3>
         <p>
           The following information will also be used to match your mentor, so
@@ -51,7 +51,7 @@ export default async function menteeMatchingData() {
         <p>Current indications: {JSON.stringify(userTargets)}</p>
       </div>
       <div id="matchingInformationSection" className="card blurry">
-        <h2>Further Information</h2>
+        <h2 className="text-xl">Further Information</h2>
         <form>
           <h3>Mentee Guidelines</h3>
           <p>
@@ -70,10 +70,13 @@ export default async function menteeMatchingData() {
             upload a signed version here:
           </label>
           <input
+            className="input input-bordered w-full max-w-xs"
             id="mentee_guideline_upload"
+            type="file"
+
             // check how to upload a pdf
           />
-          <button className="btn" id="submitAllUniInformation">
+          <button className="btn max-w-xs		" id="submitAllUniInformation">
             Submit further information
           </button>
         </form>

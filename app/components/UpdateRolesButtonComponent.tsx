@@ -28,7 +28,7 @@ export default function UpdateRolesButtonComponent(props: Props) {
 
   return (
     <form>
-      <button formAction={handleCompleteRegistration} className="btn">
+      <button formAction={handleCompleteRegistration} className="btn max-w-xs		">
         {props.buttonText}
       </button>
     </form>

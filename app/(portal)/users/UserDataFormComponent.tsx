@@ -69,7 +69,7 @@ export default function UsersFormComponent(props: Props) {
               type="text"
               name="firstName"
               placeholder="Jane"
-              className="input input-bordered"
+              className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setFirstName(event.currentTarget.value)}
             />
@@ -87,7 +87,7 @@ export default function UsersFormComponent(props: Props) {
               type="text"
               name="lastName"
               placeholder="Doe"
-              className="input input-bordered"
+              className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setLastName(event.currentTarget.value)}
             />
@@ -102,7 +102,7 @@ export default function UsersFormComponent(props: Props) {
           <label className="input-group">
             <span>Pronouns</span>
             <select
-              className="select select-bordered"
+              className="select select-bordered  w-full max-w-xs"
               name="selectPronouns"
               required
               placeholder="--Choose pronouns--"
@@ -139,7 +139,7 @@ export default function UsersFormComponent(props: Props) {
               type="tel"
               name="phoneNumber"
               placeholder="+43 676 1929482"
-              className="input input-bordered"
+              className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setPhoneNumber(event.currentTarget.value)}
             />
@@ -156,7 +156,7 @@ export default function UsersFormComponent(props: Props) {
             <input
               type="date"
               name="birthDate"
-              className="input input-bordered"
+              className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setBirthdate(event.currentTarget.value)}
             />
@@ -171,7 +171,7 @@ export default function UsersFormComponent(props: Props) {
           <label className="input-group">
             <span>Origin Country</span>
             <select
-              className="select select-bordered"
+              className="select select-bordered  w-full max-w-xs"
               name="countryOrigin"
               required
               placeholder="--Choose country of origin--"
@@ -206,15 +206,14 @@ export default function UsersFormComponent(props: Props) {
             <input
               name="profilePhoto"
               type="file"
-              className="file-input w-full max-w-xs
-              "
+              className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) => setProfilePicture(event.currentTarget.value)}
             />
           </label>
         </div>
 
-        <button id="submitPersonalDetails" className="btn">
+        <button id="submitPersonalDetails" className="btn max-w-xs		">
           Submit my details
         </button>
         {errors ? 'there was an error' : ''}

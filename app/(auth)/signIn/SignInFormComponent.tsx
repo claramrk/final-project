@@ -42,6 +42,7 @@ export default function SignInFormComponent() {
         Email:<span id="required">*</span>
       </label>
       <input
+        className="input input-bordered w-full max-w-xs"
         onChange={(event) => setEmail(event.currentTarget.value)}
         id="emailInput"
         required
@@ -51,6 +52,7 @@ export default function SignInFormComponent() {
         Password:<span id="required">*</span>
       </label>
       <input
+        className="input input-bordered w-full max-w-xs"
         id="passwordInput"
         type="password"
         required
@@ -60,10 +62,12 @@ export default function SignInFormComponent() {
       {/* <label htmlFor="passwordInput">
           Confirm Password:<span id="required">*</span>
         </label>
-  <input id="passwordInput" required />*/}
+  <input id="passwordInput"
+  className="input input-bordered w-full max-w-xs"
+  required />*/}
 
       <button
-        className="btn"
+        className="btn max-w-xs		"
         id="signUpButton"
         // Button text changes depending on radio button input
         // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page

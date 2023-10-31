@@ -48,6 +48,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         Name of the university<span id="required">*</span>
       </label>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectUniversity"
         name="selectUniversity"
         onChange={(event) =>
@@ -73,6 +74,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
       </label>
 
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectSubject"
         name="selectSubject"
         onChange={(event) =>
@@ -96,6 +98,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         DegreeType<span id="required">*</span>
       </legend>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectDegreetype"
         name="selectDegreetype"
         onChange={(event) =>
@@ -119,6 +122,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         ApplicationStatus<span id="required">*</span>
       </legend>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectAttendancetype"
         name="selectAttendancetype"
         onChange={(event) =>
@@ -139,7 +143,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         })}
       </select>
 
-      <button className="btn" id="submitPersonalDetails">
+      <button className="btn max-w-xs		" id="submitPersonalDetails">
         Add degree to my submitted Background
       </button>
     </form>

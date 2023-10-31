@@ -15,7 +15,7 @@ export default async function Navigation() {
     <div className="navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
-          <button className="btn btn-ghost lg:hidden">
+          <button className="btn max-w-xs		 btn max-w-xs		-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -74,7 +74,9 @@ export default async function Navigation() {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <a className="btn max-w-xs		 btn max-w-xs		-ghost normal-case text-xl">
+          daisyUI
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -139,10 +141,10 @@ export default async function Navigation() {
             <SignOutButton />
           ) : (
             <>
-              <Link href="/signUp" className="btn">
+              <Link href="/signUp" className="btn max-w-xs		">
                 Register
               </Link>
-              <Link href="/signIn" className="btn">
+              <Link href="/signIn" className="btn max-w-xs		">
                 Login
               </Link>
             </>

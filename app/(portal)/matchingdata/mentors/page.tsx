@@ -36,7 +36,7 @@ export default async function matchingdataMentors() {
         id="universityInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2>University Information</h2>
+        <h2 className="text-xl">University Information</h2>
 
         <div id="submitNew">
           <h3>Submit new University Background</h3>
@@ -64,7 +64,7 @@ export default async function matchingdataMentors() {
               </tr>
             </thead>
             <tbody>
-              {userBackground.length<1
+              {userBackground.length < 1
                 ? ''
                 : await userBackground.map((u) => {
                     return (
@@ -87,7 +87,7 @@ export default async function matchingdataMentors() {
         id="matchingInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2>Matching Information</h2>
+        <h2 className="text-xl">Matching Information</h2>
         <MentorMatchingInfoFormComponent userdata={currentUser} />
       </div>
       <div id="finalizeRegistrationSection" className="card blurry">

@@ -19,7 +19,7 @@ const countrylist = [
   { name: 'Belgium', abbreviation: 'BEL' },
   { name: 'Belize', abbreviation: 'BLZ' },
   { name: 'Benin', abbreviation: 'BEN' },
-  { name: 'Bhutan', abbreviation: 'BTN' },
+  { name: 'Bhutan', abbreviation: 'btn max-w-xs		' },
   { name: 'Bolivia', abbreviation: 'BOL' },
   { name: 'Bosnia and Herzegovina', abbreviation: 'BIH' },
   { name: 'Botswana', abbreviation: 'BWA' },

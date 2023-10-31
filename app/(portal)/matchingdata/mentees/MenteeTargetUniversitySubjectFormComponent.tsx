@@ -60,6 +60,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         DegreeType<span id="required">*</span>
       </label>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectDegreetype"
         name="selectDegreetype"
         onChange={(event) =>
@@ -84,6 +85,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         <span id="required">*</span>
       </label>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="targetUniversity1"
         name="targetUniversities"
         onChange={(event) =>
@@ -105,6 +107,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
       </select>
 
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="targetUniversity2"
         name="targetUniversities"
         onChange={(event) =>
@@ -125,6 +128,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         })}
       </select>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="targetUniversity3"
         name="targetUniversities"
         onChange={(event) =>
@@ -149,6 +153,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         <span id="required">*</span>
       </label>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectSubject"
         name="selectSubject"
         onChange={(event) =>
@@ -169,6 +174,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         })}
       </select>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectSubject"
         name="selectSubject"
         onChange={(event) =>
@@ -189,6 +195,8 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         })}
       </select>
       <select
+                    className="select select-bordered  w-full max-w-xs"
+
         id="selectSubject"
         name="selectSubject"
         onChange={(event) =>
@@ -208,7 +216,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
           );
         })}
       </select>
-      <button id="submitAllUniInformation" className="btn">
+      <button id="submitAllUniInformation" className="btn max-w-xs		">
         Submit all University Information
       </button>
     </form>

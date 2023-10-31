@@ -26,7 +26,7 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
 
   return (
     <form>
-      <button className="btn" formAction={handleCompleteRegistration}>
+      <button className="btn max-w-xs		" formAction={handleCompleteRegistration}>
         Complete your registration as a mentee
       </button>
     </form>

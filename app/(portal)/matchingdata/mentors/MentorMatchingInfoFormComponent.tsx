@@ -41,6 +41,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         at the same time. You can change this number any time:
       </label>
       <input
+        className="input input-bordered w-full max-w-xs"
         id="maximum_capacity"
         type="number"
         min="1"
@@ -69,10 +70,12 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         a signed version here:
       </label>
       <input
+        type="file"
+        className="input input-bordered w-full max-w-xs"
         id="safeguarding_upload"
         // check how to upload a pdf
       />
-      <button className="btn" id="submitAllUniInformation">
+      <button className="btn max-w-xs		" id="submitAllUniInformation">
         Submit matching Information
       </button>
     </form>

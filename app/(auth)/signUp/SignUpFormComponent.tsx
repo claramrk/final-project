@@ -49,6 +49,7 @@ export default function SignUpForm(props: Props) {
         Sign up as:<span id="required">*</span>
       </legend>
       <select
+        className="select select-bordered  w-full max-w-xs"
         id="selectRole"
         name="selectRole"
         required
@@ -71,6 +72,7 @@ export default function SignUpForm(props: Props) {
         Email:<span id="required">*</span>
       </label>
       <input
+        className="input input-bordered w-full max-w-xs"
         onChange={(event) => setEmail(event.currentTarget.value)}
         id="emailInput"
         type="email"
@@ -81,6 +83,7 @@ export default function SignUpForm(props: Props) {
         Password:<span id="required">*</span>
       </label>
       <input
+        className="input input-bordered w-full max-w-xs"
         id="passwordInput"
         type="password"
         required
@@ -90,10 +93,12 @@ export default function SignUpForm(props: Props) {
       {/* <label htmlFor="passwordInput">
           Confirm Password:<span id="required">*</span>
         </label>
-  <input id="passwordInput" required />*/}
+  <input id="passwordInput"
+  className="input input-bordered w-full max-w-xs"
+  required />*/}
 
       <button
-        className="btn"
+        className="btn max-w-xs		"
         id="signUpButton"
         // Button text changes depending on radio button input
         // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
