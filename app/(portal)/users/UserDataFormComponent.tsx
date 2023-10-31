@@ -31,6 +31,8 @@ export default function UsersFormComponent(props: Props) {
         lastname: lastnameInput,
         pronouns: pronounsInput,
         phone_number: phoneNumberInput,
+        birthdate: birthdateInput,
+        country_id: originCountryInput,
       }),
     });
     router.refresh();

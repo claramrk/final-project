@@ -66,6 +66,8 @@ export async function PUT(
     body.lastname,
     body.pronouns,
     body.phone_number,
+    body.birthdate,
+    body.country_id,
   );
 
   return NextResponse.json({
