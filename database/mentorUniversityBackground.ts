@@ -1,5 +1,8 @@
 import { cache } from 'react';
-import { MentorUniversityBackground } from '../migrations/00005-createTableMentorUniversityBackgrounds';
+import {
+  MentorUniversityBackground,
+  MentorUniversityBackgroundWithUniversity,
+} from '../migrations/00005-createTableMentorUniversityBackgrounds';
 import { sql } from './connect';
 
 export const createMentorUniversityBackground = cache(
@@ -36,5 +39,32 @@ export const getMentorUniversityBackgroundbyUserID = cache(
 
   `;
     return mentorUniversityBackgroundUsers;
+  },
+);
+
+export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
+  async () => {
+    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
+      MentorUniversityBackgroundWithUniversity[]
+    >`
+      SELECT
+*,      (
+        SELECT
+          json_agg (
+            universities.*
+             )
+        FROM
+          universities
+        WHERE
+        mentor_university_backgrounds.university_id = universities.id
+      )
+      AS mentor_university_backgrounds_university
+    FROM
+    mentor_university_backgrounds
+      GROUP BY
+      mentor_university_backgrounds.id
+
+  `;
+    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   },
 );

@@ -1,10 +1,12 @@
 import { cache } from 'react';
 import {
   UserAll,
+  UserAllWithMatching,
   UserIdEmailOnly,
   UserIdEmailPassword,
   UserIdEmailRole,
 } from '../migrations/00004-createTableUsers';
+import { MentorUniversityBackground } from '../migrations/00005-createTableMentorUniversityBackgrounds';
 import { sql } from './connect';
 
 export const createUser = cache(
@@ -147,3 +149,49 @@ export const putPersonalDataByUserID = cache(
     return personalDataInfoUsers;
   },
 );
+
+export const getUserWithMatchingInfoByIDInArray = cache(async () => {
+  const usersMatchings = await sql<UserAllWithMatching[]>`
+      SELECT
+*,      (
+        SELECT
+          json_agg (
+            mentor_university_backgrounds.*
+
+          )
+        FROM
+          mentor_university_backgrounds
+        WHERE
+        mentor_university_backgrounds.user_id = users.id
+      ) AS user_mentor_university_backgrounds
+    FROM
+      users
+      GROUP BY
+      users.id
+
+  `;
+  return usersMatchings;
+});
+
+export const getUserWithMatchingInfoByIDInArrayWithUni = cache(async () => {
+  const usersMatchings = await sql<UserAllWithMatching[]>`
+      SELECT
+*,      (
+        SELECT
+          json_agg (
+            mentor_university_backgrounds.*
+             )
+        FROM
+          mentor_university_backgrounds
+        WHERE
+        mentor_university_backgrounds.user_id = users.id
+      )
+      AS user_mentor_university_backgrounds
+    FROM
+      users
+      GROUP BY
+      users.id
+
+  `;
+  return usersMatchings;
+});

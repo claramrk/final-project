@@ -1,4 +1,5 @@
 import { Sql } from 'postgres';
+import { MentorUniversityBackground } from './00005-createTableMentorUniversityBackgrounds';
 
 export type UserAll = {
   id: number;
@@ -35,6 +36,28 @@ export type UserAllNoPassword = {
   pauseUntil: Date | null;
   maxCapacity: number | null;
   contractDocUrl: string | null;
+};
+
+type JsonAgg = MentorUniversityBackground[];
+
+export type UserAllWithMatching = {
+  id: number;
+  email: string;
+  passwordHash: string;
+  firstname: string | null;
+  lastname: string | null;
+  pronouns: string | null;
+  phoneNumber: number | null;
+  birthdate: Date | null;
+  countryId: string | null;
+  photo: string | null;
+  roleId: number | null;
+  lastActivity: Date | null;
+  lastUpdate: Date | null;
+  pauseUntil: Date | null;
+  maxCapacity: number | null;
+  contractDocUrl: string | null;
+  userMentorUniversityBackgrounds: JsonAgg | null;
 };
 
 export type UserIdEmailOnly = {

@@ -1,4 +1,5 @@
 import { Sql } from 'postgres';
+import { University } from './00002-createTableUniversities';
 
 export type MentorUniversityBackground = {
   id: number;
@@ -7,6 +8,18 @@ export type MentorUniversityBackground = {
   attendanceType: string;
   universityId: number;
   subjectId: number;
+};
+
+type JsonAgg = University[];
+
+export type MentorUniversityBackgroundWithUniversity = {
+  id: number;
+  userId: number;
+  studylevel: string;
+  attendanceType: string;
+  universityId: number;
+  subjectId: number;
+  mentorUniversityBackgroundsUniversity: JsonAgg | null;
 };
 
 export async function up(sql: Sql) {

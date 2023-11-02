@@ -24,7 +24,7 @@ export default async function menteeMatchingData() {
     Number(currentUser?.id),
   );
 
-  if (!currentUser) redirect('/login?returnTo=/notes');
+  if (!currentUser) redirect('/signIn?returnTo=/notes');
   if (!roleAsId) {
     console.log('issue with role!');
   }
