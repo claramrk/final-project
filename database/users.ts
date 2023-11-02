@@ -6,7 +6,6 @@ import {
   UserIdEmailPassword,
   UserIdEmailRole,
 } from '../migrations/00004-createTableUsers';
-import { MentorUniversityBackground } from '../migrations/00005-createTableMentorUniversityBackgrounds';
 import { sql } from './connect';
 
 export const createUser = cache(
@@ -173,12 +172,7 @@ export const getUserWithMatchingInfoByIDInArray = cache(async () => {
   return usersMatchings;
 });
 
-export type Test = {
-  id: number;
-  userId: number;
-  universityName: string;
-  subjectName: string;
-};
+export type Test = { usersId: number; maxCapacity: number | null; countryName: string; roleName: string; uniBgId: number; universityId: number; subjectId: number; studylevel: string; uniBgAttendanceType: string; universityName: string; subjectName: string; subjectDiscipline: string; };
 
 export const getUserWithMatchingInfoByIDInArrayWithUniAndSubject = cache(
   async () => {
@@ -192,13 +186,22 @@ countries.name AS country_name,
 roles.name AS role_name,
 mentor_university_backgrounds.id AS uni_bg_id,
 mentor_university_backgrounds.university_id,
-mentor_university_backgrounds.attendance_type AS uni_bg_attendance_type
+mentor_university_backgrounds.subject_id,
+mentor_university_backgrounds.studylevel,
+mentor_university_backgrounds.attendance_type AS uni_bg_attendance_type,
+universities.name AS university_name,
+subjects.name AS subject_name,
+subjects.discipline AS subject_discipline
+
 FROM
 users
  INNER JOIN mentor_university_backgrounds
 ON mentor_university_backgrounds.user_id = users.id
 INNER JOIN countries ON countries.id = users.country_id
 INNER JOIN roles ON roles.id = users.role_id
+INNER JOIN universities ON universities.id = mentor_university_backgrounds.university_id
+INNER JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
+
 
   `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;

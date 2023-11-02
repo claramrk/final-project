@@ -16,14 +16,14 @@ export async function up(sql: Sql) {
   await sql`
     CREATE TABLE mentee_university_wishes(
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id integer NOT NULL REFERENCES users(id),
     studylevel integer NOT NULL,
-    first_university_id integer NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
-    first_subject_id integer NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE,
-    second_university_id integer NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
-    second_subject_id integer NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE,
-    third_university_id integer NOT NULL REFERENCES universities(id) ON UPDATE CASCADE,
-    third_subject_id integer NOT NULL REFERENCES subjects(id) ON UPDATE CASCADE
+    first_university_id integer NOT NULL REFERENCES universities(id),
+    first_subject_id integer NOT NULL REFERENCES subjects(id),
+    second_university_id integer NOT NULL REFERENCES universities(id),
+    second_subject_id integer NOT NULL REFERENCES subjects(id),
+    third_university_id integer NOT NULL REFERENCES universities(id),
+    third_subject_id integer NOT NULL REFERENCES subjects(id)
 );`;
 }
 

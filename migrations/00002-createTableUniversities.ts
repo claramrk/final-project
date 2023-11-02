@@ -12,7 +12,7 @@ export async function up(sql: Sql) {
     CREATE TABLE universities (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       name varchar(255) NOT NULL,
-      country_id varchar(255) NOT NULL REFERENCES countries(id) ON UPDATE CASCADE,
+      country_id varchar(255) NOT NULL REFERENCES countries(id),
 abbreviation varchar(30) NOT NULL
     );
   `;
