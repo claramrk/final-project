@@ -173,25 +173,34 @@ export const getUserWithMatchingInfoByIDInArray = cache(async () => {
   return usersMatchings;
 });
 
-export const getUserWithMatchingInfoByIDInArrayWithUni = cache(async () => {
-  const usersMatchings = await sql<UserAllWithMatching[]>`
+export type Test = {
+  id: number;
+  userId: number;
+  universityName: string;
+  subjectName: string;
+};
+
+export const getUserWithMatchingInfoByIDInArrayWithUniAndSubject = cache(
+  async () => {
+    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
+      Test[]
+    >`
       SELECT
-*,      (
-        SELECT
-          json_agg (
-            mentor_university_backgrounds.*
-             )
-        FROM
-          mentor_university_backgrounds
-        WHERE
-        mentor_university_backgrounds.user_id = users.id
-      )
-      AS user_mentor_university_backgrounds
-    FROM
-      users
-      GROUP BY
-      users.id
+users.id AS users_id,
+users.max_capacity,
+countries.name AS country_name,
+roles.name AS role_name,
+mentor_university_backgrounds.id AS uni_bg_id,
+mentor_university_backgrounds.university_id,
+mentor_university_backgrounds.attendance_type AS uni_bg_attendance_type
+FROM
+users
+ INNER JOIN mentor_university_backgrounds
+ON mentor_university_backgrounds.user_id = users.id
+INNER JOIN countries ON countries.id = users.country_id
+INNER JOIN roles ON roles.id = users.role_id
 
   `;
-  return usersMatchings;
-});
+    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
+  },
+);

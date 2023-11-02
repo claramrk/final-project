@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import { University } from '../migrations/00002-createTableUniversities';
 import {
   MentorUniversityBackground,
   MentorUniversityBackgroundWithUniversity,
@@ -59,6 +60,7 @@ export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
         mentor_university_backgrounds.university_id = universities.id
       )
       AS mentor_university_backgrounds_university
+
     FROM
     mentor_university_backgrounds
       GROUP BY
@@ -68,3 +70,31 @@ export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   },
 );
+
+export type Test = {
+  id: number;
+  userId: number;
+  universityName: string;
+  subjectName: string;
+};
+
+export const getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin =
+  cache(async () => {
+    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
+      Test[]
+    >`
+      SELECT
+      mentor_university_backgrounds.id,
+      mentor_university_backgrounds.user_id,
+      universities.name AS university_name,
+      subjects.name AS subject_name
+FROM
+mentor_university_backgrounds
+ INNER JOIN universities
+ON mentor_university_backgrounds.university_id = universities.id
+INNER JOIN subjects
+ON mentor_university_backgrounds.subject_id = subjects.id
+
+  `;
+    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
+  });
