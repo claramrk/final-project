@@ -1,6 +1,6 @@
 import { Sql } from 'postgres';
 
-const mockUserslist = [
+const mockMentorslist = [
   {
     email: 'john.doe@example.com',
     password_hash:
@@ -121,7 +121,7 @@ const mockUserslist = [
 ];
 
 export async function up(sql: Sql) {
-  for (const user of mockUserslist) {
+  for (const user of mockMentorslist) {
     await sql`
   INSERT INTO users (
     email, password_hash, firstname, lastname, pronouns, phone_number, birthdate, country_id,  max_capacity, role_id)
@@ -132,9 +132,9 @@ export async function up(sql: Sql) {
 }
 
 export async function down(sql: Sql) {
-  for (const user of mockUserslist) {
+  for (const user of mockMentorslist) {
     await sql`
-      DELETE FROM users WHERE user = ${user.email}
+      DELETE FROM users WHERE email = ${user.email}
 `;
   }
 }

@@ -5,14 +5,14 @@ export type UserAll = {
   id: number;
   email: string;
   passwordHash: string;
-  roleId: number | null;
   firstname: string | null;
   lastname: string | null;
   pronouns: string | null;
-  phoneNumber: number | null;
+  phoneNumber: string | null;
   birthdate: Date | null;
   countryId: string | null;
   photo: string | null;
+  roleId: number | null;
   lastActivity: Date | null;
   lastUpdate: Date | null;
   pauseUntil: Date | null;
@@ -47,7 +47,7 @@ export type UserAllWithMatching = {
   firstname: string | null;
   lastname: string | null;
   pronouns: string | null;
-  phoneNumber: number | null;
+  phoneNumber: string | null;
   birthdate: Date | null;
   countryId: string | null;
   photo: string | null;
@@ -87,11 +87,11 @@ export async function up(sql: Sql) {
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     pronouns VARCHAR(255),
-    phone_number integer ,
+    phone_number bigint ,
     birthdate TIMESTAMP,
-    country_id varchar(10)  REFERENCES countries(id),
+    country_id varchar(10)  REFERENCES countries(id) ON DELETE SET NULL,
     photo VARCHAR(255),
-    role_id integer REFERENCES roles(id),
+    role_id integer REFERENCES roles(id) ON DELETE SET NULL,
     last_activity TIMESTAMP ,
     last_update TIMESTAMP,
     pause_until TIMESTAMP,

@@ -38,7 +38,7 @@ export const getUserByEmail = cache(async (email: string) => {
 });
 
 export const getAllUsers = cache(async () => {
-  const [users] = await sql<UserAll[]>`
+  const users = await sql<UserAll[]>`
     SELECT
       *
     FROM
@@ -172,7 +172,20 @@ export const getUserWithMatchingInfoByIDInArray = cache(async () => {
   return usersMatchings;
 });
 
-export type Test = { usersId: number; maxCapacity: number | null; countryName: string; roleName: string; uniBgId: number; universityId: number; subjectId: number; studylevel: string; uniBgAttendanceType: string; universityName: string; subjectName: string; subjectDiscipline: string; };
+export type Test = {
+  usersId: number;
+  maxCapacity: number | null;
+  countryName: string;
+  roleName: string;
+  uniBgId: number;
+  universityId: number | null;
+  subjectId: number | null;
+  studylevel: string;
+  uniBgAttendanceType: string;
+  universityName: string;
+  subjectName: string;
+  subjectDiscipline: string;
+};
 
 export const getUserWithMatchingInfoByIDInArrayWithUniAndSubject = cache(
   async () => {

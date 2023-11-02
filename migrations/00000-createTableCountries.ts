@@ -8,7 +8,7 @@ export type Country = {
 export async function up(sql: Sql) {
   await sql`
   CREATE TABLE countries (
-    id varchar (10) PRIMARY KEY NOT NULL,
+    id varchar (100) PRIMARY KEY NOT NULL,
       name varchar(255)  NOT NULL
     );
   `;
