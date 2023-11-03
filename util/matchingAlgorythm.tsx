@@ -3,16 +3,12 @@ import {
   getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject,
 } from '../database/users';
 
-export type Props = {
-  email: string;
-};
-
-export default async function MatchingAlgorythm(props: Props) {
+export default async function getTopThreeMentors(email: string) {
   // create joined list of accepted mentors with their universities, subjects, degree level (joined from mentor_backgrounds), and origin, max_capcity (directly from users), and ?
 
   const userWithUniversityApplication =
     await getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject(
-      'jane.smith@example.com',
+      email ? email : 'steven.jones@example.com',
     );
 
   const userUniversityApplication =
