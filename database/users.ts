@@ -264,11 +264,7 @@ INNER JOIN roles ON roles.id = users.role_id
   return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
 });
 
-export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
-  usersId: number;
-  roleId: number | null;
-  usersMaxCapacity: number | null;
-  countryId: string | null;
+export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = { usersId: number; usersRoleId: number | null; usersCountryId: string | null; usersMaxCapacity: number | null;
   userMentorUniversityBackgrounds: MentorUniversityBackground[] | null;
 };
 
@@ -279,9 +275,9 @@ export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
     >`
       SELECT
 users.id AS users_id,
-users.role_id,
+users.role_id AS users_role_id,
+users.country_id AS users_country_id,
 users.max_capacity AS users_max_capacity,
-users.country_id,
 (
   SELECT
     json_agg (
@@ -303,11 +299,7 @@ users.id
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
-export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
-  usersId: number;
-  countryId: string | null;
-  userMenteeUniversityApplications: MenteeTargetUniversitySubject[] | null;
-};
+export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = { usersId: number; usersRoleId: number | null; usersCountryId: string | null; userMenteeUniversityApplications: MenteeTargetUniversitySubject[] | null; };
 
 export const getUsersWithMenteeUniversityApplicationsbyUserIDWithUniAndSubject =
   cache(async () => {
@@ -316,7 +308,8 @@ export const getUsersWithMenteeUniversityApplicationsbyUserIDWithUniAndSubject =
     >`
       SELECT
 users.id AS users_id,
-users.country_id,
+users.role_id AS users_role_id,
+users.country_id AS users_country_id,
 (
   SELECT
     json_agg (
