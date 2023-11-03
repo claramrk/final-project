@@ -1,4 +1,4 @@
-import MatchingAlgorythm from '../util/algorythm/MatchingAlgorythm';
+import MatchingAlgorythm from '../util/matchingAlgorythm';
 
 const navigation = [
   { name: 'Product', href: '#' },

@@ -264,7 +264,12 @@ INNER JOIN roles ON roles.id = users.role_id
   return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
 });
 
-export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = { usersId: number; usersRoleId: number | null; usersCountryId: string | null; usersMaxCapacity: number | null;
+export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
+  usersId: number;
+  usersRoleId: number | null;
+  usersCountryId: string | null;
+  usersMaxCapacity: number | null;
+  usersPauseUntil: Date | null;
   userMentorUniversityBackgrounds: MentorUniversityBackground[] | null;
 };
 
@@ -278,6 +283,7 @@ users.id AS users_id,
 users.role_id AS users_role_id,
 users.country_id AS users_country_id,
 users.max_capacity AS users_max_capacity,
+users.pause_until AS users_pause_until,
 (
   SELECT
     json_agg (
@@ -299,17 +305,26 @@ users.id
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
-export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = { usersId: number; usersRoleId: number | null; usersCountryId: string | null; userMenteeUniversityApplications: MenteeTargetUniversitySubject[] | null; };
+export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
+  usersId: number;
+  usersRoleId: number | null;
+  usersCountryId: string | null;
+  usersPauseUntil: Date | null;
+  userMenteeUniversityApplications: MenteeTargetUniversitySubject[] | null;
+};
 
-export const getUsersWithMenteeUniversityApplicationsbyUserIDWithUniAndSubject =
-  cache(async () => {
-    const menteeUniversityApplicationsbyUserIDWithUniAndSubject = await sql<
+export const getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject =
+  cache(async (email: string) => {
+    const [menteeUniversityApplicationsbyUserIDWithUniAndSubject] = await sql<
       menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
 users.id AS users_id,
+users.email AS users_email,
+
 users.role_id AS users_role_id,
 users.country_id AS users_country_id,
+users.pause_until AS users_pause_until,
 (
   SELECT
     json_agg (
@@ -325,8 +340,8 @@ FROM
 users
  INNER JOIN mentee_university_applications
 ON mentee_university_applications.user_id = users.id
-GROUP BY
-users.id
+WHERE
+email = ${email.toLowerCase()}
   `;
     return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
   });
