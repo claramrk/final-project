@@ -3,7 +3,7 @@ import {
   createMenteeTargetUniversitySubject,
   getMenteeTargetUniversitySubjectbyUserID,
 } from '../../../../database/menteeTargetUniversitySubject';
-import { MenteeTargetUniversitySubject } from '../../../../migrations/00006-createTableMenteeUniversityWishes';
+import { MenteeTargetUniversitySubject } from '../../../../migrations/00006-createTableMenteeUniversityApplications';
 
 export type MenteeTargetUniversitySubjectBodyPost =
   | {

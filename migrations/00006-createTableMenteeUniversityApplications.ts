@@ -14,7 +14,7 @@ export type MenteeTargetUniversitySubject = {
 
 export async function up(sql: Sql) {
   await sql`
-    CREATE TABLE mentee_university_wishes(
+    CREATE TABLE mentee_university_applications(
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id integer NOT NULL REFERENCES users(id),
     studylevel integer NOT NULL,
@@ -29,6 +29,6 @@ export async function up(sql: Sql) {
 
 export async function down(sql: Sql) {
   await sql`
-DROP TABLE mentee_university_wishes
+DROP TABLE mentee_university_applications
 `;
 }

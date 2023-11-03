@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { MenteeTargetUniversitySubject } from '../migrations/00006-createTableMenteeUniversityWishes';
+import { MenteeTargetUniversitySubject } from '../migrations/00006-createTableMenteeUniversityApplications';
 import { sql } from './connect';
 
 export const createMenteeTargetUniversitySubject = cache(
@@ -14,7 +14,7 @@ export const createMenteeTargetUniversitySubject = cache(
     thirdSubjectId: number,
   ) => {
     const [user] = await sql<MenteeTargetUniversitySubject[]>`
-      INSERT INTO mentee_university_wishes
+      INSERT INTO mentee_university_applications
         (user_id, studylevel, first_university_id, first_subject_id, second_university_id, second_subject_id, third_university_id, third_subject_id)
       VALUES
         (${Number(userId)}, ${Number(studylevel)}, ${Number(
@@ -35,7 +35,7 @@ export const getMenteeTargetUniversitySubjectbyUserID = cache(
     const menteeTargetUniversitySubjectUsers = await sql<
       MenteeTargetUniversitySubject[]
     >`
-    SELECT * FROM mentee_university_wishes
+    SELECT * FROM mentee_university_applications
     WHERE
     user_id = ${userId}
 
