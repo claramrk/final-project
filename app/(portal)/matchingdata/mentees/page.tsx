@@ -41,8 +41,8 @@ export default async function menteeMatchingData() {
           Indicate the universities & subjects you want ot apply for!
         </h3>
         <p>
-          The following information will also be used to match your mentor, so
-          we encourage you to give your submission prior thought! In case you do
+          The following information will be used to match your mentor, so we
+          encourage you to give your submission prior thought! In case you do
           not know some answers yet, just provide the information that is the
           most accurate.
         </p>
