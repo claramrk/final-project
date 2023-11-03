@@ -142,10 +142,12 @@ export default async function MatchingAlgorythm(props: Props) {
 
     return matchingArray;
   });
-  console.log(matchingArray);
 
   const sortedArray = matchingArray.sort(function (a, b) {
     return Number(a.finalSum) - Number(b.finalSum);
   });
-  console.log(sortedArray);
+
+  const topThreeMentors = sortedArray.slice(-3);
+  console.log(topThreeMentors);
+  return topThreeMentors;
 }

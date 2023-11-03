@@ -24,11 +24,18 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
     await router.refresh();
   }
 
+  async function generateMentor(email) {
+    await await router.push(`/dashboard/mentees`);
+
+    await router.refresh();
+  }
+
   return (
     <form>
       <button className="btn max-w-xs		" formAction={handleCompleteRegistration}>
         Complete your registration as a mentee
       </button>
+      <button className="btn max-w-xs		" formAction={}></button>
     </form>
   );
 }
