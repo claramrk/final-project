@@ -1,5 +1,4 @@
 import { cache } from 'react';
-import { University } from '../migrations/00002-createTableUniversities';
 import {
   MentorUniversityBackground,
   MentorUniversityBackgroundWithUniversity,

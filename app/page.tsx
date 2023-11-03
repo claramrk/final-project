@@ -1,3 +1,5 @@
+import MatchingAlgorythm from '../util/algorythm/MatchingAlgorythm';
+
 const navigation = [
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
@@ -5,7 +7,9 @@ const navigation = [
   { name: 'Company', href: '#' },
 ];
 
-export default function homePage() {
+export default async function homePage() {
+  const Matching = await MatchingAlgorythm();
+
   return (
     <div className="relative isolate px-6 lg:px-8">
       <div

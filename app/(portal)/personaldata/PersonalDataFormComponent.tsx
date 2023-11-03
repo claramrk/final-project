@@ -38,7 +38,6 @@ export default function PersonalDataFormComponent(props: Props) {
     router.refresh();
   }
 
-  console.log(firstnameInput);
   return (
     <div id="usersSection" className="card blurry">
       <h2 className="text-2xl">Personal Data Section</h2>

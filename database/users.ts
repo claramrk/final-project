@@ -6,6 +6,8 @@ import {
   UserIdEmailPassword,
   UserIdEmailRole,
 } from '../migrations/00004-createTableUsers';
+import { MentorUniversityBackground } from '../migrations/00005-createTableMentorUniversityBackgrounds';
+import { MenteeTargetUniversitySubject } from '../migrations/00006-createTableMenteeUniversityApplications';
 import { sql } from './connect';
 
 export const createUser = cache(
@@ -172,39 +174,35 @@ export const getUserWithMatchingInfoByIDInArray = cache(async () => {
   return usersMatchings;
 });
 
-export type Test = {
+export type mentorUniversityBackgroundbyUserIDWithUniAndSubject = {
   usersId: number;
-  maxCapacity: number | null;
-  countryName: string;
-  roleName: string;
+  usersMaxCapacity: number | null;
+  usersOriginCountryId: string;
+  rolesRoleName: string;
   uniBgId: number;
-  universityId: number | null;
-  subjectId: number | null;
-  studylevel: string;
+  uniBgUniversityId: number | null;
+  uniBgSubjectId: number | null;
+  uniBgStudylevelId: string;
   uniBgAttendanceType: string;
-  universityName: string;
-  subjectName: string;
-  subjectDiscipline: string;
+  uniBgSubjectDiscipline: string;
 };
 
-export const getUserWithMatchingInfoByIDInArrayWithUniAndSubject = cache(
+export const getMentorUniversityBackgroundWithUserInoUniAndSubject = cache(
   async () => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      Test[]
+      mentorUniversityBackgroundbyUserIDWithUniAndSubject[]
     >`
       SELECT
 users.id AS users_id,
-users.max_capacity,
-countries.name AS country_name,
-roles.name AS role_name,
+users.max_capacity AS users_max_capacity,
+countries.id AS users_origin_country_id,
+roles.name AS roles_role_name,
 mentor_university_backgrounds.id AS uni_bg_id,
-mentor_university_backgrounds.university_id,
-mentor_university_backgrounds.subject_id,
-mentor_university_backgrounds.studylevel,
+mentor_university_backgrounds.university_id AS uni_bg_university_id,
+mentor_university_backgrounds.subject_id AS uni_bg_subject_id,
+mentor_university_backgrounds.studylevel AS uni_bg_studylevel_id,
 mentor_university_backgrounds.attendance_type AS uni_bg_attendance_type,
-universities.name AS university_name,
-subjects.name AS subject_name,
-subjects.discipline AS subject_discipline
+subjects.discipline AS uni_bg_subject_discipline
 
 FROM
 users
@@ -215,8 +213,127 @@ INNER JOIN roles ON roles.id = users.role_id
 INNER JOIN universities ON universities.id = mentor_university_backgrounds.university_id
 INNER JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
 
-
   `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   },
 );
+
+export type menteeUniversityApplicationsbyUserIDWithUniAndSubject = {
+  usersId: number;
+  roleId: number | null;
+  usersOriginCountryId: string;
+  rolesRoleName: string;
+  uniAppStudylevelId: number;
+  uniAppFirstUniversityId: number;
+  uniAppFirstSubjectId: number;
+  uniAppSecondUniversityId: number;
+  uniAppSecondSubjectId: number;
+  uniAppThirdUniversityId: number;
+  uniAppThirdSubjectId: number;
+};
+
+export const getMenteeUniversityApplicationsWithUserInfo = cache(async () => {
+  const menteeUniversityApplicationsbyUserIDWithUniAndSubject = await sql<
+    menteeUniversityApplicationsbyUserIDWithUniAndSubject[]
+  >`
+      SELECT
+users.id AS users_id,
+users.role_id AS role_id,
+countries.id AS users_origin_country_id,
+roles.name AS roles_role_name,
+mentee_university_applications.studylevel AS uni_app_studylevel_id,
+mentee_university_applications.first_university_id AS uni_app_first_university_id,
+mentee_university_applications.first_subject_id AS uni_app_first_subject_id,
+mentee_university_applications.second_university_id AS uni_app_second_university_id,
+mentee_university_applications.second_subject_id AS uni_app_second_subject_id,
+mentee_university_applications.third_university_id AS uni_app_third_university_id,
+mentee_university_applications.third_subject_id AS uni_app_third_subject_id
+
+FROM
+users
+ INNER JOIN mentee_university_applications
+ON mentee_university_applications.user_id = users.id
+INNER JOIN countries ON countries.id = users.country_id
+INNER JOIN roles ON roles.id = users.role_id
+
+
+
+
+
+  `;
+  return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
+});
+
+export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
+  usersId: number;
+  roleId: number | null;
+  usersMaxCapacity: number | null;
+  countryId: string | null;
+  userMentorUniversityBackgrounds: MentorUniversityBackground[] | null;
+};
+
+export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
+  cache(async () => {
+    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
+      mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
+    >`
+      SELECT
+users.id AS users_id,
+users.role_id,
+users.max_capacity AS users_max_capacity,
+users.country_id,
+(
+  SELECT
+    json_agg (
+      mentor_university_backgrounds.*
+
+    )
+  FROM
+    mentor_university_backgrounds
+  WHERE
+  mentor_university_backgrounds.user_id = users.id
+) AS user_mentor_university_backgrounds
+FROM
+users
+ INNER JOIN mentor_university_backgrounds
+ON mentor_university_backgrounds.user_id = users.id
+GROUP BY
+users.id
+  `;
+    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
+  });
+
+export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
+  usersId: number;
+  countryId: string | null;
+  userMenteeUniversityApplications: MenteeTargetUniversitySubject[] | null;
+};
+
+export const getUsersWithMenteeUniversityApplicationsbyUserIDWithUniAndSubject =
+  cache(async () => {
+    const menteeUniversityApplicationsbyUserIDWithUniAndSubject = await sql<
+      menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
+    >`
+      SELECT
+users.id AS users_id,
+users.country_id,
+(
+  SELECT
+    json_agg (
+      mentee_university_applications.*
+
+    )
+  FROM
+    mentee_university_applications
+  WHERE
+  mentee_university_applications.user_id = users.id
+) AS user_mentee_university_applications
+FROM
+users
+ INNER JOIN mentee_university_applications
+ON mentee_university_applications.user_id = users.id
+GROUP BY
+users.id
+  `;
+    return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
+  });
