@@ -19,10 +19,6 @@ export default async function matchingOverviewMentees() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  const userTargets = await getMenteeTargetUniversitySubjectbyUserID(
-    Number(currentUser?.id),
-  );
-
   if (!currentUser) redirect('/signIn?returnTo=/signUp');
 
   const currentUserEmail = currentUser.email;
@@ -48,7 +44,6 @@ export default async function matchingOverviewMentees() {
           </p>
           <div className="card sub-blurry">
             <table className="table table-fixed">
-              {/* head */}
               <thead>
                 <tr>
                   <th>Mentor name</th>
@@ -86,12 +81,17 @@ export default async function matchingOverviewMentees() {
                       compareByStudylevel,
                     );
 
+                  const uniBackgroundtoMapOnlyIndex0 =
+                    uniBackgroundtoMap?.slice(0, 1);
+
                   return (
                     <div
-                      id="exampleMentorUniversityBackground"
                       key={`uniqueID-${mentorUserDataWithUniInfoObjectROW.id}`}
                     >
-                      <tr>
+                      <tr
+                        id="exampleMentorUniversityBackground"
+                        key={`uniqueID-${mentorUserDataWithUniInfoObjectROW.id}`}
+                      >
                         <td rowSpan={`${mentorUniBackgroundArray.length + 1}`}>
                           <div className="flex items-center space-x-3">
                             <div className="avatar mr-4">
@@ -115,46 +115,46 @@ export default async function matchingOverviewMentees() {
                             </div>
                           </div>
                         </td>
-
-                        {uniBackgroundtoMap?.map((e) => {
-                          const studylevelName = getDegreeTypeById(
-                            Number(e.studylevel),
-                          );
-                          const attendancetypeName = getAttendanceTypeById(
-                            Number(e.attendanceType),
-                          );
-
-                          return (
-                            <tr key={`uniqueID-${e.id}`}>
-                              <td>
-                                {e.universities[0].name}
-                                <br />
-
-                                <span className="badge badge-ghost badge-sm">
-                                  {e.universities[0].countryId}
-                                </span>
-                              </td>
-                              <td>
-                                {e.subjects[0].name.length > 60
-                                  ? `${e.subjects[0].name.substring(0, 60)}...`
-                                  : e.subjects[0].name}
-                                <br />
-
-                                <span className="badge badge-ghost badge-sm">
-                                  {e.subjects[0].discipline}
-                                </span>
-                              </td>
-                              <td>
-                                {studylevelName.name}
-                                <br />
-                                <span className="badge badge-ghost badge-sm">
-                                  {attendancetypeName.name}
-                                </span>
-                              </td>
-                            </tr>
-                          );
-                        })}
                       </tr>
+
+                      {uniBackgroundtoMap?.map((e) => {
+                        const studylevelName = getDegreeTypeById(
+                          Number(e.studylevel),
+                        );
+                        const attendancetypeName = getAttendanceTypeById(
+                          Number(e.attendanceType),
+                        );
+
+                        return (
+                          <tr key={`uniqueID-${e.id}`}>
+                            <td>
+                              {e.universities[0].name}
+                              <br />
+
+                              <span className="badge badge-ghost badge-sm">
+                                {e.universities[0].countryId}
+                              </span>
+                            </td>
+                            <td>
+                              {e.subjects[0].name.length > 60
+                                ? `${e.subjects[0].name.substring(0, 60)}...`
+                                : e.subjects[0].name}
+                              <br />
+
+                              <span className="badge badge-ghost badge-sm">
+                                {e.subjects[0].discipline}
+                              </span>
+                            </td>
+                            <td>
+                              {studylevelName.name}
+                              <br />
+                              <span className="badge badge-ghost badge-sm">
+                                {attendancetypeName.name}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </div>
                   );
                 })}
@@ -170,39 +170,34 @@ export default async function matchingOverviewMentees() {
           >
             <h3 className="text-xl">Send your Request</h3>
 
-            <table className="table">
-              <thead>
-                <tr>
-                  <td>Select</td>
-                  <td>Name</td>
-                </tr>
-              </thead>
-              <tbody>
-                {topThreeMentorsList.map(async (d) => {
-                  const mentorUserDataWithUniInfoObject =
-                    await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW(
-                      d.mentorUserId,
-                    );
-                  const mentorUserDataWithUniInfoObjectROW =
-                    await mentorUserDataWithUniInfoObject[0].rowToJson;
+            {topThreeMentorsList.map(async (d) => {
+              const mentorUserDataWithUniInfoObject =
+                await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW(
+                  d.mentorUserId,
+                );
+              const mentorUserDataWithUniInfoObjectROW =
+                await mentorUserDataWithUniInfoObject[0].rowToJson;
 
-                  return (
-                    <div
-                      key={`uniqueID-${mentorUserDataWithUniInfoObjectROW.id}`}
-                    >
-                      <RequestMentorTableComponent
-                        mentorUserDataWithUniInfoObjectROWFirstName={
-                          mentorUserDataWithUniInfoObjectROW.firstname
-                        }
-                        mentorUserDataWithUniInfoObjectROWId={
-                          mentorUserDataWithUniInfoObjectROW.id
-                        }
-                      />
+              return (
+                <div key={`uniqueID-${mentorUserDataWithUniInfoObjectROW.id}`}>
+                  <RequestMentorTableComponent
+                    mentorUserDataWithUniInfoObjectROWFirstName={
+                      mentorUserDataWithUniInfoObjectROW.firstname
+                    }
+                    mentorUserDataWithUniInfoObjectROWId={
+                      mentorUserDataWithUniInfoObjectROW.id
+                    }
+                  />
+
+                  <div>
+                    <div className="font-bold">
+                      {mentorUserDataWithUniInfoObjectROW.firstname}
                     </div>
-                  );
-                })}
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              );
+            })}
+
             <SendRequestComponent />
           </div>
         </div>
