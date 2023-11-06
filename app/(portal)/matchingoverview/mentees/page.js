@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getAttendanceTypeById } from '../../../../database/attendancetype';
 import { getDegreeTypeById } from '../../../../database/degreetype';
 import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/menteeTargetUniversitySubject';
 import {
@@ -88,11 +89,12 @@ export default async function matchingOverviewMentees() {
               {/* head */}
               <thead>
                 <tr>
+                  <th>Select</th>
+
                   <th>Mentor name</th>
                   <th>University & Degreetype</th>
                   <th>Subject & Discipline</th>
                   <th>Attendance Type</th>
-                  <th>More Info</th>
                 </tr>
               </thead>
               <tbody>
@@ -108,7 +110,21 @@ export default async function matchingOverviewMentees() {
                     await mentorUserDataWithUniInfoObjectROW.mentorUniversityBackgrounds;
 
                   const mentorUniBackgroundArrayWithoutIndex0 =
-                    await mentorUniBackgroundArray?.slice(1);
+                    await mentorUniBackgroundArray;
+
+                  const studylevelId = await mentorUserDataWithUniInfoObjectROW
+                    .mentorUniversityBackgrounds[0].studylevel;
+
+                  // A compare function that compares the age property of two objects
+                  function compareByStudylevel(a, b) {
+                    return a.studylevel - b.studylevel;
+                  }
+
+                  // Sort the array by age in ascending order
+                  const uniBackgroundtoMap =
+                    mentorUniBackgroundArrayWithoutIndex0.sort(
+                      compareByStudylevel,
+                    );
 
                   return (
                     <div
@@ -116,7 +132,15 @@ export default async function matchingOverviewMentees() {
                       key={`uniqueID-${mentorUserDataWithUniInfoObjectROW.id}`}
                     >
                       <tr>
-                        <td>
+                        <td rowSpan={`${mentorUniBackgroundArray.length + 1}`}>
+                          <br />
+                          <div className="form-control">
+                            <label className="label cursor-pointer">
+                              <input type="checkbox" className="checkbox" />
+                            </label>
+                          </div>
+                        </td>
+                        <td rowSpan={`${mentorUniBackgroundArray.length + 1}`}>
                           <div className="flex items-center space-x-3">
                             <div className="avatar mr-4">
                               <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -140,80 +164,45 @@ export default async function matchingOverviewMentees() {
                           </div>
                         </td>
 
-                        <td>
-                          {
-                            mentorUserDataWithUniInfoObjectROW
-                              .mentorUniversityBackgrounds[0].universities[0]
-                              .name
-                          }
-                        </td>
-                        <td>
-                          {
-                            mentorUserDataWithUniInfoObjectROW
-                              .mentorUniversityBackgrounds[0].subjects[0].name
-                          }
-                          <br />
+                        {uniBackgroundtoMap?.map((e) => {
+                          const studylevelName = getDegreeTypeById(
+                            Number(e.studylevel),
+                          );
+                          const attendancetypeName = getAttendanceTypeById(
+                            Number(e.attendanceType),
+                          );
 
-                          <span className="badge badge-ghost badge-sm">
-                            {
-                              mentorUserDataWithUniInfoObjectROW
-                                .mentorUniversityBackgrounds[0].subjects[0]
-                                .discipline
-                            }
-                          </span>
-                        </td>
-                        <td>
-                          {
-                            await mentorUserDataWithUniInfoObjectROW
-                              .mentorUniversityBackgrounds[0].studylevel
-                          }
-                          <br />
-                          <span className="badge badge-ghost badge-sm">
-                            {
-                              mentorUserDataWithUniInfoObjectROW
-                                .mentorUniversityBackgrounds[0].attendanceType
-                            }
-                          </span>
-                        </td>
+                          return (
+                            <tr key={`uniqueID-${e.id}`}>
+                              <td>
+                                {e.universities[0].name}
+                                <br />
 
-                        <td>
-                          <button className="btn btn-ghost btn-xs">
-                            details
-                          </button>
-                        </td>
+                                <span className="badge badge-ghost badge-sm">
+                                  {e.universities[0].countryId}
+                                </span>
+                              </td>
+                              <td>
+                                {e.subjects[0].name.length > 60
+                                  ? `${e.subjects[0].name.substring(0, 60)}...`
+                                  : e.subjects[0].name}
+                                <br />
+
+                                <span className="badge badge-ghost badge-sm">
+                                  {e.subjects[0].discipline}
+                                </span>
+                              </td>
+                              <td>
+                                {studylevelName.name}
+                                <br />
+                                <span className="badge badge-ghost badge-sm">
+                                  {attendancetypeName.name}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tr>
-
-                      {mentorUniBackgroundArrayWithoutIndex0?.map((e) => {
-                        return (
-                          <tr key={`uniqueID-${e.id}`}>
-                            <td>
-                              <div className="flex items-center space-x-3">
-                                <div className="avatar"></div>
-                                <div>
-                                  <div className="font-bold"></div>
-                                  <div className="text-sm opacity-50"></div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>{e.universities[0].name}</td>
-                            <td>
-                              {e.subjects[0].name}
-                              <br />
-
-                              <span className="badge badge-ghost badge-sm">
-                                {e.subjects[0].discipline}
-                              </span>
-                            </td>
-                            <td>
-                              {e.studylevel}
-                              <br />
-                              <span className="badge badge-ghost badge-sm">
-                                {e.attendanceType}
-                              </span>
-                            </td>
-                          </tr>
-                        );
-                      })}
                     </div>
                   );
                 })}
@@ -226,28 +215,6 @@ export default async function matchingOverviewMentees() {
 
             // filter matching list here. can only be one at a time
           >
-            <p
-              id="exampleMentorRequest"
-              // stretch: profile is clickable and you get to a page showing more about this person
-              className="card sub-blurry"
-            >
-              Mentor Suggestion #1: Mentorphoto | Mentorname | Mentor uni &
-              subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-              Mentor uni & subject & studylevel 3| Further subject support
-              indications
-            </p>
-            <p id="exampleMentorRequest" className="card sub-blurry">
-              Mentor Suggestion #2: Mentorphoto | Mentorname | Mentor uni &
-              subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-              Mentor uni & subject & studylevel 3| Further subject support
-              indications
-            </p>
-            <p id="exampleMentorRequest" className="card sub-blurry">
-              Mentor Suggestion #3: Mentorphoto | Mentorname | Mentor uni &
-              subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-              Mentor uni & subject & studylevel 3| Further subject support
-              indications
-            </p>
             <form className="card sub-blurry">
               <h3 className="text-xl">Send your Request</h3>
               <div className="card sub-blurry">

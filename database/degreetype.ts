@@ -1,12 +1,12 @@
 export const degreetype = [
-  { id: 1, name: 'Bachelors/undergraduate' },
+  { id: 1, name: 'Bachelors' },
   {
     id: 2,
-    name: 'Masters/postgraduate',
+    name: 'Masters',
   },
   {
     id: 3,
-    name: 'PhD/postgraduate',
+    name: 'PhD',
   },
 ];
 

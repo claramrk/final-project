@@ -1,13 +1,18 @@
 export const attendancetype = [
-  { id: 1, name: 'I was accepted to this degree yet did not attend' },
+  { id: 1, name: 'Accepted' },
   {
     id: 2,
 
-    name: 'I am currently attending this degree',
+    name: 'Attended',
   },
   {
     id: 3,
 
-    name: 'I completed this degree',
+    name: 'Completed',
   },
 ];
+
+export const getAttendanceTypeById = (id: number) => {
+  const attendanceRequest = attendancetype.find((element) => id === element.id);
+  return attendanceRequest;
+};
