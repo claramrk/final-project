@@ -9,3 +9,8 @@ export const degreetype = [
     name: 'PhD/postgraduate',
   },
 ];
+
+export const getDegreeTypeById = (id: number) => {
+  const degreeRequest = degreetype.find((element) => id === element.id);
+  return degreeRequest;
+};

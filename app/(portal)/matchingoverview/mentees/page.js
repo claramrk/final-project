@@ -1,19 +1,11 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getDegreeTypeById } from '../../../../database/degreetype';
 import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/menteeTargetUniversitySubject';
-import { getMentorMatchingInfobyUserID } from '../../../../database/mentorMatchingInfo';
 import {
-  getMentorUniversityBackgroundbyUserID,
-  getMentorUniversityBackgroundbyUserIDWithUniAndSubject,
-} from '../../../../database/mentorUniversityBackground';
-import { getUniversityById } from '../../../../database/universities';
-import {
-  getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
-  getUserById,
+  getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW,
   getUserBySessionToken,
-  getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
 } from '../../../../database/users';
-import { MentorUniversityBackground } from '../../../../migrations/00005-createTableMentorUniversityBackgrounds';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
 
 export default async function matchingOverviewMentees() {
@@ -91,16 +83,7 @@ export default async function matchingOverviewMentees() {
             available and that fit best to your university and subject
             indications.
           </p>
-          {topThreeMentorsList.map(async (d) => {
-            const mentorUserData = await getUserById(d.mentorUserId);
-            return (
-              <p key={`dataID-select-${d.mentorUserId}`}>
-                {mentorUserData?.id}
-              </p>
-            );
-          })}
-
-          <div className="overflow-x-auto">
+          <div className="card sub-blurry">
             <table className="table">
               {/* head */}
               <thead>
@@ -114,29 +97,25 @@ export default async function matchingOverviewMentees() {
               </thead>
               <tbody>
                 {topThreeMentorsList.map(async (d) => {
-                  const mentorUserData = await getUserById(d.mentorUserId);
-                  const mentorUserDataWithUniInfoArray =
-                    await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubject(
+                  const mentorUserDataWithUniInfoObject =
+                    await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW(
                       d.mentorUserId,
                     );
-                  const mentorUserDataWithUniInfoObject =
-                    mentorUserDataWithUniInfoArray[0];
-                  const mentorUniBackgroundArray =
-                    mentorUserDataWithUniInfoObject?.userMentorUniversityBackgrounds;
-                  const mentorUniBackgroundArrayWithoutIndex0 =
-                    mentorUniBackgroundArray?.slice(1);
-                  const mentorUniBackgroundObject =
-                    mentorUniBackgroundArray?.at(0);
+                  const mentorUserDataWithUniInfoObjectROW =
+                    await mentorUserDataWithUniInfoObject[0].rowToJson;
 
-                  console.log(mentorUniBackgroundArray);
+                  const mentorUniBackgroundArray =
+                    await mentorUserDataWithUniInfoObjectROW.mentorUniversityBackgrounds;
+
+                  const mentorUniBackgroundArrayWithoutIndex0 =
+                    await mentorUniBackgroundArray?.slice(1);
+
                   return (
                     <div
-                      key={`uniqueID-${mentorUserDataWithUniInfoObject?.usersId}`}
+                      id="exampleMentorUniversityBackground"
+                      key={`uniqueID-${mentorUserDataWithUniInfoObjectROW.id}`}
                     >
-                      <tr
-                        className="exampleMentorUniversityBackground"
-                        key={`uniqueID-${mentorUserDataWithUniInfoObject?.usersId}`}
-                      >
+                      <tr>
                         <td>
                           <div className="flex items-center space-x-3">
                             <div className="avatar mr-4">
@@ -149,13 +128,12 @@ export default async function matchingOverviewMentees() {
                             </div>
                             <div>
                               <div className="font-bold">
-                                {
-                                  mentorUserDataWithUniInfoObject?.usersFirstname
-                                }
+                                {mentorUserDataWithUniInfoObjectROW.firstname}
                               </div>
                               <div className="text-sm opacity-50">
                                 {
-                                  mentorUserDataWithUniInfoObject?.usersCountryId
+                                  mentorUserDataWithUniInfoObjectROW
+                                    .countries[0].name
                                 }
                               </div>
                             </div>
@@ -163,14 +141,40 @@ export default async function matchingOverviewMentees() {
                         </td>
 
                         <td>
-                          {mentorUniBackgroundObject.universityId}
+                          {
+                            mentorUserDataWithUniInfoObjectROW
+                              .mentorUniversityBackgrounds[0].universities[0]
+                              .name
+                          }
+                        </td>
+                        <td>
+                          {
+                            mentorUserDataWithUniInfoObjectROW
+                              .mentorUniversityBackgrounds[0].subjects[0].name
+                          }
                           <br />
+
                           <span className="badge badge-ghost badge-sm">
-                            {mentorUniBackgroundObject.studylevel}
+                            {
+                              mentorUserDataWithUniInfoObjectROW
+                                .mentorUniversityBackgrounds[0].subjects[0]
+                                .discipline
+                            }
                           </span>
                         </td>
-                        <td>{mentorUniBackgroundObject.subjectId}</td>
-                        <td>{mentorUniBackgroundObject.attendanceType}</td>
+                        <td>
+                          {
+                            await mentorUserDataWithUniInfoObjectROW
+                              .mentorUniversityBackgrounds[0].studylevel
+                          }
+                          <br />
+                          <span className="badge badge-ghost badge-sm">
+                            {
+                              mentorUserDataWithUniInfoObjectROW
+                                .mentorUniversityBackgrounds[0].attendanceType
+                            }
+                          </span>
+                        </td>
 
                         <td>
                           <button className="btn btn-ghost btn-xs">
@@ -191,15 +195,22 @@ export default async function matchingOverviewMentees() {
                                 </div>
                               </div>
                             </td>
+                            <td>{e.universities[0].name}</td>
                             <td>
-                              {e.universityId}
+                              {e.subjects[0].name}
                               <br />
+
                               <span className="badge badge-ghost badge-sm">
-                                {e.studylevel}
+                                {e.subjects[0].discipline}
                               </span>
                             </td>
-                            <td>{e.subjectId} </td>
-                            <td>{e.attendanceType}</td>
+                            <td>
+                              {e.studylevel}
+                              <br />
+                              <span className="badge badge-ghost badge-sm">
+                                {e.attendanceType}
+                              </span>
+                            </td>
                           </tr>
                         );
                       })}

@@ -394,3 +394,60 @@ users.id
   `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
+
+export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW =
+  cache(async (id: number) => {
+    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
+      SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
+    >`
+    WITH subjects as (
+      SELECT
+        subjects.*
+      FROM subjects
+      GROUP BY subjects.id
+      order by subjects.id
+  ),
+    universities as (
+      SELECT
+        universities.*
+      FROM universities
+      GROUP BY universities.id
+      order by universities.id
+  ), mentor_university_backgrounds AS (
+      SELECT
+        mentor_university_backgrounds.*,
+        json_agg(universities) as universities,
+        json_agg(subjects) as subjects
+
+      FROM mentor_university_backgrounds
+      LEFT JOIN universities ON universities.id = mentor_university_backgrounds.university_id
+      LEFT JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
+
+      GROUP BY mentor_university_backgrounds.id
+      order by mentor_university_backgrounds.id
+  ), countries as (
+    SELECT
+      countries.*
+    FROM countries
+), users AS (
+      SELECT
+        users.*,
+        json_agg(mentor_university_backgrounds) as mentor_university_backgrounds,
+        json_agg(countries) as countries
+
+      FROM users
+      LEFT JOIN countries ON countries.id = users.country_id
+      LEFT JOIN mentor_university_backgrounds ON mentor_university_backgrounds.user_id = users.id
+      WHERE users.id = ${id}
+      group by users.id
+      order by users.id
+
+  )
+
+  SELECT row_to_json(users)
+
+  FROM users;
+
+  `;
+    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
+  });
