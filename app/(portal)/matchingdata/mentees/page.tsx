@@ -4,14 +4,13 @@ import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/m
 import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
-import { getAllUsers, getUserBySessionToken } from '../../../../database/users';
+import { getUserBySessionToken } from '../../../../database/users';
 import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 
 export default async function menteeMatchingData() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
-  const allUsers = await getAllUsers();
   const roleAsId = await getRoleByName('complete mentee');
 
   // 1. Checking if the sessionToken cookie exists

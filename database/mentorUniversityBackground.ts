@@ -29,7 +29,6 @@ export const createMentorUniversityBackground = cache(
 
 export const getMentorUniversityBackgroundbyUserID = cache(
   async (userId: number) => {
-    // return roles;
     const mentorUniversityBackgroundUsers = await sql<
       MentorUniversityBackground[]
     >`
@@ -43,7 +42,7 @@ export const getMentorUniversityBackgroundbyUserID = cache(
 );
 
 export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
-  async () => {
+  async (userId: number) => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
       MentorUniversityBackgroundWithUniversity[]
     >`
@@ -62,8 +61,8 @@ export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
 
     FROM
     mentor_university_backgrounds
-      GROUP BY
-      mentor_university_backgrounds.id
+      WHERE
+      user_id = ${userId}
 
   `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;

@@ -144,6 +144,5 @@ export default async function getTopThreeMentors(email: string) {
   });
 
   const topThreeMentors = sortedArray.slice(-3);
-  console.log(topThreeMentors);
   return topThreeMentors;
 }
