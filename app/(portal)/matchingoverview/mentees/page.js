@@ -9,7 +9,6 @@ import {
 } from '../../../../database/users';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
 import RequestMentorTableComponent from './RequestMentorTableComponent';
-import SendRequestComponent from './SendRequestComponent';
 
 export default async function matchingOverviewMentees() {
   // 1. Checking if the sessionToken cookie exists
@@ -25,12 +24,39 @@ export default async function matchingOverviewMentees() {
 
   const topThreeMentorsList = await getTopThreeMentors(currentUserEmail);
 
-  const topThreeMentorsWithPersonalDataList = await Promise.all(
+  const topThreeMentorsWithPersonalDataList = Promise.all(
     topThreeMentorsList.map((element) => {
       const user = getUserById(element.mentorUserId);
       return user;
     }),
   );
+
+  async function getMentorUserDataWithUniInfoObject(id) {
+    const mentorUserDataWithUniInfoObject =
+      await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW(
+        id,
+      );
+    const mentorUserDataWithUniInfoObjectROW =
+      await mentorUserDataWithUniInfoObject[0].rowToJson;
+    return mentorUserDataWithUniInfoObjectROW;
+  }
+
+  async function getMentorUniBackgroundArray(
+    mentorUserDataWithUniInfoObjectROW,
+  ) {
+    const mentorUniBackgroundArray =
+      await mentorUserDataWithUniInfoObjectROW.mentorUniversityBackgrounds;
+
+    function compareByStudylevel(a, b) {
+      return a.studylevel - b.studylevel;
+    }
+
+    const uniBackgroundtoMap = await mentorUniBackgroundArray.sort(
+      compareByStudylevel,
+    );
+    console.log(uniBackgroundtoMap);
+    return await uniBackgroundtoMap;
+  }
 
   return (
     <main id="visibleMENTEES">
@@ -58,35 +84,12 @@ export default async function matchingOverviewMentees() {
               </thead>
               <tbody>
                 {topThreeMentorsList.map(async (d) => {
-                  const mentorUserDataWithUniInfoObject =
-                    await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW(
-                      d.mentorUserId,
-                    );
                   const mentorUserDataWithUniInfoObjectROW =
-                    await mentorUserDataWithUniInfoObject[0].rowToJson;
+                    await getMentorUserDataWithUniInfoObject(d.mentorUserId);
 
-                  const mentorUniBackgroundArray =
-                    await mentorUserDataWithUniInfoObjectROW.mentorUniversityBackgrounds;
-
-                  const mentorUniBackgroundArrayWithoutIndex0 =
-                    await mentorUniBackgroundArray;
-
-                  const studylevelId = await mentorUserDataWithUniInfoObjectROW
-                    .mentorUniversityBackgrounds[0].studylevel;
-
-                  // A compare function that compares the age property of two objects
-                  function compareByStudylevel(a, b) {
-                    return a.studylevel - b.studylevel;
-                  }
-
-                  // Sort the array by age in ascending order
-                  const uniBackgroundtoMap =
-                    mentorUniBackgroundArrayWithoutIndex0.sort(
-                      compareByStudylevel,
-                    );
-
-                  const uniBackgroundtoMapOnlyIndex0 =
-                    uniBackgroundtoMap?.slice(0, 1);
+                  const uniBackgroundtoMap = await getMentorUniBackgroundArray(
+                    mentorUserDataWithUniInfoObjectROW,
+                  );
 
                   return (
                     <tr
@@ -109,8 +112,8 @@ export default async function matchingOverviewMentees() {
                             </div>
                             <div className="text-sm opacity-50">
                               {
-                                mentorUserDataWithUniInfoObjectROW.countries[0]
-                                  .name
+                                // mentorUserDataWithUniInfoObjectROW.countries[0]
+                                // .name
                               }
                             </div>
                           </div>
@@ -126,7 +129,7 @@ export default async function matchingOverviewMentees() {
                             </tr>
                           </thead>
                           <tbody>
-                            {uniBackgroundtoMap?.map((e) => {
+                            {uniBackgroundtoMap.map((e) => {
                               const studylevelName = getDegreeTypeById(
                                 Number(e.studylevel),
                               );
@@ -146,10 +149,7 @@ export default async function matchingOverviewMentees() {
                                   </td>
                                   <td>
                                     {e.subjects[0].name.length > 60
-                                      ? `${e.subjects[0].name.substring(
-                                          0,
-                                          60,
-                                        )}...`
+                                      ? `${e.subjects[0].name.slice(0, 60)}...`
                                       : e.subjects[0].name}
                                     <br />
 
@@ -190,7 +190,6 @@ export default async function matchingOverviewMentees() {
                 await topThreeMentorsWithPersonalDataList
               }
             />
-            <SendRequestComponent />
           </div>
         </div>
       </div>

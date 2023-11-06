@@ -1,19 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function RequestMentorTableComponent(props) {
   const [mentorSelection, setMentorSelection] = useState(0);
   const [
-    topThreeMentorsWithPersonalDataList,
-    setTopThreeMentorsWithPersonalDataList,
+    topThreeMentorsWithPersonalDataListValue,
+    settopThreeMentorsWithPersonalDataListValue,
   ] = useState(props.topThreeMentorsWithPersonalDataList);
 
-  console.log(topThreeMentorsWithPersonalDataList);
+  useEffect(() => {
+    async function list() {
+      const response = await props.topThreeMentorsWithPersonalDataList;
+      topThreeMentorsWithPersonalDataListValue(response);
+    }
+    list().catch((error) => {
+      console.log(error);
+    });
+  }, [
+    topThreeMentorsWithPersonalDataListValue,
+    props.topThreeMentorsWithPersonalDataList,
+  ]);
 
   return (
-    <>
-      {topThreeMentorsWithPersonalDataList.map((d) => {
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
+      {topThreeMentorsWithPersonalDataListValue.map((d) => {
         return (
           <div key={`uniqueID-${d.id}`}>
             <div className="form-control">
@@ -36,6 +51,23 @@ export default function RequestMentorTableComponent(props) {
           </div>
         );
       })}
-    </>
+      <div className="card sub-blurry">
+        <label htmlFor="mentorMessage">
+          Please write a short message what to your selected mentor. Write
+          about: <span id="required">*</span>
+          <ul className="list-inside	list-disc	">
+            <li>where you need the most help with</li>
+            <li>where you are currently at </li>
+            <li>why you would like them to become your mentor:</li>
+          </ul>
+        </label>
+        <textarea
+          id="mentorMessage"
+          className="textarea textarea-bordered"
+          placeholder="Your message ..."
+        />
+      </div>
+      <button className="btn max-w-xs		">Send mentor request</button>
+    </form>
   );
 }

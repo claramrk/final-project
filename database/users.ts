@@ -395,10 +395,13 @@ users.id
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
+export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW =
+  { rowToJson: JsonAgg | null }[];
+
 export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW =
   cache(async (id: number) => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
+      SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW[]
     >`
     WITH subjects as (
       SELECT
