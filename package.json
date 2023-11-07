@@ -11,9 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
-    "axios": "^1.6.0",
     "bcrypt": "^5.1.1",
-    "cloudinary": "^1.41.0",
     "dotenv": "^16.3.1",
     "ley": "^0.8.1",
     "next": "13.5.5",

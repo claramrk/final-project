@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function RequestMentorTableComponent(props) {
+export default function RequestMentorFormComponent(props) {
   const [mentorSelection, setMentorSelection] = useState(0);
   const [
     topThreeMentorsWithPersonalDataListValue,
@@ -53,18 +53,21 @@ export default function RequestMentorTableComponent(props) {
             return (
               <div key={`uniqueID-${d.id}`}>
                 <div className="form-control">
-                  <label className="label cursor-pointer">
-                    <input
-                      className="radio"
-                      type="radio"
-                      name="requestMentor"
-                      value={mentorSelection}
-                      onChange={() => setMentorSelection(d.id)}
-                    />
+                  <label
+                    className="label cursor-pointer"
+                    htmlFor="requestMentor"
+                  >
+                    {' '}
+                    {d.firstname}
                   </label>
-                </div>
-                <div>
-                  <p className="font-bold">{d.firstname}</p>
+
+                  <input
+                    className="radio"
+                    type="radio"
+                    name="requestMentor"
+                    value={mentorSelection}
+                    onChange={() => setMentorSelection(d.id)}
+                  />
                 </div>
               </div>
             );

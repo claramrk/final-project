@@ -1,14 +1,12 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getAttendanceTypeById } from '../../../../database/attendancetype';
-import { getDegreeTypeById } from '../../../../database/degreetype';
 import {
   getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW,
   getUserById,
   getUserBySessionToken,
 } from '../../../../database/users';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
-import RequestMentorTableComponent from './RequestMentorTableComponent';
+import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function matchingOverviewMentees() {
   // 1. Checking if the sessionToken cookie exists
@@ -173,7 +171,7 @@ export default async function matchingOverviewMentees() {
           >
             <h3 className="text-xl">Send your Request</h3>
 
-            <RequestMentorTableComponent
+            <RequestMentorFormComponent
               topThreeMentorsWithPersonalDataList={
                 await topThreeMentorsWithPersonalDataList
               }

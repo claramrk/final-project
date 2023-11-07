@@ -20,6 +20,19 @@ export const createMatchRequest = cache(
     return match;
   },
 );
+
+export const getMatchesByMentorId = cache(async (id: number) => {
+  const matches = await sql<Match[]>`
+    SELECT
+     *
+    FROM
+      matches
+    WHERE
+      mentor_user_id = ${Number(id)}
+  `;
+  return matches;
+});
+
 /*
 
 export const getAllMatches = cache(async () => {
@@ -33,15 +46,6 @@ export const getAllMatches = cache(async () => {
   return matches;
 });
 
-export const getMatchById = cache(async (id: number) => {
-  const [match] = await sql<MatchAll[]>`
-    SELECT
-     *
-    FROM
-      matches
-    WHERE
-      id = ${id}
-  `;
-  return match;
-});
+
+
  */

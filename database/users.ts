@@ -454,3 +454,46 @@ export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjec
   `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
+
+export type SingleUserWithMenteeUniversityApplicationbyUserIDJSONROW = {
+  rowToJson: JsonAgg | null;
+}[];
+
+export const getSingleUserWithMenteeUniversityApplicationbyUserIDJSONROW =
+  cache(async (id: number) => {
+    const [singleUserWithMenteeUniversityApplicationbyUserIDJSONROW] =
+      await sql<SingleUserWithMenteeUniversityApplicationbyUserIDJSONROW[]>`
+    WITH mentee_university_applications AS (
+      SELECT
+        mentee_university_applications.*
+
+      FROM mentee_university_applications
+
+      GROUP BY  mentee_university_applications.id
+      order by  mentee_university_applications.id
+  ), countries as (
+    SELECT
+      countries.*
+    FROM countries
+), users AS (
+      SELECT
+        users.*,
+        json_agg(mentee_university_applications) as mentee_university_applications,
+        json_agg(countries) as countries
+
+      FROM users
+      LEFT JOIN countries ON countries.id = users.country_id
+      LEFT JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
+      WHERE users.id =${id}
+      group by users.id
+      order by users.id
+
+  )
+
+  SELECT row_to_json(users)
+
+  FROM users;
+
+  `;
+    return singleUserWithMenteeUniversityApplicationbyUserIDJSONROW;
+  });

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import {
   createMenteeTargetUniversitySubject,
   getMenteeTargetUniversitySubjectbyUserID,
@@ -13,6 +14,17 @@ export type MenteeTargetUniversitySubjectBodyPost =
       errors: { message: string | number }[];
     };
 
+const menteeTargetUniversitySubjectSchema = z.object({
+  userId: z.number(),
+  studylevel: z.number(),
+  firstUniversityId: z.number(),
+  firstSubjectId: z.number(),
+  secondUniversityId: z.number(),
+  secondSubjectId: z.number(),
+  thirdUniversityId: z.number(),
+  thirdSubjectId: z.number(),
+});
+
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<MenteeTargetUniversitySubjectBodyPost>> {
@@ -20,7 +32,7 @@ export async function POST(
   const body = await request.json();
 
   // Validate the user data
-  /* const result = registerSchema.safeParse(body);
+  const result = menteeTargetUniversitySubjectSchema.safeParse(body);
 
   if (!body.success) {
     return NextResponse.json(
@@ -30,7 +42,7 @@ export async function POST(
       },
     );
   }
-*/
+
   const newMenteeTargetUniversitySubject =
     await createMenteeTargetUniversitySubject(
       Number(body.userId),

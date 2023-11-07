@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { createMatchRequest } from '../../../../database/matches';
 import { Match } from '../../../../migrations/00007-createTableMatches';
 
@@ -10,6 +11,13 @@ export type MatchRequestBodyPost =
       errors: { message: string | number }[];
     };
 
+const matchRequestSchema = z.object({
+  menteeUserId: z.number(),
+  mentorUserId: z.number(),
+  messageToMentor: z.string(),
+  statusInternal: z.string(),
+});
+
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<MatchRequestBodyPost>> {
@@ -17,22 +25,20 @@ export async function POST(
   const body = await request.json();
 
   // Validate the user data
-  /* const result = registerSchema.safeParse(body);
+  const result = matchRequestSchema.safeParse(body);
 
-  if (!body.success) {
+  if (!result.success) {
     return NextResponse.json(
-      { errors: body.error.issues },
-      {
-        status: 400,
-      },
+      { errors: [{ message: 'error creating match' }] },
+      { status: 403 },
     );
   }
-*/
+
   const newMatchRequest = await createMatchRequest(
-    Number(body.menteeUserId),
-    Number(body.mentorUserId),
-    body.messageToMentor,
-    body.statusInternal,
+    result.data.menteeUserId,
+    result.data.mentorUserId,
+    result.data.messageToMentor,
+    result.data.statusInternal,
   );
 
   if (!newMatchRequest) {
