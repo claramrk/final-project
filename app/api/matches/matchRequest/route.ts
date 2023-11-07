@@ -17,7 +17,7 @@ export async function POST(
   const body = await request.json();
 
   // Validate the user data
-  /* const result = registerSchema.safeParse(body);*/
+  /* const result = registerSchema.safeParse(body);
 
   if (!body.success) {
     return NextResponse.json(
@@ -27,7 +27,7 @@ export async function POST(
       },
     );
   }
-
+*/
   const newMatchRequest = await createMatchRequest(
     Number(body.menteeUserId),
     Number(body.mentorUserId),

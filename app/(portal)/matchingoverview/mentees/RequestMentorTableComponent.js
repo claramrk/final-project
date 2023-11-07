@@ -26,11 +26,11 @@ export default function RequestMentorTableComponent(props) {
     props.topThreeMentorsWithPersonalDataList,
   ]);
 
-  async function handlePutPersonalData() {
-    const currentUserID = await Number(props.userdata.id);
+  async function handlePostMentorRequest() {
+    const currentUserID = Number(props.currentUser.id);
 
     await fetch('/../../api/matches/matchRequest', {
-      method: 'PUT',
+      method: 'POST',
       body: JSON.stringify({
         menteeUserId: currentUserID,
         mentorUserId: mentorSelection,
@@ -45,7 +45,7 @@ export default function RequestMentorTableComponent(props) {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await handlePutPersonalData();
+        await handlePostMentorRequest();
       }}
     >
       {topThreeMentorsWithPersonalDataListValue
@@ -59,9 +59,7 @@ export default function RequestMentorTableComponent(props) {
                       type="radio"
                       name="requestMentor"
                       value={mentorSelection}
-                      onChange={(event) =>
-                        setMentorSelection(event.currentTarget.value)
-                      }
+                      onChange={() => setMentorSelection(d.id)}
                     />
                   </label>
                 </div>
