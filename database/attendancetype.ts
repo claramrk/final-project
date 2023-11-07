@@ -3,7 +3,7 @@ export const attendancetype = [
   {
     id: 2,
 
-    name: 'Attended',
+    name: 'Attending',
   },
   {
     id: 3,

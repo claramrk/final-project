@@ -104,16 +104,13 @@ export default async function matchingOverviewMentees() {
                           {mentorUserDataWithUniInfoObjectROW.firstname}
                         </div>
                         <div className="text-sm opacity-50">
-                          {
-                            // mentorUserDataWithUniInfoObjectROW.countries[0]
-                            // .name
-                          }
+                          {mentorUserDataWithUniInfoObjectROW.countries[0].name}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div>
-                    <table>
+                    <table className="table">
                       <thead>
                         <tr>
                           <th>University & Degreetype</th>
@@ -133,6 +130,13 @@ export default async function matchingOverviewMentees() {
                           return (
                             <tr key={`uniqueID-${e.id}`}>
                               <td>
+                                {studylevelName.name}
+                                <br />
+                                <span className="badge badge-ghost badge-sm">
+                                  {attendancetypeName.name}
+                                </span>
+                              </td>
+                              <td>
                                 {e.universities[0].name}
                                 <br />
 
@@ -148,13 +152,6 @@ export default async function matchingOverviewMentees() {
 
                                 <span className="badge badge-ghost badge-sm">
                                   {e.subjects[0].discipline}
-                                </span>
-                              </td>
-                              <td>
-                                {studylevelName.name}
-                                <br />
-                                <span className="badge badge-ghost badge-sm">
-                                  {attendancetypeName.name}
                                 </span>
                               </td>
                             </tr>

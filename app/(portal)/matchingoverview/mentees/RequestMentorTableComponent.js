@@ -28,29 +28,31 @@ export default function RequestMentorTableComponent(props) {
         event.preventDefault();
       }}
     >
-      {topThreeMentorsWithPersonalDataListValue.map((d) => {
-        return (
-          <div key={`uniqueID-${d.id}`}>
-            <div className="form-control">
-              <label className="label cursor-pointer">
-                <input
-                  className="radio"
-                  type="radio"
-                  id={`mentor-${d.id}}`}
-                  name="requestMentor"
-                  value={mentorSelection}
-                  onChange={(event) =>
-                    setMentorSelection(event.currentTarget.value)
-                  }
-                />
-              </label>
-            </div>
-            <div>
-              <div className="font-bold">{d.firstname}</div>
-            </div>
-          </div>
-        );
-      })}
+      {topThreeMentorsWithPersonalDataListValue
+        ? topThreeMentorsWithPersonalDataListValue.map((d) => {
+            return (
+              <div key={`uniqueID-${d.id}`}>
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <input
+                      className="radio"
+                      type="radio"
+                      id={`mentor-${d.id}}`}
+                      name="requestMentor"
+                      value={mentorSelection}
+                      onChange={(event) =>
+                        setMentorSelection(event.currentTarget.value)
+                      }
+                    />
+                  </label>
+                </div>
+                <div>
+                  <div className="font-bold">{d.firstname}</div>
+                </div>
+              </div>
+            );
+          })
+        : ''}
       <div className="card sub-blurry">
         <label htmlFor="mentorMessage">
           Please write a short message what to your selected mentor. Write
