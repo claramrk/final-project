@@ -8,7 +8,6 @@ import {
   getUserBySessionToken,
 } from '../../../../database/users';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
-import RequestMentorTableComponent from './RequestMentorTableComponent';
 
 export default async function matchingOverviewMentees() {
   // 1. Checking if the sessionToken cookie exists
