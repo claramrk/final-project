@@ -13,7 +13,7 @@ export type MenteeTargetUniversitySubjectBodyPost =
   | {
       errors: { message: string | number }[];
     };
-
+/*
 const menteeTargetUniversitySubjectSchema = z.object({
   userId: z.number(),
   studylevel: z.number(),
@@ -23,7 +23,7 @@ const menteeTargetUniversitySubjectSchema = z.object({
   secondSubjectId: z.number(),
   thirdUniversityId: z.number(),
   thirdSubjectId: z.number(),
-});
+}); */
 
 export async function POST(
   request: NextRequest,
@@ -31,7 +31,7 @@ export async function POST(
   //  Get the user data from the request
   const body = await request.json();
 
-  // Validate the user data
+/*   // Validate the user data
   const result = menteeTargetUniversitySubjectSchema.safeParse(body);
 
   if (!body.success) {
@@ -41,7 +41,7 @@ export async function POST(
         status: 400,
       },
     );
-  }
+  } */
 
   const newMenteeTargetUniversitySubject =
     await createMenteeTargetUniversitySubject(
