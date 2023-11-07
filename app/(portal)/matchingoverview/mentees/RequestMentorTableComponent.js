@@ -1,18 +1,22 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function RequestMentorTableComponent(props) {
   const [mentorSelection, setMentorSelection] = useState(0);
   const [
     topThreeMentorsWithPersonalDataListValue,
-    settopThreeMentorsWithPersonalDataListValue,
+    setTopThreeMentorsWithPersonalDataListValue,
   ] = useState(props.topThreeMentorsWithPersonalDataList);
+  const [messageToMentor, setMessageToMentor] = useState('');
+
+  const router = useRouter();
 
   useEffect(() => {
     async function list() {
       const response = await props.topThreeMentorsWithPersonalDataList;
-      topThreeMentorsWithPersonalDataListValue(response);
+      setTopThreeMentorsWithPersonalDataListValue(response);
     }
     list().catch((error) => {
       console.log(error);
@@ -22,10 +26,26 @@ export default function RequestMentorTableComponent(props) {
     props.topThreeMentorsWithPersonalDataList,
   ]);
 
+  async function handlePutPersonalData() {
+    const currentUserID = await Number(props.userdata.id);
+
+    await fetch('/../../api/matches/matchRequest', {
+      method: 'PUT',
+      body: JSON.stringify({
+        menteeUserId: currentUserID,
+        mentorUserId: mentorSelection,
+        messageToMentor: messageToMentor,
+        statusInternal: 'Mentor requested - waiting for response',
+      }),
+    });
+    router.refresh();
+  }
+
   return (
     <form
-      onSubmit={(event) => {
+      onSubmit={async (event) => {
         event.preventDefault();
+        await handlePutPersonalData();
       }}
     >
       {topThreeMentorsWithPersonalDataListValue
@@ -37,7 +57,6 @@ export default function RequestMentorTableComponent(props) {
                     <input
                       className="radio"
                       type="radio"
-                      id={`mentor-${d.id}}`}
                       name="requestMentor"
                       value={mentorSelection}
                       onChange={(event) =>
@@ -68,6 +87,8 @@ export default function RequestMentorTableComponent(props) {
           id="mentorMessage"
           className="textarea textarea-bordered"
           placeholder="Your message ..."
+          value={messageToMentor}
+          onChange={(event) => setMessageToMentor(event.currentTarget.value)}
         />
       </div>
       <button className="btn max-w-xs		">Send mentor request</button>

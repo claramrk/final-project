@@ -4,8 +4,8 @@ import { University } from './00002-createTableUniversities';
 export type MentorUniversityBackground = {
   id: number;
   userId: number;
-  studylevel: string;
-  attendanceType: string;
+  studylevel: number;
+  attendanceType: number;
   universityId: number | null;
   subjectId: number | null;
 };
@@ -22,8 +22,8 @@ export async function up(sql: Sql) {
     CREATE TABLE  mentor_university_backgrounds(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id INTEGER NOT NULL REFERENCES users(id),
-    studylevel varchar(255) NOT NULL,
-    attendance_type varchar(255) NOT NULL,
+    studylevel integer NOT NULL,
+    attendance_type integer NOT NULL,
     university_id INTEGER REFERENCES universities(id) ,
     subject_id INTEGER REFERENCES subjects(id)
 );
