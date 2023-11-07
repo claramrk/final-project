@@ -12,15 +12,10 @@ export type MentorUniversityBackground = {
 
 type JsonAgg = University[];
 
-export type MentorUniversityBackgroundWithUniversity = {
-  id: number;
-  userId: number;
-  studylevel: string;
-  attendanceType: string;
-  universityId: number | null;
-  subjectId: number | null;
-  mentorUniversityBackgroundsUniversity: JsonAgg | null;
-};
+export type MentorUniversityBackgroundWithUniversity =
+  MentorUniversityBackground & {
+    mentorUniversityBackgroundsUniversity: JsonAgg | null;
+  };
 
 export async function up(sql: Sql) {
   await sql`

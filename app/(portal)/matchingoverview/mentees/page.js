@@ -132,17 +132,17 @@ export default async function matchingOverviewMentees() {
                               <td>
                                 {studylevelName.name}
                                 <br />
-                                <span className="badge badge-ghost badge-sm">
+                                <p className="badge badge-ghost badge-sm">
                                   {attendancetypeName.name}
-                                </span>
+                                </p>
                               </td>
                               <td>
                                 {e.universities[0].name}
                                 <br />
 
-                                <span className="badge badge-ghost badge-sm">
+                                <p className="badge badge-ghost badge-sm">
                                   {e.universities[0].countryId}
-                                </span>
+                                </p>
                               </td>
                               <td>
                                 {e.subjects[0].name.length > 60
@@ -150,9 +150,9 @@ export default async function matchingOverviewMentees() {
                                   : e.subjects[0].name}
                                 <br />
 
-                                <span className="badge badge-ghost badge-sm">
+                                <p className="badge badge-ghost badge-sm">
                                   {e.subjects[0].discipline}
-                                </span>
+                                </p>
                               </td>
                             </tr>
                           );
