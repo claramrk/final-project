@@ -1,4 +1,5 @@
 'use client';
+import { CldImage } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { pronountypes } from '../../../database/pronouns';
@@ -176,9 +177,8 @@ export default function PersonalDataFormComponent(props: Props) {
             >
               <option
                 key="dataID-default-select"
-                value="--Choose origin country--"
+                defaultValue="--Choose origin country--"
                 disabled
-                selected
               >
                 --Choose origin country--
               </option>
@@ -210,6 +210,14 @@ export default function PersonalDataFormComponent(props: Props) {
               }
             />
           </label>
+
+          <CldImage
+            width="960"
+            height="600"
+            src="<Public ID>"
+            sizes="100vw"
+            alt="Description of my image"
+          />
         </div>
 
         <button id="submitPersonalDetails" className="btn max-w-xs		">
