@@ -10,8 +10,11 @@
     "migrate": "ley --require tsm"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.12.1",
     "@tailwindcss/typography": "^0.5.10",
     "bcrypt": "^5.1.1",
+    "cloudinary-core": "^2.13.0",
     "dotenv": "^16.3.1",
     "ley": "^0.8.1",
     "next": "13.5.5",

@@ -1,10 +1,12 @@
 'use client';
-import { CldImage } from 'next-cloudinary';
+import { AdvancedImage } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { pronountypes } from '../../../database/pronouns';
 import { Country } from '../../../migrations/00000-createTableCountries';
 import { UserAll } from '../../../migrations/00004-createTableUsers';
+import UploadImageComponent from '../../components/UploadImageComponent';
 
 type Props = { countries: Country[]; userdata: UserAll };
 
@@ -17,6 +19,9 @@ export default function PersonalDataFormComponent(props: Props) {
   const [birthdateInput, setBirthdateInput] = useState('');
   const [originCountryInput, setOriginCountryInput] = useState('');
   const [profilePictureInput, setProfilePictureInput] = useState('');
+  const [imagesUploadedList, setImagesUploadedList] = useState([]);
+  const [imageInfo, setImageInfo] = useState([]);
+  const [imagePublicId, setImagePublicId] = useState('uebhgmjdqljawwx2t9mm');
 
   const [errors, setErrors] = useState('');
   const router = useRouter();
@@ -38,6 +43,24 @@ export default function PersonalDataFormComponent(props: Props) {
     });
     router.refresh();
   }
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'dqmhbukkm',
+    },
+  });
+  const myImage = cld.image(imagePublicId);
+
+  useEffect(() => {
+    async function getImageInfo() {
+      const response = await imageInfo;
+      const responseUrl = response.secure_url;
+      setImagePublicId(responseUrl);
+      console.log(await responseUrl);
+    }
+    getImageInfo().catch((error) => {
+      console.log(error);
+    });
+  }, [imageInfo]);
 
   return (
     <div id="usersSection" className="card blurry">
@@ -198,18 +221,10 @@ export default function PersonalDataFormComponent(props: Props) {
               Upload a profile photo:<span id="required">*</span>
             </span>
           </label>
-          <label className="input-group">
-            <span>Profile Photo</span>
-            <input
-              name="profilePhoto"
-              type="file"
-              className="input input-bordered w-full max-w-xs"
-              required
-              onChange={(event) =>
-                setProfilePictureInput(event.currentTarget.value)
-              }
-            />
-          </label>
+          <p>Profile Photo</p>
+          <div className="btn max-w-xs		">
+            <UploadImageComponent setImageInfo={setImageInfo} />
+          </div>
         </div>
 
         <button id="submitPersonalDetails" className="btn max-w-xs		">

@@ -27,8 +27,6 @@ export default async function matchingOverviewMentors() {
     }),
   );
 
-  console.log(currentUserMatchesData);
-
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">

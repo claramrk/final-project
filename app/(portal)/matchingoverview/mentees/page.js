@@ -52,7 +52,6 @@ export default async function matchingOverviewMentees() {
     const uniBackgroundtoMap = await mentorUniBackgroundArray.sort(
       compareByStudylevel,
     );
-    console.log(uniBackgroundtoMap);
     return await uniBackgroundtoMap;
   }
 
