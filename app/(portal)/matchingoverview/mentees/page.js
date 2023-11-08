@@ -193,7 +193,7 @@ export default async function matchingOverviewMentees() {
             Mentor uni & subject & studylevel 3 | Match active since: DATE
           </p>
           <button className="btn max-w-xs		">
-            EDIT? how is a mentorship ended?
+            I am no longer being mentored by this mentor
           </button>
         </div>
       </div>
@@ -227,11 +227,6 @@ export default async function matchingOverviewMentees() {
         <h2 className="text-2xl">Past Matches</h2>
         <p id="examplePastMatch" className="card sub-blurry">
           Past Match #1: Mentorphoto | Mentorname | Mentor contact info | Mentor
-          uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-          Mentor uni & subject & studylevel 3 | Match ended on: DATE
-        </p>
-        <p id="examplePastMatch" className="card sub-blurry">
-          Past Match #2: Mentorphoto | Mentorname | Mentor contact info | Mentor
           uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
           Mentor uni & subject & studylevel 3 | Match ended on: DATE
         </p>

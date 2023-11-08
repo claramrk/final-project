@@ -1,3 +1,5 @@
+import UploadImageComponent from '../../../components/UploadImageComponent';
+
 export default function dashboardMentors() {
   return (
     <main>
@@ -11,6 +13,7 @@ export default function dashboardMentors() {
           ACTION NEEDED - Match Request #1: Menteephoto | Menteename | Date of
           request: DATE
         </p>
+        <UploadImageComponent />
         <button
           className="btn max-w-xs		"
           // leads to matching page
@@ -32,7 +35,6 @@ export default function dashboardMentors() {
         <h2 className="text-2xl">More Information</h2>
         <p>Info 1</p>
         <p>Info 2</p>
-        <p>Info 3</p>
       </div>
     </main>
   );

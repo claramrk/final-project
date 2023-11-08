@@ -210,14 +210,6 @@ export default function PersonalDataFormComponent(props: Props) {
               }
             />
           </label>
-
-          <CldImage
-            width="960"
-            height="600"
-            src="<Public ID>"
-            sizes="100vw"
-            alt="Description of my image"
-          />
         </div>
 
         <button id="submitPersonalDetails" className="btn max-w-xs		">
