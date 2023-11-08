@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import {
   getUserById,
   putPersonalDataByUserID,
@@ -42,6 +43,17 @@ export type PersonalDataBodyPost =
       errors: { message: string | number }[];
     };
 
+/* const putPersonalDataSchema = z.object({
+  userId: z.number(),
+  firstname: z.string(),
+  lastname: z.string(),
+  pronouns: z.string(),
+  phone_number: z.number(),
+  birthdate: z.date(),
+  country_id: z.string(),
+  photo: z.string(),
+}); */
+
 export async function PUT(
   request: NextRequest,
 ): Promise<NextResponse<PersonalDataBodyPost>> {
@@ -49,17 +61,14 @@ export async function PUT(
   const body = await request.json();
 
   // Validate the user data
-  /* const result = registerSchema.safeParse(body);
+  /*  const result = putPersonalDataSchema.safeParse(body);
 
-  if (!body.success) {
+  if (!result.success) {
     return NextResponse.json(
-      { errors: body.error.issues },
-      {
-        status: 400,
-      },
+      { errors: [{ message: 'error creating match' }] },
+      { status: 403 },
     );
-  }
-*/
+  } */
   const updatedUserWithPersonalInfo = await putPersonalDataByUserID(
     Number(body.userId),
     body.firstname,
@@ -68,6 +77,7 @@ export async function PUT(
     body.phone_number,
     body.birthdate,
     body.country_id,
+    body.photo,
   );
 
   return NextResponse.json({

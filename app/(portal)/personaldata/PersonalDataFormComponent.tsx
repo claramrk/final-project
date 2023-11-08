@@ -16,12 +16,11 @@ export default function PersonalDataFormComponent(props: Props) {
   const [lastnameInput, setLastnameInput] = useState('');
   const [pronounsInput, setPronounsInput] = useState('');
   const [phoneNumberInput, setPhoneNumberInput] = useState('');
-  const [birthdateInput, setBirthdateInput] = useState('');
+  const [birthdateInput, setBirthdateInput] = useState();
   const [originCountryInput, setOriginCountryInput] = useState('');
-  const [profilePictureInput, setProfilePictureInput] = useState('');
+  const [profilePictureInput, setProfilePictureInput] = useState();
   const [imagesUploadedList, setImagesUploadedList] = useState([]);
   const [imageInfo, setImageInfo] = useState([]);
-  const [imagePublicId, setImagePublicId] = useState('uebhgmjdqljawwx2t9mm');
 
   const [errors, setErrors] = useState('');
   const router = useRouter();
@@ -39,22 +38,17 @@ export default function PersonalDataFormComponent(props: Props) {
         phone_number: phoneNumberInput,
         birthdate: birthdateInput,
         country_id: originCountryInput,
+        photo: profilePictureInput,
       }),
     });
     router.refresh();
   }
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'dqmhbukkm',
-    },
-  });
-  const myImage = cld.image(imagePublicId);
 
   useEffect(() => {
     async function getImageInfo() {
       const response = await imageInfo;
       const responseUrl = response.secure_url;
-      setImagePublicId(responseUrl);
+      setProfilePictureInput(responseUrl);
       console.log(await responseUrl);
     }
     getImageInfo().catch((error) => {
@@ -82,9 +76,8 @@ export default function PersonalDataFormComponent(props: Props) {
             <span>First name</span>
             <input
               name="firstname"
-              placeholder="Jane"
-              defaultValue={
-                props.userdata.firstname ? props.userdata.firstname : ''
+              placeholder={
+                props.userdata.firstname ? props.userdata.firstname : 'Jane'
               }
               className="input input-bordered w-full max-w-xs"
               required
@@ -102,9 +95,8 @@ export default function PersonalDataFormComponent(props: Props) {
             <span>Last name</span>
             <input
               name="lastname"
-              placeholder="Doe"
-              defaultValue={
-                props.userdata.lastname ? props.userdata.lastname : ''
+              placeholder={
+                props.userdata.lastname ? props.userdata.lastname : 'Doe'
               }
               className="input input-bordered w-full max-w-xs"
               required
@@ -124,8 +116,7 @@ export default function PersonalDataFormComponent(props: Props) {
               className="select select-bordered  w-full max-w-xs"
               name="selectPronouns"
               required
-              placeholder="--Choose pronouns--"
-              defaultValue={
+              placeholder={
                 props.userdata.pronouns ? props.userdata.pronouns : ''
               }
               onChange={(event) => setPronounsInput(event.currentTarget.value)}
@@ -152,10 +143,9 @@ export default function PersonalDataFormComponent(props: Props) {
             <input
               type="tel"
               name="phoneNumber"
-              defaultValue={
+              placeholder={
                 props.userdata.phoneNumber ? props.userdata.phoneNumber : ''
               }
-              placeholder="+43 676 1929482"
               className="input input-bordered w-full max-w-xs"
               required
               onChange={(event) =>
@@ -201,7 +191,6 @@ export default function PersonalDataFormComponent(props: Props) {
               <option
                 key="dataID-default-select"
                 defaultValue="--Choose origin country--"
-                disabled
               >
                 --Choose origin country--
               </option>

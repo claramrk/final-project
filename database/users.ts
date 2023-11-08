@@ -129,6 +129,7 @@ export const putPersonalDataByUserID = cache(
     phoneNumber: number,
     birthdate: Date,
     countryId: string,
+    photo: string,
   ) => {
     // return roles;
     const personalDataInfoUsers = await sql<UserAll[]>`
@@ -140,9 +141,8 @@ export const putPersonalDataByUserID = cache(
     pronouns=${pronouns},
     phone_number=${phoneNumber},
     birthdate=${birthdate},
-    country_id=${countryId}
-
-
+    country_id=${countryId},
+    photo=${photo}
     WHERE
     id = ${userId}
     RETURNING *
