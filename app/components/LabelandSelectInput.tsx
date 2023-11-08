@@ -17,7 +17,7 @@ export default function LabelAndSelectComponent(props: any) {
 
   const optionlist: Array<any> = props.optionarray;
   return (
-    <div className="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
+    <div className={`sm:col-span-${props.colSpan}`}>
       <label htmlFor={props.inputName} className="label-custom-primary">
         {props.labeltext}{' '}
         {props.required === true ? <span id="required">*</span> : ''}

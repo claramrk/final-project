@@ -1,11 +1,12 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { attendancetype } from '../../../../database/attendancetype';
 import { degreetype } from '../../../../database/degreetype';
 import { Subject } from '../../../../migrations/00001-createTableSubjects';
 import { University } from '../../../../migrations/00002-createTableUniversities';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import LabelAndSelectComponent from '../../../components/LabelandSelectInput';
 
 type Props = {
   universities: University[];
@@ -44,22 +45,16 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         await handleCreateMentorUniversityBackground();
       }}
     >
-      <label htmlFor="selectUniversity">
-        Name of the university<span id="required">*</span>
-      </label>
-      <select
-        className="select select-bordered  w-full max-w-xs"
-        id="selectUniversity"
-        name="selectUniversity"
-        onChange={(event) =>
-          setUniversityIdInput(Number(event.currentTarget.value))
-        }
-        required
+      <LabelAndSelectComponent
+        inputName="selectUniversity"
+        labeltext=" Name of the university:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setUniversityIdInput}
       >
         <option key="dataID-default-select" value="default-select">
           --Choose university--
         </option>
-
         {props.universities.map((d) => {
           return (
             <option key={`dataID-select-${d.id}`} value={d.id}>
@@ -67,20 +62,13 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
             </option>
           );
         })}
-      </select>
-
-      <label htmlFor="selectSubject">
-        Name of the subject<span id="required">*</span>
-      </label>
-
-      <select
-        className="select select-bordered  w-full max-w-xs"
-        id="selectSubject"
-        name="selectSubject"
-        onChange={(event) =>
-          setSubjectIdInput(Number(event.currentTarget.value))
-        }
-        required
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="selectSubject"
+        labeltext=" Name of the subject:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setSubjectIdInput}
       >
         <option key="dataID-default-select" value="default-select">
           --Choose subject--
@@ -93,18 +81,13 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
             </option>
           );
         })}
-      </select>
-      <legend>
-        DegreeType<span id="required">*</span>
-      </legend>
-      <select
-        className="select select-bordered  w-full max-w-xs"
-        id="selectDegreetype"
-        name="selectDegreetype"
-        onChange={(event) =>
-          setStudylevelIdInput(Number(event.currentTarget.value))
-        }
-        required
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="selectDegreetype"
+        labeltext="Select the type of degree:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setStudylevelIdInput}
       >
         <option key="dataID-default-select" value="default-select">
           --Choose degreetype--
@@ -117,18 +100,13 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
             </option>
           );
         })}
-      </select>
-      <legend>
-        ApplicationStatus<span id="required">*</span>
-      </legend>
-      <select
-        className="select select-bordered  w-full max-w-xs"
-        id="selectAttendancetype"
-        name="selectAttendancetype"
-        onChange={(event) =>
-          setAttendanceTypeIdInput(Number(event.currentTarget.value))
-        }
-        required
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="selectAttendancetype"
+        labeltext="Select type of attendance:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setAttendanceTypeIdInput}
       >
         <option key="dataID-default-select" value="default-select">
           --Choose attendancetype--
@@ -141,7 +119,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
             </option>
           );
         })}
-      </select>
+      </LabelAndSelectComponent>
 
       <button className="btn-custom-primary" id="submitPersonalDetails">
         Add degree to my submitted Background

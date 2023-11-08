@@ -73,4 +73,13 @@
   .card-custom-secondary {
     @apply max-w-2xl rounded overflow-hidden shadow-lg bg-white;
   }
+  .link-custom-primary {
+    @apply max-w-sm rounded-full px-3 py-1 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20 font-semibold text-neutral mt-2;
+  }
+  .link-custom-nav {
+    @apply text-black;
+  }
+  .form-custom-primary {
+    @apply space-y-6 border-b border-gray-900/10 pb-12 grid grid-cols-6;
+  }
 }

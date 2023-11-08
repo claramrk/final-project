@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
 
 type Props = {
   userdata: UserAll;
@@ -34,35 +35,34 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         await handlePutMentorMatchingInfo();
       }}
     >
-      <h3 className="h3-custom-primary">Maximum Capacity</h3>
-      <p className="p-custom-primary">
-        We expect mentors to commit around 1-2 hours per month per mentee.
-      </p>
-      <label htmlFor="maximum_capacity">
+      <LabelAndInputComponent
+        inputName="maximumCapacityInput"
+        labeltext="We expect mentors to commit around 1-2 hours per month per mentee.
         Please indicate the maximum number of mentees you would like to mentor
-        at the same time. You can change this number any time:
-      </label>
-      <input
-        className="input input-bordered w-full max-w-xs"
-        id="maximum_capacity"
+        at the same time. You can change this number any time:"
+        required={true}
         type="number"
-        min="1"
+        placeholder="3"
         defaultValue={
           props.userdata.maxCapacity ? props.userdata.maxCapacity : 1
         }
-        onChange={(event) =>
-          setMaxCapacityInput(Number(event.currentTarget.value))
-        }
+        min="1"
+        onChangeFunction={setMaxCapacityInput}
       />
-      <p className="p-custom-primary">
-        Current indicated capacity: {currentUser.maxCapacity}
-      </p>
+      {currentUser.maxCapacity && currentUser.maxCapacity > 0 ? (
+        <p className="p-custom-primary">
+          Current indicated capacity: {currentUser.maxCapacity}
+        </p>
+      ) : (
+        ''
+      )}{' '}
       <h3 className="h3-custom-primary">Safeguarding</h3>
       <p className="p-custom-primary">
         The safety of our mentees is incredibly important to us. Therefore,
         every mentor has to strictly adhere to our safeguarding guidelines.
       </p>
       <a
+        className="link-custom-primary"
         // check how to download a pdf
 
         href="/#"

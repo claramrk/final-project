@@ -36,40 +36,62 @@ export default async function Navigation() {
               </button>
               <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
-                  <a href="/personaldata">Profile Page</a>
+                  <a className="link-custom-nav" href="/personaldata">
+                    Profile Page
+                  </a>
                 </li>
                 <li>
-                  <a>Dashboard</a>
+                  <a className="link-custom-nav">Dashboard</a>
                   <ul className="p-2">
                     <li>
-                      <a href="/dashboard/mentors">Dashboard Mentor</a>
+                      <a className="link-custom-nav" href="/dashboard/mentors">
+                        Dashboard Mentor
+                      </a>
                     </li>
                     <li>
-                      <a href="/dashboard/mentees">Dashboard Mentee</a>
+                      <a className="link-custom-nav" href="/dashboard/mentees">
+                        Dashboard Mentee
+                      </a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <a>Matching Info Input</a>
+                  <a className="link-custom-nav">Matching Info Input</a>
                   <ul className="p-2">
                     <li>
-                      <a href="/matchingdata/mentors">Matching Data Mentor</a>
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingdata/mentors"
+                      >
+                        Matching Data Mentor
+                      </a>
                     </li>
                     <li>
-                      <a href="/matchingdata/mentees">Matching Data Mentee</a>
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingdata/mentees"
+                      >
+                        Matching Data Mentee
+                      </a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <a>Matching Overview</a>
+                  <a className="link-custom-nav">Matching Overview</a>
                   <ul className="p-2">
                     <li>
-                      <a href="/matchingoverview/mentors">
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingoverview/mentors"
+                      >
                         Matching Overview Mentor
                       </a>
                     </li>
                     <li>
-                      <a href="/matchingoverview/mentees">
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingoverview/mentees"
+                      >
                         Matching Overview Mentee
                       </a>
                     </li>
@@ -254,17 +276,23 @@ export default async function Navigation() {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <a href="/personaldata">Profile Page</a>
+                <a className="link-custom-nav" href="/personaldata">
+                  Profile Page
+                </a>
               </li>
               <li>
                 <details>
                   <summary>Dashboard</summary>
                   <ul className="p-2">
                     <li>
-                      <a href="/dashboard/mentors">Dashboard Mentor</a>
+                      <a className="link-custom-nav" href="/dashboard/mentors">
+                        Dashboard Mentor
+                      </a>
                     </li>
                     <li>
-                      <a href="/dashboard/mentees">Dashboard Mentee</a>
+                      <a className="link-custom-nav" href="/dashboard/mentees">
+                        Dashboard Mentee
+                      </a>
                     </li>
                   </ul>
                 </details>
@@ -274,10 +302,20 @@ export default async function Navigation() {
                   <summary>Matching Info Input</summary>
                   <ul className="p-2">
                     <li>
-                      <a href="/matchingdata/mentors">Matching Data Mentor</a>
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingdata/mentors"
+                      >
+                        Matching Data Mentor
+                      </a>
                     </li>
                     <li>
-                      <a href="/matchingdata/mentees">Matching Data Mentee</a>
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingdata/mentees"
+                      >
+                        Matching Data Mentee
+                      </a>
                     </li>
                   </ul>
                 </details>
@@ -287,12 +325,18 @@ export default async function Navigation() {
                   <summary>Matching Overview</summary>
                   <ul className="p-2">
                     <li>
-                      <a href="/matchingoverview/mentors">
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingoverview/mentors"
+                      >
                         Matching Overview Mentor
                       </a>{' '}
                     </li>
                     <li>
-                      <a href="/matchingoverview/mentees">
+                      <a
+                        className="link-custom-nav"
+                        href="/matchingoverview/mentees"
+                      >
                         Matching Overview Mentee
                       </a>{' '}
                     </li>

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
+import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 
 // type Props = { returnTo?: string | string[] };
 // type Props = { returnTo?: string | string[] };
@@ -38,40 +39,24 @@ export default function SignInFormComponent() {
   }
   return (
     <form id="signInForm" onSubmit={async (event) => await handleSignIn(event)}>
-      <label htmlFor="emailInput">
-        Email:<span id="required">*</span>
-      </label>
-      <input
-        className="input input-bordered w-full max-w-xs"
-        onChange={(event) => setEmail(event.currentTarget.value)}
-        id="emailInput"
-        required
+      <LabelAndInputComponent
+        inputName="emailInput"
+        labeltext="Your email:"
+        required={true}
+        type="email"
+        placeholder="mail@example.com"
+        onChangeFunction={setEmail}
       />
-
-      <label htmlFor="passwordInput">
-        Password:<span id="required">*</span>
-      </label>
-      <input
-        className="input input-bordered w-full max-w-xs"
-        id="passwordInput"
+      <LabelAndInputComponent
+        inputName="passwordInput"
+        labeltext="Your password:"
+        required={true}
         type="password"
-        required
-        onChange={(event) => setPassword(event.currentTarget.value)}
+        placeholder="**********"
+        onChangeFunction={setPassword}
       />
 
-      {/* <label htmlFor="passwordInput">
-          Confirm Password:<span id="required">*</span>
-        </label>
-  <input id="passwordInput"
-  className="input input-bordered w-full max-w-xs"
-  required />*/}
-
-      <button
-        className="btn-custom-primary"
-        id="signUpButton"
-        // Button text changes depending on radio button input
-        // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
-      >
+      <button className="btn-custom-primary" id="signUpButton">
         Sign in
       </button>
       {errors.map((error) => (

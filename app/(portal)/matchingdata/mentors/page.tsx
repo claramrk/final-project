@@ -115,6 +115,8 @@ export default async function matchingdataMentors() {
         className="card blurry"
       >
         <h2 className="h2-custom-primary">Matching Information</h2>
+        <h3 className="h3-custom-primary">Maximum Capacity</h3>
+
         <MentorMatchingInfoFormComponent userdata={currentUser} />
       </div>
       <div id="finalizeRegistrationSection" className="card blurry">

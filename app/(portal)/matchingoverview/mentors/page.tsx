@@ -6,6 +6,7 @@ import {
   getUserById,
   getUserBySessionToken,
 } from '../../../../database/users';
+import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
 
 export default async function matchingOverviewMentors() {
   const sessionTokenCookie = await cookies().get('sessionToken');
@@ -90,18 +91,19 @@ export default async function matchingOverviewMentors() {
           <p id="exampleRequestedMatch" className="card sub-blurry">
             Match Request#1: Menteephoto | Menteename | Mentee targetunis |
             Mentee targetsubjects | mentee targetstudylevel | Message from
-            mentee | Date of request: DATE
-            <button className="btn-custom-primary">Accept match request</button>
-            <button className="btn-custom-primary">Reject match request</button>
-            <label htmlFor="reasonRejection">
-              Please briefly indicate the reason for your rejection:
-              <span id="required">*</span>
-            </label>
-            <input
-              id="reasonRejection"
-              className="input input-bordered w-full max-w-xs"
-            />
+            mentee | Date of request: DATE{' '}
           </p>
+
+          <button className="btn-custom-primary">Accept match request</button>
+          <button className="btn-custom-primary">Reject match request</button>
+
+          <LabelAndInputComponent
+            colSpan="3"
+            inputName="reasonRejection"
+            labeltext=" Please briefly indicate the reason for your rejection:"
+            required={true}
+            type="text"
+          />
         </div>
       </div>
     </main>

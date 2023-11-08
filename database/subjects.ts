@@ -26,7 +26,7 @@ export const getSubjectById = cache(async (id: number) => {
 
 /*
 export const deleteAnimalById = cache(async (id: number) => {
-  const [animal] = await sql<Animal[]>`
+  const [animal] = await sql<a className="link-custom-primary"nimal[]>`
     DELETE FROM
       animals
     WHERE
@@ -39,7 +39,7 @@ export const deleteAnimalById = cache(async (id: number) => {
 
 export const createAnimal = cache(
   async (firstname: string, type: string, accessory?: string) => {
-    const [animal] = await sql<Animal[]>`
+    const [animal] = await sql<a className="link-custom-primary"nimal[]>`
       INSERT INTO animals
         (first_name, type, accessory)
       VALUES
@@ -53,7 +53,7 @@ export const createAnimal = cache(
 
 export const updateAnimalById = cache(
   async (id: number, firstname: string, type: string, accessory?: string) => {
-    const [animal] = await sql<Animal[]>`
+    const [animal] = await sql<a className="link-custom-primary"nimal[]>`
       UPDATE
         animals
       SET
@@ -81,7 +81,7 @@ export const updateAnimalById = cache(
 
 // Join query for getting animal with related food/foods
 export const getAnimalsWithFoods = cache(async (id: number) => {
-  const animalsFoods = await sql<AnimalFood[]>`
+  const animalsFoods = await sql<a className="link-custom-primary"nimalFood[]>`
     SELECT
       animals.id AS animal_id,
       animals.first_name AS animal_first_name,
@@ -104,7 +104,7 @@ export const getAnimalsWithFoods = cache(async (id: number) => {
 
 // Join query for getting a single animal with related food/foods using Json_aag
 export const getAnimalWithFoodsById = cache(async (id: number) => {
-  const [animal] = await sql<AnimalWithFoodsInJsonAgg[]>`
+  const [animal] = await sql<a className="link-custom-primary"nimalWithFoodsInJsonAgg[]>`
     SELECT
       animals.id AS animal_id,
       animals.first_name AS animal_first_name,

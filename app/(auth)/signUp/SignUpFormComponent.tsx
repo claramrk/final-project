@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Role } from '../../../migrations/00003-createTableRoles';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
+import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 
 // type Props = { returnTo?: string | string[] };
 type Props = { roles: Role[] };
@@ -83,15 +84,14 @@ export default function SignUpForm(props: Props) {
             return (
               <div key={`dataID-radio-${d.id}`}>
                 <input
-                  key={`dataID-input-${d.id}`}
                   type="radio"
-                  id={`dataID-input-${d.id}`}
                   name="selectRole"
                   value={Number(d.id)}
                   onClick={(event) =>
                     setRole(Number(event.currentTarget.value))
                   }
                 />
+
                 <label
                   key={`dataID-label-${d.id}`}
                   htmlFor={`dataID-select-${d.id}`}
@@ -102,34 +102,24 @@ export default function SignUpForm(props: Props) {
             );
           })}
 
-          <label className="label" htmlFor="email">
-            <span className="label-text">
-              Email<span id="required">*</span>
-            </span>
-          </label>
-          <input
-            className="input input-bordered w-full max-w-xs"
-            onChange={(event) => setEmail(event.currentTarget.value)}
-            id="emailInput"
-            placeholder="email"
+          <LabelAndInputComponent
+            inputName="emailInput"
+            labeltext="Your email:"
+            required={true}
             type="email"
-            required
+            placeholder="mail@example.com"
+            onChangeFunction={setEmail}
           />
-        </div>
-        <div className="form-control">
-          <label className="label" htmlFor="password">
-            <span className="label-text">Password</span>
-          </label>
-          <input
-            className="input input-bordered w-full max-w-xs"
-            id="passwordInput"
+          <LabelAndInputComponent
+            inputName="passwordInput"
+            labeltext="Your password:"
+            required={true}
             type="password"
-            placeholder="password"
-            required
-            onChange={(event) => setPassword(event.currentTarget.value)}
+            placeholder="**********"
+            onChangeFunction={setPassword}
           />
           <label className="label" htmlFor="ForgotPassword">
-            <a href="/#" className="label-text-alt link link-hover">
+            <a className="link-custom-primary" href="/#">
               Forgot password?
             </a>
           </label>

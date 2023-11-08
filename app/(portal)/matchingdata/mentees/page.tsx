@@ -64,6 +64,7 @@ export default async function menteeMatchingData() {
             mentee guidelines, that we expect you to adhere to.
           </p>
           <a
+            className="link-custom-primary"
             // check how to download a pdf
             href="/#"
           >

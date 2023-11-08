@@ -6,6 +6,7 @@ import { degreetype } from '../../../../database/degreetype';
 import { Subject } from '../../../../migrations/00001-createTableSubjects';
 import { University } from '../../../../migrations/00002-createTableUniversities';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import LabelAndSelectComponent from '../../../components/LabelandSelectInput';
 
 type Props = {
   universities: University[];
@@ -52,21 +53,13 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         await handleCreateMenteeTargetUniversitySubject();
       }}
     >
-      <legend>
-        Indicate the degree type you will be applying for
-        <span id="required">*</span>
-      </legend>
-      <label htmlFor="selectDegreetype">
-        DegreeType<span id="required">*</span>
-      </label>
-      <select
-        className="select select-bordered  w-full max-w-xs"
-        id="selectDegreetype"
-        name="selectDegreetype"
-        onChange={(event) =>
-          setStudylevelIdInput(Number(event.currentTarget.value))
-        }
-        required
+      <LabelAndSelectComponent
+        inputName="selectDegreetype"
+        labeltext="Indicate the degree level you will be applying for
+        :"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setStudylevelIdInput}
       >
         <option key="dataID-default-select" value="default-select">
           --Choose degreetype--
@@ -79,12 +72,123 @@ export default function MenteeTargetUniversitySubjectFormComponent(
             </option>
           );
         })}
-      </select>
-      <label htmlFor="targetUniversities">
-        Indicate your top three university choices:
+      </LabelAndSelectComponent>
+      <h3 className="h3-custom-primary">
+        Indicate your top choices:
         <span id="required">*</span>
-      </label>
-      <select
+      </h3>
+      <LabelAndSelectComponent
+        inputName="targetUniversityOneInput"
+        labeltext="Dream university 1:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setUniversityIdInputOne}
+      >
+        <option key="dataID-default-select" value="default-select">
+          --Choose university--
+        </option>
+        {props.universities.map((d) => {
+          return (
+            <option key={`dataID-select-${d.id}`} value={d.id}>
+              {d.name}
+            </option>
+          );
+        })}
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="targetUniversityTwoInput"
+        labeltext="Dream university 2:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setUniversityIdInputTwo}
+      >
+        <option key="dataID-default-select" value="default-select">
+          --Choose university--
+        </option>
+        {props.universities.map((d) => {
+          return (
+            <option key={`dataID-select-${d.id}`} value={d.id}>
+              {d.name}
+            </option>
+          );
+        })}
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="targetUniversityThreeInput"
+        labeltext="Dream university 3:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setUniversityIdInputThree}
+      >
+        <option key="dataID-default-select" value="default-select">
+          --Choose university--
+        </option>
+        {props.universities.map((d) => {
+          return (
+            <option key={`dataID-select-${d.id}`} value={d.id}>
+              {d.name}
+            </option>
+          );
+        })}
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="selectSubjectOne"
+        labeltext="Dream Subject 1:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setSubjectIdInputOne}
+      >
+        <option key="dataID-default-select" value="default-select">
+          --Choose subject--
+        </option>
+
+        {props.subjects.map((d) => {
+          return (
+            <option key={`dataID-select-${d.id}`} value={d.id}>
+              {d.name}
+            </option>
+          );
+        })}
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="selectSubjectTwo"
+        labeltext="Dream Subject 2:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setSubjectIdInputTwo}
+      >
+        <option key="dataID-default-select" value="default-select">
+          --Choose subject--
+        </option>
+
+        {props.subjects.map((d) => {
+          return (
+            <option key={`dataID-select-${d.id}`} value={d.id}>
+              {d.name}
+            </option>
+          );
+        })}
+      </LabelAndSelectComponent>
+      <LabelAndSelectComponent
+        inputName="selectSubjectThree"
+        labeltext="Dream Subject 3:"
+        required={true}
+        // could be an issue that there is no (number) around this
+        onChangeFunction={setSubjectIdInputThree}
+      >
+        <option key="dataID-default-select" value="default-select">
+          --Choose subject--
+        </option>
+
+        {props.subjects.map((d) => {
+          return (
+            <option key={`dataID-select-${d.id}`} value={d.id}>
+              {d.name}
+            </option>
+          );
+        })}
+      </LabelAndSelectComponent>
+      {/*   <select
         className="select select-bordered  w-full max-w-xs"
         id="targetUniversity1"
         name="targetUniversities"
@@ -214,7 +318,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
             </option>
           );
         })}
-      </select>
+      </select> */}
       <button id="submitAllUniInformation" className="btn-custom-primary">
         Submit all University Information
       </button>
