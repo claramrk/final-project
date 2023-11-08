@@ -215,7 +215,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
           );
         })}
       </select>
-      <button id="submitAllUniInformation" className="btn max-w-xs		">
+      <button id="submitAllUniInformation" className="btn-custom-primary">
         Submit all University Information
       </button>
     </form>

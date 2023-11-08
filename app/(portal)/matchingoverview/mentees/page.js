@@ -58,16 +58,16 @@ export default async function matchingOverviewMentees() {
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-3xl">My Matching Overview</h1>
+        <h1 className="h1-custom-primary">My Matching Overview</h1>
       </div>
 
       <div id="requestedMatchesSection" className="card blurry">
-        <h2 className="text-2xl">Request a Mentor</h2>
+        <h2 className="h2-custom-primary">Request a Mentor</h2>
         <div
           id="requestMentor"
           // filter matching list here. only active if no active mentor and if there is no active mentor request
         >
-          <p>
+          <p className="p-custom-primary">
             Below you can find three mentors from our pool that are currently
             available and that fit best to your university and subject
             indications.
@@ -129,7 +129,7 @@ export default async function matchingOverviewMentees() {
                               <td>
                                 {studylevelName.name}
                                 <br />
-                                <p className="badge badge-ghost badge-sm">
+                                <p className="p-custom-primary">
                                   {attendancetypeName.name}
                                 </p>
                               </td>
@@ -137,7 +137,7 @@ export default async function matchingOverviewMentees() {
                                 {e.universities[0].name}
                                 <br />
 
-                                <p className="badge badge-ghost badge-sm">
+                                <p className="p-custom-primary">
                                   {e.universities[0].countryId}
                                 </p>
                               </td>
@@ -147,7 +147,7 @@ export default async function matchingOverviewMentees() {
                                   : e.subjects[0].name}
                                 <br />
 
-                                <p className="badge badge-ghost badge-sm">
+                                <p className="p-custom-primary">
                                   {e.subjects[0].discipline}
                                 </p>
                               </td>
@@ -168,7 +168,7 @@ export default async function matchingOverviewMentees() {
 
             // filter matching list here. can only be one at a time
           >
-            <h3 className="text-xl">Send your Request</h3>
+            <h3 className="h3-custom-primary">Send your Request</h3>
 
             <RequestMentorFormComponent
               topThreeMentorsWithPersonalDataList={
@@ -180,18 +180,18 @@ export default async function matchingOverviewMentees() {
         </div>
       </div>
       <div id="activeMatchesSection" className="card blurry">
-        <h2 className="text-2xl">Active Matches</h2>
+        <h2 className="h2-custom-primary">Active Matches</h2>
         <div
           id="exampleActiveMatch"
           className="card sub-blurry"
           // filter matching list here. can only be one person!
         >
-          <p>
+          <p className="p-custom-primary">
             Active Match Mentorphoto | Mentorname | Mentor contact info | Mentor
             uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
             Mentor uni & subject & studylevel 3 | Match active since: DATE
           </p>
-          <button className="btn max-w-xs		">
+          <button className="btn-custom-primary">
             I am no longer being mentored by this mentor
           </button>
         </div>
@@ -201,8 +201,8 @@ export default async function matchingOverviewMentees() {
           id="sentRequests"
           // filter matching list here. only active if no active mentor and if there is a mentor request
         >
-          <h2 className="text-2xl">Requested Matches</h2>
-          <p>
+          <h2 className="h2-custom-primary">Requested Matches</h2>
+          <p className="p-custom-primary">
             A mentor has one week to accept or reject your match request. If
             they have not answered, the request will automatically be rejected
             and you can request a new mentor.
@@ -214,7 +214,7 @@ export default async function matchingOverviewMentees() {
 
             // filter matching list here. can only be one at a time
           >
-            <p>
+            <p className="p-custom-primary">
               Match Request: Mentorphoto | Mentorname | Mentor uni & subject &
               studylevel 1 | Mentor uni & subject & studylevel 2 | Mentor uni &
               subject & studylevel 3| Message to mentor | Date of request: DATE
@@ -223,7 +223,7 @@ export default async function matchingOverviewMentees() {
         </div>
       </div>
       <div id="pastMatchesSection" className="card blurry">
-        <h2 className="text-2xl">Past Matches</h2>
+        <h2 className="h2-custom-primary">Past Matches</h2>
         <p id="examplePastMatch" className="card sub-blurry">
           Past Match #1: Mentorphoto | Mentorname | Mentor contact info | Mentor
           uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |

@@ -34,8 +34,10 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         await handlePutMentorMatchingInfo();
       }}
     >
-      <h3 className="text-xl">Maximum Capacity</h3>
-      <p>We expect mentors to commit around 1-2 hours per month per mentee.</p>
+      <h3 className="h3-custom-primary">Maximum Capacity</h3>
+      <p className="p-custom-primary">
+        We expect mentors to commit around 1-2 hours per month per mentee.
+      </p>
       <label htmlFor="maximum_capacity">
         Please indicate the maximum number of mentees you would like to mentor
         at the same time. You can change this number any time:
@@ -52,9 +54,11 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
           setMaxCapacityInput(Number(event.currentTarget.value))
         }
       />
-      <p>Current indicated capacity: {currentUser.maxCapacity}</p>
-      <h3 className="text-xl">Safeguarding</h3>
-      <p>
+      <p className="p-custom-primary">
+        Current indicated capacity: {currentUser.maxCapacity}
+      </p>
+      <h3 className="h3-custom-primary">Safeguarding</h3>
+      <p className="p-custom-primary">
         The safety of our mentees is incredibly important to us. Therefore,
         every mentor has to strictly adhere to our safeguarding guidelines.
       </p>
@@ -75,7 +79,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         id="safeguarding_upload"
         // check how to upload a pdf
       />
-      <button className="btn max-w-xs		" id="submitAllUniInformation">
+      <button className="btn-custom-primary" id="submitAllUniInformation">
         Submit matching Information
       </button>
     </form>

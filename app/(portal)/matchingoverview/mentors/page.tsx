@@ -30,11 +30,11 @@ export default async function matchingOverviewMentors() {
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-3xl">My Matching Overview</h1>
+        <h1 className="h1-custom-primary">My Matching Overview</h1>
       </div>
       <div id="activeMatchesSection" className="card blurry">
-        <h2 className="text-2xl">Active Matches</h2>
-        <p>Indicated max. capacity: XYZ</p>
+        <h2 className="h2-custom-primary">Active Matches</h2>
+        <p className="p-custom-primary">Indicated max. capacity: XYZ</p>
         <div
           id="exampleActiveMatchesList"
           // filter matching list here
@@ -43,15 +43,15 @@ export default async function matchingOverviewMentors() {
             Active Match #1: Menteephoto | Menteename | Mentee contact info |
             Mentee targetunis | Mentee targetsubjects | mentee targetstudylevel
             | Match active since: DATE
-            <button className="btn max-w-xs		">
+            <button className="btn-custom-primary">
               I am no longer mentoring this mentee
             </button>
           </p>
         </div>
       </div>
       <div id="requestedMatchesSection" className="card blurry">
-        <h2 className="text-2xl">Requested Matches</h2>
-        <p>
+        <h2 className="h2-custom-primary">Requested Matches</h2>
+        <p className="p-custom-primary">
           You have one week to respond to a match request. Afterwards, the
           request will automatically be rejected.
         </p>
@@ -70,8 +70,12 @@ export default async function matchingOverviewMentors() {
                 Match Request#1: Menteephoto | {m.menteeUserId} | Mentee
                 targetunis | Mentee targetsubjects | mentee targetstudylevel |
                 Message from mentee | Date of request: DATE
-                <button className="btn max-w-xs		">Accept match request</button>
-                <button className="btn max-w-xs		">Reject match request</button>
+                <button className="btn-custom-primary">
+                  Accept match request
+                </button>
+                <button className="btn-custom-primary">
+                  Reject match request
+                </button>
                 <label htmlFor="reasonRejection">
                   Please briefly indicate the reason for your rejection:
                   <span id="required">*</span>
@@ -87,8 +91,8 @@ export default async function matchingOverviewMentors() {
             Match Request#1: Menteephoto | Menteename | Mentee targetunis |
             Mentee targetsubjects | mentee targetstudylevel | Message from
             mentee | Date of request: DATE
-            <button className="btn max-w-xs		">Accept match request</button>
-            <button className="btn max-w-xs		">Reject match request</button>
+            <button className="btn-custom-primary">Accept match request</button>
+            <button className="btn-custom-primary">Reject match request</button>
             <label htmlFor="reasonRejection">
               Please briefly indicate the reason for your rejection:
               <span id="required">*</span>

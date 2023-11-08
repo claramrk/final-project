@@ -92,7 +92,7 @@ export default function RequestMentorFormComponent(props) {
           onChange={(event) => setMessageToMentor(event.currentTarget.value)}
         />
       </div>
-      <button className="btn max-w-xs		">Send mentor request</button>
+      <button className="btn-custom-primary">Send mentor request</button>
     </form>
   );
 }

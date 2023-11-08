@@ -41,7 +41,7 @@ export default async function homePage() {
               For free.
             </span>
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="p-custom-primary">
             We’re a non-profit organisation believing in fair access to top
             universities. That’s why we’ve created a completely free program for
             students from less privileged backgrounds to apply for both

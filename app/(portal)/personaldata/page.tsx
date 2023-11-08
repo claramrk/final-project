@@ -18,9 +18,16 @@ export default async function personaldata() {
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-3xl">My Personal Data</h1>
+        <h1 className="h1-custom-primary">My Personal Data</h1>
       </div>
-      <PersonalDataFormComponent countries={countries} userdata={currentUser} />
+      <div id="usersSection" className="card blurry">
+        <h2 className="h2-custom-primary">Personal Data Section</h2>
+        <p className="p-custom-primary">Please enter your personal data here</p>
+        <PersonalDataFormComponent
+          countries={countries}
+          userdata={currentUser}
+        />
+      </div>
     </main>
   );
 }

@@ -2,36 +2,38 @@ export default function dashboardMentors() {
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-3xl">My Dashboard</h1>
+        <h1 className="h1-custom-primary">My Dashboard</h1>
       </div>
       <div id="matchingHighlightsSection" className="card blurry">
-        <h2 className="text-2xl">My Matching Highlights</h2>
-        <h3 className="text-xl">My Pending Requests: </h3>
-        <p>
+        <h2 className="h2-custom-primary">My Matching Highlights</h2>
+        <h3 className="h3-custom-primary">My Pending Requests: </h3>
+        <p className="p-custom-primary">
           ACTION NEEDED - Match Request #1: Menteephoto | Menteename | Date of
           request: DATE
         </p>
         <button
-          className="btn max-w-xs		"
+          className="btn-custom-primary"
           // leads to matching page
         >
           Respond to match request
         </button>
-        <h3 className="text-xl">My Active Matches:</h3>
-        <p>
+        <h3 className="h3-custom-primary">My Active Matches:</h3>
+        <p className="p-custom-primary">
           Active Match #1: Menteephoto | Menteename | Match active since: DATE
         </p>
         <a href="/matchingoverview/mentors">Go to Matching Page</a>
       </div>
       <div id="profileSection" className="card blurry">
-        <h2 className="text-2xl">My Profile Highlights</h2>
-        <p>User Photo | User Name | User Role | User activity status</p>
+        <h2 className="h2-custom-primary">My Profile Highlights</h2>
+        <p className="p-custom-primary">
+          User Photo | User Name | User Role | User activity status
+        </p>
         <a href="/users">Go to Profile Page</a>
       </div>
       <div id="communicationSection" className="card blurry">
-        <h2 className="text-2xl">More Information</h2>
-        <p>Info 1</p>
-        <p>Info 2</p>
+        <h2 className="h2-custom-primary">More Information</h2>
+        <p className="p-custom-primary">Info 1</p>
+        <p className="p-custom-primary">Info 2</p>
       </div>
     </main>
   );

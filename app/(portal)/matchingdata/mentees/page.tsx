@@ -32,14 +32,14 @@ export default async function menteeMatchingData() {
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-3xl">My Matching Information</h1>
+        <h1 className="h1-custom-primary">My Matching Information</h1>
       </div>
       <div id="universityInformationSection" className="card blurry">
-        <h2 className="text-2xl">Study Information</h2>
-        <h3 className="text-xl">
+        <h2 className="h2-custom-primary">Study Information</h2>
+        <h3 className="h3-custom-primary">
           Indicate the universities & subjects you want ot apply for!
         </h3>
-        <p>
+        <p className="p-custom-primary">
           The following information will be used to match your mentor, so we
           encourage you to give your submission prior thought! In case you do
           not know some answers yet, just provide the information that is the
@@ -50,13 +50,15 @@ export default async function menteeMatchingData() {
           subjects={subjects}
           userdata={currentUser}
         />
-        <p>Current indications: {JSON.stringify(userTargets)}</p>
+        <p className="p-custom-primary">
+          Current indications: {JSON.stringify(userTargets)}
+        </p>
       </div>
       <div id="matchingInformationSection" className="card blurry">
-        <h2 className="text-2xl">Further Information</h2>
+        <h2 className="h2-custom-primary">Further Information</h2>
         <form>
-          <h3 className="text-xl">Mentee Guidelines</h3>
-          <p>
+          <h3 className="h3-custom-primary">Mentee Guidelines</h3>
+          <p className="p-custom-primary">
             Our mentors take their time to help mentees on a voluntary basis. We
             hope you use this time respectfully. Therefore, we have set up
             mentee guidelines, that we expect you to adhere to.
@@ -78,13 +80,13 @@ export default async function menteeMatchingData() {
 
             // check how to upload a pdf
           />
-          <button className="btn max-w-xs		" id="submitAllUniInformation">
+          <button className="btn-custom-primary" id="submitAllUniInformation">
             Submit further information
           </button>
         </form>
       </div>
       <div id="finalizeRegistrationSection" className="card blurry">
-        <p>
+        <p className="p-custom-primary">
           After clicking the "Register" button below our team will review your
           registration. After your registration is approved, you will then be
           able to request one mentor from our suggestion of fitting mentors.

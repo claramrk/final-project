@@ -30,18 +30,20 @@ export default async function matchingdataMentors() {
   return (
     <main id="visibleMENTORS">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="text-3xl">My Matching Information</h1>
+        <h1 className="h1-custom-primary">My Matching Information</h1>
       </div>
       <div
         id="universityInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2 className="text-2xl">University Information</h2>
+        <h2 className="h2-custom-primary">University Information</h2>
 
         <div id="submitNew">
-          <h3 className="text-xl">Submit new University Background</h3>
+          <h3 className="h3-custom-primary">
+            Submit new University Background
+          </h3>
 
-          <p>
+          <p className="p-custom-primary">
             Please submit each degree you have completed or have been accepted
             to{' '}
           </p>
@@ -52,7 +54,7 @@ export default async function matchingdataMentors() {
           />
         </div>
         <div id="showSubmitted">
-          <h3 className="text-xl">Submitted University Background</h3>
+          <h3 className="h3-custom-primary">Submitted University Background</h3>
 
           <div className="overflow-x-auto">
             <table className="table">
@@ -112,11 +114,11 @@ export default async function matchingdataMentors() {
         id="matchingInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2 className="text-2xl">Matching Information</h2>
+        <h2 className="h2-custom-primary">Matching Information</h2>
         <MentorMatchingInfoFormComponent userdata={currentUser} />
       </div>
       <div id="finalizeRegistrationSection" className="card blurry">
-        <p>
+        <p className="p-custom-primary">
           After clicking the "Register" button below our team will review your
           registration. After your registration is approved, you will join the
           active mentor pool. Mentees will then be able to request you as their

@@ -67,7 +67,7 @@ export default function SignInFormComponent() {
   required />*/}
 
       <button
-        className="btn max-w-xs		"
+        className="btn-custom-primary"
         id="signUpButton"
         // Button text changes depending on radio button input
         // creates a new user with role "incomplete mentor" or "incomplete mentee" and redirects to profile input page
