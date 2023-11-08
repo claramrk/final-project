@@ -63,17 +63,17 @@ export default function PersonalDataFormComponent(props: Props) {
         await handlePutPersonalData();
         await router.refresh();
       }}
-      className="form-custom-primary"
+      className="space-y-12 border-b border-gray-900/10 pb-12"
     >
       <h2 className="h2-custom-primary">Profile</h2>
       <div className="col-span-full">
-        <label
-          htmlFor="photo"
-          className="block text-sm font-medium leading-6 text-gray-900"
-        >
-          Upload a profile photo:
-        </label>
         <div className="mt-2 flex items-center gap-x-3">
+          <label
+            htmlFor="photo"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Upload a profile photo:
+          </label>
           {profilePictureInput ? (
             <img
               src={profilePictureInput}
@@ -99,85 +99,87 @@ export default function PersonalDataFormComponent(props: Props) {
           </div>
         </div>
       </div>
-      <LabelAndInputComponent
-        colSpan="3"
-        inputName="firstnameInput"
-        labeltext="Your first name:"
-        required={true}
-        type="text"
-        placeholder="Jane"
-        onChangeFunction={setFirstnameInput}
-      />
-      <LabelAndInputComponent
-        colSpan="3"
-        inputName="lastnameInput"
-        labeltext="Your last name:"
-        required={true}
-        type="text"
-        placeholder="Doe"
-        onChangeFunction={setLastnameInput}
-      />
-      <LabelAndInputComponent
-        colSpan="3"
-        inputName="phoneNumber"
-        labeltext="Your phone number"
-        required={true}
-        type="tel"
-        placeholder="+43 664 5829837"
-        onChangeFunction={setPhoneNumberInput}
-      />
-      <LabelAndSelectComponent
-        colSpan="3"
-        inputName="pronounsInput"
-        labeltext="Your pronouns:"
-        required={true}
-        onChangeFunction={setPronounsInput}
-        optionlist={pronountypes}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose pronouns--
-        </option>
-        {pronountypes.map((d) => {
-          return (
-            <option key={`dataID-select-${d.name}`} value={d.name}>
-              {d.name}
-            </option>
-          );
-        })}
-      </LabelAndSelectComponent>
-      <LabelAndInputComponent
-        colSpan="3"
-        inputName="birthdateInput"
-        labeltext="Your birthdate"
-        required={true}
-        type="date"
-        placeholder="Doe"
-        onChangeFunction={setBirthdateInput}
-      />
+      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <LabelAndInputComponent
+          colSpan="4"
+          inputName="firstnameInput"
+          labeltext="Your first name:"
+          required={true}
+          type="text"
+          placeholder="Jane"
+          onChangeFunction={setFirstnameInput}
+        />
+        <LabelAndInputComponent
+          colSpan="3"
+          inputName="lastnameInput"
+          labeltext="Your last name:"
+          required={true}
+          type="text"
+          placeholder="Doe"
+          onChangeFunction={setLastnameInput}
+        />
+        <LabelAndInputComponent
+          colSpan="3"
+          inputName="phoneNumber"
+          labeltext="Your phone number"
+          required={true}
+          type="tel"
+          placeholder="+43 664 5829837"
+          onChangeFunction={setPhoneNumberInput}
+        />
+        <LabelAndSelectComponent
+          colSpan="3"
+          inputName="pronounsInput"
+          labeltext="Your pronouns:"
+          required={true}
+          onChangeFunction={setPronounsInput}
+          optionlist={pronountypes}
+        >
+          <option key="dataID-default-select" value="default-select">
+            --Choose pronouns--
+          </option>
+          {pronountypes.map((d) => {
+            return (
+              <option key={`dataID-select-${d.name}`} value={d.name}>
+                {d.name}
+              </option>
+            );
+          })}
+        </LabelAndSelectComponent>
+        <LabelAndInputComponent
+          colSpan="3"
+          inputName="birthdateInput"
+          labeltext="Your birthdate"
+          required={true}
+          type="date"
+          placeholder="Doe"
+          onChangeFunction={setBirthdateInput}
+        />
 
-      <LabelAndSelectComponent
-        colSpan="3"
-        inputName="countryOriginInput"
-        labeltext="Your country of origin:"
-        required={true}
-        onChangeFunction={setOriginCountryInput}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose country--
-        </option>
-        {countries.map((d) => {
-          return (
-            <option key={`dataID-select-${d.id}`} value={d.id}>
-              {d.name}
-            </option>
-          );
-        })}
-      </LabelAndSelectComponent>
+        <LabelAndSelectComponent
+          colSpan="3"
+          inputName="countryOriginInput"
+          labeltext="Your country of origin:"
+          required={true}
+          onChangeFunction={setOriginCountryInput}
+        >
+          <option key="dataID-default-select" value="default-select">
+            --Choose country--
+          </option>
+          {countries.map((d) => {
+            return (
+              <option key={`dataID-select-${d.id}`} value={d.id}>
+                {d.name}
+              </option>
+            );
+          })}
+        </LabelAndSelectComponent>
 
-      <button id="submitPersonalDetails" className="btn-custom-primary">
-        Submit my details
-      </button>
-      {errors ? 'there was an error' : ''}
+        <button id="submitPersonalDetails" className="btn-custom-primary">
+          Submit my details
+        </button>
+        {errors ? 'there was an error' : ''}
+      </div>
     </form>
   );
 }

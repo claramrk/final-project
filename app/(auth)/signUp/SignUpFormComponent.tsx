@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Role } from '../../../migrations/00003-createTableRoles';
@@ -118,11 +119,9 @@ export default function SignUpForm(props: Props) {
             placeholder="**********"
             onChangeFunction={setPassword}
           />
-          <label className="label" htmlFor="ForgotPassword">
-            <a className="link-custom-primary" href="/#">
-              Forgot password?
-            </a>
-          </label>
+          <Link className="link-custom-primary" href="/#">
+            Forgot password?
+          </Link>
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary" id="signUpButton">

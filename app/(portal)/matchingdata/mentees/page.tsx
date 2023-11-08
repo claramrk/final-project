@@ -70,15 +70,15 @@ export default async function menteeMatchingData() {
           >
             Mentee Guideline Contract Download
           </a>
-          <label htmlFor="mentee_guideline_upload">
-            Please download the mentee Guideline contract, read it carefully and
-            upload a signed version here:
+          <label
+            className="label-custom-primary"
+            htmlFor="mentee_guideline_upload"
+          >
+            Please download the mentee Guideline contract, read it carefully and upload a signed version here:
           </label>
           <input
-            className="input input-bordered w-full max-w-xs"
-            id="mentee_guideline_upload"
+            className="input-text-custom-primary"
             type="file"
-
             // check how to upload a pdf
           />
           <button className="btn-custom-primary" id="submitAllUniInformation">
