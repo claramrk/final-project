@@ -33,3 +33,35 @@
     margin: 1rem;
   }
 }
+
+@layer components {
+  .btn-custom-primary {
+    @apply rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+  }
+  .btn-custom-secondary {
+    @apply rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+  }
+  .input-custom-primary {
+    @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+  }
+
+  .label-custom-primary {
+    @apply block text-sm font-semibold leading-6 text-gray-900;
+  }
+
+  .h1-custom-primary {
+    @apply block text-sm font-semibold leading-6 text-gray-900;
+  }
+  .h2-custom-primary {
+    @apply block text-sm font-semibold leading-6 text-gray-900;
+  }
+  .h3-custom-primary {
+    @apply block text-sm font-semibold leading-6 text-gray-900;
+  }
+  .card-custom-primary {
+    @apply mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none;
+  }
+  .card-custom-secondary {
+    @apply rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16;
+  }
+}

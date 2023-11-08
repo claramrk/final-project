@@ -16,9 +16,9 @@ export default function PersonalDataFormComponent(props: Props) {
   const [lastnameInput, setLastnameInput] = useState('');
   const [pronounsInput, setPronounsInput] = useState('');
   const [phoneNumberInput, setPhoneNumberInput] = useState('');
-  const [birthdateInput, setBirthdateInput] = useState();
+  const [birthdateInput, setBirthdateInput] = useState('');
   const [originCountryInput, setOriginCountryInput] = useState('');
-  const [profilePictureInput, setProfilePictureInput] = useState();
+  const [profilePictureInput, setProfilePictureInput] = useState('');
   const [imagesUploadedList, setImagesUploadedList] = useState([]);
   const [imageInfo, setImageInfo] = useState([]);
 
@@ -68,22 +68,19 @@ export default function PersonalDataFormComponent(props: Props) {
       >
         <div className="form-control">
           <label className="label" htmlFor="firstname">
-            <span className="label-text">
+            <span className="label-custom-primary">
               Your first name:<span id="required">*</span>
             </span>
           </label>
-          <label className="input-group">
-            <span>First name</span>
-            <input
-              name="firstname"
-              placeholder={
-                props.userdata.firstname ? props.userdata.firstname : 'Jane'
-              }
-              className="input input-bordered w-full max-w-xs"
-              required
-              onChange={(event) => setFirstnameInput(event.currentTarget.value)}
-            />
-          </label>
+          <input
+            name="firstname"
+            placeholder={
+              props.userdata.firstname ? props.userdata.firstname : 'Jane'
+            }
+            className="input-custom-primary"
+            required
+            onChange={(event) => setFirstnameInput(event.currentTarget.value)}
+          />
         </div>
         <div className="form-control">
           <label className="label" htmlFor="lastname">
@@ -211,7 +208,7 @@ export default function PersonalDataFormComponent(props: Props) {
             </span>
           </label>
           <p>Profile Photo</p>
-          <div className="btn max-w-xs		">
+          <div className="btn-test ">
             <UploadImageComponent setImageInfo={setImageInfo} />
           </div>
         </div>
