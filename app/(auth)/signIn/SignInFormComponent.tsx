@@ -38,32 +38,40 @@ export default function SignInFormComponent() {
     router.refresh();
   }
   return (
-    <form id="signInForm" onSubmit={async (event) => await handleSignIn(event)}>
-      <LabelAndInputComponent
-        inputName="emailInput"
-        labeltext="Your email:"
-        required={true}
-        type="email"
-        placeholder="mail@example.com"
-        onChangeFunction={setEmail}
-      />
-      <LabelAndInputComponent
-        inputName="passwordInput"
-        labeltext="Your password:"
-        required={true}
-        type="password"
-        placeholder="**********"
-        onChangeFunction={setPassword}
-      />
+    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form
+        className="card-body"
+        id="signInForm"
+        onSubmit={async (event) => await handleSignIn(event)}
+      >
+        <LabelAndInputComponent
+          inputName="emailInput"
+          labeltext="Your email:"
+          required={true}
+          type="email"
+          placeholder="mail@example.com"
+          onChangeFunction={setEmail}
+        />
+        <LabelAndInputComponent
+          inputName="passwordInput"
+          labeltext="Your password:"
+          required={true}
+          type="password"
+          placeholder="**********"
+          onChangeFunction={setPassword}
+        />
 
-      <button className="btn-custom-primary" id="signUpButton">
-        Sign in
-      </button>
-      {errors.map((error) => (
-        <div className="error" key={`error-${error.message}`}>
-          Error: {error.message}
+        <div className="form-control mt-6">
+          <button className="btn btn-primary" id="signUpButton">
+            Sign in
+          </button>
         </div>
-      ))}
-    </form>
+        {errors.map((error) => (
+          <div className="error" key={`error-${error.message}`}>
+            Error: {error.message}
+          </div>
+        ))}
+      </form>
+    </div>
   );
 }

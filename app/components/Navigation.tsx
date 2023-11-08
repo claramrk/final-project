@@ -12,7 +12,7 @@ export default async function Navigation() {
 
   return (
     <div className="absolute inset-x-0 top-0 z-50">
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 bg-transparent">
         <div className="navbar-start ml-4">
           {!currentUser ? (
             ''
