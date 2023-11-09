@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
 import { getUserBySessionToken } from '../../database/users';
 import { navigation } from '../../util/pageNavigation';

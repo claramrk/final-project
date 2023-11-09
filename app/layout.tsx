@@ -1,11 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { cookies, headers } from 'next/headers';
-import { redirect, usePathname } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
-import { getMentorUniversityBackgroundbyUserID } from '../database/mentorUniversityBackground';
 import { getUserBySessionToken } from '../database/users';
-import { getNavigationPermissions } from '../util/pageNavigation';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 

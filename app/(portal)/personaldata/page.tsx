@@ -1,11 +1,13 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getCountries } from '../../../database/countries';
+import { getRoleByName } from '../../../database/roles';
 import { getUserBySessionToken } from '../../../database/users';
 import PersonalDataFormComponent from './PersonalDataFormComponent';
 
 export default async function personaldata() {
   const countries = await getCountries();
+
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
 
@@ -13,7 +15,11 @@ export default async function personaldata() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  if (!currentUser) redirect('/login?returnTo=/notes');
+  if (!currentUser || !currentUser.userRolesId)redirect('/signIn?returnTo=/#');
+
+  const currenUserRole = currentUser.userRolesId[0];
+  const roleByName = await getRoleByName(currenUserRole.name);
+
 
   return (
     <main>
@@ -25,7 +31,8 @@ export default async function personaldata() {
         <p className="p-custom-primary">Please enter your personal data here</p>
         <PersonalDataFormComponent
           countries={countries}
-          userdata={currentUser}
+          currentUser={currentUser}
+          role={roleByName}
         />
       </div>
     </main>

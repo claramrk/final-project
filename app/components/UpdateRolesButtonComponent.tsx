@@ -21,19 +21,18 @@ export default function UpdateRolesButtonComponent(props: Props) {
         roleId: Number(props.roleAsId),
       }),
     });
-    await router.push(`http://localhost:3000${props.redirectTo}`);
+    await router.push(`${props.redirectTo}`);
 
     await router.refresh();
   }
 
   return (
-    <form>
-      <button
-        formAction={handleCompleteRegistration}
-        className="btn-custom-primary"
-      >
-        {props.buttonText}
-      </button>
-    </form>
+    <button
+      formAction={handleCompleteRegistration}
+      className="btn-custom-primary"
+      type="submit"
+    >
+      {props.buttonText}
+    </button>
   );
 }

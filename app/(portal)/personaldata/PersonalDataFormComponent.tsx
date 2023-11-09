@@ -3,12 +3,18 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { pronountypes } from '../../../database/pronouns';
 import { Country } from '../../../migrations/00000-createTableCountries';
+import { Role } from '../../../migrations/00003-createTableRoles';
 import { UserAll } from '../../../migrations/00004-createTableUsers';
 import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 import LabelAndSelectComponent from '../../components/LabelandSelectInput';
+import UpdateRolesButtonComponent from '../../components/UpdateRolesButtonComponent';
 import UploadImageComponent from '../../components/UploadImageComponent';
 
-type Props = { countries: Country[]; userdata: UserAll };
+type Props = {
+  countries: Country[];
+  currentUser: UserAll;
+  role: Role | undefined;
+};
 
 export default function PersonalDataFormComponent(props: Props) {
   const countries = props.countries;
@@ -25,7 +31,7 @@ export default function PersonalDataFormComponent(props: Props) {
   const router = useRouter();
 
   async function handlePutPersonalData() {
-    const currentUserID = await Number(props.userdata.id);
+    const currentUserID = await Number(props.currentUser.id);
 
     await fetch('/../../api/users/personaldata', {
       method: 'PUT',
@@ -173,11 +179,24 @@ export default function PersonalDataFormComponent(props: Props) {
             );
           })}
         </LabelAndSelectComponent>
-
         <button id="submitPersonalDetails" className="btn-custom-primary">
           Submit my details
         </button>
-        {errors ? 'there was an error' : ''}
+        <UpdateRolesButtonComponent
+          userdata={props.currentUser}
+          roleAsId={Number(props.role?.id)}
+          buttonText={
+            props.role
+              ? `Complete your registration as a ${props.role.type}`
+              : ''
+          }
+          redirectTo={
+            props.role ? `/${props.role.type}/matchingoverview` : '/signIn'
+          }
+
+          // should be available only when other info has been submitted
+        />
+        <p>{errors ? 'there was an error' : ''}</p>
       </div>
     </form>
   );

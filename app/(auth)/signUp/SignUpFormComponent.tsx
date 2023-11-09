@@ -44,7 +44,7 @@ export default function SignUpForm(props: Props) {
       setErrors(data.errors);
       return;
     }
-    router.push(`/mentors/dashboard`);
+    router.push(`/personaldata`);
 
     router.refresh();
   }
