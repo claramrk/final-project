@@ -32,7 +32,7 @@ export const navigation = [
     href: '/mentees/matchingoverview',
   },
   {
-    pageName: 'personaldata',
+    pageName: 'Personaldata',
     forUserType: ['mentor', 'mentee', 'admin'],
     clickableByUser: true,
 
@@ -47,6 +47,23 @@ export const navigation = [
     ],
     href: '/personaldata',
   },
+  {
+    pageName: 'Mainpage',
+    forUserType: ['mentor', 'mentee', 'admin', 'undefined'],
+    clickableByUser: true,
+
+    permissionFor: [
+      'incomplete mentee',
+      'incomplete mentor',
+      'complete mentee',
+      'complete mentor',
+      'approved mentee',
+      'approved mentor',
+      'admin',
+      undefined,
+    ],
+    href: '/#',
+  },
 ];
 
 export function getNavigationPermissions(
@@ -55,6 +72,5 @@ export function getNavigationPermissions(
 ) {
   const currentPage = navigation.find((element) => pageHref === element.href);
   const permissionCheck = currentPage?.permissionFor.includes(userRoleName);
-  console.log(permissionCheck);
   return permissionCheck;
 }

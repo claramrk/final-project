@@ -1,8 +1,10 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
 import { getUserBySessionToken } from '../../database/users';
 import { navigation } from '../../util/pageNavigation';
+import NavigationComponent from './NavigationComponent';
 
 export default async function Navigation() {
   const cookieStore = cookies();
@@ -11,15 +13,29 @@ export default async function Navigation() {
 
   const currentUser =
     sessionToken && (await getUserBySessionToken(sessionToken.value));
-  console.log(currentUser);
 
-  const pageIndexUser =
-    currentUser && currentUser.userRolesId && currentUser.userRolesId.length > 0
-      ? navigation.map((n) => {
-          n.permissionFor.includes(currentUser.userRolesId[0].name);
-          return n;
-        })
-      : pageIndex;
+  /*
+  function runPermissionCheck() {
+    const pageIndexUser =
+      currentUser &&
+      currentUser.userRolesId &&
+      currentUser.userRolesId.length > 0
+        ? pageIndex.map((n) => {
+            n.permissionFor.includes(currentUser.userRolesId[0].name);
+            return n;
+          })
+        : pageIndex.map((n) => {
+            n.permissionFor.includes(undefined);
+            return n;
+          });
+
+    console.log(pageIndexUser);
+    console.log(currentUser.userRolesId[0].name);
+
+    return pageIndexUser;
+  }
+
+  const pageIndexUser = runPermissionCheck(); */
 
   return (
     <div className="absolute inset-x-0 top-0 z-50">
@@ -46,77 +62,7 @@ export default async function Navigation() {
                 </svg>
               </button>
               <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                {pageIndexUser.map((p) => {
-                  return (
-                    <li key={`id-${p.pageName}`}>
-                      <a className="link-custom-nav" href={p.href}>
-                        {p.pageName}
-                      </a>
-                    </li>
-                  );
-                })}
-                <li>
-                  <a className="link-custom-nav" href="/personaldata">
-                    Profile Page
-                  </a>
-                </li>
-                <li>
-                  <a className="link-custom-nav">Dashboard</a>
-                  <ul className="p-2">
-                    <li>
-                      <a className="link-custom-nav" href="/dashboard/mentors">
-                        Dashboard Mentor
-                      </a>
-                    </li>
-                    <li>
-                      <a className="link-custom-nav" href="/dashboard/mentees">
-                        Dashboard Mentee
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a className="link-custom-nav">Matching Info Input</a>
-                  <ul className="p-2">
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingdata/mentors"
-                      >
-                        Matching Data Mentor
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingdata/mentees"
-                      >
-                        Matching Data Mentee
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a className="link-custom-nav">Matching Overview</a>
-                  <ul className="p-2">
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingoverview/mentors"
-                      >
-                        Matching Overview Mentor
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingoverview/mentees"
-                      >
-                        Matching Overview Mentee
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                <NavigationComponent currentUser={currentUser} />
               </ul>
             </div>
           )}
@@ -295,83 +241,7 @@ export default async function Navigation() {
         ) : (
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
-              {pageIndexUser.map((p) => {
-                return (
-                  <li key={`id-${p.pageName}`}>
-                    <a className="link-custom-nav" href={p.href}>
-                      {p.pageName}
-                    </a>
-                  </li>
-                );
-              })}
-              <li>
-                <a className="link-custom-nav" href="/personaldata">
-                  Profile Page
-                </a>
-              </li>
-              <li>
-                <details>
-                  <summary>Dashboard</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a className="link-custom-nav" href="/dashboard/mentors">
-                        Dashboard Mentor
-                      </a>
-                    </li>
-                    <li>
-                      <a className="link-custom-nav" href="/dashboard/mentees">
-                        Dashboard Mentee
-                      </a>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <details>
-                  <summary>Matching Info Input</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingdata/mentors"
-                      >
-                        Matching Data Mentor
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingdata/mentees"
-                      >
-                        Matching Data Mentee
-                      </a>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <details>
-                  <summary>Matching Overview</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingoverview/mentors"
-                      >
-                        Matching Overview Mentor
-                      </a>{' '}
-                    </li>
-                    <li>
-                      <a
-                        className="link-custom-nav"
-                        href="/matchingoverview/mentees"
-                      >
-                        Matching Overview Mentee
-                      </a>{' '}
-                    </li>
-                  </ul>
-                </details>
-              </li>
+              <NavigationComponent currentUser={currentUser} />
             </ul>
           </div>
         )}
