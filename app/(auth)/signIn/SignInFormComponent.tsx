@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { navigation } from '../../../util/pageNavigation';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 
@@ -13,6 +14,7 @@ export default function SignInFormComponent() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();
+  const pageIndex = navigation;
 
   async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -31,8 +33,8 @@ export default function SignInFormComponent() {
       setErrors(data.errors);
       return;
     }
-
-    router.push(`/mentors/dashboard`);
+    console.log(response);
+    router.push(`/mentors/matchingoverview`);
     // should be dependent on role whether i get redirected to profile page, or mentors, etc
 
     router.refresh();

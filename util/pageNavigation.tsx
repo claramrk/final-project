@@ -1,5 +1,7 @@
 export const navigation = [
   {
+    id: 5,
+
     pageName: 'Matchingoverview',
     forUserType: ['mentor'],
     permissionFor: ['complete mentor', 'approved mentor'],
@@ -8,6 +10,7 @@ export const navigation = [
     href: '/mentors/matchingoverview',
   },
   {
+    id: 4,
     pageName: 'Matchingdata',
     forUserType: ['mentor'],
     permissionFor: ['incomplete mentor'],
@@ -16,6 +19,7 @@ export const navigation = [
     href: '/mentors/matchingdata',
   },
   {
+    id: 6,
     pageName: 'Matchingoverview',
     forUserType: ['mentee'],
     permissionFor: ['complete mentee', 'approved mentee'],
@@ -24,6 +28,8 @@ export const navigation = [
     href: '/mentees/matchingoverview',
   },
   {
+    id: 3,
+
     pageName: 'Matchingdata',
     forUserType: ['mentee'],
     permissionFor: ['incomplete mentee'],
@@ -32,6 +38,8 @@ export const navigation = [
     href: '/mentees/matchingoverview',
   },
   {
+    id: 2,
+
     pageName: 'Personaldata',
     forUserType: ['mentor', 'mentee', 'admin'],
     clickableByUser: true,
@@ -48,6 +56,7 @@ export const navigation = [
     href: '/personaldata',
   },
   {
+    id: 1,
     pageName: 'Mainpage',
     forUserType: ['mentor', 'mentee', 'admin', 'undefined'],
     clickableByUser: true,
