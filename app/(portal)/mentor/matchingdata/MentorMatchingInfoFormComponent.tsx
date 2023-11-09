@@ -1,11 +1,14 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Role } from '../../../../migrations/00003-createTableRoles';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
 import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
+import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 
 type Props = {
   userdata: UserAll;
+  role: Role | undefined;
 };
 
 export default function MentorMatchingInfoFormComponent(props: Props) {
@@ -28,11 +31,14 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
     await router.refresh();
   }
 
+  const reroute: any = props.role ? `/mentor/matchingoverview` : '/signIn';
+
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
         await handlePutMentorMatchingInfo();
+        await router.push(reroute);
       }}
     >
       <LabelAndInputComponent
@@ -82,6 +88,24 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
       <button className="btn-custom-primary" id="submitAllUniInformation">
         Submit matching Information
       </button>
+      <div id="finalizeRegistrationSection" className="card blurry">
+        <p className="p-custom-primary">
+          After clicking the "Register" button below our team will review your
+          registration. After your registration is approved, you will join the
+          active mentor pool. Mentees will then be able to request you as their
+          mentor after you have been suggested as a fitting mentor. After a
+          mentee's request, you will have one week to accept the request to
+          start your mentorship journey together. You can always set your
+          mentorship to inactive in the future, in case you would like to take a
+          break or discontinue mentoring.
+        </p>
+        <UpdateRolesButtonComponent
+          userdata={currentUser}
+          roleAsId={props.role?.id}
+          buttonText="Submit your matchinginfo"
+          // should be available only when other info has been submitted
+        />
+      </div>
     </form>
   );
 }

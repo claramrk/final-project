@@ -117,26 +117,9 @@ export default async function matchingdataMentors() {
         <h2 className="h2-custom-primary">Matching Information</h2>
         <h3 className="h3-custom-primary">Maximum Capacity</h3>
 
-        <MentorMatchingInfoFormComponent userdata={currentUser} />
-      </div>
-      <div id="finalizeRegistrationSection" className="card blurry">
-        <p className="p-custom-primary">
-          After clicking the "Register" button below our team will review your
-          registration. After your registration is approved, you will join the
-          active mentor pool. Mentees will then be able to request you as their
-          mentor after you have been suggested as a fitting mentor. After a
-          mentee's request, you will have one week to accept the request to
-          start your mentorship journey together. You can always set your
-          mentorship to inactive in the future, in case you would like to take a
-          break or discontinue mentoring.
-        </p>
-        <UpdateRolesButtonComponent
+        <MentorMatchingInfoFormComponent
           userdata={currentUser}
-          roleAsId={roleAsId?.id}
-          buttonText="Complete your registration as a mentor"
-          redirectTo="/dashboard/mentors"
-
-          // should be available only when other info has been submitted
+          role={roleAsId}
         />
       </div>
     </main>

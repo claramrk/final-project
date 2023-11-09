@@ -12,7 +12,7 @@ export default async function Navigation() {
 
   const currentUser =
     sessionToken && (await getUserBySessionToken(sessionToken.value));
-
+  console.log(currentUser);
   /*
   function runPermissionCheck() {
     const pageIndexUser =

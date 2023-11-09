@@ -7,7 +7,7 @@ export const navigation = [
     permissionFor: ['complete mentor', 'approved mentor'],
     clickableByUser: true,
 
-    href: '/mentors/matchingoverview',
+    href: '/mentor/matchingoverview',
   },
   {
     id: 4,
@@ -16,7 +16,7 @@ export const navigation = [
     permissionFor: ['incomplete mentor'],
     clickableByUser: true,
 
-    href: '/mentors/matchingdata',
+    href: '/mentor/matchingdata',
   },
   {
     id: 6,
@@ -25,7 +25,7 @@ export const navigation = [
     permissionFor: ['complete mentee', 'approved mentee'],
     clickableByUser: true,
 
-    href: '/mentees/matchingoverview',
+    href: '/mentee/matchingoverview',
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const navigation = [
     permissionFor: ['incomplete mentee'],
     clickableByUser: true,
 
-    href: '/mentees/matchingoverview',
+    href: '/mentee/matchingdata',
   },
   {
     id: 2,

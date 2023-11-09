@@ -61,12 +61,17 @@ export default function PersonalDataFormComponent(props: Props) {
     });
   }, [imageInfo]);
 
+  const reroute: any = props.role
+    ? `/${props.role.type}/matchingdata`
+    : '/signIn';
+
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
         await handlePutPersonalData();
         await router.refresh();
+        await router.push(reroute);
       }}
       className="space-y-12 border-b border-gray-900/10 pb-12"
     >
@@ -179,9 +184,6 @@ export default function PersonalDataFormComponent(props: Props) {
             );
           })}
         </LabelAndSelectComponent>
-        <button id="submitPersonalDetails" className="btn-custom-primary">
-          Submit my details
-        </button>
         <UpdateRolesButtonComponent
           userdata={props.currentUser}
           roleAsId={Number(props.role?.id)}
@@ -190,11 +192,6 @@ export default function PersonalDataFormComponent(props: Props) {
               ? `Complete your registration as a ${props.role.type}`
               : ''
           }
-          redirectTo={
-            props.role ? `/${props.role.type}/matchingoverview` : '/signIn'
-          }
-
-          // should be available only when other info has been submitted
         />
         <p>{errors ? 'there was an error' : ''}</p>
       </div>

@@ -51,7 +51,7 @@ export default async function dashboardMentees() {
 
           <Link
             className="link-custom-primary"
-            href="/mentors/matchingoverview"
+            href="/mentor/matchingoverview"
           >
             Go to Matching Page
           </Link>
@@ -66,7 +66,7 @@ export default async function dashboardMentees() {
           </a>
           <Link
             className="link-custom-primary"
-            href="/mentors/matchingoverview"
+            href="/mentee/matchingoverview"
           >
             Go to Matching Page
           </Link>

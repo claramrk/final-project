@@ -7,7 +7,6 @@ type Props = {
   userdata: UserAll;
   roleAsId: number | undefined;
   buttonText: string;
-  redirectTo: string;
 };
 
 export default function UpdateRolesButtonComponent(props: Props) {
@@ -21,7 +20,6 @@ export default function UpdateRolesButtonComponent(props: Props) {
         roleId: Number(props.roleAsId),
       }),
     });
-    await router.push(`${props.redirectTo}`);
 
     await router.refresh();
   }
