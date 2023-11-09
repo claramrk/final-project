@@ -49,7 +49,6 @@ export default function PersonalDataFormComponent(props: Props) {
       // @ts-expect-error secure_url type never
       const responseUrl = response.secure_url;
       setProfilePictureInput(responseUrl);
-      console.log(await responseUrl);
     }
     getImageInfo().catch((error) => {
       console.log(error);

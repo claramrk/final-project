@@ -1,6 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { cookies, headers } from 'next/headers';
+import { redirect, usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
+import { getMentorUniversityBackgroundbyUserID } from '../database/mentorUniversityBackground';
+import { getUserBySessionToken } from '../database/users';
+import { getNavigationPermissions } from '../util/pageNavigation';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 
@@ -13,7 +18,23 @@ type Props = {
   children: ReactNode;
 };
 
-export default function RootLayout(props: Props) {
+export default async function RootLayout(props: Props) {
+  // 1. Checking if the sessionToken cookie exists
+  const sessionTokenCookie = cookies().get('sessionToken');
+
+  const currentUser =
+    sessionTokenCookie &&
+    (await getUserBySessionToken(sessionTokenCookie.value));
+
+  /*  if (currentUser.userRolesId) {
+    console.log(currentUser.userRolesId.name);
+
+    const pagePermissionCheck = getNavigationPermissions(
+      currentUser.userRolesId.name,
+      header_url,
+    );
+  } */
+
   return (
     <html lang="en" className="h-full">
       <body className="h-full flex flex-col min-h-screen">

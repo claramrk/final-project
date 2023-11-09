@@ -75,7 +75,27 @@ export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
 });
 
 export const getUserBySessionToken = cache(async (token: string) => {
-  const [user] = await sql<UserAll[]>`
+  const [user] = await sql<
+    {
+      id: number;
+      email: string;
+      passwordHash: string;
+      firstname: string | null;
+      lastname: string | null;
+      pronouns: string | null;
+      phoneNumber: string | null;
+      birthdate: Date | null;
+      countryId: string | null;
+      photo: string | null;
+      roleId: number | null;
+      lastActivity: Date | null;
+      lastUpdate: Date | null;
+      pauseUntil: Date | null;
+      maxCapacity: number | null;
+      contractDocUrl: string | null;
+      userRolesId: JsonAgg | null;
+    }[]
+  >`
    SELECT
     users.id,
     users.email,
@@ -92,7 +112,18 @@ export const getUserBySessionToken = cache(async (token: string) => {
     users.last_update,
     users.pause_until,
     users.max_capacity,
-    users.contract_doc_url
+    users.contract_doc_url,
+    (
+        SELECT
+          json_agg (
+            roles.*
+
+          )
+        FROM
+          roles
+        WHERE
+        roles.id = users.role_id
+      ) AS user_roles_id
 
     FROM
       users
@@ -102,6 +133,8 @@ export const getUserBySessionToken = cache(async (token: string) => {
         sessions.user_id = users.id AND
         sessions.expiry_timestamp > now()
       )
+      LEFT JOIN roles ON roles.id = users.role_id
+
   `;
   return user;
 });
@@ -190,7 +223,18 @@ export type mentorUniversityBackgroundbyUserIDWithUniAndSubject = {
 export const getMentorUniversityBackgroundWithUserInoUniAndSubject = cache(
   async () => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      mentorUniversityBackgroundbyUserIDWithUniAndSubject[]
+      {
+        usersId: number;
+        usersMaxCapacity: number | null;
+        usersOriginCountryId: string;
+        rolesRoleName: string;
+        uniBgId: number;
+        uniBgUniversityId: number | null;
+        uniBgSubjectId: number | null;
+        uniBgStudylevelId: number;
+        uniBgAttendanceType: number;
+        uniBgSubjectDiscipline: string;
+      }[]
     >`
       SELECT
 users.id AS users_id,
@@ -276,7 +320,14 @@ export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
 export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
   cache(async () => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
+      {
+        usersId: number;
+        usersRoleId: number | null;
+        usersCountryId: string | null;
+        usersMaxCapacity: number | null;
+        usersPauseUntil: Date | null;
+        userMentorUniversityBackgrounds: JsonAgg | null;
+      }[]
     >`
       SELECT
 users.id AS users_id,
@@ -316,7 +367,14 @@ export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
 export const getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject =
   cache(async (email: string) => {
     const [menteeUniversityApplicationsbyUserIDWithUniAndSubject] = await sql<
-      menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
+      {
+        usersId: number;
+        usersEmail: string;
+        usersRoleId: number | null;
+        usersCountryId: string | null;
+        usersPauseUntil: Date | null;
+        userMenteeUniversityApplications: JsonAgg | null;
+      }[]
     >`
       SELECT
 users.id AS users_id,
@@ -357,7 +415,7 @@ export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSO
     userMentorUniversityBackgrounds: JsonAgg | null;
   };
 
-export type JsonAgg = MentorUniversityBackground[];
+export type JsonAgg = any[];
 
 export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
   cache(async (id: number) => {
@@ -401,7 +459,7 @@ export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSO
 export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW =
   cache(async (id: number) => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW[]
+      { rowToJson: JsonAgg | null }[]
     >`
     WITH subjects as (
       SELECT
@@ -462,7 +520,7 @@ export type SingleUserWithMenteeUniversityApplicationbyUserIDJSONROW = {
 export const getSingleUserWithMenteeUniversityApplicationbyUserIDJSONROW =
   cache(async (id: number) => {
     const [singleUserWithMenteeUniversityApplicationbyUserIDJSONROW] =
-      await sql<SingleUserWithMenteeUniversityApplicationbyUserIDJSONROW[]>`
+      await sql<{ rowToJson: JsonAgg | null }[]>`
     WITH mentee_university_applications AS (
       SELECT
         mentee_university_applications.*

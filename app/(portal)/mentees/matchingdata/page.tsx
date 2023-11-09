@@ -74,7 +74,8 @@ export default async function menteeMatchingData() {
             className="label-custom-primary"
             htmlFor="mentee_guideline_upload"
           >
-            Please download the mentee Guideline contract, read it carefully and upload a signed version here:
+            Please download the mentee Guideline contract, read it carefully and
+            upload a signed version here:
           </label>
           <input
             className="input-text-custom-primary"

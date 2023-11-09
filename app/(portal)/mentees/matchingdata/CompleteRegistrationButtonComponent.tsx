@@ -20,7 +20,7 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
         roleId: Number(props.roleAsId),
       }),
     });
-    await router.push(`/dashboard/mentees`);
+    await router.push(`/mentees/dashboard`);
 
     await router.refresh();
   }

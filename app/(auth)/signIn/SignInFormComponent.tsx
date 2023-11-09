@@ -32,7 +32,7 @@ export default function SignInFormComponent() {
       return;
     }
 
-    router.push(`/dashboard/mentors`);
+    router.push(`/mentors/dashboard`);
     // should be dependent on role whether i get redirected to profile page, or mentors, etc
 
     router.refresh();

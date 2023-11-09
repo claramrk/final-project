@@ -24,7 +24,7 @@ export default function dashboardMentors() {
           Active Match #1: Menteephoto | Menteename | Match active since: DATE
         </p>
 
-        <Link className="link-custom-primary" href="/matchingoverview/mentors">
+        <Link className="link-custom-primary" href="/mentors/matchingoverview">
           Go to Matching Page
         </Link>
       </div>

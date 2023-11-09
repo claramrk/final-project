@@ -1,13 +1,4 @@
-import MatchingAlgorythm from '../util/matchingAlgorythm';
-
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-];
-
-export default async function homePage() {
+export default function homePage() {
   return (
     <div className="relative isolate px-6 lg:px-8">
       <div

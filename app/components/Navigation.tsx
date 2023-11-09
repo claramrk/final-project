@@ -2,13 +2,24 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
 import { getUserBySessionToken } from '../../database/users';
+import { navigation } from '../../util/pageNavigation';
 
 export default async function Navigation() {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
+  const pageIndex = navigation;
 
   const currentUser =
     sessionToken && (await getUserBySessionToken(sessionToken.value));
+  console.log(currentUser);
+
+  const pageIndexUser =
+    currentUser && currentUser.userRolesId && currentUser.userRolesId.length > 0
+      ? navigation.map((n) => {
+          n.permissionFor.includes(currentUser.userRolesId[0].name);
+          return n;
+        })
+      : pageIndex;
 
   return (
     <div className="absolute inset-x-0 top-0 z-50">
@@ -35,6 +46,15 @@ export default async function Navigation() {
                 </svg>
               </button>
               <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                {pageIndexUser.map((p) => {
+                  return (
+                    <li key={`id-${p.pageName}`}>
+                      <a className="link-custom-nav" href={p.href}>
+                        {p.pageName}
+                      </a>
+                    </li>
+                  );
+                })}
                 <li>
                   <a className="link-custom-nav" href="/personaldata">
                     Profile Page
@@ -275,6 +295,15 @@ export default async function Navigation() {
         ) : (
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
+              {pageIndexUser.map((p) => {
+                return (
+                  <li key={`id-${p.pageName}`}>
+                    <a className="link-custom-nav" href={p.href}>
+                      {p.pageName}
+                    </a>
+                  </li>
+                );
+              })}
               <li>
                 <a className="link-custom-nav" href="/personaldata">
                   Profile Page
