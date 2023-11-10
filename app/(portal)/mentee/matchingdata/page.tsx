@@ -33,7 +33,7 @@ export default async function menteeMatchingData() {
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="h1-custom-primary">My Matching Information</h1>
+        <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
       </div>
       <div id="universityInformationSection" className="card blurry">
         <h2 className="h2-custom-primary">

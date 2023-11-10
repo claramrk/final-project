@@ -28,7 +28,9 @@ export default async function matchingOverviewMentors() {
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="h1-custom-primary">My Matching Overview</h1>
+        <h1 className="h1-custom-primary">
+          {currentUser.firstname}s' Matching Overview
+        </h1>
       </div>
       <div id="activeMatchesSection" className="card blurry">
         <h2 className="h2-custom-primary">Active Matches</h2>
@@ -85,22 +87,24 @@ export default async function matchingOverviewMentors() {
               </p>
             );
           })}
-          <p id="exampleRequestedMatch" className="card sub-blurry">
-            Match Request#1: Menteephoto | Menteename | Mentee targetunis |
-            Mentee targetsubjects | mentee targetstudylevel | Message from
-            mentee | Date of request: DATE{' '}
-          </p>
+          <div id="exampleRequestedMatch" className="card sub-blurry">
+            <p>
+              Match Request#1: Menteephoto | Menteename | Mentee targetunis |
+              Mentee targetsubjects | mentee targetstudylevel | Message from
+              mentee | Date of request: DATE{' '}
+            </p>
 
-          <button className="btn-custom-primary">Accept match request</button>
-          <button className="btn-custom-primary">Reject match request</button>
+            <button className="btn-custom-primary">Accept match request</button>
+            <button className="btn-custom-primary">Reject match request</button>
 
-          <LabelAndInputComponent
-            colSpan="3"
-            inputName="reasonRejection"
-            labeltext=" Please briefly indicate the reason for your rejection:"
-            required={true}
-            type="text"
-          />
+            <LabelAndInputComponent
+              colSpan="3"
+              inputName="reasonRejection"
+              labeltext=" Please briefly indicate the reason for your rejection:"
+              required={true}
+              type="text"
+            />
+          </div>
         </div>
       </div>
     </main>
