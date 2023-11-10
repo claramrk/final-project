@@ -243,11 +243,18 @@ export default async function Navigation() {
         )}
         <div className="navbar-end">
           <div className="card blurry flex flex-row">
-            {currentUser?.photo ? (
+            {currentUser ? (
               <>
                 <div className="avatar mr-4">
                   <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                    <img src={currentUser.photo} alt={currentUser.email} />
+                    <img
+                      src={
+                        currentUser.photo
+                          ? currentUser.photo
+                          : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
+                      }
+                      alt={currentUser.email}
+                    />
                   </div>
                 </div>
                 {currentUser.email}
