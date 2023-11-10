@@ -1,5 +1,5 @@
 import { Sql } from 'postgres';
-import { MentorUniversityBackground } from './00005-createTableMentorUniversityBackgrounds';
+import { MentorUniversityBackground } from './00011-createTableMentorUniversityBackgrounds';
 
 export type UserAll = {
   id: number;
@@ -89,9 +89,9 @@ export async function up(sql: Sql) {
     pronouns VARCHAR(255),
     phone_number bigint ,
     birthdate TIMESTAMP,
-    country_id varchar(10)  REFERENCES countries(id) ON DELETE SET NULL,
+    country_id varchar(10)  REFERENCES countries(id)  ON DELETE CASCADE,
     photo VARCHAR(255),
-    role_id integer REFERENCES roles(id) ON DELETE SET NULL,
+    role_id integer REFERENCES roles(id) ON DELETE CASCADE,
     last_activity TIMESTAMP ,
     last_update TIMESTAMP,
     pause_until TIMESTAMP,

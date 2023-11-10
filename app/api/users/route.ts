@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getUserById, putUserRole } from '../../../database/users';
-import { UserAll } from '../../../migrations/00004-createTableUsers';
+import { UserAll } from '../../../migrations/00008-createTableUsers';
 
 // get user
 type UserResponseBodyGet =

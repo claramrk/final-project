@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { Match } from '../migrations/00007-createTableMatches';
+import { Match } from '../migrations/00015-createTableMatches';
 import { sql } from './connect';
 
 export const createMatchRequest = cache(

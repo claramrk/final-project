@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { degreetype } from '../../../../database/degreetype';
-import { Subject } from '../../../../migrations/00001-createTableSubjects';
-import { University } from '../../../../migrations/00002-createTableUniversities';
-import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import { Subject } from '../../../../migrations/00002-createTableSubjects';
+import { University } from '../../../../migrations/00004-createTableUniversities';
+import { UserAll } from '../../../../migrations/00008-createTableUsers';
 import LabelAndSelectComponent from '../../../components/LabelandSelectInput';
 
 type Props = {

@@ -2,7 +2,7 @@ import { cache } from 'react';
 import {
   MentorUniversityBackground,
   MentorUniversityBackgroundWithUniversity,
-} from '../migrations/00005-createTableMentorUniversityBackgrounds';
+} from '../migrations/00011-createTableMentorUniversityBackgrounds';
 import { sql } from './connect';
 
 export const createMentorUniversityBackground = cache(

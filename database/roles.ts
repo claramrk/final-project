@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { Role } from '../migrations/00003-createTableRoles';
+import { Role } from '../migrations/00006-createTableRoles';
 
 export const getRoles = cache(async () => {
   // return roles;

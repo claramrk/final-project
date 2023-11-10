@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import { UserAll } from '../../../../migrations/00008-createTableUsers';
 
 type Props = {
   userdata: UserAll;

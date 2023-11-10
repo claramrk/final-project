@@ -4,7 +4,7 @@ import {
   createMenteeTargetUniversitySubject,
   getMenteeTargetUniversitySubjectbyUserID,
 } from '../../../../database/menteeTargetUniversitySubject';
-import { MenteeTargetUniversitySubject } from '../../../../migrations/00006-createTableMenteeUniversityApplications';
+import { MenteeTargetUniversitySubject } from '../../../../migrations/00013-createTableMenteeUniversityApplications';
 
 export type MenteeTargetUniversitySubjectBodyPost =
   | {
@@ -31,7 +31,7 @@ export async function POST(
   //  Get the user data from the request
   const body = await request.json();
 
-/*   // Validate the user data
+  /*   // Validate the user data
   const result = menteeTargetUniversitySubjectSchema.safeParse(body);
 
   if (!body.success) {

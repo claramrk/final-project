@@ -6,16 +6,24 @@ import {
 export default async function getTopThreeMentors(email: string) {
   // create joined list of accepted mentors with their universities, subjects, degree level (joined from mentor_backgrounds), and origin, max_capcity (directly from users), and ?
 
+  if (!email) {
+    console.log('error - no email');
+  }
+
   const userWithUniversityApplication =
     await getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject(
-      email ? email : 'steven.jones@example.com',
+      email,
     );
 
   const userUniversityApplication =
     userWithUniversityApplication?.userMenteeUniversityApplications;
 
   if (!userUniversityApplication) {
-    Error;
+    console.log('error - university application');
+  }
+
+  if (!userUniversityApplication?.at(0)) {
+    console.log('error - university application');
   }
 
   const userUniversityApplicationOnly = userUniversityApplication[0];

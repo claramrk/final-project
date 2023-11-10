@@ -3,7 +3,7 @@ import {
   createMentorUniversityBackground,
   getMentorUniversityBackgroundbyUserID,
 } from '../../../../database/mentorUniversityBackground';
-import { MentorUniversityBackground } from '../../../../migrations/00005-createTableMentorUniversityBackgrounds';
+import { MentorUniversityBackground } from '../../../../migrations/00011-createTableMentorUniversityBackgrounds';
 
 export type MentorUniversityBackgroundBodyPost =
   | {

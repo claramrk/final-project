@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { UserAll } from '../migrations/00004-createTableUsers';
+import { UserAll } from '../migrations/00008-createTableUsers';
 import { sql } from './connect';
 
 export const getMentorMatchingInfobyUserID = cache(async (userId: number) => {

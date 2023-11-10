@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { Subject } from '../migrations/00001-createTableSubjects';
+import { Subject } from '../migrations/00002-createTableSubjects';
 
 export const getSubjects = cache(async () => {
   // return subjects;

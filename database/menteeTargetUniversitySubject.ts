@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { MenteeTargetUniversitySubject } from '../migrations/00006-createTableMenteeUniversityApplications';
+import { MenteeTargetUniversitySubject } from '../migrations/00013-createTableMenteeUniversityApplications';
 import { sql } from './connect';
 
 export const createMenteeTargetUniversitySubject = cache(

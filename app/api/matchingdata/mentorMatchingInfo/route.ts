@@ -3,7 +3,7 @@ import {
   getMentorMatchingInfobyUserID,
   putMentorMatchingInfobyUserID,
 } from '../../../../database/mentorMatchingInfo';
-import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import { UserAll } from '../../../../migrations/00008-createTableUsers';
 
 export type MentorMatchingInfoBodyPost =
   | {

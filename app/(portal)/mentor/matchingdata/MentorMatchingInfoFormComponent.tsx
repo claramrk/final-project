@@ -1,8 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Role } from '../../../../migrations/00003-createTableRoles';
-import { UserAll } from '../../../../migrations/00004-createTableUsers';
+import { Role } from '../../../../migrations/00006-createTableRoles';
+import { UserAll } from '../../../../migrations/00008-createTableUsers';
 import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
 import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 

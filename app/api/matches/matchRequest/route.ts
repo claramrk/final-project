@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createMatchRequest } from '../../../../database/matches';
-import { Match } from '../../../../migrations/00007-createTableMatches';
+import { Match } from '../../../../migrations/00015-createTableMatches';
 
 export type MatchRequestBodyPost =
   | {

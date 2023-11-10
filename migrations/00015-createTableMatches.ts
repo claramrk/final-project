@@ -24,6 +24,6 @@ message_to_mentor VARCHAR(255) NOT NULL,
 
 export async function down(sql: Sql) {
   await sql`
-DROP TABLE matches
+DROP TABLE matches CASCADE
 `;
 }
