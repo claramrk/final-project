@@ -72,9 +72,7 @@ export default function PersonalDataFormComponent(props: Props) {
     });
   }, [imageInfo]);
 
-  const reroute: any = props.role
-    ? `/${props.role.type}/matchingdata`
-    : '/signIn';
+  const reroute: any = `/${props.role.type}/matchingdata`;
 
   return (
     <form
@@ -198,12 +196,8 @@ export default function PersonalDataFormComponent(props: Props) {
         </LabelAndSelectComponent>
         <UpdateRolesButtonComponent
           userdata={props.currentUser}
-          roleAsId={Number(props.role?.id)}
-          buttonText={
-            props.role
-              ? `Complete your registration as a ${props.role.type}`
-              : ''
-          }
+          roleAsId={Number(props.role.id)}
+          buttonText={`Complete your registration as a ${props.role.type}`}
         />
         <p>{errors ? 'there was an error' : ''}</p>
       </div>

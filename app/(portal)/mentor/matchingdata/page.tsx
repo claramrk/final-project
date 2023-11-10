@@ -12,7 +12,7 @@ import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroun
 export default async function matchingdataMentors() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
-  const roleAsId = await getRoleByName('complete mentor');
+  const roleAsId = await getRoleByName('approved mentor');
 
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -36,13 +36,9 @@ export default async function matchingdataMentors() {
         id="universityInformationSection_visibleMENTORS"
         className="card blurry"
       >
-        <h2 className="h2-custom-primary">University Information</h2>
+        <h2 className="h2-custom-primary">Submit your University Background</h2>
 
         <div id="submitNew">
-          <h3 className="h3-custom-primary">
-            Submit new University Background
-          </h3>
-
           <p className="p-custom-primary">
             Please submit each degree you have completed or have been accepted
             to{' '}
@@ -110,13 +106,9 @@ export default async function matchingdataMentors() {
           </div>
         </div>
       </div>
-      <div
-        id="matchingInformationSection_visibleMENTORS"
-        className="card blurry"
-      >
-        <h2 className="h2-custom-primary">Matching Information</h2>
-        <h3 className="h3-custom-primary">Maximum Capacity</h3>
-
+      <div id="matchingInformationSection_visibleMENTORS">
+        {/*         <h2 className="h2-custom-primary">Matching Information</h2>
+         */}{' '}
         <MentorMatchingInfoFormComponent
           userdata={currentUser}
           role={roleAsId}

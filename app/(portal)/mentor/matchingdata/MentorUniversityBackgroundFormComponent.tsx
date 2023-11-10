@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { attendancetype } from '../../../../database/attendancetype';
 import { degreetype } from '../../../../database/degreetype';
 import { Subject } from '../../../../migrations/00001-createTableSubjects';
@@ -44,6 +44,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         event.preventDefault();
         await handleCreateMentorUniversityBackground();
       }}
+      className="mt-10 mb-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5"
     >
       <LabelAndSelectComponent
         inputName="selectUniversity"
