@@ -35,7 +35,7 @@ export default async function Navigation() {
 
   return (
     <div className="absolute inset-x-0 top-0 z-50">
-      <div className="navbar bg-base-100 bg-transparent">
+      <div className="navbar  bg-transparent">
         <div className="navbar-start ml-4">
           {!currentUser ? (
             ''
@@ -244,21 +244,18 @@ export default async function Navigation() {
         <div className="navbar-end">
           <div className="card blurry flex flex-row">
             {currentUser ? (
-              <>
-                <div className="avatar mr-4">
-                  <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                    <img
-                      src={
-                        currentUser.photo
-                          ? currentUser.photo
-                          : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
-                      }
-                      alt={currentUser.email}
-                    />
-                  </div>
+              <div className="avatar mr-4">
+                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img
+                    src={
+                      currentUser.photo
+                        ? currentUser.photo
+                        : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
+                    }
+                    alt={currentUser.email}
+                  />
                 </div>
-                {currentUser.email}
-              </>
+              </div>
             ) : (
               ''
             )}
