@@ -12,7 +12,7 @@ export type UserAll = {
   birthdate: Date | null;
   countryId: string | null;
   photo: string | null;
-  roleId: number | null;
+  roleId: number;
   lastActivity: Date | null;
   lastUpdate: Date | null;
   pauseUntil: Date | null;
@@ -23,7 +23,7 @@ export type UserAll = {
 export type UserAllNoPassword = {
   id: number;
   email: string;
-  roleId: number | null;
+  roleId: number;
   firstname: string | null;
   lastname: string | null;
   pronouns: string | null;
@@ -51,7 +51,7 @@ export type UserAllWithMatching = {
   birthdate: Date | null;
   countryId: string | null;
   photo: string | null;
-  roleId: number | null;
+  roleId: number;
   lastActivity: Date | null;
   lastUpdate: Date | null;
   pauseUntil: Date | null;
@@ -74,7 +74,7 @@ export type UserIdEmailPassword = {
 export type UserIdEmailRole = {
   id: number;
   email: string;
-  roleId: number | null;
+  roleId: number;
 };
 // issue, why is this potentially null? but typescript didnt leave me alone in the create users fucntion otherwise
 

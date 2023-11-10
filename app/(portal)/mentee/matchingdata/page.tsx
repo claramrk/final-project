@@ -5,7 +5,6 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
-import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 import MenteeMatchingInfoFormComponent from './MenteeMatchingInfoFormComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 
@@ -29,7 +28,6 @@ export default async function menteeMatchingData() {
   if (!roleAsId) {
     console.log('issue with role!');
   }
-  console.log(roleAsId);
 
   return (
     <main id="visibleMENTEES">

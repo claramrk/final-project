@@ -16,7 +16,7 @@ type Props = {
     birthdate: Date | null;
     countryId: string | null;
     photo: string | null;
-    roleId: number | null;
+    roleId: number;
     lastActivity: Date | null;
     lastUpdate: Date | null;
     pauseUntil: Date | null;
@@ -47,7 +47,6 @@ export default function NavigationComponent(props) {
       console.log(error);
     });
   }, [currentUser.userRolesId, pageIndex]);
-
 
   return (
     <>

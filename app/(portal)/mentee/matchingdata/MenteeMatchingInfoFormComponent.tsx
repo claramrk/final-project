@@ -7,7 +7,7 @@ import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonCom
 
 type Props = {
   userdata: UserAll;
-  role: Role | undefined;
+  role: Role;
 };
 
 export default function MenteeMatchingInfoFormComponent(props: Props) {
@@ -18,7 +18,7 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
     console.log('error');
   }
 
-  async function handleCompleteRegistration() {
+  async function handleUpdateRole() {
     await fetch('/../../../api/users', {
       method: 'PUT',
       body: JSON.stringify({
@@ -35,7 +35,7 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await handleCompleteRegistration();
+        await handleUpdateRole();
         await router.push(reroute);
         await router.refresh();
       }}
@@ -73,15 +73,12 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
           request to start your mentorship journey together. You will also be
           supported through additional support programs - stay tuned!
         </p>
-        <button
-          className="btn-custom-primary"
-          onClick={handleCompleteRegistration}
-        >
+        <button className="btn-custom-primary" onClick={handleUpdateRole}>
           Complete your registration as a mentee
         </button>
         <UpdateRolesButtonComponent
           userdata={props.userdata}
-          roleAsId={props.role?.id}
+          roleAsId={props.role.id}
           buttonText="Complete your registration as a mentee"
           // should be available only when other info has been submitted
         />

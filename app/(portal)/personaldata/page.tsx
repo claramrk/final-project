@@ -15,11 +15,28 @@ export default async function personaldata() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  if (!currentUser || !currentUser.userRolesId)redirect('/signIn?returnTo=/#');
+  if (!currentUser || !currentUser.userRolesId) redirect('/signIn?returnTo=/#');
 
-  const currenUserRole = currentUser.userRolesId[0];
-  const roleByName = await getRoleByName(currenUserRole.name);
+  const currentUserRole = currentUser.userRolesId[0];
 
+  if (!currentUserRole.name) {
+    console.log('error');
+  }
+  const currentUserRoleByName = await getRoleByName(currentUserRole.name);
+  const menteeIncompleteRoleByName = await getRoleByName('incomplete mentee');
+  const mentorIncompleteRoleByName = await getRoleByName('incomplete mentor');
+
+  const menteeCompleteRoleByName = await getRoleByName('complete mentee');
+  const mentorCompleteRoleByName = await getRoleByName('complete mentor');
+
+  const newRole =
+    currentUserRoleByName === menteeIncompleteRoleByName
+      ? menteeCompleteRoleByName
+      : mentorCompleteRoleByName;
+
+  if (!newRole) {
+    console.log('error');
+  }
 
   return (
     <main>
@@ -32,7 +49,7 @@ export default async function personaldata() {
         <PersonalDataFormComponent
           countries={countries}
           currentUser={currentUser}
-          role={roleByName}
+          role={await newRole}
         />
       </div>
     </main>

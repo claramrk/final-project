@@ -8,7 +8,7 @@ import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonCom
 
 type Props = {
   userdata: UserAll;
-  role: Role | undefined;
+  role: Role;
 };
 
 export default function MentorMatchingInfoFormComponent(props: Props) {
@@ -101,7 +101,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         </p>
         <UpdateRolesButtonComponent
           userdata={currentUser}
-          roleAsId={props.role?.id}
+          roleAsId={props.role.id}
           buttonText="Submit your matchinginfo"
           // should be available only when other info has been submitted
         />

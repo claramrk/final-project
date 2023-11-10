@@ -87,7 +87,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
       birthdate: Date | null;
       countryId: string | null;
       photo: string | null;
-      roleId: number | null;
+      roleId: number;
       lastActivity: Date | null;
       lastUpdate: Date | null;
       pauseUntil: Date | null;
@@ -310,7 +310,7 @@ INNER JOIN roles ON roles.id = users.role_id
 
 export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
   usersId: number;
-  usersRoleId: number | null;
+  usersRoleId: number;
   usersCountryId: string | null;
   usersMaxCapacity: number | null;
   usersPauseUntil: Date | null;
@@ -322,7 +322,7 @@ export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
       {
         usersId: number;
-        usersRoleId: number | null;
+        usersRoleId: number;
         usersCountryId: string | null;
         usersMaxCapacity: number | null;
         usersPauseUntil: Date | null;
@@ -370,7 +370,7 @@ export const getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject =
       {
         usersId: number;
         usersEmail: string;
-        usersRoleId: number | null;
+        usersRoleId: number;
         usersCountryId: string | null;
         usersPauseUntil: Date | null;
         userMenteeUniversityApplications: JsonAgg | null;
@@ -408,7 +408,7 @@ export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSO
   {
     usersId: number;
     usersFirstname: string | null;
-    usersRoleId: number | null;
+    usersRoleId: number;
     usersCountryId: string | null;
     usersMaxCapacity: number | null;
     usersPauseUntil: Date | null;

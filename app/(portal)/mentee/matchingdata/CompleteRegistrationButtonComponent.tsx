@@ -5,7 +5,7 @@ import { UserAll } from '../../../../migrations/00004-createTableUsers';
 
 type Props = {
   userdata: UserAll;
-  roleAsId: number | undefined;
+  roleAsId: number;
 };
 
 export default function CompleteRegistrationButtonComponent(props: Props) {
@@ -26,7 +26,7 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
   }
 
   return (
-    <button className="btn-custom-primary" onClick={handleCompleteRegistration}>
+    <button className="btn-custom-primary">
       Complete your registration as a mentee
     </button>
   );

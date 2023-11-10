@@ -13,7 +13,7 @@ import UploadImageComponent from '../../components/UploadImageComponent';
 type Props = {
   countries: Country[];
   currentUser: UserAll;
-  role: Role | undefined;
+  role: Role;
 };
 
 export default function PersonalDataFormComponent(props: Props) {
@@ -49,6 +49,17 @@ export default function PersonalDataFormComponent(props: Props) {
     router.refresh();
   }
 
+  async function handleUpdateRole() {
+    await fetch('/../../../api/users', {
+      method: 'PUT',
+      body: JSON.stringify({
+        userId: Number(props.currentUser.id),
+        roleId: Number(props.role.id),
+      }),
+    });
+    await router.refresh();
+  }
+
   useEffect(() => {
     async function getImageInfo() {
       const response = await imageInfo;
@@ -70,6 +81,7 @@ export default function PersonalDataFormComponent(props: Props) {
       onSubmit={async (event) => {
         event.preventDefault();
         await handlePutPersonalData();
+        await handleUpdateRole();
         await router.refresh();
         await router.push(reroute);
       }}
