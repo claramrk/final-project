@@ -13,13 +13,31 @@ type Props = {
 export default function MenteeMatchingInfoFormComponent(props: Props) {
   const router = useRouter();
 
-  const reroute: any = props.role ? 'mentee/dashboard' : '/signIn';
+  const reroute: any = props.role ? '/mentee/matchingoverview' : '/signIn';
+  if (!props.role) {
+    console.log('error');
+  }
+
+  async function handleCompleteRegistration() {
+    await fetch('/../../../api/users', {
+      method: 'PUT',
+      body: JSON.stringify({
+        userId: Number(props.userdata.id),
+        roleId: Number(props.role.id),
+      }),
+    });
+    // await router.push(`/mentee/matchingoverview`);
+
+    await router.refresh();
+  }
 
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
+        await handleCompleteRegistration();
         await router.push(reroute);
+        await router.refresh();
       }}
     >
       <h3 className="h3-custom-primary">Mentee Guidelines</h3>
@@ -55,6 +73,12 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
           request to start your mentorship journey together. You will also be
           supported through additional support programs - stay tuned!
         </p>
+        <button
+          className="btn-custom-primary"
+          onClick={handleCompleteRegistration}
+        >
+          Complete your registration as a mentee
+        </button>
         <UpdateRolesButtonComponent
           userdata={props.userdata}
           roleAsId={props.role?.id}

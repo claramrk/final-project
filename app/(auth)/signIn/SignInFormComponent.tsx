@@ -33,8 +33,7 @@ export default function SignInFormComponent() {
       setErrors(data.errors);
       return;
     }
-    console.log(response);
-    router.push(`/mentors/matchingoverview`);
+    router.push(`/mentor/matchingoverview`);
     // should be dependent on role whether i get redirected to profile page, or mentors, etc
 
     router.refresh();

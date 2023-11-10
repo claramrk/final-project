@@ -36,28 +36,18 @@ export default function NavigationComponent(props) {
     p.permissionFor.includes(currentUser.userRolesId[0].name),
   );
 
-  function NavigationMap() {
-    const pageIndexUserCalc = [];
-    pageIndex.map((n) => {
-      n.permissionFor.includes(currentUser.userRolesId[0].name);
-      pageIndexUserCalc.push(n);
-      console.log(pageIndexUserCalc);
-      return pageIndexUserCalc;
-    });
-
-    return pageIndexUserCalc;
-  }
-
   useEffect(() => {
     async function runNavigationMap() {
-      setPageIndexUser(NavigationMap());
+      const pageIndexUserTest = pageIndex.filter((p) =>
+        p.permissionFor.includes(currentUser.userRolesId[0].name),
+      );
+      setPageIndexUser(pageIndexUserTest);
     }
     runNavigationMap().catch((error) => {
       console.log(error);
     });
-  }, [currentUser]);
+  }, [currentUser.userRolesId, pageIndex]);
 
-  console.log(pageIndexUser);
 
   return (
     <>

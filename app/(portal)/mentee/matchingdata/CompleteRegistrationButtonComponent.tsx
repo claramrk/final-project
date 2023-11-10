@@ -11,6 +11,7 @@ type Props = {
 export default function CompleteRegistrationButtonComponent(props: Props) {
   const router = useRouter();
 
+  console.log(props.roleAsId);
   async function handleCompleteRegistration() {
     await fetch('/../../../api/users', {
       method: 'PUT',
@@ -19,19 +20,14 @@ export default function CompleteRegistrationButtonComponent(props: Props) {
         roleId: Number(props.roleAsId),
       }),
     });
-    await router.push(`/mentee/dashboard`);
+    // await router.push(`/mentee/matchingoverview`);
 
     await router.refresh();
   }
 
   return (
-    <form>
-      <button
-        className="btn-custom-primary"
-        formAction={handleCompleteRegistration}
-      >
-        Complete your registration as a mentee
-      </button>
-    </form>
+    <button className="btn-custom-primary" onClick={handleCompleteRegistration}>
+      Complete your registration as a mentee
+    </button>
   );
 }
