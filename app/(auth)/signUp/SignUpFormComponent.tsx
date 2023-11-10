@@ -119,9 +119,6 @@ export default function SignUpForm(props: Props) {
             placeholder="**********"
             onChangeFunction={setPassword}
           />
-          <Link className="link-custom-primary" href="/#">
-            Forgot password?
-          </Link>
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary" id="signUpButton">
@@ -129,6 +126,9 @@ export default function SignUpForm(props: Props) {
             Sign up
           </button>
         </div>
+        <Link className="link-custom-primary" href="/#">
+          Forgot password?
+        </Link>
       </form>
     </div>
   );

@@ -79,7 +79,7 @@ export default async function matchingOverviewMentees() {
             available and that fit best to your university and subject
             indications.
           </p>
-          <div className="card sub-blurry">
+          <div>
             {topThreeMentorsList.map(async (d) => {
               const mentorUserDataWithUniInfoObjectROW =
                 await getMentorUserDataWithUniInfoObject(d.mentorUserId);
