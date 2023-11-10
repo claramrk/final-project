@@ -5,6 +5,7 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import ButtonGoBack from '../../../components/ButtonGoBack';
 import MenteeMatchingInfoFormComponent from './MenteeMatchingInfoFormComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 
@@ -35,24 +36,27 @@ export default async function menteeMatchingData() {
         <h1 className="h1-custom-primary">My Matching Information</h1>
       </div>
       <div id="universityInformationSection" className="card blurry">
-        <h2 className="h2-custom-primary">Study Information</h2>
-        <h3 className="h3-custom-primary">
-          Indicate the universities & subjects you want ot apply for!
-        </h3>
+        <h2 className="h2-custom-primary">
+          {' '}
+          Indicate the universities & subjects you want to apply to!
+        </h2>
+
         <p className="p-custom-primary">
           The following information will be used to match your mentor, so we
-          encourage you to give your submission prior thought! In case you do
-          not know some answers yet, just provide the information that is the
-          most accurate.
+          encourage you to give your submission prior thought!
         </p>
         <MenteeTargetUniversitySubjectFormComponent
           universities={universities}
           subjects={subjects}
           userdata={currentUser}
         />
-        <p className="p-custom-primary">
-          Current indications: {JSON.stringify(userTargets)}
-        </p>
+        {userTargets.length > 0 ? (
+          <p className="p-custom-primary">
+            Current indications: {JSON.stringify(userTargets)}
+          </p>
+        ) : (
+          ''
+        )}
       </div>
       <div id="matchingInformationSection">
         <MenteeMatchingInfoFormComponent
@@ -60,6 +64,7 @@ export default async function menteeMatchingData() {
           role={await roleAsId}
         />
       </div>
+      <ButtonGoBack />
     </main>
   );
 }

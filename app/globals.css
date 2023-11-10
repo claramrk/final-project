@@ -56,13 +56,13 @@
   }
 
   .h1-custom-primary {
-    @apply block text-sm font-semibold leading-6 text-gray-900;
+    @apply block text-2xl font-semibold leading-6 text-gray-900;
   }
   .h2-custom-primary {
-    @apply block text-sm font-semibold leading-6 text-gray-900;
+    @apply block text-xl font-semibold leading-6 text-gray-900;
   }
   .h3-custom-primary {
-    @apply text-base font-semibold leading-7 text-gray-900;
+    @apply block text-lg font-semibold leading-6 text-gray-900;
   }
   .p-custom-primary {
     @apply mt-1 text-sm leading-6 text-gray-600;

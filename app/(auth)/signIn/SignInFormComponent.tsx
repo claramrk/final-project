@@ -2,14 +2,15 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { navigation } from '../../../util/pageNavigation';
+import { Role } from '../../../migrations/00006-createTableRoles';
+import { getRedirectPage, navigation } from '../../../util/pageNavigation';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 
-// type Props = { returnTo?: string | string[] };
+type Props = { roles: Role[] };
 // type Props = { returnTo?: string | string[] };
 
-export default function SignInFormComponent() {
+export default function SignInFormComponent(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
@@ -28,16 +29,30 @@ export default function SignInFormComponent() {
     });
 
     const data: RegisterResponseBodyPost = await response.json();
+    console.log(data);
 
     if ('errors' in data) {
       setErrors(data.errors);
       return;
     }
-    router.push(`/mentor/matchingoverview`);
+
+    const currentUserRoleId = data.user.roleId;
+    const currentUserRole = props.roles.find((r) => r.id === currentUserRoleId);
+
+    if (!currentUserRole) {
+      console.log('error');
+    }
+
+    const reroute: any = currentUserRole
+      ? getRedirectPage(currentUserRole)
+      : `/signIn`;
+
+    router.push(reroute);
     // should be dependent on role whether i get redirected to profile page, or mentors, etc
 
     router.refresh();
   }
+
   return (
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <form

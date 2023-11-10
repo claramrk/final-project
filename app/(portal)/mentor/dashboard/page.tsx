@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ButtonGoBack from '../../../components/ButtonGoBack';
 
 export default function dashboardMentors() {
   return (

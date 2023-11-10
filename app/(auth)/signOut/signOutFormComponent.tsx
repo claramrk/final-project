@@ -1,11 +1,15 @@
 import React from 'react';
 import { signOut } from './signOutActions';
 
-export default function SignOutButton() {
+export type Props = {
+  buttonText: string;
+};
+
+export default function SignOutButton(props: Props) {
   return (
     <form>
       <button className="btn-custom-primary" formAction={signOut}>
-        Sign out
+        {props.buttonText}
       </button>
     </form>
   );

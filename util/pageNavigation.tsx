@@ -1,28 +1,27 @@
+import { Role } from '../migrations/00006-createTableRoles';
+
 export const navigation = [
   {
     id: 5,
-
     pageName: 'Matchingoverview',
     forUserType: ['mentor'],
-    permissionFor: ['complete mentor', 'approved mentor'],
+    permissionFor: ['approved mentor'],
     clickableByUser: true,
-
     href: '/mentor/matchingoverview',
   },
   {
     id: 4,
     pageName: 'Matchingdata',
     forUserType: ['mentor'],
-    permissionFor: ['incomplete mentor'],
+    permissionFor: ['complete mentor'],
     clickableByUser: true,
-
     href: '/mentor/matchingdata',
   },
   {
     id: 6,
     pageName: 'Matchingoverview',
     forUserType: ['mentee'],
-    permissionFor: ['complete mentee', 'approved mentee'],
+    permissionFor: ['approved mentee'],
     clickableByUser: true,
 
     href: '/mentee/matchingoverview',
@@ -32,7 +31,7 @@ export const navigation = [
 
     pageName: 'Matchingdata',
     forUserType: ['mentee'],
-    permissionFor: ['incomplete mentee'],
+    permissionFor: ['complete mentee'],
     clickableByUser: true,
 
     href: '/mentee/matchingdata',
@@ -41,6 +40,24 @@ export const navigation = [
     id: 2,
 
     pageName: 'Personaldata',
+    forUserType: ['mentor', 'mentee', 'admin'],
+    clickableByUser: true,
+
+    permissionFor: ['incomplete mentee', 'incomplete mentor', 'admin'],
+    href: '/personaldata',
+  },
+  {
+    id: 1,
+    pageName: 'Mainpage',
+    forUserType: ['mentor', 'mentee', 'admin', 'undefined'],
+    clickableByUser: true,
+
+    permissionFor: [],
+    href: '/#',
+  },
+  {
+    id: 7,
+    pageName: 'Profile',
     forUserType: ['mentor', 'mentee', 'admin'],
     clickableByUser: true,
 
@@ -53,25 +70,7 @@ export const navigation = [
       'approved mentor',
       'admin',
     ],
-    href: '/personaldata',
-  },
-  {
-    id: 1,
-    pageName: 'Mainpage',
-    forUserType: ['mentor', 'mentee', 'admin', 'undefined'],
-    clickableByUser: true,
-
-    permissionFor: [
-      'incomplete mentee',
-      'incomplete mentor',
-      'complete mentee',
-      'complete mentor',
-      'approved mentee',
-      'approved mentor',
-      'admin',
-      undefined,
-    ],
-    href: '/#',
+    href: '/not-found',
   },
 ];
 
@@ -82,4 +81,29 @@ export function getNavigationPermissions(
   const currentPage = navigation.find((element) => pageHref === element.href);
   const permissionCheck = currentPage?.permissionFor.includes(userRoleName);
   return permissionCheck;
+}
+
+export function getRedirectPage(currentUserRole: Role) {
+  const rerouteRoleSubType: any = currentUserRole?.name;
+
+  let reroutePage;
+  if (rerouteRoleSubType === 'incomplete mentor') {
+    reroutePage = '/personaldata';
+  }
+  if (rerouteRoleSubType === 'complete mentor') {
+    reroutePage = '/mentor/matchingdata';
+  }
+  if (rerouteRoleSubType === 'approved mentor') {
+    reroutePage = '/mentor/matchingoverview';
+  }
+  if (rerouteRoleSubType === 'incomplete mentee') {
+    reroutePage = '/personaldata';
+  }
+  if (rerouteRoleSubType === 'complete mentee') {
+    reroutePage = '/mentee/matchingdata';
+  }
+  if (rerouteRoleSubType === 'approved mentee') {
+    reroutePage = '/mentee/matchingoverview';
+  }
+  return reroutePage;
 }

@@ -69,6 +69,7 @@ export type UserIdEmailPassword = {
   id: number;
   email: string;
   passwordHash: string;
+  roleId: number;
 };
 
 export type UserIdEmailRole = {

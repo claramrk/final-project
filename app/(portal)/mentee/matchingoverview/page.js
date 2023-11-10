@@ -6,6 +6,7 @@ import {
   getUserBySessionToken,
 } from '../../../../database/users';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
+import ButtonGoBack from '../../../components/ButtonGoBack';
 import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function matchingOverviewMentees() {
@@ -222,14 +223,7 @@ export default async function matchingOverviewMentees() {
           </div>
         </div>
       </div>
-      <div id="pastMatchesSection" className="card blurry">
-        <h2 className="h2-custom-primary">Past Matches</h2>
-        <p id="examplePastMatch" className="card sub-blurry">
-          Past Match #1: Mentorphoto | Mentorname | Mentor contact info | Mentor
-          uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-          Mentor uni & subject & studylevel 3 | Match ended on: DATE
-        </p>
-      </div>
+      <ButtonGoBack />
     </main>
   );
 }

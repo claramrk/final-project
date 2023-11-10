@@ -1,6 +1,9 @@
+import { getRoles } from '../../../database/roles';
 import SignInFormComponent from './SignInFormComponent';
 
-export default function signInPage() {
+export default async function signInPage() {
+  const allRoles = await getRoles();
+
   return (
     <main>
       <div className="hero">
@@ -23,7 +26,7 @@ export default function signInPage() {
               applicants from all around the world.
             </p>
           </div>
-          <SignInFormComponent />;
+          <SignInFormComponent roles={allRoles}/>;
         </div>
       </div>
     </main>

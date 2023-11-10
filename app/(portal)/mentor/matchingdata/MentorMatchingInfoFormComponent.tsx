@@ -57,13 +57,13 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
       <div className="card blurry">
         <h3 className="h3-custom-primary">Maximum Capacity</h3>
         <p className="p-custom-primary">
-          We expect mentors to commit around 1-2 hours per month per mentee.
-          Please indicate the maximum number of mentees you would like to mentor
-          at the same time. You can change this number any time:
+          We expect mentors to commit around 1-2 hours per month per mentee. You
+          can change this number any time.
         </p>
         <LabelAndInputComponent
           inputName="maximumCapacityInput"
-          labeltext="Max amount of mentees at the same time:"
+          labeltext="Please indicate the maximum number of mentees you would like to mentor
+          at the same time:"
           required={true}
           type="number"
           placeholder="3"
@@ -119,9 +119,6 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
             set your mentorship to inactive in the future, in case you would
             like to take a break or discontinue mentoring.
           </p>
-          <button className="btn-custom-primary" id="submitAllUniInformation">
-            Submit matching Information
-          </button>
           <UpdateRolesButtonComponent
             userdata={currentUser}
             roleAsId={Number(props.role.id)}

@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../database/sessions';
 import { getUserWithPasswordHashByEmail } from '../../../../database/users';
+import { Role } from '../../../../migrations/00006-createTableRoles';
 import { secureCookieOptions } from '../../../../util/secureCookieOptions';
 
 const loginSchema = z.object({
@@ -14,7 +15,7 @@ const loginSchema = z.object({
 
 export type LoginResponseBodyPost =
   | {
-      user: { email: string };
+      user: { email: string; roleId: number };
     }
   | {
       errors: { message: string | number }[];
@@ -109,6 +110,7 @@ export async function POST(
   return NextResponse.json({
     user: {
       email: userWithPasswordHash.email,
+      roleId: userWithPasswordHash.roleId,
     },
   });
 }

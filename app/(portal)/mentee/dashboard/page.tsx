@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/menteeTargetUniversitySubject';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
+import ButtonGoBack from '../../../components/ButtonGoBack';
 
 export default async function dashboardMentees() {
   // 1. Checking if the sessionToken cookie exists
@@ -49,10 +50,7 @@ export default async function dashboardMentees() {
             Go to Matching Page
           </a>
 
-          <Link
-            className="link-custom-primary"
-            href="/mentor/matchingoverview"
-          >
+          <Link className="link-custom-primary" href="/mentor/matchingoverview">
             Go to Matching Page
           </Link>
         </div>
@@ -64,10 +62,7 @@ export default async function dashboardMentees() {
           <a className="link-custom-primary" href="/users">
             Go to Profile Page
           </a>
-          <Link
-            className="link-custom-primary"
-            href="/mentee/matchingoverview"
-          >
+          <Link className="link-custom-primary" href="/mentee/matchingoverview">
             Go to Matching Page
           </Link>
         </div>
@@ -78,6 +73,7 @@ export default async function dashboardMentees() {
           <p className="p-custom-primary">Info 3</p>
         </div>
       </div>
+      <ButtonGoBack />
     </main>
   );
 }

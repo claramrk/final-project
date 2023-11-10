@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getCountries } from '../../../database/countries';
 import { getRoleByName } from '../../../database/roles';
 import { getUserBySessionToken } from '../../../database/users';
+import ButtonGoBack from '../../components/ButtonGoBack';
 import PersonalDataFormComponent from './PersonalDataFormComponent';
 
 export default async function personaldata() {
@@ -23,6 +24,7 @@ export default async function personaldata() {
     console.log('error');
   }
   const currentUserRoleByName = await getRoleByName(currentUserRole.name);
+  console.log(currentUserRoleByName);
   const menteeIncompleteRoleByName = await getRoleByName('incomplete mentee');
   const mentorIncompleteRoleByName = await getRoleByName('incomplete mentor');
 
@@ -41,15 +43,16 @@ export default async function personaldata() {
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="h1-custom-primary">My Personal Data</h1>
+        <h1 className="h1-custom-primary">
+          Welcome! We are so happy you want to be a{' '}
+          {currentUserRoleByName?.type}!
+        </h1>
       </div>
-      <div id="usersSection" className="card blurry">
-        <h2 className="h2-custom-primary">Personal Data Section</h2>
-        <p className="p-custom-primary">Please enter your personal data here</p>
+      <div id="usersSection">
         <PersonalDataFormComponent
           countries={countries}
           currentUser={currentUser}
-          role={await newRole}
+          role={newRole}
         />
       </div>
     </main>

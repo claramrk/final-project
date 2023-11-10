@@ -6,8 +6,6 @@ import {
   UserIdEmailPassword,
   UserIdEmailRole,
 } from '../migrations/00008-createTableUsers';
-import { MentorUniversityBackground } from '../migrations/00011-createTableMentorUniversityBackgrounds';
-import { MenteeTargetUniversitySubject } from '../migrations/00013-createTableMenteeUniversityApplications';
 import { sql } from './connect';
 
 export const createUser = cache(
@@ -27,11 +25,12 @@ export const createUser = cache(
 );
 
 export const getUserByEmail = cache(async (email: string) => {
-  const [user] = await sql<UserIdEmailOnly[]>`
+  const [user] = await sql<UserIdEmailRole[]>`
     SELECT
       id,
-      email
-    FROM
+      email,
+      role_id
+          FROM
       users
     WHERE
       email = ${email.toLowerCase()}
@@ -65,7 +64,7 @@ export const getUserById = cache(async (id: number) => {
 export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
   const [user] = await sql<UserIdEmailPassword[]>`
     SELECT
-      id, email, password_hash
+      id, email, password_hash, role_id
     FROM
       users
     WHERE
@@ -375,6 +374,7 @@ users
 ON mentee_university_applications.user_id = users.id
 WHERE
 email = ${email.toLowerCase()}
+
   `;
     return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
   });

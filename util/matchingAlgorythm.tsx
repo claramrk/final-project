@@ -15,19 +15,27 @@ export default async function getTopThreeMentors(email: string) {
       email,
     );
 
+  if (!userWithUniversityApplication) {
+    console.log('error - university application');
+  }
+
   const userUniversityApplication =
-    userWithUniversityApplication?.userMenteeUniversityApplications;
+    userWithUniversityApplication.userMenteeUniversityApplications;
 
   if (!userUniversityApplication) {
     console.log('error - university application');
   }
 
-  if (!userUniversityApplication?.at(0)) {
+  if (!userUniversityApplication.at(0)) {
     console.log('error - university application');
   }
 
   const userUniversityApplicationOnly = userUniversityApplication[0];
+  console.log(userUniversityApplicationOnly);
 
+  if (!userUniversityApplicationOnly) {
+    console.log('error - no university application');
+  }
   const usersWithUniversityBackground =
     await getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject();
 
@@ -64,7 +72,7 @@ export default async function getTopThreeMentors(email: string) {
     },
   ];
 
-  const mentorTest = confirmedMentors.forEach((element) => {
+  const mentorTest = confirmedMentorsNoPause.forEach((element) => {
     const matchingTest = {
       menteeUserId: 0,
       mentorUserId: 0,
@@ -150,6 +158,7 @@ export default async function getTopThreeMentors(email: string) {
   const sortedArray = matchingArray.sort(function (a, b) {
     return Number(a.finalSum) - Number(b.finalSum);
   });
+  console.log(sortedArray);
 
   const topThreeMentors = sortedArray.slice(-3);
   return topThreeMentors;
