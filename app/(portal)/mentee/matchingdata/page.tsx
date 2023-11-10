@@ -54,8 +54,7 @@ export default async function menteeMatchingData() {
           Current indications: {JSON.stringify(userTargets)}
         </p>
       </div>
-      <div id="matchingInformationSection" className="card blurry">
-        <h2 className="h2-custom-primary">Further Information</h2>
+      <div id="matchingInformationSection">
         <MenteeMatchingInfoFormComponent
           userdata={await currentUser}
           role={await roleAsId}

@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { Role } from '../../../../migrations/00003-createTableRoles';
 import { UserAll } from '../../../../migrations/00004-createTableUsers';
-import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 
 type Props = {
   userdata: UserAll;
@@ -13,10 +12,7 @@ type Props = {
 export default function MenteeMatchingInfoFormComponent(props: Props) {
   const router = useRouter();
 
-  const reroute: any = props.role ? '/mentee/matchingoverview' : '/signIn';
-  if (!props.role) {
-    console.log('error');
-  }
+  const reroute: any = '/mentee/matchingoverview';
 
   async function handleUpdateRole() {
     await fetch('/../../../api/users', {
@@ -26,27 +22,23 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
         roleId: Number(props.role.id),
       }),
     });
-    // await router.push(`/mentee/matchingoverview`);
 
     await router.refresh();
   }
 
   return (
-    <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-        await handleUpdateRole();
-        await router.push(reroute);
-        await router.refresh();
-      }}
-    >
-      <h3 className="h3-custom-primary">Mentee Guidelines</h3>
-      <p className="p-custom-primary">
-        Mentors take their time to help mentees on a voluntary basis. We hope
-        you use this time respectfully.
-      </p>
+    <div id="finalizeRegistrationSection" className="card blurry">
+      <form
+        onSubmit={async (event) => {
+          event.preventDefault();
+          await handleUpdateRole();
+          await router.push(reroute);
+          await router.refresh();
+        }}
+      >
+        <h2 className="h2-custom-primary">Further Information & next Steps</h2>
 
-      {/*  <p>Therefore, we have set up mentee guidelines,
+        {/*  <p>Therefore, we have set up mentee guidelines,
       that we expect you to adhere to.</p>
     <a
       className="link-custom-primary"
@@ -64,25 +56,20 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
       type="file"
       // check how to upload a pdf
     /> */}
-      <div id="finalizeRegistrationSection" className="card blurry">
         <p className="p-custom-primary">
           After clicking the "Register" button below our team will review your
           registration. After your registration is approved, you will then be
           able to request one mentor from our suggestion of fitting mentors.
           After sending your request, mentors will have one week to accept your
-          request to start your mentorship journey together. You will also be
-          supported through additional support programs - stay tuned!
+          request to start your mentorship journey together. Mentors take their
+          time to help mentees on a voluntary basis. We expect that you use this
+          time respectfully. You will also be supported through additional
+          support programs from our internal team - stay tuned!
         </p>
         <button className="btn-custom-primary" onClick={handleUpdateRole}>
           Complete your registration as a mentee
         </button>
-        <UpdateRolesButtonComponent
-          userdata={props.userdata}
-          roleAsId={props.role.id}
-          buttonText="Complete your registration as a mentee"
-          // should be available only when other info has been submitted
-        />
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
