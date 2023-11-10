@@ -1,18 +1,26 @@
+import { getRoleByName } from '../database/roles';
 import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
-  getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject,
+  getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject,
 } from '../database/users';
+import { UserIdEmailRole } from '../migrations/00008-createTableUsers';
 
-export default async function getTopThreeMentors(email: string) {
+export default async function getTopThreeMentors(currentUser: UserIdEmailRole) {
   // create joined list of accepted mentors with their universities, subjects, degree level (joined from mentor_backgrounds), and origin, max_capcity (directly from users), and ?
 
-  if (!email) {
-    console.log('error - no email');
+  const menteeRole = await getRoleByName('approved mentee');
+
+  if (!menteeRole) {
+    console.log('error - no menteerole');
+  }
+
+  if (currentUser.roleId !== menteeRole?.id) {
+    console.log('error - no user role overlap');
   }
 
   const userWithUniversityApplication =
-    await getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject(
-      email,
+    await getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject(
+      currentUser.id,
     );
 
   if (!userWithUniversityApplication) {
@@ -20,18 +28,17 @@ export default async function getTopThreeMentors(email: string) {
   }
 
   const userUniversityApplication =
-    userWithUniversityApplication.userMenteeUniversityApplications;
+    userWithUniversityApplication?.userMenteeUniversityApplications;
 
   if (!userUniversityApplication) {
     console.log('error - university application');
   }
 
-  if (!userUniversityApplication.at(0)) {
+  if (!userUniversityApplication?.at(0)) {
     console.log('error - university application');
   }
 
   const userUniversityApplicationOnly = userUniversityApplication[0];
-  console.log(userUniversityApplicationOnly);
 
   if (!userUniversityApplicationOnly) {
     console.log('error - no university application');
@@ -72,7 +79,7 @@ export default async function getTopThreeMentors(email: string) {
     },
   ];
 
-  const mentorTest = confirmedMentorsNoPause.forEach((element) => {
+  const mentorTest = confirmedMentors.forEach((element) => {
     const matchingTest = {
       menteeUserId: 0,
       mentorUserId: 0,
@@ -103,41 +110,26 @@ export default async function getTopThreeMentors(email: string) {
     ) {
       matchingTest.originCountryMatch = weights.countryMatchWeight;
     }
-    element.userMentorUniversityBackgrounds?.forEach((element) => {
-      if (
-        element.universityId ===
-        userUniversityApplicationOnly?.firstUniversityId
-      ) {
+    element.userMentorUniversityBackgrounds?.forEach((e) => {
+      if (e.universityId === userUniversityApplicationOnly.firstUniversityId) {
         matchingTest.menteeUniOneMatch = weights.universityMatchWeight;
       }
-      if (
-        element.universityId ===
-        userUniversityApplicationOnly?.secondUniversityId
-      ) {
+      if (e.universityId === userUniversityApplicationOnly.secondUniversityId) {
         matchingTest.menteeUniTwoMatch = weights.universityMatchWeight;
       }
-      if (
-        element.universityId ===
-        userUniversityApplicationOnly?.thirdUniversityId
-      ) {
+      if (e.universityId === userUniversityApplicationOnly.thirdUniversityId) {
         matchingTest.menteeUniThreeMatch = weights.universityMatchWeight;
       }
-      if (element.subjectId === userUniversityApplicationOnly?.firstSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly.firstSubjectId) {
         matchingTest.menteeSubjectOneMatch = weights.subjectMatchWeight;
       }
-      if (
-        element.subjectId === userUniversityApplicationOnly?.secondSubjectId
-      ) {
+      if (e.subjectId === userUniversityApplicationOnly.secondSubjectId) {
         matchingTest.menteeSubjectTwoMatch = weights.subjectMatchWeight;
       }
-      if (element.subjectId === userUniversityApplicationOnly?.thirdSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly.thirdSubjectId) {
         matchingTest.menteeSubjectThreeMatch = weights.subjectMatchWeight;
       }
-      // something isnt working correctly here yet!
-      if (
-        Number(element.studylevel) ===
-        Number(userUniversityApplicationOnly?.studylevel)
-      ) {
+      if (e.studylevel === userUniversityApplicationOnly.studylevel) {
         matchingTest.studylevelMatch = weights.studylevelMatchWeight;
       }
     });
@@ -158,7 +150,6 @@ export default async function getTopThreeMentors(email: string) {
   const sortedArray = matchingArray.sort(function (a, b) {
     return Number(a.finalSum) - Number(b.finalSum);
   });
-  console.log(sortedArray);
 
   const topThreeMentors = sortedArray.slice(-3);
   return topThreeMentors;

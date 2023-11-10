@@ -20,9 +20,9 @@ export default async function dashboardMentees() {
 
   if (!currentUser) redirect('/signIn?returnTo=/notes');
 
-  const currentUserEmail = currentUser.email;
+  const currentUserId = currentUser.id;
 
-  const topThreeMentorsList = await getTopThreeMentors(currentUserEmail);
+  const topThreeMentorsList = await getTopThreeMentors(currentUserId);
 
   return (
     <main>

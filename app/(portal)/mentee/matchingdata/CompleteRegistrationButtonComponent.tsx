@@ -11,7 +11,6 @@ type Props = {
 export default function CompleteRegistrationButtonComponent(props: Props) {
   const router = useRouter();
 
-  console.log(props.roleAsId);
   async function handleCompleteRegistration() {
     await fetch('/../../../api/users', {
       method: 'PUT',

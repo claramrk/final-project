@@ -24,7 +24,6 @@ export default async function personaldata() {
     console.log('error');
   }
   const currentUserRoleByName = await getRoleByName(currentUserRole.name);
-  console.log(currentUserRoleByName);
   const menteeIncompleteRoleByName = await getRoleByName('incomplete mentee');
   const mentorIncompleteRoleByName = await getRoleByName('incomplete mentor');
 

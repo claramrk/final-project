@@ -339,21 +339,19 @@ users.id
 
 export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
   usersId: number;
-  usersEmail: string;
   usersRoleId: number;
   usersCountryId: string;
   usersPauseUntil: Date | null;
   userMenteeUniversityApplications: JsonAgg | null;
 };
 
-export const getUserWithMenteeUniversityApplicationsbyEmailWithUniAndSubject =
-  cache(async (email: string) => {
+export const getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject =
+  cache(async (id: number) => {
     const [menteeUniversityApplicationsbyUserIDWithUniAndSubject] = await sql<
       menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
 users.id AS users_id,
-users.email AS users_email,
 
 users.role_id AS users_role_id,
 users.country_id AS users_country_id,
@@ -373,7 +371,7 @@ users
  INNER JOIN mentee_university_applications
 ON mentee_university_applications.user_id = users.id
 WHERE
-email = ${email.toLowerCase()}
+users.id = ${id}
 
   `;
     return menteeUniversityApplicationsbyUserIDWithUniAndSubject;

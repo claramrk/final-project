@@ -1,11 +1,14 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getAttendanceTypeById } from '../../../../database/attendancetype';
+import { getDegreeTypeById } from '../../../../database/degreetype';
 import {
   getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW,
   getUserById,
   getUserBySessionToken,
 } from '../../../../database/users';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
+import checkUniMatchColor from '../../../../util/showUniAndSubjectOverlap';
 import ButtonGoBack from '../../../components/ButtonGoBack';
 import RequestMentorFormComponent from './RequestMentorFormComponent';
 
@@ -21,7 +24,7 @@ export default async function matchingOverviewMentees() {
 
   const currentUserEmail = currentUser.email;
 
-  const topThreeMentorsList = await getTopThreeMentors(currentUserEmail);
+  const topThreeMentorsList = await getTopThreeMentors(currentUser);
 
   const topThreeMentorsWithPersonalDataList = Promise.all(
     topThreeMentorsList.map((element) => {
@@ -76,7 +79,7 @@ export default async function matchingOverviewMentees() {
             available and that fit best to your university and subject
             indications.
           </p>
-          {/*   <div className="card sub-blurry">
+          <div className="card sub-blurry">
             {topThreeMentorsList.map(async (d) => {
               const mentorUserDataWithUniInfoObjectROW =
                 await getMentorUserDataWithUniInfoObject(d.mentorUserId);
@@ -137,7 +140,17 @@ export default async function matchingOverviewMentees() {
                                   {attendancetypeName.name}
                                 </p>
                               </td>
-                              <td>
+                              <td
+                                // doesnt work yet
+                                className={
+                                  checkUniMatchColor(
+                                    e.universities[0],
+                                    currentUser,
+                                  ) === true
+                                    ? 'text-lg'
+                                    : 'bg-blue'
+                                }
+                              >
                                 {e.universities[0].name}
                                 <br />
 
@@ -164,7 +177,7 @@ export default async function matchingOverviewMentees() {
                 </div>
               );
             })}
-          </div> */}
+          </div>
 
           <div
             id="exampleMentorRequestList"

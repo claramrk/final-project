@@ -24,7 +24,6 @@ export default async function RootLayout(props: Props) {
     (await getUserBySessionToken(sessionTokenCookie.value));
 
   /*  if (currentUser.userRolesId) {
-    console.log(currentUser.userRolesId.name);
 
     const pagePermissionCheck = getNavigationPermissions(
       currentUser.userRolesId.name,

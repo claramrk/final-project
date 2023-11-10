@@ -27,8 +27,6 @@ export default async function Navigation() {
             return n;
           });
 
-    console.log(pageIndexUser);
-    console.log(currentUser.userRolesId[0].name);
 
     return pageIndexUser;
   }
