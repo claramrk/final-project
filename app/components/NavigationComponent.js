@@ -36,12 +36,22 @@ export default function NavigationComponent(props) {
     p.permissionFor.includes(currentUser.userRolesId[0].name),
   );
 
+  const pageIndexUserTestSorted = pageIndexUserTest.sort(function (a, b) {
+    return Number(a.id) - Number(b.id);
+  });
+
   useEffect(() => {
     async function runNavigationMap() {
-      const pageIndexUserTest = pageIndex.filter((p) =>
+      const pageIndexUserTestMap = await pageIndex.filter((p) =>
         p.permissionFor.includes(currentUser.userRolesId[0].name),
       );
-      setPageIndexUser(pageIndexUserTest);
+      const pageIndexUserTestSortedMap = pageIndexUserTestMap.sort(function (
+        a,
+        b,
+      ) {
+        return Number(a.id) - Number(b.id);
+      });
+      setPageIndexUser(pageIndexUserTestSortedMap);
     }
     runNavigationMap().catch((error) => {
       console.log(error);
@@ -51,7 +61,7 @@ export default function NavigationComponent(props) {
   return (
     <>
       {' '}
-      {pageIndexUserTest.map((p) => {
+      {pageIndexUserTestSorted.map((p) => {
         return (
           <li key={`id-${p.pageName}`}>
             <a className="link-custom-nav" href={p.href}>
