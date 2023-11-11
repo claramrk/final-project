@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Role } from '../../../migrations/00006-createTableRoles';
@@ -81,6 +82,9 @@ export default function SignInFormComponent(props: Props) {
             Sign in
           </button>
         </div>
+        <Link className="link-custom-primary" href="/#">
+          Forgot password?
+        </Link>
         {errors.map((error) => (
           <div className="error" key={`error-${error.message}`}>
             Error: {error.message}

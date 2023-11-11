@@ -91,6 +91,7 @@ export default function SignUpForm(props: Props) {
                   onClick={(event) =>
                     setRole(Number(event.currentTarget.value))
                   }
+                  required
                 />
 
                 <label
@@ -126,9 +127,6 @@ export default function SignUpForm(props: Props) {
             Sign up
           </button>
         </div>
-        <Link className="link-custom-primary" href="/#">
-          Forgot password?
-        </Link>
       </form>
     </div>
   );

@@ -11,11 +11,11 @@ export default async function signInPage() {
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Sign In</h1>
             <p className="p-custom-primary">
-              Do you want to apply at a top university? The Project Access
-              programs are providing free mentorships helping less privileged
-              students apply for degrees at leading universities. When you join
-              the program you will be paired with a mentor who studies at your
-              dream university and guides you through the application process.
+              You want to apply to a top university? The Project Access programs
+              are providing free mentorships helping less privileged students
+              apply for degrees at leading universities. When you join the
+              program you will be paired with a mentor who studies at your dream
+              university and guides you through the application process.
               <br />
               <br />
               Your mentor will give you 1-1 advice on picking the right course
@@ -26,7 +26,7 @@ export default async function signInPage() {
               applicants from all around the world.
             </p>
           </div>
-          <SignInFormComponent roles={allRoles}/>;
+          <SignInFormComponent roles={allRoles} />
         </div>
       </div>
     </main>
