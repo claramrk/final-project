@@ -23,7 +23,7 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
       }),
     });
 
-    await router.refresh();
+    router.refresh();
   }
 
   return (
@@ -32,8 +32,8 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
         onSubmit={async (event) => {
           event.preventDefault();
           await handleUpdateRole();
-          await router.push(reroute);
-          await router.refresh();
+          router.push(reroute);
+          router.refresh();
         }}
       >
         <h2 className="h2-custom-primary">Further Information & next Steps</h2>

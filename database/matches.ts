@@ -33,6 +33,19 @@ export const getMatchesByMentorId = cache(async (id: number) => {
   return matches;
 });
 
+
+export const getMatchesByMenteeId = cache(async (id: number) => {
+  const matches = await sql<Match[]>`
+    SELECT
+     *
+    FROM
+      matches
+    WHERE
+      mentee_user_id = ${Number(id)}
+  `;
+  return matches;
+});
+
 /*
 
 export const getAllMatches = cache(async () => {

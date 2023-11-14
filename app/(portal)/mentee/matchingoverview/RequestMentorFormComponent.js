@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function RequestMentorFormComponent(props) {
@@ -9,6 +10,8 @@ export default function RequestMentorFormComponent(props) {
     setTopThreeMentorsWithPersonalDataListValue,
   ] = useState(props.topThreeMentorsWithPersonalDataList);
   const [messageToMentor, setMessageToMentor] = useState('');
+
+  const router = useRouter();
 
   useEffect(() => {
     async function list() {
@@ -42,6 +45,7 @@ export default function RequestMentorFormComponent(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         await handlePostMentorRequest();
+        await router.refresh();
       }}
     >
       {topThreeMentorsWithPersonalDataListValue

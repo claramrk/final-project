@@ -43,7 +43,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         thirdSubjectId: Number(subjectIdInputThree),
       }),
     });
-    await router.refresh();
+    router.refresh();
   }
 
   return (
