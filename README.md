@@ -4,7 +4,7 @@ Welcome to the Mentorship Platform, a progressive web-app developed for a non-pr
 
 The Mentorship Platform offers an array of features to facilitate mentorship and support for both mentors and mentees. The platform includes dedicated pages for mentors and mentees, allowing them to create profiles, provide matching information, and overview their mentorship engagements. 
 
-:construction_worker: This project is still under construction :construction_worker:
+:construction_worker: **This project is still under construction** :construction_worker:
 
 ## Technologies
 
