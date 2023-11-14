@@ -1,9 +1,6 @@
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import {
   getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW,
   getUserById,
-  getUserBySessionToken,
 } from '../../../../database/users';
 import { UserAll } from '../../../../migrations/00008-createTableUsers';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
