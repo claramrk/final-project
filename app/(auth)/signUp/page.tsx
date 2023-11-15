@@ -1,8 +1,27 @@
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { getRoles } from '../../../database/roles';
+import { getUserBySessionToken } from '../../../database/users';
+import { getRedirectPage } from '../../../util/pageNavigation';
 import SignUpForm from './SignUpFormComponent';
 
 export default async function signUpPage() {
   const roles = await getRoles();
+  const sessionTokenCookie = cookies().get('sessionToken');
+
+  const currentUser =
+    sessionTokenCookie &&
+    (await getUserBySessionToken(sessionTokenCookie.value));
+  if (currentUser) {
+    const currentUserRoleId = currentUser.roleId;
+    const currentUserRole = roles.find((r) => r.id === currentUserRoleId);
+
+    if (!currentUserRole) {
+      redirect(`../signIn`);
+    }
+    const reroute: any = getRedirectPage(currentUserRole);
+    redirect(reroute);
+  }
 
   return (
     <main>

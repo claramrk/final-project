@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function authLayout(props: Props) {
+export default async function authLayout(props: Props) {
   return (
     <>
       <header>

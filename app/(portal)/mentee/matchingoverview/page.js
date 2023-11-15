@@ -15,7 +15,7 @@ import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function matchingOverviewMentees() {
   // 1. Checking if the sessionToken cookie exists
-  const sessionTokenCookie =  cookies().get('sessionToken');
+  const sessionTokenCookie = cookies().get('sessionToken');
 
   const currentUser =
     sessionTokenCookie &&
@@ -59,12 +59,12 @@ export default async function matchingOverviewMentees() {
   }
 
   const currentUserMatches = await getMatchesByMenteeId(Number(currentUser.id));
-  /*   const currentUserMatchesData = Promise.all(
-    currentUserMatches.map(async (m) => {
+  const currentUserMatchesData = Promise.all(
+    currentUserMatches.map((m) => {
       const mentor = getUserById(m.mentorUserId);
       return mentor;
     }),
-  ); */
+  );
 
   return (
     <main id="visibleMENTEES">
@@ -96,10 +96,11 @@ export default async function matchingOverviewMentees() {
               // filter matching list here. can only be one at a time
             >
               <p className="p-custom-primary">
-                Match Request: Mentorphoto | {} | Mentor uni & subject &
-                studylevel 1 | Mentor uni & subject & studylevel 2 | Mentor uni
-                & subject & studylevel 3| Message to mentor | Date of request:
-                DATE
+                Match Request: Mentorphoto |{' '}
+                {await currentUserMatchesData.at(0).firstname} | Mentor uni &
+                subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
+                Mentor uni & subject & studylevel 3| Message to mentor | Date of
+                request: DATE
               </p>
             </div>
           </div>

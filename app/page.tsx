@@ -1,7 +1,28 @@
+import { cookies } from 'next/headers';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { getRoles } from '../database/roles';
+import { getUserBySessionToken } from '../database/users';
+import { getRedirectPage } from '../util/pageNavigation';
 import Footer from './components/Footer';
 
-export default function homePage() {
+export default async function homePage() {
+  const sessionTokenCookie = cookies().get('sessionToken');
+  const roles = await getRoles();
+
+  const currentUser =
+    sessionTokenCookie &&
+    (await getUserBySessionToken(sessionTokenCookie.value));
+  if (currentUser) {
+    const currentUserRoleId = currentUser.roleId;
+    const currentUserRole = roles.find((r) => r.id === currentUserRoleId);
+
+    if (!currentUserRole) {
+      redirect(`../signIn`);
+    }
+    const reroute: any = getRedirectPage(currentUserRole);
+    redirect(reroute);
+  }
   return (
     <div>
       <header>
@@ -182,7 +203,7 @@ export default function homePage() {
         </div>
       </header>
 
-      <div className=" isolate px-6 lg:px-8">
+      <main className=" isolate px-6 lg:px-8">
         <div
           className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60"
           aria-hidden="true"
@@ -262,7 +283,7 @@ export default function homePage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       <div className="static bottom-0">
         <Footer />
