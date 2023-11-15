@@ -50,90 +50,91 @@ export default function SignUpForm(props: Props) {
   }
 
   return (
-    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div className="card w-full max-w-sm shadow-2xl bg-base-100">
       <form
         className="card-body"
         id="signUpForm"
         onSubmit={async (event) => await handleRegister(event)}
       >
-        <div className="form-control">
+        <div className="form-control ">
           <legend>
             Sign up as:<span id="required">*</span>
           </legend>
-          {filteredRolesMentee.map((d) => {
-            return (
-              <div
-                key={`dataID-radio-${d.id}`}
-                className={`card blurry ${
-                  role === d.id
-                    ? 'border-4	border-neutral	'
-                    : '	border-1	border-neutral	'
-                }`}
-              >
-                <label>
-                  <input
-                    className="hidden"
-                    type="radio"
-                    name="selectRole"
-                    value={Number(d.id)}
-                    onClick={(event) =>
-                      setRole(Number(event.currentTarget.value))
-                    }
-                  />{' '}
-                  <div className="avatar">
-                    <div className="w-24 rounded-xl">
-                      <Image
-                        alt="image-select-2"
-                        width="60"
-                        height="60"
-                        src="/menteeSignUp.jpg"
-                      />
+          <div className="flex flex-row">
+            {filteredRolesMentee.map((d) => {
+              return (
+                <div
+                  key={`dataID-radio-${d.id}`}
+                  className={`card blurry ${
+                    role === d.id
+                      ? 'border-4	border-neutral	'
+                      : '	border-1	border-neutral	'
+                  }`}
+                >
+                  <label>
+                    <input
+                      className="hidden"
+                      type="radio"
+                      name="selectRole"
+                      value={Number(d.id)}
+                      onClick={(event) =>
+                        setRole(Number(event.currentTarget.value))
+                      }
+                    />{' '}
+                    <div className="avatar">
+                      <div className="w-24 rounded-xl">
+                        <Image
+                          alt="image-select-2"
+                          width="60"
+                          height="60"
+                          src="/menteeSignUp.jpg"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="h3-custom-primary">Mentee</h3>
-                  <p className="p-custom-primary">Applying for uni!</p>
-                </label>
-              </div>
-            );
-          })}
-          {filteredRolesMentor.map((d) => {
-            return (
-              <div
-                key={`dataID-radio-${d.id}`}
-                className={`card blurry ${
-                  role === d.id
-                    ? 'border-4	border-neutral	'
-                    : '	border-1	border-neutral	'
-                }`}
-              >
-                <label>
-                  <input
-                    className="hidden"
-                    type="radio"
-                    name="selectRole"
-                    value={Number(d.id)}
-                    onClick={(event) =>
-                      setRole(Number(event.currentTarget.value))
-                    }
-                  />
-                  <div className="avatar">
-                    <div className="w-24 rounded-xl">
-                      <Image
-                        alt="image-select-2"
-                        width="60"
-                        height="60"
-                        src="/mentorSignUp.jpg"
-                      />
+                    <h3 className="h3-custom-primary">Mentee</h3>
+                    <p className="p-custom-primary">Applying for uni!</p>
+                  </label>
+                </div>
+              );
+            })}
+            {filteredRolesMentor.map((d) => {
+              return (
+                <div
+                  key={`dataID-radio-${d.id}`}
+                  className={`card blurry ${
+                    role === d.id
+                      ? 'border-4	border-neutral	'
+                      : '	border-1	border-neutral	'
+                  }`}
+                >
+                  <label>
+                    <input
+                      className="hidden"
+                      type="radio"
+                      name="selectRole"
+                      value={Number(d.id)}
+                      onClick={(event) =>
+                        setRole(Number(event.currentTarget.value))
+                      }
+                    />
+                    <div className="avatar">
+                      <div className="w-24 rounded-xl">
+                        <Image
+                          alt="image-select-2"
+                          width="60"
+                          height="60"
+                          src="/mentorSignUp.jpg"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <h3 className="h3-custom-primary">Mentor</h3>
-                  <p className="p-custom-primary">Support others!</p>
-                </label>
-              </div>
-            );
-          })}
-
+                    <h3 className="h3-custom-primary">Mentor</h3>
+                    <p className="p-custom-primary">Support others!</p>
+                  </label>
+                </div>
+              );
+            })}
+          </div>
           <LabelAndInputComponent
             inputName="emailInput"
             labeltext="Your email:"
