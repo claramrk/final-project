@@ -2,8 +2,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
-import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
 import MatchRequestResponseComponent from './MatchRequestResponseComponent';
+import MentoringEndFormComponent from './MentoringEndFormComponent';
 
 export default async function matchingOverviewMentors() {
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -51,7 +51,11 @@ export default async function matchingOverviewMentors() {
       </div>
       <div id="activeMatchesSection" className="card blurry">
         <h2 className="h2-custom-primary">Active Matches</h2>
-        <p className="p-custom-primary">Indicated max. capacity: XYZ</p>
+        <p className="p-custom-primary">
+          Active mentorships with mentees will show up below. Please let us know
+          when a mentorship has ended so we can rematch you. Indicated max.
+          capacity: XYZ
+        </p>
 
         <div
           id="exampleActiveMatchesList"
@@ -59,7 +63,7 @@ export default async function matchingOverviewMentors() {
         >
           {currentUserMatches.map((m) => {
             return (
-              <p
+              <div
                 id="exampleActiveMatch"
                 className="card sub-blurry"
                 key={`mentee-${m.id}`}
@@ -70,7 +74,8 @@ export default async function matchingOverviewMentors() {
                 <button className="btn-custom-primary">
                   I am no longer mentoring this mentee
                 </button>
-              </p>
+                <MentoringEndFormComponent match={m} />
+              </div>
             );
           })}
         </div>
@@ -78,61 +83,22 @@ export default async function matchingOverviewMentors() {
       <div id="requestedMatchesSection" className="card blurry">
         <h2 className="h2-custom-primary">Match Requests</h2>
         <p className="p-custom-primary">
-          You have one week to respond to a match request. Afterwards, the
-          request will automatically be rejected.
+          Unanswered requests from mentees will show up below. You have one week
+          to respond to a match request. Afterwards, the request will
+          automatically be rejected.
         </p>
 
         <div
           id="exampleRequestedMatchesList"
           // filter matching list here
         >
-          {currentUserMatches.map((m) => {
+          {currentUserMatchRequests.map((m) => {
             return (
-              <div
-                key={`mentee-${m.id}`}
-                id="exampleRequestedMatch"
-                className="card sub-blurry"
-              >
-                Match Request#1: Menteephoto | {m.menteeUserId} | Mentee
-                targetunis | Mentee targetsubjects | mentee targetstudylevel |
-                Message from mentee | Date of request: DATE aniu{' '}
-                {m.menteeUserId}
-                <button className="btn-custom-primary">
-                  Accept match request
-                </button>
-                <button className="btn-custom-primary">
-                  Reject match request
-                </button>
-                <label htmlFor="reasonRejection">
-                  Please briefly indicate the reason for your rejection:
-                  <span id="required">*</span>
-                </label>
-                <input
-                  id="reasonRejection"
-                  className="input input-bordered w-full max-w-xs"
-                />
+              <div key={`mentee-${m.id}`}>
                 <MatchRequestResponseComponent match={m} />
               </div>
             );
           })}
-          <div id="exampleRequestedMatch" className="card sub-blurry">
-            <p>
-              Match Request#1: Menteephoto | Menteename | Mentee targetunis |
-              Mentee targetsubjects | mentee targetstudylevel | Message from
-              mentee | Date of request: DATE{' '}
-            </p>
-
-            <button className="btn-custom-primary">Accept match request</button>
-            <button className="btn-custom-primary">Reject match request</button>
-
-            <LabelAndInputComponent
-              colSpan="3"
-              inputName="reasonRejection"
-              labeltext=" Please briefly indicate the reason for your rejection:"
-              required={true}
-              type="text"
-            />
-          </div>
         </div>
       </div>
     </main>

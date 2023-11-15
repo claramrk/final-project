@@ -75,6 +75,20 @@ export const putMatchResponse = cache(
   },
 );
 
+export const putEndMatch = cache(
+  async (id: number, responseFromMentor: string, statusInternal: string) => {
+    const [match] = await sql<Match[]>`
+      UPDATE matches
+      SET
+        response_from_mentor = ${responseFromMentor},
+        status_internal = ${statusInternal}
+      WHERE
+        id = ${id} RETURNING *
+    `;
+    return match;
+  },
+);
+
 /*
 
 export const getAllMatches = cache(async () => {

@@ -34,6 +34,7 @@ export default function MatchRequestResponseComponent(props: Props) {
       onSubmit={async (event) => {
         event.preventDefault();
         await handleUpdateMatch();
+        router.refresh();
       }}
     >
       Match Request#1: Menteephoto | {props.match.menteeUserId} | Mentee
@@ -51,15 +52,24 @@ export default function MatchRequestResponseComponent(props: Props) {
       >
         Reject match request
       </button>
-      <label htmlFor="reasonRejection">
-        Please briefly indicate the reason for your rejection:
-        <span id="required">*</span>
-      </label>
-      <textarea
-        id="reasonRejection"
-        className="textarea-custom-primary"
-        onChange={(event) => setResponseInput(event.currentTarget.value)}
-      />
+      {acceptRequest ? (
+        <>
+          <label htmlFor="reasonRejection">
+            {acceptRequest === 'mentor accepted match'
+              ? 'Please write a short message to your mentee:'
+              : 'Please briefly indicate the reason for your acceptance or rejection:'}
+            <span id="required">*</span>
+          </label>
+          <textarea
+            id="reasonRejection"
+            className="textarea-custom-primary"
+            onChange={(event) => setResponseInput(event.currentTarget.value)}
+          />
+          <button className="btn-custom-primary">Submit response</button>
+        </>
+      ) : (
+        ''
+      )}
     </form>
   );
 }
