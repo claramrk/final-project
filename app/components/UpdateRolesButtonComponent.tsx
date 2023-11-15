@@ -5,7 +5,7 @@ import { UserAll } from '../../migrations/00008-createTableUsers';
 
 type Props = {
   userdata: UserAll;
-  roleAsId: number | undefined;
+  roleFromDatabase: number;
   buttonText: string;
 };
 
@@ -17,7 +17,7 @@ export default function UpdateRolesButtonComponent(props: Props) {
       method: 'PUT',
       body: JSON.stringify({
         userId: Number(props.userdata.id),
-        roleId: Number(props.roleAsId),
+        roleId: Number(props.roleFromDatabase),
       }),
     });
 
@@ -28,7 +28,6 @@ export default function UpdateRolesButtonComponent(props: Props) {
     <button
       formAction={handleCompleteRegistration}
       className="btn-custom-primary"
-      type="submit"
     >
       {props.buttonText}
     </button>

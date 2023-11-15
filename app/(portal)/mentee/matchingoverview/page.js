@@ -23,8 +23,6 @@ export default async function matchingOverviewMentees() {
 
   if (!currentUser) redirect('/signIn?returnTo=/signUp');
 
-  const currentUserEmail = currentUser.email;
-
   const topThreeMentorsList = await getTopThreeMentors(currentUser);
 
   const topThreeMentorsWithPersonalDataList = Promise.all(
@@ -61,12 +59,13 @@ export default async function matchingOverviewMentees() {
   }
 
   const currentUserMatches = await getMatchesByMenteeId(Number(currentUser.id));
-  const currentUserMatchesData = Promise.all(
+  /*   const currentUserMatchesData = Promise.all(
     currentUserMatches.map(async (m) => {
       const mentor = getUserById(m.mentorUserId);
       return mentor;
     }),
-  );
+  ); */
+
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
@@ -97,7 +96,7 @@ export default async function matchingOverviewMentees() {
               // filter matching list here. can only be one at a time
             >
               <p className="p-custom-primary">
-                Match Request: Mentorphoto | Mentorname | Mentor uni & subject &
+                Match Request: Mentorphoto | {} | Mentor uni & subject &
                 studylevel 1 | Mentor uni & subject & studylevel 2 | Mentor uni
                 & subject & studylevel 3| Message to mentor | Date of request:
                 DATE
@@ -256,7 +255,6 @@ export default async function matchingOverviewMentees() {
           </button>
         </div>
       </div>
-      <div id="requestedMatchesSection"></div>
       <ButtonGoBack />
     </main>
   );

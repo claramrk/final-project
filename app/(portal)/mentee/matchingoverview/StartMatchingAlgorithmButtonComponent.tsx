@@ -1,14 +1,17 @@
 'use client';
 
+import { UserAll } from '../../../../migrations/00008-createTableUsers';
 import { StartMatchingAlgorithmServerAction } from './StartMatchingServerAction';
 
-export default function StartMatchingAlgorithmButtonComponent(currentUser) {
+export default function StartMatchingAlgorithmButtonComponent(
+  currentUser: UserAll,
+) {
   return (
     <button
-      formAction={StartMatchingAlgorithmServerAction(currentUser)}
+      onClick={StartMatchingAlgorithmServerAction(currentUser)}
       className="btn-custom-primary"
     >
-      {buttonText}
+      Hi
     </button>
   );
 }

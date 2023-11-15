@@ -5,15 +5,13 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
-import ButtonGoBack from '../../../components/ButtonGoBack';
-import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonComponent';
 import MentorMatchingInfoFormComponent from './MentorMatchingInfoFormComponent';
 import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroundFormComponent';
 
 export default async function matchingdataMentors() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
-  const roleAsId = await getRoleByName('approved mentor');
+  const roleFromDatabase = await getRoleByName('approved mentor');
 
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -26,7 +24,8 @@ export default async function matchingdataMentors() {
     Number(currentUser?.id),
   );
 
-  if (!currentUser) redirect('/login?returnTo=/notes');
+  if (!currentUser) redirect(`../signIn`);
+  if (!roleFromDatabase) redirect(`../signIn`);
 
   return (
     <main id="visibleMENTORS">
@@ -68,7 +67,7 @@ export default async function matchingdataMentors() {
               <tbody>
                 {userBackground.length < 1
                   ? ''
-                  : await userBackground.map((u) => {
+                  : userBackground.map((u) => {
                       return (
                         <tr
                           className="exampleMentorUniversityBackground"
@@ -112,7 +111,7 @@ export default async function matchingdataMentors() {
          */}{' '}
         <MentorMatchingInfoFormComponent
           userdata={currentUser}
-          role={roleAsId}
+          role={roleFromDatabase}
         />
       </div>
     </main>

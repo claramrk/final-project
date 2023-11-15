@@ -42,7 +42,7 @@ export default function SignUpForm(props: Props) {
 
     if ('errors' in data) {
       setErrors(data.errors);
-      return;
+      return console.log(errors);
     }
     router.push(`/personaldata`);
 

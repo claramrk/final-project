@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import {
   getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW,
   getUserById,
@@ -24,11 +25,11 @@ export async function getMentorUserDataAction(id: number) {
   async function getMentorUserDataWithUniInfoObject(a: number) {
     const mentorUserDataWithUniInfoObject =
       await getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW(
-        id,
+        a,
       );
 
-    if (!mentorUserDataWithUniInfoObject.at(0)) {
-      console.log('error');
+    if (!mentorUserDataWithUniInfoObject[0]) {
+      redirect(`../error`);
     }
 
     const mentorUserDataWithUniInfoObjectROW =

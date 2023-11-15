@@ -3,9 +3,9 @@ import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
   getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject,
 } from '../database/users';
-import { UserIdEmailRole } from '../migrations/00008-createTableUsers';
+import { UserAll } from '../migrations/00008-createTableUsers';
 
-export default async function getTopThreeMentors(currentUser: UserIdEmailRole) {
+export default async function getTopThreeMentors(currentUser: UserAll) {
   // create joined list of accepted mentors with their universities, subjects, degree level (joined from mentor_backgrounds), and origin, max_capcity (directly from users), and ?
 
   const menteeRole = await getRoleByName('approved mentee');

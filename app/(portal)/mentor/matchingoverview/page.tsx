@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
-import { getUserById, getUserBySessionToken } from '../../../../database/users';
+import { getUserBySessionToken } from '../../../../database/users';
 import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
 
 export default async function matchingOverviewMentors() {
@@ -17,13 +17,15 @@ export default async function matchingOverviewMentors() {
 
   const currentUserMatches = await getMatchesByMentorId(Number(currentUser.id));
 
-  const currentUserMatchesData = Promise.all(
+  // do this next (15.11.23)
+
+  /*   const currentUserMatchesData = Promise.all(
     currentUserMatches.map(async (m) => {
       const mentee = getUserById(m.menteeUserId);
       return mentee;
     }),
   );
-
+ */
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
@@ -59,10 +61,10 @@ export default async function matchingOverviewMentors() {
           id="exampleRequestedMatchesList"
           // filter matching list here
         >
-          {await currentUserMatches.map((m) => {
+          {currentUserMatches.map((m) => {
             return (
               <p
-                key={`${m.id}`}
+                key={`mentor-${m.id}`}
                 id="exampleRequestedMatch"
                 className="card sub-blurry"
               >

@@ -121,7 +121,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
           </p>
           <UpdateRolesButtonComponent
             userdata={currentUser}
-            roleAsId={Number(props.role.id)}
+            roleFromDatabase={Number(props.role.id)}
             buttonText="Submit your matchinginfo"
             // should be available only when other info has been submitted
           />

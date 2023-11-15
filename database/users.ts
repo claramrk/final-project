@@ -11,12 +11,18 @@ import { sql } from './connect';
 export const createUser = cache(
   async (email: string, passwordHash: string, roleId: number) => {
     const [user] = await sql<UserIdEmailRole[]>`
-      INSERT INTO users
-        (email, password_hash, role_id)
+      INSERT INTO
+        users (
+          email,
+          password_hash,
+          role_id
+        )
       VALUES
-        (${email.toLowerCase()}, ${passwordHash}, ${roleId})
-      RETURNING
-        id,
+        (
+          ${email.toLowerCase()},
+          ${passwordHash},
+          ${roleId}
+        ) RETURNING id,
         email,
         role_id
     `;
@@ -30,7 +36,7 @@ export const getUserByEmail = cache(async (email: string) => {
       id,
       email,
       role_id
-          FROM
+    FROM
       users
     WHERE
       email = ${email.toLowerCase()}
@@ -44,7 +50,6 @@ export const getAllUsers = cache(async () => {
       *
     FROM
       users
-
   `;
   return users;
 });
@@ -52,7 +57,7 @@ export const getAllUsers = cache(async () => {
 export const getUserById = cache(async (id: number) => {
   const [user] = await sql<UserAll[]>`
     SELECT
-     *
+      *
     FROM
       users
     WHERE
@@ -64,7 +69,10 @@ export const getUserById = cache(async (id: number) => {
 export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
   const [user] = await sql<UserIdEmailPassword[]>`
     SELECT
-      id, email, password_hash, role_id
+      id,
+      email,
+      password_hash,
+      role_id
     FROM
       users
     WHERE
@@ -95,45 +103,39 @@ export const getUserBySessionToken = cache(async (token: string) => {
       userRolesId: JsonAgg | null;
     }[]
   >`
-   SELECT
-    users.id,
-    users.email,
-    users.password_hash,
-    users.firstname,
-    users.lastname,
-    users.pronouns,
-    users.phone_number,
-    users.birthdate,
-    users.country_id,
-    users.photo,
-    users.role_id,
-    users.last_activity,
-    users.last_update,
-    users.pause_until,
-    users.max_capacity,
-    users.contract_doc_url,
-    (
+    SELECT
+      users.id,
+      users.email,
+      users.password_hash,
+      users.firstname,
+      users.lastname,
+      users.pronouns,
+      users.phone_number,
+      users.birthdate,
+      users.country_id,
+      users.photo,
+      users.role_id,
+      users.last_activity,
+      users.last_update,
+      users.pause_until,
+      users.max_capacity,
+      users.contract_doc_url,
+      (
         SELECT
-          json_agg (
-            roles.*
-
-          )
+          json_agg (roles.*)
         FROM
           roles
         WHERE
-        roles.id = users.role_id
+          roles.id = users.role_id
       ) AS user_roles_id
-
     FROM
       users
-    INNER JOIN
-      sessions ON (
-        sessions.token = ${token} AND
-        sessions.user_id = users.id AND
-        sessions.expiry_timestamp > now()
+      INNER JOIN sessions ON (
+        sessions.token = ${token}
+        AND sessions.user_id = users.id
+        AND sessions.expiry_timestamp > now ()
       )
       LEFT JOIN roles ON roles.id = users.role_id
-
   `;
   return user;
 });
@@ -141,13 +143,11 @@ export const getUserBySessionToken = cache(async (token: string) => {
 export const putUserRole = cache(async (userId: number, roleId: number) => {
   // return roles;
   const user = await sql<UserAll[]>`
-    UPDATE
-    users
+    UPDATE users
     SET
-   role_id=${Number(roleId)}
+      role_id = ${Number(roleId)}
     WHERE
-    id = ${userId}
-    RETURNING *
+      id = ${userId} RETURNING *
   `;
   return user;
 });
@@ -165,43 +165,40 @@ export const putPersonalDataByUserID = cache(
   ) => {
     // return roles;
     const personalDataInfoUsers = await sql<UserAll[]>`
-    UPDATE
-    users
-    SET
-    firstname=${firstname},
-    lastname=${lastname},
-    pronouns=${pronouns},
-    phone_number=${phoneNumber},
-    birthdate=${birthdate},
-    country_id=${countryId},
-    photo=${photo}
-    WHERE
-    id = ${userId}
-    RETURNING *
-  `;
+      UPDATE users
+      SET
+        firstname = ${firstname},
+        lastname = ${lastname},
+        pronouns = ${pronouns},
+        phone_number = ${phoneNumber},
+        birthdate = ${birthdate},
+        country_id = ${countryId},
+        photo = ${photo}
+      WHERE
+        id = ${userId} RETURNING *
+    `;
     return personalDataInfoUsers;
   },
 );
 
 export const getUserWithMatchingInfoByIDInArray = cache(async () => {
   const usersMatchings = await sql<UserAllWithMatching[]>`
-      SELECT
-*,      (
+    SELECT
+      *,
+      (
         SELECT
           json_agg (
             mentor_university_backgrounds.*
-
           )
         FROM
           mentor_university_backgrounds
         WHERE
-        mentor_university_backgrounds.user_id = users.id
+          mentor_university_backgrounds.user_id = users.id
       ) AS user_mentor_university_backgrounds
     FROM
       users
-      GROUP BY
+    GROUP BY
       users.id
-
   `;
   return usersMatchings;
 });
@@ -225,27 +222,24 @@ export const getMentorUniversityBackgroundWithUserInoUniAndSubject = cache(
       mentorUniversityBackgroundbyUserIDWithUniAndSubject[]
     >`
       SELECT
-users.id AS users_id,
-users.max_capacity AS users_max_capacity,
-countries.id AS users_origin_country_id,
-roles.name AS roles_role_name,
-mentor_university_backgrounds.id AS uni_bg_id,
-mentor_university_backgrounds.university_id AS uni_bg_university_id,
-mentor_university_backgrounds.subject_id AS uni_bg_subject_id,
-mentor_university_backgrounds.studylevel AS uni_bg_studylevel_id,
-mentor_university_backgrounds.attendance_type AS uni_bg_attendance_type,
-subjects.discipline AS uni_bg_subject_discipline
-
-FROM
-users
- INNER JOIN mentor_university_backgrounds
-ON mentor_university_backgrounds.user_id = users.id
-INNER JOIN countries ON countries.id = users.country_id
-INNER JOIN roles ON roles.id = users.role_id
-INNER JOIN universities ON universities.id = mentor_university_backgrounds.university_id
-INNER JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
-
-  `;
+        users.id AS users_id,
+        users.max_capacity AS users_max_capacity,
+        countries.id AS users_origin_country_id,
+        roles.name AS roles_role_name,
+        mentor_university_backgrounds.id AS uni_bg_id,
+        mentor_university_backgrounds.university_id AS uni_bg_university_id,
+        mentor_university_backgrounds.subject_id AS uni_bg_subject_id,
+        mentor_university_backgrounds.studylevel AS uni_bg_studylevel_id,
+        mentor_university_backgrounds.attendance_type AS uni_bg_attendance_type,
+        subjects.discipline AS uni_bg_subject_discipline
+      FROM
+        users
+        INNER JOIN mentor_university_backgrounds ON mentor_university_backgrounds.user_id = users.id
+        INNER JOIN countries ON countries.id = users.country_id
+        INNER JOIN roles ON roles.id = users.role_id
+        INNER JOIN universities ON universities.id = mentor_university_backgrounds.university_id
+        INNER JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
+    `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   },
 );
@@ -268,30 +262,23 @@ export const getMenteeUniversityApplicationsWithUserInfo = cache(async () => {
   const menteeUniversityApplicationsbyUserIDWithUniAndSubject = await sql<
     menteeUniversityApplicationsbyUserIDWithUniAndSubject[]
   >`
-      SELECT
-users.id AS users_id,
-users.role_id AS role_id,
-countries.id AS users_origin_country_id,
-roles.name AS roles_role_name,
-mentee_university_applications.studylevel AS uni_app_studylevel_id,
-mentee_university_applications.first_university_id AS uni_app_first_university_id,
-mentee_university_applications.first_subject_id AS uni_app_first_subject_id,
-mentee_university_applications.second_university_id AS uni_app_second_university_id,
-mentee_university_applications.second_subject_id AS uni_app_second_subject_id,
-mentee_university_applications.third_university_id AS uni_app_third_university_id,
-mentee_university_applications.third_subject_id AS uni_app_third_subject_id
-
-FROM
-users
- INNER JOIN mentee_university_applications
-ON mentee_university_applications.user_id = users.id
-INNER JOIN countries ON countries.id = users.country_id
-INNER JOIN roles ON roles.id = users.role_id
-
-
-
-
-
+    SELECT
+      users.id AS users_id,
+      users.role_id AS role_id,
+      countries.id AS users_origin_country_id,
+      roles.name AS roles_role_name,
+      mentee_university_applications.studylevel AS uni_app_studylevel_id,
+      mentee_university_applications.first_university_id AS uni_app_first_university_id,
+      mentee_university_applications.first_subject_id AS uni_app_first_subject_id,
+      mentee_university_applications.second_university_id AS uni_app_second_university_id,
+      mentee_university_applications.second_subject_id AS uni_app_second_subject_id,
+      mentee_university_applications.third_university_id AS uni_app_third_university_id,
+      mentee_university_applications.third_subject_id AS uni_app_third_subject_id
+    FROM
+      users
+      INNER JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
+      INNER JOIN countries ON countries.id = users.country_id
+      INNER JOIN roles ON roles.id = users.role_id
   `;
   return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
 });
@@ -311,29 +298,27 @@ export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
       mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
-users.id AS users_id,
-users.role_id AS users_role_id,
-users.country_id AS users_country_id,
-users.max_capacity AS users_max_capacity,
-users.pause_until AS users_pause_until,
-(
-  SELECT
-    json_agg (
-      mentor_university_backgrounds.*
-
-    )
-  FROM
-    mentor_university_backgrounds
-  WHERE
-  mentor_university_backgrounds.user_id = users.id
-) AS user_mentor_university_backgrounds
-FROM
-users
- INNER JOIN mentor_university_backgrounds
-ON mentor_university_backgrounds.user_id = users.id
-GROUP BY
-users.id
-  `;
+        users.id AS users_id,
+        users.role_id AS users_role_id,
+        users.country_id AS users_country_id,
+        users.max_capacity AS users_max_capacity,
+        users.pause_until AS users_pause_until,
+        (
+          SELECT
+            json_agg (
+              mentor_university_backgrounds.*
+            )
+          FROM
+            mentor_university_backgrounds
+          WHERE
+            mentor_university_backgrounds.user_id = users.id
+        ) AS user_mentor_university_backgrounds
+      FROM
+        users
+        INNER JOIN mentor_university_backgrounds ON mentor_university_backgrounds.user_id = users.id
+      GROUP BY
+        users.id
+    `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
@@ -351,29 +336,26 @@ export const getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject =
       menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
-users.id AS users_id,
-
-users.role_id AS users_role_id,
-users.country_id AS users_country_id,
-users.pause_until AS users_pause_until,
-(
-  SELECT
-    json_agg (
-      mentee_university_applications.*
-    )
-  FROM
-    mentee_university_applications
-  WHERE
-  mentee_university_applications.user_id = users.id
-) AS user_mentee_university_applications
-FROM
-users
- INNER JOIN mentee_university_applications
-ON mentee_university_applications.user_id = users.id
-WHERE
-users.id = ${id}
-
-  `;
+        users.id AS users_id,
+        users.role_id AS users_role_id,
+        users.country_id AS users_country_id,
+        users.pause_until AS users_pause_until,
+        (
+          SELECT
+            json_agg (
+              mentee_university_applications.*
+            )
+          FROM
+            mentee_university_applications
+          WHERE
+            mentee_university_applications.user_id = users.id
+        ) AS user_mentee_university_applications
+      FROM
+        users
+        INNER JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
+      WHERE
+        users.id = ${id}
+    `;
     return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
   });
 
@@ -396,33 +378,30 @@ export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjec
       SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
-users.id AS users_id,
-users.firstname AS users_firstname,
-users.role_id AS users_role_id,
-users.country_id AS users_country_id,
-users.max_capacity AS users_max_capacity,
-users.pause_until AS users_pause_until,
-(
-  SELECT
-    json_agg (
-      mentor_university_backgrounds.*
-
-    )
-  FROM
-    mentor_university_backgrounds
-  WHERE
-  mentor_university_backgrounds.user_id = users.id
-) AS user_mentor_university_backgrounds
-FROM
-users
- INNER JOIN mentor_university_backgrounds
-ON mentor_university_backgrounds.user_id = users.id
-WHERE
-users.id=${id}
-GROUP BY
-users.id
-
-  `;
+        users.id AS users_id,
+        users.firstname AS users_firstname,
+        users.role_id AS users_role_id,
+        users.country_id AS users_country_id,
+        users.max_capacity AS users_max_capacity,
+        users.pause_until AS users_pause_until,
+        (
+          SELECT
+            json_agg (
+              mentor_university_backgrounds.*
+            )
+          FROM
+            mentor_university_backgrounds
+          WHERE
+            mentor_university_backgrounds.user_id = users.id
+        ) AS user_mentor_university_backgrounds
+      FROM
+        users
+        INNER JOIN mentor_university_backgrounds ON mentor_university_backgrounds.user_id = users.id
+      WHERE
+        users.id = ${id}
+      GROUP BY
+        users.id
+    `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
@@ -434,55 +413,76 @@ export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjec
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
       { rowToJson: JsonAgg | null }[]
     >`
-    WITH subjects as (
+      WITH
+        subjects AS (
+          SELECT
+            subjects.*
+          FROM
+            subjects
+          GROUP BY
+            subjects.id
+          ORDER BY
+            subjects.id
+        ),
+        universities AS (
+          SELECT
+            universities.*
+          FROM
+            universities
+          GROUP BY
+            universities.id
+          ORDER BY
+            universities.id
+        ),
+        mentor_university_backgrounds AS (
+          SELECT
+            mentor_university_backgrounds.*,
+            json_agg (
+              universities
+            ) AS universities,
+            json_agg (
+              subjects
+            ) AS subjects
+          FROM
+            mentor_university_backgrounds
+            LEFT JOIN universities ON universities.id = mentor_university_backgrounds.university_id
+            LEFT JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
+          GROUP BY
+            mentor_university_backgrounds.id
+          ORDER BY
+            mentor_university_backgrounds.id
+        ),
+        countries AS (
+          SELECT
+            countries.*
+          FROM
+            countries
+        ),
+        users AS (
+          SELECT
+            users.*,
+            json_agg (
+              mentor_university_backgrounds
+            ) AS mentor_university_backgrounds,
+            json_agg (
+              countries
+            ) AS countries
+          FROM
+            users
+            LEFT JOIN countries ON countries.id = users.country_id
+            LEFT JOIN mentor_university_backgrounds ON mentor_university_backgrounds.user_id = users.id
+          WHERE
+            users.id = ${id}
+          GROUP BY
+            users.id
+          ORDER BY
+            users.id
+        )
       SELECT
-        subjects.*
-      FROM subjects
-      GROUP BY subjects.id
-      order by subjects.id
-  ),
-    universities as (
-      SELECT
-        universities.*
-      FROM universities
-      GROUP BY universities.id
-      order by universities.id
-  ), mentor_university_backgrounds AS (
-      SELECT
-        mentor_university_backgrounds.*,
-        json_agg(universities) as universities,
-        json_agg(subjects) as subjects
-
-      FROM mentor_university_backgrounds
-      LEFT JOIN universities ON universities.id = mentor_university_backgrounds.university_id
-      LEFT JOIN subjects ON subjects.id = mentor_university_backgrounds.subject_id
-
-      GROUP BY mentor_university_backgrounds.id
-      order by mentor_university_backgrounds.id
-  ), countries as (
-    SELECT
-      countries.*
-    FROM countries
-), users AS (
-      SELECT
-        users.*,
-        json_agg(mentor_university_backgrounds) as mentor_university_backgrounds,
-        json_agg(countries) as countries
-
-      FROM users
-      LEFT JOIN countries ON countries.id = users.country_id
-      LEFT JOIN mentor_university_backgrounds ON mentor_university_backgrounds.user_id = users.id
-      WHERE users.id = ${id}
-      group by users.id
-      order by users.id
-
-  )
-
-  SELECT row_to_json(users)
-
-  FROM users;
-
-  `;
+        row_to_json (users)
+      FROM
+        users;
+    `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
@@ -494,37 +494,47 @@ export const getSingleUserWithMenteeUniversityApplicationbyUserIDJSONROW =
   cache(async (id: number) => {
     const [singleUserWithMenteeUniversityApplicationbyUserIDJSONROW] =
       await sql<{ rowToJson: JsonAgg | null }[]>`
-    WITH mentee_university_applications AS (
-      SELECT
-        mentee_university_applications.*
-
-      FROM mentee_university_applications
-
-      GROUP BY  mentee_university_applications.id
-      order by  mentee_university_applications.id
-  ), countries as (
-    SELECT
-      countries.*
-    FROM countries
-), users AS (
-      SELECT
-        users.*,
-        json_agg(mentee_university_applications) as mentee_university_applications,
-        json_agg(countries) as countries
-
-      FROM users
-      LEFT JOIN countries ON countries.id = users.country_id
-      LEFT JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
-      WHERE users.id =${id}
-      group by users.id
-      order by users.id
-
-  )
-
-  SELECT row_to_json(users)
-
-  FROM users;
-
-  `;
+        WITH
+          mentee_university_applications AS (
+            SELECT
+              mentee_university_applications.*
+            FROM
+              mentee_university_applications
+            GROUP BY
+              mentee_university_applications.id
+            ORDER BY
+              mentee_university_applications.id
+          ),
+          countries AS (
+            SELECT
+              countries.*
+            FROM
+              countries
+          ),
+          users AS (
+            SELECT
+              users.*,
+              json_agg (
+                mentee_university_applications
+              ) AS mentee_university_applications,
+              json_agg (
+                countries
+              ) AS countries
+            FROM
+              users
+              LEFT JOIN countries ON countries.id = users.country_id
+              LEFT JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
+            WHERE
+              users.id = ${id}
+            GROUP BY
+              users.id
+            ORDER BY
+              users.id
+          )
+        SELECT
+          row_to_json (users)
+        FROM
+          users;
+      `;
     return singleUserWithMenteeUniversityApplicationbyUserIDJSONROW;
   });

@@ -1,7 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import SignOutButton from '../../(auth)/signOut/signOutFormComponent';
 import { pronountypes } from '../../../database/pronouns';
 import { Country } from '../../../migrations/00000-createTableCountries';
 import { Role } from '../../../migrations/00006-createTableRoles';
@@ -14,7 +13,7 @@ import UploadImageComponent from '../../components/UploadImageComponent';
 type Props = {
   countries: Country[];
   currentUser: UserAll;
-  role: Role;
+  currentUserRole: Role;
 };
 
 export default function PersonalDataFormComponent(props: Props) {
@@ -27,8 +26,6 @@ export default function PersonalDataFormComponent(props: Props) {
   const [originCountryInput, setOriginCountryInput] = useState('');
   const [profilePictureInput, setProfilePictureInput] = useState('');
   const [imageInfo, setImageInfo] = useState([]);
-
-  const [errors, setErrors] = useState('');
   const router = useRouter();
 
   async function handlePutPersonalData() {
@@ -55,7 +52,7 @@ export default function PersonalDataFormComponent(props: Props) {
       method: 'PUT',
       body: JSON.stringify({
         userId: Number(props.currentUser.id),
-        roleId: Number(props.role.id),
+        roleId: Number(props.currentUserRole.id),
       }),
     });
     await router.refresh();
@@ -73,7 +70,7 @@ export default function PersonalDataFormComponent(props: Props) {
     });
   }, [imageInfo]);
 
-  const reroute: any = `/${props.role.type}/matchingdata`;
+  const reroute: any = `/${props.currentUserRole.type}/matchingdata`;
 
   return (
     <form
@@ -81,8 +78,8 @@ export default function PersonalDataFormComponent(props: Props) {
         event.preventDefault();
         await handlePutPersonalData();
         await handleUpdateRole();
-        await router.refresh();
-        await router.push(reroute);
+        router.refresh();
+        router.push(reroute);
       }}
       className=" space-y-12 border-b border-gray-900/10 "
     >
@@ -202,14 +199,13 @@ export default function PersonalDataFormComponent(props: Props) {
       </div>
       <UpdateRolesButtonComponent
         userdata={props.currentUser}
-        roleAsId={Number(props.role.id)}
+        roleFromDatabase={Number(props.currentUserRole.id)}
         buttonText={
-          props.role.type === 'mentor'
+          props.currentUserRole.type === 'mentor'
             ? `Enter University Background on the next page`
             : `Enter your target universities and subjects on the next page`
         }
       />
-      <p>{errors ? 'there was an error' : ''}</p>
     </form>
   );
 }

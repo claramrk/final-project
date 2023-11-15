@@ -12,7 +12,7 @@ import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversity
 export default async function menteeMatchingData() {
   const subjects = await getSubjects();
   const universities = await getUniversities();
-  const roleAsId = await getRoleByName('approved mentee');
+  const roleFromDatabase = await getRoleByName('approved mentee');
 
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -25,9 +25,9 @@ export default async function menteeMatchingData() {
     Number(currentUser?.id),
   );
 
-  if (!currentUser) redirect('/signIn?returnTo=/notes');
-  if (!roleAsId) {
-    console.log('issue with role!');
+  if (!currentUser) redirect(`../signIn`);
+  if (!roleFromDatabase) {
+    redirect(`../signIn`);
   }
 
   return (
@@ -60,8 +60,8 @@ export default async function menteeMatchingData() {
       </div>
       <div id="matchingInformationSection">
         <MenteeMatchingInfoFormComponent
-          userdata={await currentUser}
-          role={await roleAsId}
+          userdata={currentUser}
+          role={roleFromDatabase}
         />
       </div>
       <ButtonGoBack />

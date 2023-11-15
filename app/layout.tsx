@@ -1,8 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import { ReactNode } from 'react';
-import { getUserBySessionToken } from '../database/users';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 
@@ -15,21 +14,15 @@ type Props = {
   children: ReactNode;
 };
 
-export default async function RootLayout(props: Props) {
+export default function RootLayout(props: Props) {
   // 1. Checking if the sessionToken cookie exists
-  const sessionTokenCookie = cookies().get('sessionToken');
+  const headersList = headers();
 
-  const currentUser =
+  /*
+   const sessionTokenCookie = cookies().get('sessionToken');
+ const currentUser =
     sessionTokenCookie &&
-    (await getUserBySessionToken(sessionTokenCookie.value));
-
-  /*  if (currentUser.userRolesId) {
-
-    const pagePermissionCheck = getNavigationPermissions(
-      currentUser.userRolesId.name,
-      header_url,
-    );
-  } */
+    (await getUserBySessionToken(sessionTokenCookie.value)); */
 
   return (
     <html lang="en" className="h-full">

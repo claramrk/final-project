@@ -1,9 +1,7 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getMenteeTargetUniversitySubjectbyUserID } from '../../../../database/menteeTargetUniversitySubject';
-import { getUserById, getUserBySessionToken } from '../../../../database/users';
-import getTopThreeMentors from '../../../../util/matchingAlgorythm';
+import { getUserBySessionToken } from '../../../../database/users';
 import ButtonGoBack from '../../../components/ButtonGoBack';
 
 export default async function dashboardMentees() {
@@ -14,28 +12,13 @@ export default async function dashboardMentees() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  const userTargets = await getMenteeTargetUniversitySubjectbyUserID(
-    Number(currentUser?.id),
-  );
-
-  if (!currentUser) redirect('/signIn?returnTo=/notes');
-
-  const currentUserId = currentUser.id;
-
-  const topThreeMentorsList = await getTopThreeMentors(currentUserId);
+  if (!currentUser) redirect(`../signIn`);
 
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="h1-custom-primary">My Dashboard</h1>
       </div>
-
-      <h2>Top 3 matches:</h2>
-
-      {topThreeMentorsList.map(async (d) => {
-        const mentorUserData = await getUserById(d.mentorUserId);
-        return <p key={`dataID-select-${d.mentorUserId}`}> </p>;
-      })}
       <div
         id="matchingInformationSection_visibleMENTORS"
         className="card blurry"
