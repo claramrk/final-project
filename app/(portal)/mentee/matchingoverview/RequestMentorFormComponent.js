@@ -45,7 +45,7 @@ export default function RequestMentorFormComponent(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         await handlePostMentorRequest();
-        await router.refresh();
+        router.refresh();
       }}
     >
       {topThreeMentorsWithPersonalDataListValue
