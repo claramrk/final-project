@@ -12,8 +12,8 @@ type Props = { roles: Role[] };
 export default function SignUpForm(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState(1);
-  const [active, setActive] = useState({ mentor: false, mentee: false });
+  const [role, setRole] = useState(10);
+  const [roleError, setRoleError] = useState('');
 
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();
@@ -54,10 +54,13 @@ export default function SignUpForm(props: Props) {
       <form
         className="card-body"
         id="signUpForm"
-        onSubmit={async (event) => await handleRegister(event)}
+        onSubmit={async (event) => {
+          event.preventDefault();
+          await handleRegister(event);
+        }}
       >
         <div className="form-control ">
-          <legend>
+          <legend className="label-custom-primary">
             Sign up as:<span id="required">*</span>
           </legend>
           <div className="flex flex-row">
@@ -68,7 +71,7 @@ export default function SignUpForm(props: Props) {
                   className={`card blurry ${
                     role === d.id
                       ? 'border-4	border-neutral	'
-                      : '	border-1	border-neutral	'
+                      : '	border-4	border-transparent	'
                   }`}
                 >
                   <label>
@@ -80,6 +83,7 @@ export default function SignUpForm(props: Props) {
                       onClick={(event) =>
                         setRole(Number(event.currentTarget.value))
                       }
+                      required
                     />{' '}
                     <div className="avatar">
                       <div className="w-24 rounded-xl">
@@ -104,7 +108,7 @@ export default function SignUpForm(props: Props) {
                   className={`card blurry ${
                     role === d.id
                       ? 'border-4	border-neutral	'
-                      : '	border-1	border-neutral	'
+                      : '	border-4	border-transparent	'
                   }`}
                 >
                   <label>
