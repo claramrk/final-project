@@ -32,10 +32,5 @@ export default async function usersLayout(props: Props) {
 
   if (currentUserRole.type !== 'mentor') redirect(`/not-found`);
 
-  // User has to be an admin
-  // Get user from the database that meets the admin requirements
-
-  // 3. Either redirect or render the login form
-
   return <div>{props.children}</div>;
 }

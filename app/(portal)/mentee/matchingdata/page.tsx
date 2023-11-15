@@ -21,13 +21,14 @@ export default async function menteeMatchingData() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
+  if (!currentUser) redirect(`../signIn`);
+
   const userTargets = await getMenteeTargetUniversitySubjectbyUserID(
-    Number(currentUser?.id),
+    Number(currentUser.id),
   );
 
-  if (!currentUser) redirect(`../signIn`);
   if (!roleFromDatabase) {
-    redirect(`../signIn`);
+    redirect(`../error`);
   }
 
   return (

@@ -8,7 +8,7 @@ export default function StartMatchingAlgorithmButtonComponent(
 ) {
   return (
     <button
-      onClick={StartMatchingAlgorithmServerAction(currentUser)}
+      // onClick={StartMatchingAlgorithmServerAction(currentUser)}
       className="btn-custom-primary"
     >
       Hi

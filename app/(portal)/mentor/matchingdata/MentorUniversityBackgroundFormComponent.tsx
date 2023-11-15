@@ -23,7 +23,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
   const router = useRouter();
 
   async function handleCreateMentorUniversityBackground() {
-    const currentUserID = await Number(props.userdata.id);
+    const currentUserID =  Number(props.userdata.id);
 
     await fetch('/../../../api/matchingdata/mentorUniversityBackground', {
       method: 'POST',
@@ -35,7 +35,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         subjectId: Number(subjectIdInput),
       }),
     });
-    await router.refresh();
+     router.refresh();
   }
 
   return (

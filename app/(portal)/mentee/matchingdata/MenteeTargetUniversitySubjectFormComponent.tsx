@@ -28,7 +28,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
   const router = useRouter();
 
   async function handleCreateMenteeTargetUniversitySubject() {
-    const currentUserID = await Number(props.userdata.id);
+    const currentUserID = Number(props.userdata.id);
 
     await fetch('/../../../api/matchingdata/menteeTargetUniversitySubject', {
       method: 'POST',

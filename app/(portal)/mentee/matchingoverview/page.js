@@ -15,13 +15,13 @@ import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function matchingOverviewMentees() {
   // 1. Checking if the sessionToken cookie exists
-  const sessionTokenCookie = await cookies().get('sessionToken');
+  const sessionTokenCookie =  cookies().get('sessionToken');
 
   const currentUser =
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  if (!currentUser) redirect('/signIn?returnTo=/signUp');
+  if (!currentUser) redirect('/signUp');
 
   const topThreeMentorsList = await getTopThreeMentors(currentUser);
 

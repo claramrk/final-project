@@ -29,7 +29,7 @@ export default function PersonalDataFormComponent(props: Props) {
   const router = useRouter();
 
   async function handlePutPersonalData() {
-    const currentUserID = await Number(props.currentUser.id);
+    const currentUserID = Number(props.currentUser.id);
 
     await fetch('/../../api/users/personaldata', {
       method: 'PUT',

@@ -1,21 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 export default function LabelAndSelectComponent(props: any) {
-  const [optionlistValue, setOptionlistValue] = useState([]);
-
-  useEffect(() => {
-    async function getOptionList() {
-      const response = await props.optionlist;
-      setOptionlistValue(response);
-    }
-    getOptionList().catch((error) => {
-      console.log(error);
-    });
-  }, [props.optionlist]);
-
-  const optionlist: Array<any> = props.optionarray;
   return (
     <div className={`sm:col-span-${props.colSpan}`}>
       <label htmlFor={props.inputName} className="label-custom-primary">

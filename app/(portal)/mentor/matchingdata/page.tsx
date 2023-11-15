@@ -20,11 +20,12 @@ export default async function matchingdataMentors() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-  const userBackground = await getMentorUniversityBackgroundbyUserID(
-    Number(currentUser?.id),
-  );
+    if (!currentUser) redirect(`../signIn`);
 
-  if (!currentUser) redirect(`../signIn`);
+
+  const userBackground = await getMentorUniversityBackgroundbyUserID(
+    Number(currentUser.id),
+  );
   if (!roleFromDatabase) redirect(`../signIn`);
 
   return (

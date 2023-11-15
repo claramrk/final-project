@@ -19,7 +19,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
   const router = useRouter();
 
   async function handlePutMentorMatchingInfo() {
-    const currentUserID = await Number(props.userdata.id);
+    const currentUserID = Number(props.userdata.id);
 
     await fetch('/../../../api/matchingdata/mentorMatchingInfo', {
       method: 'PUT',
@@ -28,7 +28,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         maxCapacity: Number(maxCapacityInput),
       }),
     });
-    await router.refresh();
+    router.refresh();
   }
 
   const reroute: any = `/mentor/matchingoverview`;
@@ -41,7 +41,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         roleId: Number(props.role.id),
       }),
     });
-    await router.refresh();
+    router.refresh();
   }
 
   return (
@@ -50,8 +50,8 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         event.preventDefault();
         await handlePutMentorMatchingInfo();
         await handleUpdateRole();
-        await router.refresh();
-        await router.push(reroute);
+        router.refresh();
+        router.push(reroute);
       }}
     >
       <div className="card blurry">

@@ -23,6 +23,11 @@ export default async function personaldata() {
     console.log('error');
   }
   const currentUserRoleByName = await getRoleByName(currentUserRole.name);
+
+  if (!currentUserRoleByName) {
+    redirect(`../error`);
+  }
+
   const menteeIncompleteRoleByName = await getRoleByName('incomplete mentee');
 
   const menteeCompleteRoleByName = await getRoleByName('complete mentee');
@@ -34,9 +39,6 @@ export default async function personaldata() {
       : mentorCompleteRoleByName;
 
   if (!newRole) {
-    redirect(`../error`);
-  }
-  if (!currentUserRoleByName) {
     redirect(`../error`);
   }
 

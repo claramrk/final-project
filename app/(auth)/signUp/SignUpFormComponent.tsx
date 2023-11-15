@@ -1,13 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Role } from '../../../migrations/00006-createTableRoles';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 
-// type Props = { returnTo?: string | string[] };
 type Props = { roles: Role[] };
 
 export default function SignUpForm(props: Props) {

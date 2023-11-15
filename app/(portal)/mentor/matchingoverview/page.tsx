@@ -12,7 +12,7 @@ export default async function matchingOverviewMentors() {
     (await getUserBySessionToken(sessionTokenCookie.value));
 
   if (!currentUser) {
-    redirect('/signIn?returnTo=/signUp');
+    redirect('/signUp');
   }
 
   const currentUserMatches = await getMatchesByMentorId(Number(currentUser.id));
