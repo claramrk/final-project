@@ -2,8 +2,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { ReactNode } from 'react';
-import Footer from './components/Footer';
-import Navigation from './components/Navigation';
 
 export const metadata: Metadata = {
   title: 'Mentorship Platform',

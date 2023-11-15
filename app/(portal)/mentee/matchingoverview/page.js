@@ -57,6 +57,7 @@ export default async function matchingOverviewMentees() {
       await mentorUniBackgroundArray.sort(compareByStudylevel);
     return await uniBackgroundtoMap;
   }
+  // get all Match Requests
 
   const currentUserMatches = await getMatchesByMenteeId(Number(currentUser.id));
   const currentUserMatchesData = Promise.all(
@@ -96,11 +97,9 @@ export default async function matchingOverviewMentees() {
               // filter matching list here. can only be one at a time
             >
               <p className="p-custom-primary">
-                Match Request: Mentorphoto |{' '}
-                {await currentUserMatchesData.at(0).firstname} | Mentor uni &
-                subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-                Mentor uni & subject & studylevel 3| Message to mentor | Date of
-                request: DATE
+                Match Request: Mentorphoto | | Mentor uni & subject & studylevel
+                1 | Mentor uni & subject & studylevel 2 | Mentor uni & subject &
+                studylevel 3| Message to mentor | Date of request: DATE
               </p>
             </div>
           </div>

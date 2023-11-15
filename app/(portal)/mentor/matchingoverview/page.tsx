@@ -1,11 +1,12 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
-import { getUserBySessionToken } from '../../../../database/users';
+import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import LabelAndInputComponent from '../../../components/LabelAndInputComponent';
+import MatchRequestResponseComponent from './MatchRequestResponseComponent';
 
 export default async function matchingOverviewMentors() {
-  const sessionTokenCookie = await cookies().get('sessionToken');
+  const sessionTokenCookie = cookies().get('sessionToken');
 
   const currentUser =
     sessionTokenCookie &&
@@ -17,15 +18,30 @@ export default async function matchingOverviewMentors() {
 
   const currentUserMatches = await getMatchesByMentorId(Number(currentUser.id));
 
-  // do this next (15.11.23)
+  // get only Accepted Matches
+  const currentUserMatchAccepts = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentor accepted match',
+  );
 
-  /*   const currentUserMatchesData = Promise.all(
-    currentUserMatches.map(async (m) => {
+  const currentUserMatchAccceptsData = Promise.all(
+    currentUserMatchAccepts.map((m) => {
       const mentee = getUserById(m.menteeUserId);
       return mentee;
     }),
   );
- */
+
+  // get only Match Requests
+  const currentUserMatchRequests = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentee requested mentor',
+  );
+
+  const currentUserMatchRequestsData = Promise.all(
+    currentUserMatchRequests.map((m) => {
+      const mentee = getUserById(m.menteeUserId);
+      return mentee;
+    }),
+  );
+
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
@@ -36,22 +52,31 @@ export default async function matchingOverviewMentors() {
       <div id="activeMatchesSection" className="card blurry">
         <h2 className="h2-custom-primary">Active Matches</h2>
         <p className="p-custom-primary">Indicated max. capacity: XYZ</p>
+
         <div
           id="exampleActiveMatchesList"
           // filter matching list here
         >
-          <p id="exampleActiveMatch" className="card sub-blurry">
-            Active Match #1: Menteephoto | Menteename | Mentee contact info |
-            Mentee targetunis | Mentee targetsubjects | mentee targetstudylevel
-            | Match active since: DATE
-            <button className="btn-custom-primary">
-              I am no longer mentoring this mentee
-            </button>
-          </p>
+          {currentUserMatches.map((m) => {
+            return (
+              <p
+                id="exampleActiveMatch"
+                className="card sub-blurry"
+                key={`mentee-${m.id}`}
+              >
+                Active Match #1: | Menteename | Mentee contact info | Mentee
+                targetunis | Mentee targetsubjects | mentee targetstudylevel |
+                Match active since: DATE
+                <button className="btn-custom-primary">
+                  I am no longer mentoring this mentee
+                </button>
+              </p>
+            );
+          })}
         </div>
       </div>
       <div id="requestedMatchesSection" className="card blurry">
-        <h2 className="h2-custom-primary">Requested Matches</h2>
+        <h2 className="h2-custom-primary">Match Requests</h2>
         <p className="p-custom-primary">
           You have one week to respond to a match request. Afterwards, the
           request will automatically be rejected.
@@ -63,14 +88,15 @@ export default async function matchingOverviewMentors() {
         >
           {currentUserMatches.map((m) => {
             return (
-              <p
-                key={`mentor-${m.id}`}
+              <div
+                key={`mentee-${m.id}`}
                 id="exampleRequestedMatch"
                 className="card sub-blurry"
               >
                 Match Request#1: Menteephoto | {m.menteeUserId} | Mentee
                 targetunis | Mentee targetsubjects | mentee targetstudylevel |
-                Message from mentee | Date of request: DATE
+                Message from mentee | Date of request: DATE aniu{' '}
+                {m.menteeUserId}
                 <button className="btn-custom-primary">
                   Accept match request
                 </button>
@@ -85,7 +111,8 @@ export default async function matchingOverviewMentors() {
                   id="reasonRejection"
                   className="input input-bordered w-full max-w-xs"
                 />
-              </p>
+                <MatchRequestResponseComponent match={m} />
+              </div>
             );
           })}
           <div id="exampleRequestedMatch" className="card sub-blurry">

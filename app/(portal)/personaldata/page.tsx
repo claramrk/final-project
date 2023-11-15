@@ -46,8 +46,8 @@ export default async function personaldata() {
     <main>
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="h1-custom-primary">
-          Welcome! We are so happy you want to be a {currentUserRoleByName.type}
-          !
+          Welcome! We are so happy you want to become a{' '}
+          {currentUserRoleByName.type}!
         </h1>
       </div>
       <div id="usersSection">

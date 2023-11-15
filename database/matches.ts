@@ -10,12 +10,22 @@ export const createMatchRequest = cache(
     statusInternal: string,
   ) => {
     const [match] = await sql<Match[]>`
-      INSERT INTO matches
-        (mentee_user_id, mentor_user_id,  message_to_mentor,status_internal)
+      INSERT INTO
+        matches (
+          mentee_user_id,
+          mentor_user_id,
+          request_expiry,
+          message_to_mentor,
+          status_internal
+        )
       VALUES
-        (${menteeUserId}, ${mentorUserId}, ${messageToMentor}, ${statusInternal})
-      RETURNING
-     *
+        (
+          ${menteeUserId},
+          ${mentorUserId},
+          CURRENT_TIMESTAMP(2),
+          ${messageToMentor},
+          ${statusInternal}
+        ) RETURNING *
     `;
     return match;
   },
@@ -24,7 +34,7 @@ export const createMatchRequest = cache(
 export const getMatchesByMentorId = cache(async (id: number) => {
   const matches = await sql<Match[]>`
     SELECT
-     *
+      *
     FROM
       matches
     WHERE
@@ -33,11 +43,10 @@ export const getMatchesByMentorId = cache(async (id: number) => {
   return matches;
 });
 
-
 export const getMatchesByMenteeId = cache(async (id: number) => {
   const matches = await sql<Match[]>`
     SELECT
-     *
+      *
     FROM
       matches
     WHERE
@@ -45,6 +54,26 @@ export const getMatchesByMenteeId = cache(async (id: number) => {
   `;
   return matches;
 });
+
+export const putMatchResponse = cache(
+  async (
+    id: number,
+    responseFromMentor: string,
+    statusInternal: string,
+    requestExpiry: null,
+  ) => {
+    const [match] = await sql<Match[]>`
+      UPDATE matches
+      SET
+        response_from_mentor = ${responseFromMentor},
+        status_internal = ${statusInternal},
+        request_expiry = ${requestExpiry}
+      WHERE
+        id = ${id} RETURNING *
+    `;
+    return match;
+  },
+);
 
 /*
 

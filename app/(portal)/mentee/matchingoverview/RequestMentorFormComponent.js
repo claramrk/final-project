@@ -28,16 +28,20 @@ export default function RequestMentorFormComponent(props) {
 
   async function handlePostMentorRequest() {
     const currentUserID = Number(props.currentUser.id);
-
-    await fetch('/../../api/matches/matchRequest', {
-      method: 'POST',
-      body: JSON.stringify({
-        menteeUserId: currentUserID,
-        mentorUserId: mentorSelection,
-        messageToMentor: messageToMentor,
-        statusInternal: 'Mentor requested - waiting for response',
-      }),
-    });
+    if (!currentUserID) {
+    } else if (!mentorSelection) {
+    } else if (!messageToMentor) {
+    } else {
+      await fetch('/../../api/matches', {
+        method: 'POST',
+        body: JSON.stringify({
+          menteeUserId: currentUserID,
+          mentorUserId: mentorSelection,
+          messageToMentor: messageToMentor,
+          statusInternal: 'mentee requested mentor',
+        }),
+      });
+    }
   }
 
   return (

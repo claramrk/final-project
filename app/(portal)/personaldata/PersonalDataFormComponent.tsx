@@ -55,7 +55,7 @@ export default function PersonalDataFormComponent(props: Props) {
         roleId: Number(props.currentUserRole.id),
       }),
     });
-    await router.refresh();
+     router.refresh();
   }
 
   useEffect(() => {
@@ -202,7 +202,7 @@ export default function PersonalDataFormComponent(props: Props) {
         roleFromDatabase={Number(props.currentUserRole.id)}
         buttonText={
           props.currentUserRole.type === 'mentor'
-            ? `Enter University Background on the next page`
+            ? `Enter your university background on the next page`
             : `Enter your target universities and subjects on the next page`
         }
       />

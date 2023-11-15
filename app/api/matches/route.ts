@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createMatchRequest } from '../../../../database/matches';
-import { Match } from '../../../../migrations/00015-createTableMatches';
+import {
+  createMatchRequest,
+  putMatchResponse,
+} from '../../../database/matches';
+import { Match } from '../../../migrations/00015-createTableMatches';
 
 export type MatchRequestBodyPost =
   | {
@@ -52,34 +55,53 @@ export async function POST(
     matchRequest: newMatchRequest,
   });
 }
-/*
-// get user
-export type MenteeTargetUniversitySubjectBodyGet =
+
+export type MatchRequestBodyPut =
   | {
-      menteeTargetUniversitySubject: MenteeTargetUniversitySubject[];
+      matchResponse: Match;
     }
   | {
-      error: string | number;
+      errors: { message: string | number }[];
     };
 
-export async function GET(
+const matchResponseSchema = z.object({
+  id: z.number(),
+  responseFromMentor: z.string(),
+  statusInternal: z.string(),
+  requestExpiry: z.null(),
+});
+
+export async function PUT(
   request: NextRequest,
-  userId: number,
-): Promise<NextResponse<MenteeTargetUniversitySubjectBodyGet>> {
-  if (!userId) {
+): Promise<NextResponse<MatchRequestBodyPut>> {
+  //  Get the user data from the request
+  const body = await request.json();
+
+  // Validate the user data
+  const result = matchResponseSchema.safeParse(body);
+
+  if (!result.success) {
     return NextResponse.json(
-      {
-        error: 'no User Id',
-      },
-      { status: 404 },
+      { errors: [{ message: 'error updating match' }] },
+      { status: 403 },
     );
   }
 
-  const menteeTargetUniversitySubjectByUserId =
-    await getMenteeTargetUniversitySubjectbyUserID(Number(userId));
+  const updatedMatchWithResponse = await putMatchResponse(
+    result.data.id,
+    result.data.responseFromMentor,
+    result.data.statusInternal,
+    result.data.requestExpiry,
+  );
+
+  if (!updatedMatchWithResponse) {
+    return NextResponse.json(
+      { errors: [{ message: 'error updating match' }] },
+      { status: 403 },
+    );
+  }
 
   return NextResponse.json({
-    matchRequest: menteeTargetUniversitySubjectByUserId,
+    matchResponse: updatedMatchWithResponse,
   });
 }
- */
