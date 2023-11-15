@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
 import { getUserBySessionToken } from '../../database/users';
 import NavigationComponent from './NavigationComponent';
@@ -12,7 +11,6 @@ export default async function Navigation() {
 
   const currentUser =
     sessionToken && (await getUserBySessionToken(sessionToken.value));
-
 
   /*
   function runPermissionCheck() {

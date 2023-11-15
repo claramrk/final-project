@@ -27,7 +27,7 @@ export default function RootLayout(props: Props) {
   return (
     <html lang="en" className="h-full">
       <body className="h-full flex flex-col min-h-screen">
-        <header className="absolute inset-x-0 top-0 z-50">
+        {/* <header className="absolute inset-x-0 top-0 z-50">
           <Navigation />
         </header>
         <div className=" isolate px-6 lg:px-8">
@@ -54,7 +54,8 @@ export default function RootLayout(props: Props) {
 
         <div className="static bottom-0">
           <Footer />
-        </div>
+        </div> */}
+        {props.children}
       </body>
     </html>
   );
