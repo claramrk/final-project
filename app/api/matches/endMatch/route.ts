@@ -13,7 +13,7 @@ export type MatchEndBodyPut =
 
 const matchEndSchema = z.object({
   id: z.number(),
-  responseFromMentor: z.string(),
+  terminationResponse: z.string(),
   statusInternal: z.string(),
 });
 
@@ -35,7 +35,7 @@ export async function PUT(
 
   const updatedMatchEnd = await putEndMatch(
     result.data.id,
-    result.data.responseFromMentor,
+    result.data.terminationResponse,
     result.data.statusInternal,
   );
 

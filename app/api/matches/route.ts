@@ -68,7 +68,6 @@ const matchResponseSchema = z.object({
   id: z.number(),
   responseFromMentor: z.string(),
   statusInternal: z.string(),
-  requestExpiry: z.null(),
 });
 
 export async function PUT(
@@ -91,7 +90,6 @@ export async function PUT(
     result.data.id,
     result.data.responseFromMentor,
     result.data.statusInternal,
-    result.data.requestExpiry,
   );
 
   if (!updatedMatchWithResponse) {

@@ -4,9 +4,10 @@ export type Match = {
   id: number;
   menteeUserId: number;
   mentorUserId: number;
-  requestExpiry: Date | null;
   messageToMentor: string;
   responseFromMentor: string | null;
+  terminationResponse: string | null;
+  statusDate: Date;
   statusInternal: string;
 };
 
@@ -17,9 +18,10 @@ export async function up(sql: Sql) {
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         mentee_user_id INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
         mentor_user_id INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
-        request_expiry TIMESTAMP,
         message_to_mentor VARCHAR(255) NOT NULL,
         response_from_mentor VARCHAR(255),
+        termination_response VARCHAR(255),
+        status_date TIMESTAMP NOT NULL,
         status_internal VARCHAR(255) NOT NULL
       );
   `;

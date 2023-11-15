@@ -7,7 +7,7 @@ import { UserAll } from '../../../../migrations/00008-createTableUsers';
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
 
 export async function StartMatchingAlgorithmServerAction(currentUser: UserAll) {
-  // 1. Checking if the sessionToken cookie exists
+  // doesnt work yet!
 
   const topThreeMentorsList = await getTopThreeMentors(currentUser);
 

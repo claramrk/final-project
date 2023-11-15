@@ -7,7 +7,7 @@ type Props = {
   match: Match;
 };
 
-export default function MatchRequestResponseComponent(props: Props) {
+export default function MatchResponseComponent(props: Props) {
   const [acceptRequest, setAcceptRequest] = useState('');
   const [responseInput, setResponseInput] = useState('no reason given');
 
@@ -20,7 +20,6 @@ export default function MatchRequestResponseComponent(props: Props) {
         id: Number(props.match.id),
         responseFromMentor: responseInput,
         statusInternal: acceptRequest,
-        requestExpiry: null,
       }),
     });
     router.refresh();
@@ -30,23 +29,21 @@ export default function MatchRequestResponseComponent(props: Props) {
     <form
       key={`mentor-${props.match.id}`}
       id="exampleRequestedMatch"
-      className="card sub-blurry"
       onSubmit={async (event) => {
         event.preventDefault();
         await handleUpdateMatch();
         router.refresh();
       }}
     >
-      Match Request#1: Menteephoto | {props.match.menteeUserId} | Mentee
-      targetunis | Mentee targetsubjects | mentee targetstudylevel | Message
-      from mentee | Date of request: DATE aniu {props.match.menteeUserId}
       <button
+        type="button"
         className="btn-custom-primary"
         onClick={() => setAcceptRequest('mentor accepted match')}
       >
         Accept match request
       </button>
       <button
+        type="button"
         className="btn-custom-primary"
         onClick={() => setAcceptRequest('mentor rejected match')}
       >

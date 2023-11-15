@@ -2,8 +2,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
-import MatchRequestResponseComponent from './MatchRequestResponseComponent';
-import MentoringEndFormComponent from './MentoringEndFormComponent';
+import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
+import MatchRequestResponseComponent from './MatchResponseComponent';
+import MatchResponseComponent from './MatchResponseComponent';
 
 export default async function matchingOverviewMentors() {
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -42,6 +43,18 @@ export default async function matchingOverviewMentors() {
     }),
   );
 
+  // get only past matches
+  const currentUserPastMatches = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentorship ended',
+  );
+
+  const currentUserPastMatchesData = Promise.all(
+    currentUserPastMatches.map((m) => {
+      const mentee = getUserById(m.menteeUserId);
+      return mentee;
+    }),
+  );
+
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
@@ -61,20 +74,16 @@ export default async function matchingOverviewMentors() {
           id="exampleActiveMatchesList"
           // filter matching list here
         >
-          {currentUserMatches.map((m) => {
+          {currentUserMatchAccepts.map((m) => {
             return (
-              <div
-                id="exampleActiveMatch"
-                className="card sub-blurry"
-                key={`mentee-${m.id}`}
-              >
-                Active Match #1: | Menteename | Mentee contact info | Mentee
-                targetunis | Mentee targetsubjects | mentee targetstudylevel |
-                Match active since: DATE
-                <button className="btn-custom-primary">
-                  I am no longer mentoring this mentee
-                </button>
-                <MentoringEndFormComponent match={m} />
+              <div key={`mentee-${m.id}`} className="card sub-blurry">
+                Active Match #1: | {m.id} Menteename | Mentee contact info |
+                Mentee targetunis | Mentee targetsubjects | mentee
+                targetstudylevel | Match active since: DATE
+                <MentoringEndFormComponent
+                  match={m}
+                  buttonText="I am no longer mentoring this mentee"
+                />
               </div>
             );
           })}
@@ -94,8 +103,33 @@ export default async function matchingOverviewMentors() {
         >
           {currentUserMatchRequests.map((m) => {
             return (
-              <div key={`mentee-${m.id}`}>
-                <MatchRequestResponseComponent match={m} />
+              <div key={`mentee-${m.id}`} className="card sub-blurry">
+                Match request | {m.id} Menteename | Mentee contact info | Mentee
+                targetunis | Mentee targetsubjects | mentee targetstudylevel |
+                Match active since: DATE
+                <MatchResponseComponent match={m} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div id="requestedMatchesSection" className="card blurry">
+        <h2 className="h2-custom-primary">Past Matches</h2>
+        <p className="p-custom-primary">
+          Past matches will show up below. You have one week to respond to a
+          match request. Afterwards, the request will automatically be rejected.
+        </p>
+
+        <div
+          id="exampleRequestedMatchesList"
+          // filter matching list here
+        >
+          {currentUserPastMatches.map((m) => {
+            return (
+              <div key={`mentee-${m.id}`} className="card sub-blurry">
+                Past Match #1: | {m.id} Menteename | Mentee contact info |
+                Mentee targetunis | Mentee targetsubjects | mentee
+                targetstudylevel | Match active since: DATE
               </div>
             );
           })}

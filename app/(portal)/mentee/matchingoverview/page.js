@@ -11,6 +11,7 @@ import {
 import getTopThreeMentors from '../../../../util/matchingAlgorythm';
 import checkUniMatchColor from '../../../../util/showUniAndSubjectOverlap';
 import ButtonGoBack from '../../../components/ButtonGoBack';
+import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
 import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function matchingOverviewMentees() {
@@ -67,6 +68,42 @@ export default async function matchingOverviewMentees() {
     }),
   );
 
+  // get only Accepted Matches
+  const currentUserMatchAccepts = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentor accepted match',
+  );
+
+  const currentUserMatchAccceptsData = Promise.all(
+    currentUserMatchAccepts.map((m) => {
+      const mentee = getUserById(m.menteeUserId);
+      return mentee;
+    }),
+  );
+
+  // get only Match Requests
+  const currentUserMatchRequests = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentee requested mentor',
+  );
+
+  const currentUserMatchRequestsData = Promise.all(
+    currentUserMatchRequests.map((m) => {
+      const mentee = getUserById(m.menteeUserId);
+      return mentee;
+    }),
+  );
+
+  // get only past matches
+  const currentUserPastMatches = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentorship ended',
+  );
+
+  const currentUserPastMatchesData = Promise.all(
+    currentUserPastMatches.map((m) => {
+      const mentee = getUserById(m.menteeUserId);
+      return mentee;
+    }),
+  );
+
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
@@ -76,10 +113,9 @@ export default async function matchingOverviewMentees() {
         </h1>
       </div>
 
-      <div id="requestedMatchesSection" className="card blurry">
-        <h2 className="h2-custom-primary">Request a Mentor</h2>
-
-        {currentUserMatches.length > 0 ? (
+      {currentUserMatchRequests.length > 0 ? (
+        <div id="requestedMatchesSection" className="card blurry">
+          <h2 className="h2-custom-primary">Request Mentor</h2>
           <div
             id="sentRequests"
             // filter matching list here. only active if no active mentor and if there is a mentor request
@@ -97,13 +133,20 @@ export default async function matchingOverviewMentees() {
               // filter matching list here. can only be one at a time
             >
               <p className="p-custom-primary">
-                Match Request: Mentorphoto | | Mentor uni & subject & studylevel
-                1 | Mentor uni & subject & studylevel 2 | Mentor uni & subject &
-                studylevel 3| Message to mentor | Date of request: DATE
+                Match Request: {currentUserMatchRequests[0].mentorUserId} | |
+                Mentor uni & subject & studylevel 1 | Mentor uni & subject &
+                studylevel 2 | Mentor uni & subject & studylevel 3| Message to
+                mentor | Date of request: DATE
               </p>
             </div>
           </div>
-        ) : (
+        </div>
+      ) : (
+        ''
+      )}
+      {!currentUserMatchRequests.length ? (
+        <div id="requestedMatchesSection" className="card blurry">
+          <h2 className="h2-custom-primary">Request Mentor</h2>
           <div
             id="requestMentor"
             // filter matching list here. only active if no active mentor and if there is no active mentor request
@@ -236,25 +279,33 @@ export default async function matchingOverviewMentees() {
               />
             </div>
           </div>
-        )}
-      </div>
-      <div id="activeMatchesSection" className="card blurry">
-        <h2 className="h2-custom-primary">Active Matches</h2>
-        <div
-          id="exampleActiveMatch"
-          className="card sub-blurry"
-          // filter matching list here. can only be one person!
-        >
-          <p className="p-custom-primary">
-            Active Match Mentorphoto | Mentorname | Mentor contact info | Mentor
-            uni & subject & studylevel 1 | Mentor uni & subject & studylevel 2 |
-            Mentor uni & subject & studylevel 3 | Match active since: DATE
-          </p>
-          <button className="btn-custom-primary">
-            I am no longer being mentored by this mentor
-          </button>
         </div>
-      </div>
+      ) : (
+        ''
+      )}
+      {currentUserMatchAccepts.length > 0 ? (
+        <div id="activeMatchesSection" className="card blurry">
+          <h2 className="h2-custom-primary">Active Mentor</h2>
+          {currentUserMatchAccepts.map((m) => {
+            return (
+              <div key={`mentee-${m.id}`} className="card sub-blurry">
+                <p className="p-custom-primary">
+                  Active Match Mentorphoto | {currentUserMatchAccepts[0]}|
+                  Mentor contact info | Mentor uni & subject & studylevel 1 |
+                  Mentor uni & subject & studylevel 2 | Mentor uni & subject &
+                  studylevel 3 | Match active since: DATE
+                </p>
+                <MentoringEndFormComponent
+                  match={m}
+                  buttonText="I am no longer being mentored by this mentor"
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        ''
+      )}
       <ButtonGoBack />
     </main>
   );

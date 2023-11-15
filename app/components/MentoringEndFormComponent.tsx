@@ -1,15 +1,17 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Match } from '../../../../migrations/00015-createTableMatches';
+import { Match } from '../../migrations/00015-createTableMatches';
 
 type Props = {
   match: Match;
+  buttonText: string;
 };
 
 export default function MentoringEndFormComponent(props: Props) {
   const [endMentoring, setEndMentoring] = useState(false);
-  const [mentorResponse, setMentorResponse] = useState('no response given');
+  const [terminationResponse, setTerminationResponse] =
+    useState('no response given');
 
   const router = useRouter();
 
@@ -18,7 +20,7 @@ export default function MentoringEndFormComponent(props: Props) {
       method: 'PUT',
       body: JSON.stringify({
         id: Number(props.match.id),
-        responseFromMentor: mentorResponse,
+        terminationResponse: terminationResponse,
         statusInternal: 'mentorship ended',
       }),
     });
@@ -28,20 +30,17 @@ export default function MentoringEndFormComponent(props: Props) {
   return (
     <form
       id="exampleRequestedMatch"
-      className="card sub-blurry"
       onSubmit={async (event) => {
         event.preventDefault();
         await handleEndMatch();
       }}
     >
-      Active Match #1: | {props.match.id} Menteename | Mentee contact info |
-      Mentee targetunis | Mentee targetsubjects | mentee targetstudylevel |
-      Match active since: DATE
       <button
+        type="button"
         className="btn-custom-primary"
         onClick={() => setEndMentoring(true)}
       >
-        I am no longer mentoring this mentee
+        {props.buttonText}{' '}
       </button>
       {endMentoring ? (
         <>
@@ -52,10 +51,12 @@ export default function MentoringEndFormComponent(props: Props) {
           <textarea
             id="responseMentor"
             className="textarea-custom-primary"
-            onChange={(event) => setMentorResponse(event.currentTarget.value)}
+            onChange={(event) =>
+              setTerminationResponse(event.currentTarget.value)
+            }
           />
           <button className="btn-custom-primary">
-            I am no longer mentoring this mentee
+            confirm mentorship termination
           </button>
         </>
       ) : (

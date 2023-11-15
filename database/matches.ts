@@ -14,7 +14,7 @@ export const createMatchRequest = cache(
         matches (
           mentee_user_id,
           mentor_user_id,
-          request_expiry,
+          status_date,
           message_to_mentor,
           status_internal
         )
@@ -60,14 +60,13 @@ export const putMatchResponse = cache(
     id: number,
     responseFromMentor: string,
     statusInternal: string,
-    requestExpiry: null,
   ) => {
     const [match] = await sql<Match[]>`
       UPDATE matches
       SET
         response_from_mentor = ${responseFromMentor},
-        status_internal = ${statusInternal},
-        request_expiry = ${requestExpiry}
+        status_date = CURRENT_TIMESTAMP(2),
+        status_internal = ${statusInternal}
       WHERE
         id = ${id} RETURNING *
     `;
@@ -76,11 +75,12 @@ export const putMatchResponse = cache(
 );
 
 export const putEndMatch = cache(
-  async (id: number, responseFromMentor: string, statusInternal: string) => {
+  async (id: number, terminationResponse: string,  statusInternal: string) => {
     const [match] = await sql<Match[]>`
       UPDATE matches
       SET
-        response_from_mentor = ${responseFromMentor},
+        termination_response = ${terminationResponse},
+        status_date = CURRENT_TIMESTAMP(2),
         status_internal = ${statusInternal}
       WHERE
         id = ${id} RETURNING *

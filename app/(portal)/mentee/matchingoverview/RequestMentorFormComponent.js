@@ -38,6 +38,7 @@ export default function RequestMentorFormComponent(props) {
           menteeUserId: currentUserID,
           mentorUserId: mentorSelection,
           messageToMentor: messageToMentor,
+
           statusInternal: 'mentee requested mentor',
         }),
       });
@@ -49,7 +50,6 @@ export default function RequestMentorFormComponent(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         await handlePostMentorRequest();
-        router.refresh();
       }}
     >
       {topThreeMentorsWithPersonalDataListValue
@@ -71,6 +71,7 @@ export default function RequestMentorFormComponent(props) {
                     name="requestMentor"
                     value={mentorSelection}
                     onChange={() => setMentorSelection(d.id)}
+                    required
                   />
                 </div>
               </div>
@@ -94,6 +95,7 @@ export default function RequestMentorFormComponent(props) {
           placeholder="Your message ..."
           value={messageToMentor}
           onChange={(event) => setMessageToMentor(event.currentTarget.value)}
+          required
         />
       </div>
       <button className="btn-custom-primary">Send mentor request</button>
