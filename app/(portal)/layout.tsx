@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default async function usersLayout(props: Props) {
+export default async function portalLayout(props: Props) {
   const headersList = headers();
 
   // 1. Check if the sessionToken cookie exit
@@ -20,10 +20,6 @@ export default async function usersLayout(props: Props) {
     sessionTokenCookie &&
     (await getValidSessionByToken(sessionTokenCookie.value));
 
-  // User has to be an admin
-  // Get user from the database that meets the admin requirements
-
-  // 3. Either redirect or render the login form
   if (!session) redirect(`../signIn`);
 
   return (

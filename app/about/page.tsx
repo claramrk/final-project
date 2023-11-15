@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import ButtonGoBack from '../components/ButtonGoBack';
 import Footer from '../components/Footer';
 
 export default function about() {
@@ -370,9 +371,10 @@ export default function about() {
                         <a className="link-custom-primary" href="/signUp">
                           Sign Up
                         </a>
-                        <a className="link-custom-primary" href="/#">
+                        <a className="link-custom-primary" href="/signIn">
                           Sign In <span aria-hidden="true">→</span>
                         </a>
+                        <ButtonGoBack />
                       </div>
                     </div>
                   </div>
