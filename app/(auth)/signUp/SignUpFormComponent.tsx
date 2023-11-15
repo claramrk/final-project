@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Role } from '../../../migrations/00006-createTableRoles';
@@ -12,6 +13,7 @@ export default function SignUpForm(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(1);
+  const [active, setActive] = useState({ mentor: false, mentee: false });
 
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();
@@ -46,6 +48,7 @@ export default function SignUpForm(props: Props) {
 
     router.refresh();
   }
+
   return (
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <form
@@ -59,44 +62,73 @@ export default function SignUpForm(props: Props) {
           </legend>
           {filteredRolesMentee.map((d) => {
             return (
-              <div key={`dataID-radio-${d.id}`}>
-                <input
-                  key={`dataID-input-${d.id}`}
-                  type="radio"
-                  id={`dataID-input-${d.id}`}
-                  name="selectRole"
-                  value={Number(d.id)}
-                  onClick={(event) =>
-                    setRole(Number(event.currentTarget.value))
-                  }
-                />
-                <label
-                  key={`dataID-label-${d.id}`}
-                  htmlFor={`dataID-select-${d.id}`}
-                >
-                  Mentee - Applying for uni!
+              <div
+                key={`dataID-radio-${d.id}`}
+                className={`card blurry ${
+                  role === d.id
+                    ? 'border-4	border-neutral	'
+                    : '	border-1	border-neutral	'
+                }`}
+              >
+                <label>
+                  <input
+                    className="hidden"
+                    type="radio"
+                    name="selectRole"
+                    value={Number(d.id)}
+                    onClick={(event) =>
+                      setRole(Number(event.currentTarget.value))
+                    }
+                  />{' '}
+                  <div className="avatar">
+                    <div className="w-24 rounded-xl">
+                      <Image
+                        alt="image-select-2"
+                        width="60"
+                        height="60"
+                        src="/menteeSignUp.jpg"
+                      />
+                    </div>
+                  </div>
+                  <h3 className="h3-custom-primary">Mentee</h3>
+                  <p className="p-custom-primary">Applying for uni!</p>
                 </label>
               </div>
             );
           })}
           {filteredRolesMentor.map((d) => {
             return (
-              <div key={`dataID-radio-${d.id}`}>
-                <input
-                  type="radio"
-                  name="selectRole"
-                  value={Number(d.id)}
-                  onClick={(event) =>
-                    setRole(Number(event.currentTarget.value))
-                  }
-                  required
-                />
+              <div
+                key={`dataID-radio-${d.id}`}
+                className={`card blurry ${
+                  role === d.id
+                    ? 'border-4	border-neutral	'
+                    : '	border-1	border-neutral	'
+                }`}
+              >
+                <label>
+                  <input
+                    className="hidden"
+                    type="radio"
+                    name="selectRole"
+                    value={Number(d.id)}
+                    onClick={(event) =>
+                      setRole(Number(event.currentTarget.value))
+                    }
+                  />
+                  <div className="avatar">
+                    <div className="w-24 rounded-xl">
+                      <Image
+                        alt="image-select-2"
+                        width="60"
+                        height="60"
+                        src="/mentorSignUp.jpg"
+                      />
+                    </div>
+                  </div>
 
-                <label
-                  key={`dataID-label-${d.id}`}
-                  htmlFor={`dataID-select-${d.id}`}
-                >
-                  Mentor - Support others!
+                  <h3 className="h3-custom-primary">Mentor</h3>
+                  <p className="p-custom-primary">Support others!</p>
                 </label>
               </div>
             );
