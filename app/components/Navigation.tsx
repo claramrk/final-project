@@ -34,7 +34,7 @@ export default async function Navigation() {
   const pageIndexUser = runPermissionCheck(); */
 
   return (
-    <div className="absolute inset-x-0 top-0 z-50">
+    <div className="fixed inset-x-0 top-0 z-50">
       <div className="navbar  bg-transparent">
         <div className="navbar-start ml-4">
           {!currentUser ? (
@@ -58,7 +58,7 @@ export default async function Navigation() {
                 </svg>
               </button>
               <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <NavigationComponent currentUser={currentUser} />
+                {/*  <NavigationComponent currentUser={currentUser} /> */}
               </ul>
             </div>
           )}
@@ -237,7 +237,8 @@ export default async function Navigation() {
         ) : (
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
-              <NavigationComponent currentUser={currentUser} />
+              {/*               <NavigationComponent currentUser={currentUser} />
+               */}{' '}
             </ul>
           </div>
         )}
