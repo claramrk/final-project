@@ -58,7 +58,11 @@ export default function RequestMentorFormComponent(props) {
 
       // filter matching list here. can only be one at a time
     >
-      <h3 className="h3-custom-primary">Choose your Mentor</h3>
+      <h2 className="h2-custom-primary">Choose your Mentor</h2>
+      <p className="p-custom-primary">
+        Below you can find three mentors from our pool that are currently
+        available and that fit best to your university and subject indications.
+      </p>
       <form
         className="flex flex-row items-center"
         onSubmit={async (event) => {
@@ -117,7 +121,7 @@ export default function RequestMentorFormComponent(props) {
               />
             </div> */}
           <div className="card sub-blurry">
-            <label htmlFor="mentorMessage">
+            <label className="label-custom-primary" htmlFor="mentorMessage">
               Please include a short message to{' '}
               <strong>{mentorSelectionName}</strong>. Explain briefly why you
               would appreciate for them specifically to become your mentor:{' '}

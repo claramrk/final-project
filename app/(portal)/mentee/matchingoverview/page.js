@@ -61,45 +61,22 @@ export default async function matchingOverviewMentees() {
     }),
   );
 
-  /*   async function startAlgorithm() {
-    'use server';
-    const topThreeMentorsList = await getTopThreeMentors(currentUser);
-
-    const topThreeMentorsArray = topThreeMentorsList.map((element) => {
-      return element.mentorUserId;
-    });
-
-    await putMenteeBestMentorMatches(currentUser.id, topThreeMentorsArray);
-  } */
-
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="h1-custom-primary">Your Matching Overview</h1>
       </div>
-      {/*    <StartMatchingAlgorithmButtonComponent
-        currentUser={currentUser}
-        startAlgorithm={startAlgorithm}
-      /> */}
       {currentUserMatchRequests.length > 0 ? (
         <div id="requestedMatchesSection" className="card blurry">
           <h2 className="h2-custom-primary">You requested a mentor!</h2>
-          <div
-            id="sentRequests"
-            // filter matching list here. only active if no active mentor and if there is a mentor request
-          >
+          <div id="sentRequests">
             <p className="p-custom-primary">
               You requested a mentor! A mentor has one week to accept or reject
               your match request. In case they do not respond within the week,
               the request will automatically be rejected and you can request a
               new mentor.
             </p>
-            <div
-              id="exampleRequestedMatch"
-              className="card sub-blurry"
-
-              // filter matching list here. can only be one at a time
-            >
+            <div id="exampleRequestedMatch" className="card sub-blurry">
               <p className="p-custom-primary">
                 Match Request: {currentUserMatchRequests[0].mentorUserId} | |
                 Mentor uni & subject & studylevel 1 | Mentor uni & subject &
@@ -112,24 +89,7 @@ export default async function matchingOverviewMentees() {
       ) : (
         ''
       )}
-      {!currentUserMatchRequests.length ? (
-        <div id="requestedMatchesSection" className="card blurry">
-          <h2 className="h2-custom-primary">Your Top Matches</h2>
-          <div
-            id="requestMentor"
-            // filter matching list here. only active if no active mentor and if there is no active mentor request
-          >
-            <p className="p-custom-primary">
-              Below you can find three mentors from our pool that are currently
-              available and that fit best to your university and subject
-              indications.
-            </p>
-            <TopMentorsComponent />
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
+      {!currentUserMatchRequests.length ? <TopMentorsComponent /> : ''}
       {currentUserMatchAccepts.length > 0 ? (
         <div id="activeMatchesSection" className="card blurry">
           <h2 className="h2-custom-primary">Active Mentor</h2>

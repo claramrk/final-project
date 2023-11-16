@@ -24,7 +24,7 @@ export default function RootLayout(props: Props) {
 
   return (
     <html lang="en" className="">
-      <body className="h-screen flex flex-col">{props.children}</body>
+      <body className="h-full flex flex-col">{props.children}</body>
     </html>
   );
 }

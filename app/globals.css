@@ -67,6 +67,9 @@
   .p-custom-primary {
     @apply mt-1 text-sm leading-6 text-gray-600 text-justify;
   }
+  .p-custom-secondary {
+    @apply badge badge-ghost badge-sm;
+  }
   .card-custom-primary {
     @apply mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none;
   }
