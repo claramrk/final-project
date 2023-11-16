@@ -1,3 +1,4 @@
+import { getAllMatches, getMatchesCountByID } from '../database/matches';
 import { getRoleByName } from '../database/roles';
 import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
@@ -6,8 +7,6 @@ import {
 import { UserAll } from '../migrations/00008-createTableUsers';
 
 export default async function getTopThreeMentors(currentUser: UserAll) {
-  // create joined list of accepted mentors with their universities, subjects, degree level (joined from mentor_backgrounds), and origin, max_capcity (directly from users), and ?
-
   const menteeRole = await getRoleByName('approved mentee');
 
   if (!menteeRole) {
@@ -34,11 +33,9 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     console.log('error - university application');
   }
 
-  if (!userUniversityApplication?.at(0)) {
-    console.log('error - university application');
-  }
-
-  const userUniversityApplicationOnly = userUniversityApplication[0];
+  const userUniversityApplicationOnly = userUniversityApplication?.at(0)
+    ? userUniversityApplication[0]
+    : undefined;
 
   if (!userUniversityApplicationOnly) {
     console.log('error - no university application');
@@ -52,12 +49,18 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     (user) => user.usersRoleId === 3,
   );
 
+  const matches = await getAllMatches();
+
   // filter to only those who have  null or undefined in "pause until"  - aka are active
-  const confirmedMentorsNoPause = confirmedMentors.filter(
+  /* const confirmedMentorsNoPause = confirmedMentors.filter(
     (user) => !user.usersPauseUntil,
   );
-
+ */
   // filter mentors who have maxcapacity count of active or requested pairings - later!
+
+  /*   const confirmedMentorsWithCapacity = confirmedMentors.filter(
+    (user) => Number(getMatchesCountByID(user.usersId)) < user.usersMaxCapacity,
+  ); */
 
   // filter mentors to those that do not contain the mentees user id in their "rejected" or "past mentors" column - later
 
@@ -152,5 +155,6 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
   });
 
   const topThreeMentors = sortedArray.slice(-3);
+
   return topThreeMentors;
 }

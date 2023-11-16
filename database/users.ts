@@ -2,7 +2,6 @@ import { cache } from 'react';
 import {
   UserAll,
   UserAllWithMatching,
-  UserIdEmailOnly,
   UserIdEmailPassword,
   UserIdEmailRole,
 } from '../migrations/00008-createTableUsers';
@@ -94,12 +93,8 @@ export const getUserBySessionToken = cache(async (token: string) => {
       birthdate: Date | null;
       countryId: string | null;
       photo: string | null;
-      roleId: number;
-      lastActivity: Date | null;
-      lastUpdate: Date | null;
-      pauseUntil: Date | null;
+      roleId: number | null;
       maxCapacity: number | null;
-      contractDocUrl: string | null;
       userRolesId: JsonAgg | null;
     }[]
   >`
@@ -115,11 +110,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
       users.country_id,
       users.photo,
       users.role_id,
-      users.last_activity,
-      users.last_update,
-      users.pause_until,
       users.max_capacity,
-      users.contract_doc_url,
       (
         SELECT
           json_agg (roles.*)
@@ -244,7 +235,7 @@ export const getMentorUniversityBackgroundWithUserInoUniAndSubject = cache(
   },
 );
 
-export type menteeUniversityApplicationsbyUserIDWithUniAndSubject = {
+export type MenteeUniversityApplicationsbyUserIDWithUniAndSubject = {
   usersId: number;
   roleId: number | null;
   usersOriginCountryId: string;
@@ -260,7 +251,7 @@ export type menteeUniversityApplicationsbyUserIDWithUniAndSubject = {
 
 export const getMenteeUniversityApplicationsWithUserInfo = cache(async () => {
   const menteeUniversityApplicationsbyUserIDWithUniAndSubject = await sql<
-    menteeUniversityApplicationsbyUserIDWithUniAndSubject[]
+    MenteeUniversityApplicationsbyUserIDWithUniAndSubject[]
   >`
     SELECT
       users.id AS users_id,
@@ -283,26 +274,24 @@ export const getMenteeUniversityApplicationsWithUserInfo = cache(async () => {
   return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
 });
 
-export type mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
+export type MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
   usersId: number;
   usersRoleId: number;
   usersCountryId: string | null;
   usersMaxCapacity: number | null;
-  usersPauseUntil: Date | null;
   userMentorUniversityBackgrounds: JsonAgg | null;
 };
 
 export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
   cache(async () => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
+      MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
         users.id AS users_id,
         users.role_id AS users_role_id,
         users.country_id AS users_country_id,
         users.max_capacity AS users_max_capacity,
-        users.pause_until AS users_pause_until,
         (
           SELECT
             json_agg (
@@ -322,24 +311,22 @@ export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
-export type menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
+export type MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
   usersId: number;
   usersRoleId: number;
   usersCountryId: string;
-  usersPauseUntil: Date | null;
   userMenteeUniversityApplications: JsonAgg | null;
 };
 
 export const getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject =
   cache(async (id: number) => {
     const [menteeUniversityApplicationsbyUserIDWithUniAndSubject] = await sql<
-      menteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
+      MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
     >`
       SELECT
         users.id AS users_id,
         users.role_id AS users_role_id,
         users.country_id AS users_country_id,
-        users.pause_until AS users_pause_until,
         (
           SELECT
             json_agg (
@@ -366,7 +353,6 @@ export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSO
     usersRoleId: number;
     usersCountryId: string | null;
     usersMaxCapacity: number | null;
-    usersPauseUntil: Date | null;
     userMentorUniversityBackgrounds: JsonAgg | null;
   };
 
@@ -383,7 +369,6 @@ export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjec
         users.role_id AS users_role_id,
         users.country_id AS users_country_id,
         users.max_capacity AS users_max_capacity,
-        users.pause_until AS users_pause_until,
         (
           SELECT
             json_agg (

@@ -14,16 +14,28 @@ export const createMenteeTargetUniversitySubject = cache(
     thirdSubjectId: number,
   ) => {
     const [user] = await sql<MenteeTargetUniversitySubject[]>`
-      INSERT INTO mentee_university_applications
-        (user_id, studylevel, first_university_id, first_subject_id, second_university_id, second_subject_id, third_university_id, third_subject_id)
+      INSERT INTO
+        mentee_university_applications (
+          user_id,
+          studylevel,
+          first_university_id,
+          first_subject_id,
+          second_university_id,
+          second_subject_id,
+          third_university_id,
+          third_subject_id
+        )
       VALUES
-        (${Number(userId)}, ${Number(studylevel)}, ${Number(
-      firstUniversityId,
-    )}, ${Number(firstSubjectId)}, ${Number(secondUniversityId)}, ${Number(
-      secondSubjectId,
-    )}, ${Number(thirdUniversityId)}, ${Number(thirdSubjectId)} )
-      RETURNING
-       *
+        (
+          ${Number(userId)},
+          ${Number(studylevel)},
+          ${Number(firstUniversityId)},
+          ${Number(firstSubjectId)},
+          ${Number(secondUniversityId)},
+          ${Number(secondSubjectId)},
+          ${Number(thirdUniversityId)},
+          ${Number(thirdSubjectId)}
+        ) RETURNING *
     `;
     return user;
   },
@@ -35,11 +47,42 @@ export const getMenteeTargetUniversitySubjectbyUserID = cache(
     const menteeTargetUniversitySubjectUsers = await sql<
       MenteeTargetUniversitySubject[]
     >`
-    SELECT * FROM mentee_university_applications
-    WHERE
-    user_id = ${userId}
-
-  `;
+      SELECT
+        *
+      FROM
+        mentee_university_applications
+      WHERE
+        user_id = ${userId}
+    `;
     return menteeTargetUniversitySubjectUsers;
   },
 );
+
+export const putMenteeBestMentorMatches = cache(
+  async (userId: number, mentorMatches: number[]) => {
+    // return roles;
+    const menteeBestMentorMatches = await sql<MenteeTargetUniversitySubject[]>`
+      UPDATE mentee_university_applications
+      SET
+        best_mentor_matches = ${mentorMatches}
+      WHERE
+        user_id = ${userId} RETURNING *
+    `;
+    return menteeBestMentorMatches;
+  },
+);
+
+export const getMenteeBestMentorMatchesById = cache(async (userId: number) => {
+  // return roles;
+  const [menteeBestMentorMatches] = await sql<
+    { bestMentorMatches: number[] | null }[]
+  >`
+    SELECT
+      best_mentor_matches
+    FROM
+      mentee_university_applications
+    WHERE
+      user_id = ${userId}
+  `;
+  return menteeBestMentorMatches;
+});

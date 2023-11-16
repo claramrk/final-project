@@ -56,11 +56,7 @@ export const getMatchesByMenteeId = cache(async (id: number) => {
 });
 
 export const putMatchResponse = cache(
-  async (
-    id: number,
-    responseFromMentor: string,
-    statusInternal: string,
-  ) => {
+  async (id: number, responseFromMentor: string, statusInternal: string) => {
     const [match] = await sql<Match[]>`
       UPDATE matches
       SET
@@ -75,7 +71,7 @@ export const putMatchResponse = cache(
 );
 
 export const putEndMatch = cache(
-  async (id: number, terminationResponse: string,  statusInternal: string) => {
+  async (id: number, terminationResponse: string, statusInternal: string) => {
     const [match] = await sql<Match[]>`
       UPDATE matches
       SET
@@ -89,19 +85,28 @@ export const putEndMatch = cache(
   },
 );
 
-/*
-
 export const getAllMatches = cache(async () => {
-  const matches = await sql<MatchAll[]>`
+  const matches = await sql<Match[]>`
     SELECT
       *
     FROM
       matches
-
   `;
   return matches;
 });
 
+type Count = {
+  count: string;
+};
 
-
- */
+export const getMatchesCountByID = cache(async (id: number) => {
+  const matches = await sql<Count[]>`
+    SELECT
+      COUNT(*)
+    FROM
+      matches
+    WHERE
+      id = ${id}
+  `;
+  return matches;
+});

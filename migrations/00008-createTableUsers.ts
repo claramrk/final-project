@@ -13,11 +13,7 @@ export type UserAll = {
   countryId: string | null;
   photo: string | null;
   roleId: number;
-  lastActivity: Date | null;
-  lastUpdate: Date | null;
-  pauseUntil: Date | null;
   maxCapacity: number | null;
-  contractDocUrl: string | null;
 };
 
 export type UserAllNoPassword = {
@@ -31,11 +27,7 @@ export type UserAllNoPassword = {
   birthdate: Date | null;
   countryId: string | null;
   photo: string | null;
-  lastActivity: Date | null;
-  lastUpdate: Date | null;
-  pauseUntil: Date | null;
   maxCapacity: number | null;
-  contractDocUrl: string | null;
 };
 
 type JsonAgg = MentorUniversityBackground[];
@@ -52,11 +44,7 @@ export type UserAllWithMatching = {
   countryId: string | null;
   photo: string | null;
   roleId: number;
-  lastActivity: Date | null;
-  lastUpdate: Date | null;
-  pauseUntil: Date | null;
   maxCapacity: number | null;
-  contractDocUrl: string | null;
   userMentorUniversityBackgrounds: JsonAgg | null;
 };
 
@@ -93,11 +81,7 @@ export async function up(sql: Sql) {
         country_id VARCHAR(10) REFERENCES countries (id) ON DELETE CASCADE,
         photo VARCHAR(255),
         role_id INTEGER REFERENCES roles (id) ON DELETE CASCADE,
-        last_activity TIMESTAMP,
-        last_update TIMESTAMP,
-        pause_until TIMESTAMP,
-        max_capacity INTEGER,
-        contract_doc_url VARCHAR(255)
+        max_capacity INTEGER
       );
   `;
 }
