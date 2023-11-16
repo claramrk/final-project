@@ -13,7 +13,6 @@ export default function SignUpForm(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(10);
-  const [roleError, setRoleError] = useState('');
 
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();

@@ -75,10 +75,7 @@ export default async function matchingOverviewMentees() {
   return (
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="h1-custom-primary">
-          {' '}
-          {currentUser.firstname}'s Matching Overview
-        </h1>
+        <h1 className="h1-custom-primary">Your Matching Overview</h1>
       </div>
       {/*    <StartMatchingAlgorithmButtonComponent
         currentUser={currentUser}
@@ -86,7 +83,7 @@ export default async function matchingOverviewMentees() {
       /> */}
       {currentUserMatchRequests.length > 0 ? (
         <div id="requestedMatchesSection" className="card blurry">
-          <h2 className="h2-custom-primary">Request Mentor</h2>
+          <h2 className="h2-custom-primary">You requested a mentor!</h2>
           <div
             id="sentRequests"
             // filter matching list here. only active if no active mentor and if there is a mentor request
@@ -117,7 +114,7 @@ export default async function matchingOverviewMentees() {
       )}
       {!currentUserMatchRequests.length ? (
         <div id="requestedMatchesSection" className="card blurry">
-          <h2 className="h2-custom-primary">Request Mentor</h2>
+          <h2 className="h2-custom-primary">Your Top Matches</h2>
           <div
             id="requestMentor"
             // filter matching list here. only active if no active mentor and if there is no active mentor request

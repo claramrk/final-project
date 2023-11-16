@@ -38,7 +38,6 @@ export default async function TopMentorsComponent() {
         id,
       );
 
-    console.log(mentorUserDataWithUniInfoObject);
     const mentorUserDataWithUniInfoObjectROW =
       mentorUserDataWithUniInfoObject[0].rowToJson;
     return mentorUserDataWithUniInfoObjectROW;
@@ -153,21 +152,12 @@ export default async function TopMentorsComponent() {
         );
       })}
 
-      <div
-        id="exampleMentorRequestList"
-        className="card sub-blurry"
-
-        // filter matching list here. can only be one at a time
-      >
-        <h3 className="h3-custom-primary">Send your Request</h3>
-
-        <RequestMentorFormComponent
-          topThreeMentorsWithPersonalDataList={
-            await topThreeMentorsWithPersonalDataList
-          }
-          currentUser={currentUser}
-        />
-      </div>
+      <RequestMentorFormComponent
+        topThreeMentorsWithPersonalDataList={
+          await topThreeMentorsWithPersonalDataList
+        }
+        currentUser={currentUser}
+      />
     </>
   );
 }
