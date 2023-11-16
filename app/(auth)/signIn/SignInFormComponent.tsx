@@ -78,9 +78,9 @@ export default function SignInFormComponent(props: Props) {
             Sign in
           </button>
         </div>
-        <Link className="link-custom-primary" href="/#">
-          Forgot password?
-        </Link>
+        {/*  <Link className="link-custom-primary" href="/#">
+          Forgot password? <span aria-hidden="true">→</span>
+        </Link> */}
         {errors.map((error) => (
           <div className="error" key={`error-${error.message}`}>
             Error: {error.message}

@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getRoles } from '../../../database/roles';
 import { getUserBySessionToken } from '../../../database/users';
@@ -29,6 +30,7 @@ export default async function signUpPage() {
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Sign Up</h1>
+
             <p className="p-custom-primary">
               You want to apply to a top university? The Project Access programs
               are providing free mentorships helping less privileged students
@@ -44,6 +46,14 @@ export default async function signUpPage() {
               the application and join an awesome community of inspiring
               applicants from all around the world.
             </p>
+            <div className="mt-2 flex  gap-x-6">
+              <Link className="link-custom-primary" href="/signIn">
+                Sign In <span aria-hidden="true">→</span>
+              </Link>
+              <Link className="link-custom-primary" href="/#">
+                Main Page <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
           <SignUpForm roles={roles} />
         </div>

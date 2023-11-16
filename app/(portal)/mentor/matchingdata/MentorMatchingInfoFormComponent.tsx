@@ -94,7 +94,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
 
         href="/#"
       >
-        Safeguarding Contract Download
+        Safeguarding Contract Download <span aria-hidden="true">→</span>
       </a>
       <label htmlFor="safeguarding_upload">
         Please download the safeguarding contract, read it carefully and upload

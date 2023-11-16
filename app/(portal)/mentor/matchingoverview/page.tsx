@@ -67,7 +67,7 @@ export default async function matchingOverviewMentors() {
         <p className="p-custom-primary">
           Active mentorships with mentees will show up below. Please let us know
           when a mentorship has ended so we can rematch you. Indicated max.
-          capacity: XYZ
+          capacity: {currentUser.maxCapacity}
         </p>
 
         <div

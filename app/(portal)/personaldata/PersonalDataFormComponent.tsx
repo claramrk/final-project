@@ -55,12 +55,12 @@ export default function PersonalDataFormComponent(props: Props) {
         roleId: Number(props.currentUserRole.id),
       }),
     });
-     router.refresh();
+    router.refresh();
   }
 
   useEffect(() => {
     async function getImageInfo() {
-      const response = await imageInfo;
+      const response = imageInfo;
       // @ts-expect-error secure_url type never
       const responseUrl = response.secure_url;
       setProfilePictureInput(responseUrl);

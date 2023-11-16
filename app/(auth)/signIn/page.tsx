@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getRoles } from '../../../database/roles';
 import { getUserBySessionToken } from '../../../database/users';
@@ -44,6 +45,14 @@ export default async function signInPage() {
               the application and join an awesome community of inspiring
               applicants from all around the world.
             </p>
+            <div className="mt-2 flex  gap-x-6">
+              <Link className="link-custom-primary" href="/signUp">
+                Sign Up <span aria-hidden="true">→</span>
+              </Link>
+              <Link className="link-custom-primary" href="/#">
+                Main Page <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
           <SignInFormComponent roles={roles} />
         </div>

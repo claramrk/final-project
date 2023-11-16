@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default async function authLayout(props: Props) {
+export default function authLayout(props: Props) {
   return (
     <>
       <header>
@@ -185,7 +185,7 @@ export default async function authLayout(props: Props) {
           </div>
         </div>
       </header>
-      <div className=" isolate px-6 lg:px-8">
+      <div className="h-screen isolate px-6 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60"
           aria-hidden="true"

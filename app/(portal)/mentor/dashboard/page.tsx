@@ -25,7 +25,7 @@ export default function dashboardMentors() {
         </p>
 
         <Link className="link-custom-primary" href="/mentor/matchingoverview">
-          Go to Matching Page
+          Go to Matching Page <span aria-hidden="true">→</span>
         </Link>
       </div>
       <div id="profileSection" className="card blurry">
@@ -35,7 +35,7 @@ export default function dashboardMentors() {
         </p>
 
         <Link className="link-custom-primary" href="/personaldata">
-          Go to Profile Page
+          Go to Profile Page <span aria-hidden="true">→</span>
         </Link>
       </div>
       <div id="communicationSection" className="card blurry">

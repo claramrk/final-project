@@ -368,12 +368,12 @@ export default function about() {
                         Oliver from Denmark, Management Science @ UCL
                       </p>
                       <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <a className="link-custom-primary" href="/signUp">
+                        <Link className="link-custom-primary" href="/signUp">
                           Sign Up
-                        </a>
-                        <a className="link-custom-primary" href="/signIn">
+                        </Link>
+                        <Link className="link-custom-primary" href="/signIn">
                           Sign In <span aria-hidden="true">→</span>
-                        </a>
+                        </Link>
                         <ButtonGoBack />
                       </div>
                     </div>

@@ -37,25 +37,6 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
         }}
       >
         <h2 className="h2-custom-primary">Further Information & next Steps</h2>
-
-        {/*  <p>Therefore, we have set up mentee guidelines,
-      that we expect you to adhere to.</p>
-    <a
-      className="link-custom-primary"
-      // check how to download a pdf
-      href="/#"
-    >
-      Mentee Guideline Contract Download
-    </a>
-    <label className="label-custom-primary" htmlFor="mentee_guideline_upload">
-      Please download the mentee Guideline contract, read it carefully and upload
-      a signed version here:
-    </label>
-    <input
-      className="input-text-custom-primary"
-      type="file"
-      // check how to upload a pdf
-    /> */}
         <p className="p-custom-primary">
           After clicking the "Register" button below our team will review your
           registration. After your registration is approved, you will then be

@@ -29,12 +29,8 @@ export default async function dashboardMentees() {
           <p className="p-custom-primary">
             Active Match #1: Menteephoto | Menteename | Match active since: DATE
           </p>
-          <a className="link-custom-primary" href="/matchingoverview/mentors">
-            Go to Matching Page
-          </a>
-
           <Link className="link-custom-primary" href="/mentor/matchingoverview">
-            Go to Matching Page
+            Go to Matching Page <span aria-hidden="true">→</span>
           </Link>
         </div>
         <div id="profileSection" className="card blurry">
@@ -42,11 +38,8 @@ export default async function dashboardMentees() {
           <p className="p-custom-primary">
             User Photo | User Name | User Role | User activity status
           </p>
-          <a className="link-custom-primary" href="/users">
-            Go to Profile Page
-          </a>
           <Link className="link-custom-primary" href="/mentee/matchingoverview">
-            Go to Matching Page
+            Go to Matching Page <span aria-hidden="true">→</span>
           </Link>
         </div>
         <div id="communicationSection" className="card blurry">

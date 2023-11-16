@@ -36,29 +36,39 @@ export default async function menteeMatchingData() {
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
       </div>
-      <div id="universityInformationSection" className="card blurry">
-        <h2 className="h2-custom-primary">
-          {' '}
-          Indicate the universities & subjects you want to apply to!
-        </h2>
+      {userTargets.length < 1 ? (
+        <div id="universityInformationSection" className="card blurry">
+          <h2 className="h2-custom-primary">
+            {' '}
+            Indicate the universities & subjects you want to apply to!
+          </h2>
 
-        <p className="p-custom-primary">
-          The following information will be used to match your mentor, so we
-          encourage you to give your submission prior thought!
-        </p>
-        <MenteeTargetUniversitySubjectFormComponent
-          universities={universities}
-          subjects={subjects}
-          userdata={currentUser}
-        />
-        {userTargets.length > 0 ? (
           <p className="p-custom-primary">
-            Current indications: {JSON.stringify(userTargets)}
+            The following information will be used to match your mentor, so we
+            encourage you to give your submission prior thought!
           </p>
-        ) : (
-          ''
-        )}
-      </div>
+          <MenteeTargetUniversitySubjectFormComponent
+            universities={universities}
+            subjects={subjects}
+            userdata={currentUser}
+          />
+        </div>
+      ) : (
+        <div id="universityInformationSection" className="card blurry">
+          <h2 className="h2-custom-primary">
+            {' '}
+            Your target universities and subjects:{' '}
+          </h2>
+          {userTargets.length > 0 ? (
+            <p className="p-custom-primary">
+              Current indications: {JSON.stringify(userTargets)}
+            </p>
+          ) : (
+            ''
+          )}
+        </div>
+      )}
+
       <div id="matchingInformationSection">
         <MenteeMatchingInfoFormComponent
           userdata={currentUser}

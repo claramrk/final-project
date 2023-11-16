@@ -26,7 +26,7 @@ export default async function homePage() {
   return (
     <div>
       <header>
-        <div className="absolute inset-x-0 top-0 z-50">
+        <div className="fixed inset-x-0 top-0 z-50">
           <div className="navbar  bg-transparent">
             <div className="navbar-start ml-4">
               <Link href="/#">
@@ -209,7 +209,7 @@ export default async function homePage() {
           aria-hidden="true"
         >
           <div
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#11B196] to-[#3b8cd9] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            className="fixed left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#11B196] to-[#3b8cd9] opacity-100 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
             style={{
               clipPath:
                 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
@@ -236,10 +236,10 @@ export default async function homePage() {
                   <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                       To become a mentor{' '}
-                      <a className="link-custom-primary" href="/about">
+                      <Link className="link-custom-primary" href="/about">
                         <span className="absolute inset-0" aria-hidden="true" />
                         click here <span aria-hidden="true">&rarr;</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="text-center">
@@ -258,12 +258,12 @@ export default async function homePage() {
                       to apply for both undergraduate and graduate programs.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
-                      <a className="link-custom-primary" href="/signUp">
-                        Sign Up
-                      </a>
-                      <a className="link-custom-primary" href="/signIn">
+                      <Link className="link-custom-primary" href="/signUp">
+                        Sign Up <span aria-hidden="true">→</span>
+                      </Link>
+                      <Link className="link-custom-primary" href="/signIn">
                         Sign In <span aria-hidden="true">→</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
