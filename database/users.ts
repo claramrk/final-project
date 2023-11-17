@@ -395,7 +395,7 @@ export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSO
 
 export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW =
   cache(async (id: number) => {
-    const [mentorUniversityBackgroundbyUserIDWithUniAndSubject] = await sql<
+    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
       { rowToJson: JsonAgg | null }[]
     >`
       WITH
