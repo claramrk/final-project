@@ -78,7 +78,6 @@ export default function PersonalDataFormComponent(props: Props) {
         event.preventDefault();
         await handlePutPersonalData();
         await handleUpdateRole();
-        router.refresh();
         router.push(reroute);
       }}
       className=" space-y-12 border-b border-gray-900/10 "

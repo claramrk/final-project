@@ -56,7 +56,7 @@
   }
 
   .h1-custom-primary {
-    @apply block text-2xl font-semibold leading-6 text-gray-900 mb-4;
+    @apply block text-2xl  font-semibold leading-6 text-gray-900 pb-10 pt-10;
   }
   .h2-custom-primary {
     @apply block text-xl font-semibold leading-6 text-gray-900;

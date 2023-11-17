@@ -93,6 +93,9 @@ export default async function TopMentorsComponent() {
                         <div>
                           <div className="font-bold">
                             {mentorUserDataWithUniInfoObjectROW.firstname}
+                            <div className="badge badge-neutral badge-outline">
+                              Match
+                            </div>
                           </div>
                           <div className="text-sm opacity-50">
                             {

@@ -129,6 +129,10 @@ export default async function dashboard() {
                   firstname={userData?.firstname}
                   countryId={userData?.countryId}
                 />
+                <p className="p-custom-primary">
+                  {userData?.firstname}'s contact information will be sent to
+                  you via Email{' '}
+                </p>
                 <MentoringEndFormComponent
                   match={u}
                   buttonText="I am no longer being mentored by this mentor"

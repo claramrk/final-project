@@ -108,7 +108,9 @@ export default async function matchingOverviewMentees() {
           ''
         )}
       </div>
-      {currentUserMatchRequests.length > 0 ? (
+      {!currentUserMatchRequests.length ? <TopMentorsComponent /> : ''}
+
+      {/*  {currentUserMatchRequests.length > 0 ? (
         <div id="requestedMatchesSection" className="card blurry">
           <h2 className="h2-custom-primary">You requested a mentor!</h2>
           <div id="sentRequests">
@@ -131,7 +133,6 @@ export default async function matchingOverviewMentees() {
       ) : (
         ''
       )}
-      {!currentUserMatchRequests.length ? <TopMentorsComponent /> : ''}
       {currentUserMatchAccepts.length > 0 ? (
         <div id="activeMatchesSection" className="card blurry">
           <h2 className="h2-custom-primary">Active Mentor</h2>
@@ -154,7 +155,7 @@ export default async function matchingOverviewMentees() {
         </div>
       ) : (
         ''
-      )}
+      )} */}
     </main>
   );
 }

@@ -40,7 +40,7 @@ export default async function portalLayout(props: Props) {
             }}
           />
         </div>
-        <div className="mx-auto max-w-6xl py-32 sm:py-48 lg:py-56">
+        <div className="mx-auto max-w-6xl py-32 sm:py-24 lg:py-28">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div id="main" className="container">
               {props.children}

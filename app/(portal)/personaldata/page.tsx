@@ -44,23 +44,23 @@ export default async function personaldata() {
 
   return (
     <main>
-      <div id="pageHeaderSection" className="card blurry">
+      <div id="pageHeaderSection" className="card sub-blurry">
         <h1 className="h1-custom-primary">
-          Welcome! We are so happy you want to become a{' '}
-          {currentUserRoleByName.type}!
-          {currentUserRoleByName === menteeIncompleteRoleByName ? (
-            <ul className="steps">
-              <li className="step step-accent">Enter personal information</li>
-              <li className="step">Enter target universities & subjects</li>
-              <li className="step">Choose your best mentor match</li>
-              <li className="step">Wait for mentor acceptance</li>
-              <li className="step">Start your mentorship journey</li>
-              <li className="step">Apply to your dream uni!</li>
-            </ul>
-          ) : (
-            ' '
-          )}
+          Welcome! Happy you want to become a {currentUserRoleByName.type}!{' '}
         </h1>
+
+        {currentUserRoleByName === menteeIncompleteRoleByName ? (
+          <ul className="steps">
+            <li className="step step-accent">Enter personal information</li>
+            <li className="step">Enter target universities & subjects</li>
+            <li className="step">Choose your best mentor match</li>
+            <li className="step">Wait for mentor acceptance</li>
+            <li className="step">Start your mentorship journey</li>
+            <li className="step">Apply to your dream uni!</li>
+          </ul>
+        ) : (
+          ' '
+        )}
       </div>
       <div id="usersSection">
         <PersonalDataFormComponent
