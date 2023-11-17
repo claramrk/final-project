@@ -1,7 +1,7 @@
 import { UserAll } from '../../migrations/00008-createTableUsers';
 
 type Props = { user: UserAll; background: any };
-export default function TopMentorsComponent(props: Props) {
+export default function MentorTableComponent(props: Props) {
   return (
     <div className="card sub-blurry">
       <div>
@@ -9,20 +9,14 @@ export default function TopMentorsComponent(props: Props) {
           <div className="avatar mr-4">
             <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
-                src={
-                  props.user.photo
-                    ? props.user.photo
-                    : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
-                }
-                alt={props.user.email}
+                src="https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png"
+                alt=""
               />
             </div>
           </div>
           <div>
-            <div className="font-bold">props.user.firstname</div>
-            <div className="text-sm opacity-50">
-              props.user.countries[0].name
-            </div>
+            <div className="font-bold">Name</div>
+            <div className="text-sm opacity-50">Country </div>
           </div>
         </div>
       </div>
@@ -38,24 +32,30 @@ export default function TopMentorsComponent(props: Props) {
           <tbody>
             <tr>
               <td>
-                props.background.studylevelName.name
-                <br />
                 <p className="p-custom-primary">
+                  props.background.studylevelName.name
+                </p>
+                <br />
+                <p className="p-custom-secondary">
                   props.background.attendncetype.name
                 </p>
               </td>
               <td>
-                props.background.universities[0].name
-                <br />
                 <p className="p-custom-primary">
-                  props.background.universities[0].countryId
+                  props.background.studylevelName.name
+                </p>
+                <br />
+                <p className="p-custom-secondary">
+                  props.background.attendncetype.name
                 </p>
               </td>
               <td>
-                props.background.subjects[0].name.length
-                <br />
                 <p className="p-custom-primary">
-                  props.background.subjects[0].discipline
+                  props.background.studylevelName.name
+                </p>
+                <br />
+                <p className="p-custom-secondary">
+                  props.background.attendncetype.name
                 </p>
               </td>
             </tr>

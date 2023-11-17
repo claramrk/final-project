@@ -2,36 +2,13 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
 import { getUserBySessionToken } from '../../database/users';
-import NavigationComponent from './NavigationComponent';
 
 export default async function Navigation() {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
-  // const pageIndex = navigation;
 
   const currentUser =
     sessionToken && (await getUserBySessionToken(sessionToken.value));
-
-  /*
-  function runPermissionCheck() {
-    const pageIndexUser =
-      currentUser &&
-      currentUser.userRolesId &&
-      currentUser.userRolesId.length > 0
-        ? pageIndex.map((n) => {
-            n.permissionFor.includes(currentUser.userRolesId[0].name);
-            return n;
-          })
-        : pageIndex.map((n) => {
-            n.permissionFor.includes(undefined);
-            return n;
-          });
-
-
-    return pageIndexUser;
-  }
-
-  const pageIndexUser = runPermissionCheck(); */
 
   return (
     <div className="fixed inset-x-0 top-0 z-50">

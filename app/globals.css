@@ -56,7 +56,7 @@
   }
 
   .h1-custom-primary {
-    @apply block text-2xl font-semibold leading-6 text-gray-900;
+    @apply block text-2xl font-semibold leading-6 text-gray-900 mb-4;
   }
   .h2-custom-primary {
     @apply block text-xl font-semibold leading-6 text-gray-900;
@@ -68,6 +68,12 @@
     @apply mt-1 text-sm leading-6 text-gray-600 text-justify;
   }
   .p-custom-secondary {
+    @apply badge badge-ghost badge-sm;
+  }
+  .tablefont-custom-primary {
+    @apply mt-1 text-sm text-gray-600 text-justify;
+  }
+  .tablefont-custom-secondary {
     @apply badge badge-ghost badge-sm;
   }
   .card-custom-primary {

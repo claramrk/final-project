@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getMatchesByMenteeId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
+import MentorTableComponent from '../../../components/MentorTableComponent';
 import TopMentorsComponent from './TopMentorsComponent';
 
 export default async function matchingOverviewMentees() {
@@ -65,6 +66,47 @@ export default async function matchingOverviewMentees() {
     <main id="visibleMENTEES">
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="h1-custom-primary">Your Matching Overview</h1>
+
+        {currentUserMatchRequests.length < 1 ? (
+          <ul className="steps">
+            <li className="step step-primary">Enter personal information</li>
+            <li className="step step-primary">
+              Enter target universities & subjects
+            </li>
+            <li className="step step-accent">Choose your best mentor match</li>
+            <li className="step">Wait for mentor acceptance</li>
+
+            <li className="step">Start your mentorship journey</li>
+            <li className="step">Apply to your dream uni!</li>
+          </ul>
+        ) : (
+          <ul className="steps">
+            <li className="step step-primary">Enter personal information</li>
+            <li className="step step-primary">
+              Enter target universities & subjects
+            </li>
+            <li className="step step-primary">Choose your best mentor match</li>
+            <li className="step step-accent">Wait for mentor acceptance</li>
+
+            <li className="step">Start your mentorship journey</li>
+            <li className="step">Apply to your dream uni!</li>
+          </ul>
+        )}
+        {currentUserMatchAccepts.length > 0 ? (
+          <ul className="steps">
+            <li className="step step-primary">Enter personal information</li>
+            <li className="step step-primary">
+              Enter target universities & subjects
+            </li>
+            <li className="step step-primary">Choose your best mentor match</li>
+            <li className="step step-primary">Wait for mentor acceptance</li>
+
+            <li className="step step-accent">Start your mentorship journey</li>
+            <li className="step">Apply to your dream uni!</li>
+          </ul>
+        ) : (
+          ''
+        )}
       </div>
       {currentUserMatchRequests.length > 0 ? (
         <div id="requestedMatchesSection" className="card blurry">

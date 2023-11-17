@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import MentorTableComponent from '../../../components/MentorTableComponent';
 
 export default function RequestMentorFormComponent(props) {
   const [mentorSelection, setMentorSelection] = useState(0);
@@ -63,6 +64,7 @@ export default function RequestMentorFormComponent(props) {
         Below you can find three mentors from our pool that are currently
         available and that fit best to your university and subject indications.
       </p>
+
       <form
         className="flex flex-row items-center"
         onSubmit={async (event) => {
@@ -90,6 +92,26 @@ export default function RequestMentorFormComponent(props) {
                       </div>
                     </div>
                     <h3 className="h3-custom-primary">{d.firstname}</h3>
+                    {/* // modal button
+    <button
+        className="btn"
+        onClick={() => document.getElementById('my_modal_5').showModal()}
+      >
+        open modal
+      </button>
+      <dialog id="my_modal_5" className="modal modal-bottom lg:modal-middle">
+        <div className="modal-box">
+          <MentorTableComponent />
+          <p className="py-4">
+            Press ESC key or click the button below to close
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog> */}
                     <input
                       className="hidden"
                       type="radio"
@@ -106,20 +128,6 @@ export default function RequestMentorFormComponent(props) {
               );
             })}
           </div>
-          {/*    <div className="form-control">
-              <label className="label cursor-pointer" htmlFor="requestMentor">
-                {d.firstname}
-              </label>
-
-              <input
-                className="radio"
-                type="radio"
-                name="requestMentor"
-                value={mentorSelection}
-                onChange={() => setMentorSelection(d.id)}
-                required
-              />
-            </div> */}
           <div className="card sub-blurry">
             <label className="label-custom-primary" htmlFor="mentorMessage">
               Please include a short message to{' '}
