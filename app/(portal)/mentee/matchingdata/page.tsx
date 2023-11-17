@@ -5,7 +5,6 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
-import ButtonGoBack from '../../../components/ButtonGoBack';
 import MenteeMatchingInfoFormComponent from './MenteeMatchingInfoFormComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 

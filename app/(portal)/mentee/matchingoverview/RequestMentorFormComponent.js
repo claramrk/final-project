@@ -1,9 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import MentorTableComponent from '../../../components/MentorTableComponent';
 
 export default function RequestMentorFormComponent(props) {
   const [mentorSelection, setMentorSelection] = useState(0);
