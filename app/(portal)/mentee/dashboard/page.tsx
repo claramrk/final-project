@@ -32,9 +32,9 @@ export default async function dashboard() {
 
   const currentUserMatchAcceptsSingleUser = currentUserMatchAccepts[0];
 
-  const currentUserMatchAccceptsData = await getUserById(
+  /*   const currentUserMatchAccceptsData = await getUserById(
     currentUserMatchAcceptsSingleUser.mentorUserId,
-  );
+  ); */
 
   // get only Match Requests
   const currentUserMatchRequests = currentUserMatches.filter(
@@ -57,8 +57,8 @@ export default async function dashboard() {
 
   return (
     <main id="visibleMENTEES">
+      {/*  <h1 className="h1-custom-primary">Your Matching Overview</h1>
       <div id="pageHeaderSection" className="card blurry">
-        <h1 className="h1-custom-primary">Your Matching Overview</h1>
 
         {currentUserMatchRequests.length > 0 ? (
           <ul className="steps">
@@ -101,7 +101,7 @@ export default async function dashboard() {
               the request will automatically be rejected and you can request a
               new mentor.
             </p>
-            {currentUserMatchRequestsSingleUser ? (
+              {currentUserMatchRequestsSingleUser ? (
               <MentorTableComponent
                 id={currentUserMatchRequestsSingleUser.mentorUserId}
               />
@@ -135,7 +135,7 @@ export default async function dashboard() {
         </div>
       ) : (
         ''
-      )}
+      )} */}
     </main>
   );
 }
