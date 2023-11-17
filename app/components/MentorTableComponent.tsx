@@ -1,19 +1,23 @@
 import { getAttendanceTypeById } from '../../database/attendancetype';
 import { getDegreeTypeById } from '../../database/degreetype';
-import { getMentorUniversityBackgroundbyUserID } from '../../database/mentorUniversityBackground';
-import { getSubjectById } from '../../database/subjects';
-import { getUniversityById } from '../../database/universities';
-import { getUserById } from '../../database/users';
-import { UserAll } from '../../migrations/00008-createTableUsers';
+import { getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin } from '../../database/mentorUniversityBackground';
 
 type Props = {
   id: number;
+  badgetext: string;
+  badgecolor: string;
+  photo: string;
+  email: string;
+  firstname: string;
+  countryId: string;
 };
 
 export default async function MentorTableComponent(props: Props) {
-  const currentUserMatchRequestsData = await getUserById(props.id);
-  const uniBackground = await getMentorUniversityBackgroundbyUserID(props.id);
-
+  const uniBackground =
+    await getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin(
+      props.id,
+    );
+  console.log(uniBackground);
   return (
     <div id="requestedMatchesSection">
       <div id="requestMentor">
@@ -26,19 +30,20 @@ export default async function MentorTableComponent(props: Props) {
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       <img
                         src={
-                          currentUserMatchRequestsData.photo
-                            ? props.user.photo
+                          props.photo
+                            ? props.photo
                             : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
                         }
-                        alt={props.user.email}
+                        alt={props.email}
                       />
                     </div>
                   </div>
                   <div>
-                    <div className="font-bold">{props.user.firstname}</div>
-                    <div className="text-sm opacity-50">
-                      {props.user.countryId}
+                    <div className="font-bold">
+                      {props.firstname}{' '}
+                      <div className={props.badgecolor}>{props.badgetext}</div>
                     </div>
+                    <div className="text-sm opacity-50">{props.countryId} </div>
                   </div>
                 </div>
               </div>
@@ -48,26 +53,43 @@ export default async function MentorTableComponent(props: Props) {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th>University & Degreetype</th>
+                      <th>University & Country</th>
                       <th>Subject & Discipline</th>
-                      <th>Attendance Type</th>
+                      <th>Degree & Attendance Type</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {uniBackground.map(async (e) => {
+                    {uniBackground.map((e) => {
                       const studylevelName = getDegreeTypeById(
                         Number(e.studylevel),
                       );
                       const attendancetypeName = getAttendanceTypeById(
                         Number(e.attendanceType),
                       );
-                      const university = await getUniversityById(
-                        e.universityId,
-                      );
-                      const subject = await getSubjectById(e.universityId);
 
                       return (
                         <tr key={`uniqueID-${e.id}`}>
+                          <td>
+                            <p className="tablefont-custom-primary">
+                              {e.universityName}
+                            </p>
+
+                            <p className="tablefont-custom-secondary">
+                              {e.universityCountryId}
+                            </p>
+                          </td>
+
+                          <td>
+                            <p className="tablefont-custom-primary">
+                              {e.subjectName.length > 60
+                                ? `${e.subjectName.slice(0, 60)}...`
+                                : e.subjectName}
+                            </p>
+
+                            <p className="tablefont-custom-secondary">
+                              {e.subjectDiscipline}
+                            </p>
+                          </td>
                           <td>
                             <p className="tablefont-custom-primary">
                               {studylevelName?.name}
@@ -75,26 +97,6 @@ export default async function MentorTableComponent(props: Props) {
 
                             <p className="tablefont-custom-secondary">
                               {attendancetypeName?.name}
-                            </p>
-                          </td>
-                          <td>
-                            <p className="tablefont-custom-primary">
-                              {university?.name}
-                            </p>
-
-                            <p className="tablefont-custom-secondary">
-                              {university?.countryId}
-                            </p>
-                          </td>
-                          <td>
-                            <p className="tablefont-custom-primary">
-                              {subject.name.length > 60
-                                ? `${subject?.name.slice(0, 60)}...`
-                                : subject?.name}
-                            </p>
-
-                            <p className="tablefont-custom-secondary">
-                              {subject?.discipline}
                             </p>
                           </td>
                         </tr>

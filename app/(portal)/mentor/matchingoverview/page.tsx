@@ -77,8 +77,8 @@ export default async function matchingOverviewMentors() {
           {currentUserMatchAccepts.map((m) => {
             return (
               <div key={`mentee-${m.id}`} className="card sub-blurry">
-                Active Match #1: | {m.id} Menteename | Mentee contact info |
-                Mentee targetunis | Mentee targetsubjects | mentee
+                Active Match #1: | {m.menteeUserId} Menteename | Mentee contact
+                info | Mentee targetunis | Mentee targetsubjects | mentee
                 targetstudylevel | Match active since: DATE
                 <MentoringEndFormComponent
                   match={m}
@@ -104,9 +104,9 @@ export default async function matchingOverviewMentors() {
           {currentUserMatchRequests.map((m) => {
             return (
               <div key={`mentee-${m.id}`} className="card sub-blurry">
-                Match request | {m.id} Menteename | Mentee contact info | Mentee
-                targetunis | Mentee targetsubjects | mentee targetstudylevel |
-                Match active since: DATE
+                Match request | {m.menteeUserId} Menteename | Mentee contact
+                info | Mentee targetunis | Mentee targetsubjects | mentee
+                targetstudylevel | Match active since: DATE
                 <MatchResponseComponent match={m} />
               </div>
             );

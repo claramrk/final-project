@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { Fragment } from 'react';
 import { getMatchesByMenteeId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
@@ -18,47 +19,33 @@ export default async function dashboard() {
   // get all Match Requests
 
   const currentUserMatches = await getMatchesByMenteeId(Number(currentUser.id));
-  const currentUserMatchesData = Promise.all(
-    currentUserMatches.map((m) => {
-      const mentor = getUserById(m.mentorUserId);
-      return mentor;
-    }),
-  );
 
-  // get only Accepted Matches
+  // filter to only Accepted Matches
   const currentUserMatchAccepts = currentUserMatches.filter(
     (e) => e.statusInternal === 'mentor accepted match',
   );
 
-  const currentUserMatchAcceptsSingleUser = currentUserMatchAccepts[0];
-
-  /*   const currentUserMatchAccceptsData = await getUserById(
-    currentUserMatchAcceptsSingleUser.mentorUserId,
-  ); */
-
-  // get only Match Requests
+  // filter to only Match Requests
   const currentUserMatchRequests = currentUserMatches.filter(
     (e) => e.statusInternal === 'mentee requested mentor',
   );
 
-  const currentUserMatchRequestsSingleUser = currentUserMatchRequests[0];
-
-  // get only past matches
+  // filter to only past matches
   const currentUserPastMatches = currentUserMatches.filter(
     (e) => e.statusInternal === 'mentorship ended',
   );
 
-  const currentUserPastMatchesData = Promise.all(
-    currentUserPastMatches.map((m) => {
-      const mentee = getUserById(m.menteeUserId);
-      return mentee;
-    }),
-  );
+  // get User Data function
+
+  async function getUserData(id: number) {
+    const user = await getUserById(id);
+    return user;
+  }
 
   return (
     <main id="visibleMENTEES">
-      {/*  <h1 className="h1-custom-primary">Your Matching Overview</h1>
       <div id="pageHeaderSection" className="card blurry">
+        <h1 className="h1-custom-primary">Your Matching Overview</h1>
 
         {currentUserMatchRequests.length > 0 ? (
           <ul className="steps">
@@ -91,32 +78,65 @@ export default async function dashboard() {
           ''
         )}
       </div>
+
       {currentUserMatchRequests.length > 0 ? (
         <div id="requestedMatchesSection" className="card blurry">
           <h2 className="h2-custom-primary">You requested a mentor!</h2>
           <div id="sentRequests">
             <p className="p-custom-primary">
-              You requested a mentor! A mentor has one week to accept or reject
-              your match request. In case they do not respond within the week,
-              the request will automatically be rejected and you can request a
-              new mentor.
+              We let your mentor know about your request! A mentor has one week
+              to accept or reject your match request. In case they do not
+              respond within the week, the request will automatically be
+              rejected and you can request a new mentor.
             </p>
-              {currentUserMatchRequestsSingleUser ? (
-              <MentorTableComponent
-                id={currentUserMatchRequestsSingleUser.mentorUserId}
-              />
-            ) : (
-              ''
-            )}
+            {currentUserMatchRequests.map(async (u) => {
+              const userData = await getUserData(u.mentorUserId);
+
+              return (
+                <div key={`id-${u.id}`}>
+                  <MentorTableComponent
+                    id={userData?.id}
+                    badgetext="requested"
+                    badgecolor="badge badge-secondary badge-outline"
+                    photo={userData?.photo}
+                    email={userData?.email}
+                    firstname={userData?.firstname}
+                    countryId={userData?.countryId}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : (
         ''
       )}
-      {currentUserMatchAccepts ? (
+
+      {currentUserMatchAccepts.length > 0 ? (
         <div id="activeMatchesSection" className="card blurry">
-          <h2 className="h2-custom-primary">Active Mentor</h2>
-          {currentUserMatchAccepts.map((m) => {
+          <h2 className="h2-custom-primary">Your Mentor is confirmed!</h2>
+          {currentUserMatchAccepts.map(async (u) => {
+            const userData = await getUserData(u.mentorUserId);
+
+            return (
+              <div key={`id-${u.id}`}>
+                <MentorTableComponent
+                  id={userData?.id}
+                  badgetext="accepted"
+                  badgecolor="badge badge-accent badge-outline"
+                  photo={userData?.photo}
+                  email={userData?.email}
+                  firstname={userData?.firstname}
+                  countryId={userData?.countryId}
+                />
+                <MentoringEndFormComponent
+                  match={u}
+                  buttonText="I am no longer being mentored by this mentor"
+                />
+              </div>
+            );
+          })}
+          {/*  {currentUserMatchAccepts.map((m) => {
             return (
               <div key={`mentee-${m.id}`} className="card sub-blurry">
                 <p className="p-custom-primary">
@@ -131,11 +151,11 @@ export default async function dashboard() {
                 />
               </div>
             );
-          })}
+          })} */}
         </div>
       ) : (
         ''
-      )} */}
+      )}
     </main>
   );
 }
