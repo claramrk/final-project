@@ -1,4 +1,4 @@
-import { getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject } from '../database/users';
+import { getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject } from '../database/menteeTargetUniversitySubject';
 import { University } from '../migrations/00004-createTableUniversities';
 import { UserIdEmailRole } from '../migrations/00008-createTableUsers';
 

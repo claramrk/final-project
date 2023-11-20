@@ -72,6 +72,43 @@ export const putMenteeBestMentorMatches = cache(
   },
 );
 
+type JsonAgg = MenteeTargetUniversitySubject[];
+
+export type MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
+  usersId: number;
+  usersRoleId: number;
+  usersCountryId: string | null;
+  userMenteeUniversityApplications: JsonAgg | null;
+};
+
+export const getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject =
+  cache(async (id: number) => {
+    const [menteeUniversityApplicationsbyUserIDWithUniAndSubject] = await sql<
+      MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
+    >`
+      SELECT
+        users.id AS users_id,
+        users.role_id AS users_role_id,
+        users.country_id AS users_country_id,
+        (
+          SELECT
+            json_agg (
+              mentee_university_applications.*
+            )
+          FROM
+            mentee_university_applications
+          WHERE
+            mentee_university_applications.user_id = users.id
+        ) AS user_mentee_university_applications
+      FROM
+        users
+        INNER JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
+      WHERE
+        users.id = ${id}
+    `;
+    return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
+  });
+
 /* export const getMenteeBestMentorMatchesById = cache(async (userId: number) => {
   // return roles;
   const [menteeBestMentorMatches] = await sql<

@@ -1,8 +1,6 @@
+import { getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject } from '../database/menteeTargetUniversitySubject';
 import { getRoleByName } from '../database/roles';
-import {
-  getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
-  getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject,
-} from '../database/users';
+import { getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject } from '../database/users';
 import { UserAll } from '../migrations/00008-createTableUsers';
 
 export default async function getTopThreeMentors(currentUser: UserAll) {
@@ -81,7 +79,7 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     },
   ];
 
-  const mentorTest = confirmedMentors.forEach((element) => {
+  confirmedMentors.forEach((element) => {
     const matchingTest = {
       menteeUserId: 0,
       mentorUserId: 0,
@@ -112,26 +110,28 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     ) {
       matchingTest.originCountryMatch = weights.countryMatchWeight;
     }
-    element.userMentorUniversityBackgrounds?.forEach((e:any) => {
-      if (e.universityId === userUniversityApplicationOnly.firstUniversityId) {
+    element.userMentorUniversityBackgrounds?.forEach((e: any) => {
+      if (e.universityId === userUniversityApplicationOnly?.firstUniversityId) {
         matchingTest.menteeUniOneMatch = weights.universityMatchWeight;
       }
-      if (e.universityId === userUniversityApplicationOnly.secondUniversityId) {
+      if (
+        e.universityId === userUniversityApplicationOnly?.secondUniversityId
+      ) {
         matchingTest.menteeUniTwoMatch = weights.universityMatchWeight;
       }
-      if (e.universityId === userUniversityApplicationOnly.thirdUniversityId) {
+      if (e.universityId === userUniversityApplicationOnly?.thirdUniversityId) {
         matchingTest.menteeUniThreeMatch = weights.universityMatchWeight;
       }
-      if (e.subjectId === userUniversityApplicationOnly.firstSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly?.firstSubjectId) {
         matchingTest.menteeSubjectOneMatch = weights.subjectMatchWeight;
       }
-      if (e.subjectId === userUniversityApplicationOnly.secondSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly?.secondSubjectId) {
         matchingTest.menteeSubjectTwoMatch = weights.subjectMatchWeight;
       }
-      if (e.subjectId === userUniversityApplicationOnly.thirdSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly?.thirdSubjectId) {
         matchingTest.menteeSubjectThreeMatch = weights.subjectMatchWeight;
       }
-      if (e.studylevel === userUniversityApplicationOnly.studylevel) {
+      if (e.studylevel === userUniversityApplicationOnly?.studylevel) {
         matchingTest.studylevelMatch = weights.studylevelMatchWeight;
       }
     });

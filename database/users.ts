@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import { Role } from '../migrations/00006-createTableRoles';
 import {
   UserAll,
   UserIdEmailPassword,
@@ -69,6 +70,8 @@ export const getUserWithPasswordHashByEmail = cache(async (email: string) => {
   return user;
 });
 
+type JsonAgg = Role[];
+
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<
     {
@@ -82,7 +85,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
       birthdate: Date | null;
       countryId: string | null;
       photo: string | null;
-      roleId: number | null;
+      roleId: number;
       maxCapacity: number | null;
       userRolesId: JsonAgg | null;
     }[]
@@ -200,41 +203,6 @@ export const getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject =
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
 
-export type MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG = {
-  usersId: number;
-  usersRoleId: number;
-  usersCountryId: string;
-  userMenteeUniversityApplications: JsonAgg | null;
-};
-
-export const getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject =
-  cache(async (id: number) => {
-    const [menteeUniversityApplicationsbyUserIDWithUniAndSubject] = await sql<
-      MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG[]
-    >`
-      SELECT
-        users.id AS users_id,
-        users.role_id AS users_role_id,
-        users.country_id AS users_country_id,
-        (
-          SELECT
-            json_agg (
-              mentee_university_applications.*
-            )
-          FROM
-            mentee_university_applications
-          WHERE
-            mentee_university_applications.user_id = users.id
-        ) AS user_mentee_university_applications
-      FROM
-        users
-        INNER JOIN mentee_university_applications ON mentee_university_applications.user_id = users.id
-      WHERE
-        users.id = ${id}
-    `;
-    return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
-  });
-
 export type SingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW =
   { rowToJson: JsonAgg | null }[];
 
@@ -317,6 +285,7 @@ export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjec
     `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
+
 /*
 
 
@@ -357,7 +326,7 @@ export const getUserWithMatchingInfoByIDInArray = cache(async () => {
 
 export type MenteeUniversityApplicationsbyUserIDWithUniAndSubject = {
   usersId: number;
-  roleId: number | null;
+  roleId: number;
   usersOriginCountryId: string;
   rolesRoleName: string;
   uniAppStudylevelId: number;

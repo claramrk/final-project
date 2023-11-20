@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
-  mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG,
+  MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG,
 } from '../../../../database/users';
 
 // get user
 type UserResponseBodyGet =
-  | { users: mentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[] }
+  | { users: MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[] }
   | {
       error: string;
     };

@@ -42,6 +42,13 @@ export async function PUT(
   //  Get the user data from the request
   const body = await request.json();
 
+  if (!body.roleId) {
+    return NextResponse.json(
+      { errors: [{ message: 'Error creating the new user' }] },
+      { status: 406 },
+    );
+  }
+
   const updatedUserWithMatchingInfo = await putUserRole(
     Number(body.userId),
     Number(body.roleId),
