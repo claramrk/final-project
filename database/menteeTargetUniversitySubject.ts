@@ -72,7 +72,7 @@ export const putMenteeBestMentorMatches = cache(
   },
 );
 
-export const getMenteeBestMentorMatchesById = cache(async (userId: number) => {
+/* export const getMenteeBestMentorMatchesById = cache(async (userId: number) => {
   // return roles;
   const [menteeBestMentorMatches] = await sql<
     { bestMentorMatches: number[] | null }[]
@@ -86,3 +86,4 @@ export const getMenteeBestMentorMatchesById = cache(async (userId: number) => {
   `;
   return menteeBestMentorMatches;
 });
+ */

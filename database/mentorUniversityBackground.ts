@@ -1,8 +1,5 @@
 import { cache } from 'react';
-import {
-  MentorUniversityBackground,
-  MentorUniversityBackgroundWithUniversity,
-} from '../migrations/00011-createTableMentorUniversityBackgrounds';
+import { MentorUniversityBackground } from '../migrations/00011-createTableMentorUniversityBackgrounds';
 import { sql } from './connect';
 
 export const createMentorUniversityBackground = cache(
@@ -51,33 +48,9 @@ export const getMentorUniversityBackgroundbyUserID = cache(
   },
 );
 
-export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
-  async (userId: number) => {
-    const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      MentorUniversityBackgroundWithUniversity[]
-    >`
-      SELECT
-        *,
-        (
-          SELECT
-            json_agg (
-              universities.*
-            )
-          FROM
-            universities
-          WHERE
-            mentor_university_backgrounds.university_id = universities.id
-        ) AS mentor_university_backgrounds_university
-      FROM
-        mentor_university_backgrounds
-      WHERE
-        user_id = ${userId}
-    `;
-    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
-  },
-);
 
-export type Test = {
+
+export type MentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin = {
   id: number;
   userId: number;
   studylevel: number;
@@ -91,7 +64,7 @@ export type Test = {
 export const getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin =
   cache(async (userId: number) => {
     const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
-      Test[]
+    MentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin[]
     >`
       SELECT
         mentor_university_backgrounds.id,
@@ -111,3 +84,30 @@ export const getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin =
     `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
+
+
+/*   export const getMentorUniversityBackgroundbyUserIDWithUniAndSubject = cache(
+    async (userId: number) => {
+      const mentorUniversityBackgroundbyUserIDWithUniAndSubject = await sql<
+        MentorUniversityBackgroundWithUniversity[]
+      >`
+        SELECT
+          *,
+          (
+            SELECT
+              json_agg (
+                universities.*
+              )
+            FROM
+              universities
+            WHERE
+              mentor_university_backgrounds.university_id = universities.id
+          ) AS mentor_university_backgrounds_university
+        FROM
+          mentor_university_backgrounds
+        WHERE
+          user_id = ${userId}
+      `;
+      return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
+    },
+  ); */

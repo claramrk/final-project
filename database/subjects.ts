@@ -14,7 +14,7 @@ export const getSubjects = cache(async () => {
   return subjects;
 });
 
-export const getSubjectById = cache(async (id: number) => {
+/* export const getSubjectById = cache(async (id: number) => {
   // Postgres returns an array
   const [subject] = await sql<Subject[]>`
     SELECT
@@ -26,3 +26,4 @@ export const getSubjectById = cache(async (id: number) => {
   `;
   return subject;
 });
+ */

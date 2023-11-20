@@ -6,12 +6,15 @@ import { University } from '../migrations/00004-createTableUniversities';
 export const getUniversities = cache(async () => {
   // return universities;
   const universities = await sql<University[]>`
-    SELECT * FROM universities
+    SELECT
+      *
+    FROM
+      universities
   `;
   return universities;
 });
 
-export const getUniversityById = cache(async (id: number) => {
+/* export const getUniversityById = cache(async (id: number) => {
   // Postgres returns an array
   const [university] = await sql<University[]>`
     SELECT
@@ -23,3 +26,4 @@ export const getUniversityById = cache(async (id: number) => {
   `;
   return university;
 });
+ */

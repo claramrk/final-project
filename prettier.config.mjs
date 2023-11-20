@@ -14,10 +14,8 @@ const prettierPluginEmbedConfig = {
 const prettierPluginSqlConfig = {
   language: 'postgresql',
   keywordCase: 'upper',
-  // - Wrap all parenthesized expressions to new lines (eg. `INSERT` columns)
-  // - Do not wrap foreign keys (eg. `REFERENCES table_name (id)`)
-  // - Do not wrap column type expressions (eg. `VARCHAR(255)`)
-  expressionWidth: 8,
+  // Wrap all parenthesized expressions to new lines (eg. INSERT columns)
+  expressionWidth: 3,
 };
 
 const config = {

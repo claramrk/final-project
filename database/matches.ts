@@ -85,7 +85,7 @@ export const putEndMatch = cache(
   },
 );
 
-export const getAllMatches = cache(async () => {
+/* export const getAllMatches = cache(async () => {
   const matches = await sql<Match[]>`
     SELECT
       *
@@ -97,9 +97,9 @@ export const getAllMatches = cache(async () => {
 
 type Count = {
   count: string;
-};
+}; */
 
-export const getMatchesCountByID = cache(async (id: number) => {
+/* export const getMatchesCountByID = cache(async (id: number) => {
   const matches = await sql<Count[]>`
     SELECT
       COUNT(*)
@@ -110,3 +110,4 @@ export const getMatchesCountByID = cache(async (id: number) => {
   `;
   return matches;
 });
+ */

@@ -1,4 +1,3 @@
-import { getAllMatches } from '../database/matches';
 import { getRoleByName } from '../database/roles';
 import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
@@ -113,7 +112,7 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     ) {
       matchingTest.originCountryMatch = weights.countryMatchWeight;
     }
-    element.userMentorUniversityBackgrounds?.forEach((e) => {
+    element.userMentorUniversityBackgrounds?.forEach((e:any) => {
       if (e.universityId === userUniversityApplicationOnly.firstUniversityId) {
         matchingTest.menteeUniOneMatch = weights.universityMatchWeight;
       }
