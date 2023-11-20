@@ -50,8 +50,6 @@ export async function POST(
     );
   }
 
-  //  At this stage you can check if the password matches the confirm password
-
   // 4. Hash the plain password from the user
   const passwordHash = await bcrypt.hash(result.data.password, 12);
 

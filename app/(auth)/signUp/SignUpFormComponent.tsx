@@ -13,7 +13,6 @@ export default function SignUpForm(props: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(10);
-
   const [errors, setErrors] = useState<{ message: string | number }[]>([]);
   const router = useRouter();
 
@@ -28,6 +27,14 @@ export default function SignUpForm(props: Props) {
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if (role === 1 || role === 4) {
+      setErrors([]);
+    } else {
+      console.log(role);
+      setErrors([{ message: 'select a roleeee!' }]);
+      return;
+    }
+
     const response = await fetch('/api/register', {
       method: 'POST',
       body: JSON.stringify({
@@ -38,10 +45,12 @@ export default function SignUpForm(props: Props) {
     });
 
     const data: RegisterResponseBodyPost = await response.json();
+    console.log(data);
+    console.log(role);
 
     if ('errors' in data) {
       setErrors(data.errors);
-      return console.log(errors);
+      return;
     }
     router.push(`/personaldata`);
 
@@ -53,10 +62,7 @@ export default function SignUpForm(props: Props) {
       <form
         className="card-body"
         id="signUpForm"
-        onSubmit={async (event) => {
-          event.preventDefault();
-          await handleRegister(event);
-        }}
+        onSubmit={async (event) => await handleRegister(event)}
       >
         <div className="form-control ">
           <legend className="label-custom-primary">
@@ -73,17 +79,15 @@ export default function SignUpForm(props: Props) {
                       : '	border-4	border-transparent	'
                   }`}
                 >
-                  <label>
-                    <input
-                      className="hidden"
-                      type="radio"
-                      name="selectRole"
-                      value={Number(d.id)}
-                      onClick={(event) =>
-                        setRole(Number(event.currentTarget.value))
-                      }
-                      required
-                    />{' '}
+                  <button
+                    name="selectRole"
+                    value={Number(d.id)}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setRole(Number(event.currentTarget.value));
+                    }}
+                  >
+                    {' '}
                     <div className="avatar">
                       <div className="w-24 rounded-xl">
                         <Image
@@ -96,7 +100,7 @@ export default function SignUpForm(props: Props) {
                     </div>
                     <h3 className="h3-custom-primary">Mentee</h3>
                     <p className="p-custom-primary">Applying for uni!</p>
-                  </label>
+                  </button>
                 </div>
               );
             })}
@@ -110,16 +114,14 @@ export default function SignUpForm(props: Props) {
                       : '	border-4	border-transparent	'
                   }`}
                 >
-                  <label>
-                    <input
-                      className="hidden"
-                      type="radio"
-                      name="selectRole"
-                      value={Number(d.id)}
-                      onClick={(event) =>
-                        setRole(Number(event.currentTarget.value))
-                      }
-                    />
+                  <button
+                    name="selectRole"
+                    value={Number(d.id)}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setRole(Number(event.currentTarget.value));
+                    }}
+                  >
                     <div className="avatar">
                       <div className="w-24 rounded-xl">
                         <Image
@@ -133,7 +135,7 @@ export default function SignUpForm(props: Props) {
 
                     <h3 className="h3-custom-primary">Mentor</h3>
                     <p className="p-custom-primary">Support others!</p>
-                  </label>
+                  </button>
                 </div>
               );
             })}
@@ -161,6 +163,26 @@ export default function SignUpForm(props: Props) {
             Sign up
           </button>
         </div>
+        {errors.map((error) => (
+          <div className="error" key={`error-${error.message}`}>
+            <div role="alert" className="alert">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="stroke-info shrink-0 w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Error: {error.message}</span>
+            </div>
+          </div>
+        ))}
       </form>
     </div>
   );
