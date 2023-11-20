@@ -17,7 +17,6 @@ export default async function MentorTableComponent(props: Props) {
     await getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin(
       props.id,
     );
-  console.log(uniBackground);
   return (
     <div id="requestedMatchesSection">
       <div id="requestMentor">

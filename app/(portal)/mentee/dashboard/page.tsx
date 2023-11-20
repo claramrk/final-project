@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { Fragment } from 'react';
 import { getMatchesByMenteeId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';

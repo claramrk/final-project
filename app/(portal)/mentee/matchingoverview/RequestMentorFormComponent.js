@@ -49,7 +49,6 @@ export default function RequestMentorFormComponent(props) {
     }
   }
 
-  console.log(topThreeMentorsWithPersonalDataListValue);
   return (
     <div
       id="exampleMentorRequestList"
