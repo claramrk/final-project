@@ -30,9 +30,9 @@ export default async function dashboard() {
   );
 
   // filter to only past matches
-  const currentUserPastMatches = currentUserMatches.filter(
+  /*   const currentUserPastMatches = currentUserMatches.filter(
     (e) => e.statusInternal === 'mentorship ended',
-  );
+  ); */
 
   // get User Data function
 
@@ -90,7 +90,6 @@ export default async function dashboard() {
             </p>
             {currentUserMatchRequests.map(async (u) => {
               const userData = await getUserData(u.mentorUserId);
-
               return (
                 <div key={`id-${u.id}`}>
                   <MentorTableComponent

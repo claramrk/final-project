@@ -3,16 +3,20 @@ import { getDegreeTypeById } from '../../database/degreetype';
 import { getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin } from '../../database/mentorUniversityBackground';
 
 type Props = {
-  id: number;
-  badgetext: string;
-  badgecolor: string;
-  photo: string;
-  email: string;
-  firstname: string;
-  countryId: string;
+  id: number | undefined;
+  badgetext: string | undefined;
+  badgecolor: string | undefined;
+  photo: string | null | undefined;
+  email: string | undefined;
+  firstname: string | null | undefined;
+  countryId: string | null | undefined;
 };
 
 export default async function MentorTableComponent(props: Props) {
+  if (!props.id) {
+    return '';
+  }
+
   const uniBackground =
     await getMentorUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin(
       props.id,
