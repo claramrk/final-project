@@ -1,6 +1,6 @@
 import { Sql } from 'postgres';
 
-const universitylist = [
+export const universitylist = [
   {
     name: 'University of Edinburgh',
     country: 'GBR',

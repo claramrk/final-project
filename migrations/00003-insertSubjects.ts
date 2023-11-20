@@ -1,6 +1,6 @@
 import { Sql } from 'postgres';
 
-const subjectlist = [
+export const subjectlist = [
   {
     name: 'Architecture',
     discipline: 'Architecture & Design',
@@ -378,18 +378,26 @@ const subjectlist = [
 export async function up(sql: Sql) {
   for (const subject of subjectlist) {
     await sql`
-  INSERT INTO subjects (
-      name, discipline)
-    VALUES
-    (${subject.name}, ${subject.discipline})
-  `;
+      INSERT INTO
+        subjects (
+          name,
+          discipline
+        )
+      VALUES
+        (
+          ${subject.name},
+          ${subject.discipline}
+        )
+    `;
   }
 }
 
 export async function down(sql: Sql) {
   for (const subject of subjectlist) {
     await sql`
-      DELETE FROM subjects WHERE name = ${subject.name}
-`;
+      DELETE FROM subjects
+      WHERE
+        name = ${subject.name}
+    `;
   }
 }

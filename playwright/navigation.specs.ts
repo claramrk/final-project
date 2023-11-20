@@ -1,4 +1,33 @@
 import test, { expect } from '@playwright/test';
+import { subjectlist } from '../migrations/00003-insertSubjects';
+import { universitylist } from '../migrations/00005-insertUniversities';
+
+function makeEmail(length: number) {
+  let result = '';
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
+function getRandomUni() {
+  const universityarray = universitylist;
+  const max = universityarray.length > 1 ? universityarray.length : 1;
+  const randomUniId = Math.floor(Math.random() * max);
+  return String(randomUniId);
+}
+
+function getRandomSubject() {
+  const subjectarray = subjectlist;
+  const max = subjectarray.length > 1 ? subjectarray.length : 1;
+  const randomSubjectId = Math.floor(Math.random() * max);
+  return String(randomSubjectId);
+}
 
 test('navigation test', async ({ page }) => {
   await page.goto('http://localhost:3000');
@@ -9,6 +38,7 @@ test('navigation test', async ({ page }) => {
   await page.getByRole('link', { name: 'Sign Up' }).click();
 
   // navigate to Sign Up Page
+  await page.waitForURL('http://localhost:3000/signUp');
   await expect(page).toHaveURL('http://localhost:3000/signUp');
 
   await expect(page.getByRole('link', { name: 'Sign In' })).toBeVisible();
@@ -16,10 +46,12 @@ test('navigation test', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Sign Out' })).not.toBeVisible();
 
   await expect(page.getByText('Sign up as:*')).toBeVisible();
+  await page.getByRole('button', { name: 'image-select-2 Mentee' }).click();
+
   await expect(page.getByText('Your email: *')).toBeVisible();
   await page
     .getByPlaceholder('mail@example.com')
-    .fill('playwright@example.com');
+    .fill(makeEmail(5) + '@example.com');
   await expect(page.getByText('Your password: *')).toBeVisible();
   await page.getByPlaceholder('**********').fill('3j309j4o9jf3jriue!aojkopq');
   await expect(page.getByRole('button', { name: 'Sign up' })).toBeVisible();
@@ -30,98 +62,57 @@ test('navigation test', async ({ page }) => {
   await page.waitForURL('http://localhost:3000/personaldata');
   await expect(page).toHaveURL('http://localhost:3000/personaldata');
 
-  /*   await expect(page.getByRole('link', { name: 'Hermannshöhle' })).toBeVisible();
-  await expect(page.getByTestId('products-link')).toBeVisible();
+  await page.getByPlaceholder('Jane').fill('Testfirstname');
+  await page.getByRole('textbox', { name: 'Doe' }).fill('Testlastname');
+  await page.getByPlaceholder('+43 664').fill('219289182');
+  await page.getByPlaceholder('+43 664').fill('219289182');
+  await page
+    .locator('select[name="pronounsInput"]')
+    .selectOption('she/her/hers');
+  await page.locator('input[name="birthdateInput"]').fill('1998-01-12');
+  await page.locator('select[name="countryOriginInput"]').selectOption('CAN');
 
-  await page.getByRole('link', { name: 'Tickets' }).click();
-  await page.waitForURL('http://localhost:3000/products');
-  await expect(page).toHaveURL('http://localhost:3000/products');
+  await page.getByRole('button', { name: 'Enter your target' }).click();
 
-  await page.getByTestId('product-1').click();
-  await page.waitForURL('http://localhost:3000/products/1');
-  await expect(page).toHaveURL('http://localhost:3000/products/1');
+  // navigate to Personal Data Page
+  await page.waitForURL('http://localhost:3000/mentee/matchingdata');
+  await expect(page).toHaveURL('http://localhost:3000/mentee/matchingdata');
 
-  await page.getByTestId('product-add-to-cart').click();
-  await expect(page.getByTestId('cart-count')).toHaveText('1');
-
-  await page.getByRole('link', { name: 'Tickets' }).click();
-  await page.waitForURL('http://localhost:3000/products');
-  await expect(page).toHaveURL('http://localhost:3000/products');
-
-  await page.getByTestId('product-2').click();
-  await page.waitForURL('http://localhost:3000/products/2');
-  await expect(page).toHaveURL('http://localhost:3000/products/2');
-
-  await page.getByTestId('product-quantity').fill('2');
-  await page.getByTestId('product-add-to-cart').click();
-  await expect(page.getByTestId('cart-count')).toHaveText('3');
-
-  await page.getByRole('banner').getByTestId('cart-link').click();
-  await page.waitForURL('http://localhost:3000/cart');
-  await expect(page).toHaveURL('http://localhost:3000/cart');
-
+  await page.locator('select[name="selectDegreetype"]').selectOption('1');
+  await page
+    .locator('select[name="targetUniversityOneInput"]')
+    .selectOption(getRandomUni());
+  await page
+    .locator('select[name="targetUniversityTwoInput"]')
+    .selectOption(getRandomUni());
+  await page
+    .locator('select[name="targetUniversityThreeInput"]')
+    .selectOption(getRandomUni());
+  await page
+    .locator('select[name="selectSubjectOne"]')
+    .selectOption(getRandomSubject());
+  await page
+    .locator('select[name="selectSubjectTwo"]')
+    .selectOption(getRandomSubject());
+  await page
+    .locator('select[name="selectSubjectThree"]')
+    .selectOption(getRandomSubject());
   await expect(
-    page
-      .getByTestId('cart-product-1')
-      .locator('div')
-      .filter({
-        hasText:
-          'TICKETTICKETTICKET#########WOCHENTAGDATUMJAHRHermannshöhleKinderKirchberg am Wec',
-      })
-      .nth(1),
+    page.getByRole('button', {
+      name: 'Complete your registration as a mentee',
+    }),
+  ).not.toBeVisible();
+  await page.getByRole('button', { name: 'Submit all University' }).click();
+  await expect(
+    page.getByRole('button', {
+      name: 'Complete your registration as a mentee',
+    }),
   ).toBeVisible();
+  await page
+    .getByRole('button', { name: 'Complete your registration as a mentee' })
+    .click();
 
-  await expect(
-    page
-      .getByTestId('cart-product-2')
-      .locator('div')
-      .filter({
-        hasText:
-          'TICKETTICKETTICKET#########WOCHENTAGDATUMJAHRHermannshöhleErmäßigtKirchberg am W',
-      })
-      .nth(1),
-  ).toBeVisible();
-
-  await expect(page.getByTestId('cart-product-remove-1')).toBeVisible();
-  await page.getByTestId('cart-product-remove-1').click();
-  await expect(page.getByTestId('cart-product-remove-1')).not.toBeVisible();
-
-  await expect(
-    page
-      .getByTestId('cart-product-2')
-      .locator('div')
-      .filter({
-        hasText:
-          'TICKETTICKETTICKET#########WOCHENTAGDATUMJAHRHermannshöhleErmäßigtKirchberg am W',
-      })
-      .nth(1),
-  ).toBeVisible();
-
-  await page.getByRole('button', { name: 'Tickets bestellen' }).click();
-  await page.waitForURL('http://localhost:3000/checkout');
-  await expect(page).toHaveURL('http://localhost:3000/checkout');
-
-  await expect(page.getByTestId('checkout-first-name')).toBeVisible();
-  await expect(page.getByTestId('checkout-first-name')).toBeEmpty();
-  await page.getByTestId('checkout-first-name').fill('VornameTest');
-
-  await page.getByTestId('checkout-confirm-order').click();
-
-  await page.getByTestId('checkout-last-name').fill('NachnameTest');
-  await page.getByTestId('checkout-email').fill('EmailTest');
-  await page.getByTestId('checkout-address').fill('AddressTest');
-
-  await page.getByTestId('checkout-city').fill('CityTest');
-  await page.getByTestId('checkout-postal-code').fill('PostalcodeTest');
-  await page.getByTestId('checkout-country').fill('CountryTest');
-  await page.getByTestId('checkout-credit-card').fill('CreditCardTest');
-  await page.getByTestId('checkout-expiration-date').fill('ExpirationdateTest');
-  await page.getByTestId('checkout-security-code').fill('SecuritycodeTest');
-
-  await page.getByTestId('checkout-confirm-order').click();
-  await page.waitForURL('http://localhost:3000/thankYou');
-  await expect(page).toHaveURL('http://localhost:3000/thankYou');
-  await expect(
-    page.getByRole('heading', { name: 'Danke für deine Bestellung!' }),
-  ).toBeVisible(); */
+  // navigate to MatchingOverview
+  await page.waitForURL('http://localhost:3000/mentee/matchingoverview');
+  await expect(page).toHaveURL('http://localhost:3000/mentee/matchingoverview');
 });
