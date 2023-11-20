@@ -31,7 +31,7 @@ export default function SignUpForm(props: Props) {
       setErrors([]);
     } else {
       console.log(role);
-      setErrors([{ message: 'select a roleeee!' }]);
+      setErrors([{ message: 'select a role!' }]);
       return;
     }
 
@@ -58,132 +58,134 @@ export default function SignUpForm(props: Props) {
   }
 
   return (
-    <div className="card w-full max-w-sm shadow-2xl bg-base-100">
-      <form
-        className="card-body"
-        id="signUpForm"
-        onSubmit={async (event) => await handleRegister(event)}
-      >
-        <div className="form-control ">
-          <legend className="label-custom-primary">
-            Sign up as:<span id="required">*</span>
-          </legend>
-          <div className="flex flex-row">
-            {filteredRolesMentee.map((d) => {
-              return (
-                <div
-                  key={`dataID-radio-${d.id}`}
-                  className={`card blurry ${
-                    role === d.id
-                      ? 'border-4	border-neutral	'
-                      : '	border-4	border-transparent	'
-                  }`}
-                >
-                  <button
-                    name="selectRole"
-                    value={Number(d.id)}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setRole(Number(event.currentTarget.value));
-                    }}
+    <div>
+      <div className="card w-full max-w-sm shadow-2xl bg-base-100">
+        <form
+          className="card-body"
+          id="signUpForm"
+          onSubmit={async (event) => await handleRegister(event)}
+        >
+          <div className="form-control ">
+            <legend className="label-custom-primary">
+              Sign up as:<span id="required">*</span>
+            </legend>
+            <div className="flex flex-row">
+              {filteredRolesMentee.map((d) => {
+                return (
+                  <div
+                    key={`dataID-radio-${d.id}`}
+                    className={`card blurry ${
+                      role === d.id
+                        ? 'border-4	border-neutral	'
+                        : '	border-4	border-transparent	'
+                    }`}
                   >
-                    {' '}
-                    <div className="avatar">
-                      <div className="w-24 rounded-xl">
-                        <Image
-                          alt="image-select-2"
-                          width="60"
-                          height="60"
-                          src="/menteeSignUp.jpg"
-                        />
+                    <button
+                      name="selectRole"
+                      value={Number(d.id)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setRole(Number(event.currentTarget.value));
+                      }}
+                    >
+                      {' '}
+                      <div className="avatar">
+                        <div className="w-24 rounded-xl">
+                          <Image
+                            alt="image-select-2"
+                            width="60"
+                            height="60"
+                            src="/menteeSignUp.jpg"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <h3 className="h3-custom-primary">Mentee</h3>
-                    <p className="p-custom-primary">Applying for uni!</p>
-                  </button>
-                </div>
-              );
-            })}
-            {filteredRolesMentor.map((d) => {
-              return (
-                <div
-                  key={`dataID-radio-${d.id}`}
-                  className={`card blurry ${
-                    role === d.id
-                      ? 'border-4	border-neutral	'
-                      : '	border-4	border-transparent	'
-                  }`}
-                >
-                  <button
-                    name="selectRole"
-                    value={Number(d.id)}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setRole(Number(event.currentTarget.value));
-                    }}
+                      <h3 className="h3-custom-primary">Mentee</h3>
+                      <p className="p-custom-primary">Applying for uni!</p>
+                    </button>
+                  </div>
+                );
+              })}
+              {filteredRolesMentor.map((d) => {
+                return (
+                  <div
+                    key={`dataID-radio-${d.id}`}
+                    className={`card blurry ${
+                      role === d.id
+                        ? 'border-4	border-neutral	'
+                        : '	border-4	border-transparent	'
+                    }`}
                   >
-                    <div className="avatar">
-                      <div className="w-24 rounded-xl">
-                        <Image
-                          alt="image-select-2"
-                          width="60"
-                          height="60"
-                          src="/mentorSignUp.jpg"
-                        />
+                    <button
+                      name="selectRole"
+                      value={Number(d.id)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setRole(Number(event.currentTarget.value));
+                      }}
+                    >
+                      <div className="avatar">
+                        <div className="w-24 rounded-xl">
+                          <Image
+                            alt="image-select-2"
+                            width="60"
+                            height="60"
+                            src="/mentorSignUp.jpg"
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <h3 className="h3-custom-primary">Mentor</h3>
-                    <p className="p-custom-primary">Support others!</p>
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-          <LabelAndInputComponent
-            inputName="emailInput"
-            labeltext="Your email:"
-            required={true}
-            type="email"
-            placeholder="mail@example.com"
-            onChangeFunction={setEmail}
-          />
-          <LabelAndInputComponent
-            inputName="passwordInput"
-            labeltext="Your password:"
-            required={true}
-            type="password"
-            placeholder="**********"
-            onChangeFunction={setPassword}
-          />
-        </div>
-        <div className="form-control mt-6">
-          <button className="btn btn-primary" id="signUpButton">
-            {' '}
-            Sign up
-          </button>
-        </div>
-        {errors.map((error) => (
-          <div className="error" key={`error-${error.message}`}>
-            <div role="alert" className="alert">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="stroke-info shrink-0 w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>Error: {error.message}</span>
+                      <h3 className="h3-custom-primary">Mentor</h3>
+                      <p className="p-custom-primary">Support others!</p>
+                    </button>
+                  </div>
+                );
+              })}
             </div>
+            <LabelAndInputComponent
+              inputName="emailInput"
+              labeltext="Your email:"
+              required={true}
+              type="email"
+              placeholder="mail@example.com"
+              onChangeFunction={setEmail}
+            />
+            <LabelAndInputComponent
+              inputName="passwordInput"
+              labeltext="Your password:"
+              required={true}
+              type="password"
+              placeholder="**********"
+              onChangeFunction={setPassword}
+            />
           </div>
-        ))}
-      </form>
+          <div className="form-control mt-6">
+            <button className="btn btn-primary" id="signUpButton">
+              {' '}
+              Sign up
+            </button>
+          </div>
+        </form>
+      </div>
+      {errors.map((error) => (
+        <div className="error" key={`error-${error.message}`}>
+          <div role="alert" className="alert fixed max-w-xs">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="stroke-info shrink-0 w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>Error: {error.message}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
