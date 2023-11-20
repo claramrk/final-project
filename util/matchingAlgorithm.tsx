@@ -1,4 +1,4 @@
-import { getAllMatches, getMatchesCountByID } from '../database/matches';
+import { getAllMatches } from '../database/matches';
 import { getRoleByName } from '../database/roles';
 import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
@@ -49,7 +49,7 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     (user) => user.usersRoleId === 3,
   );
 
-  const matches = await getAllMatches();
+  /*   const matches = await getAllMatches(); */
 
   // filter to only those who have  null or undefined in "pause until"  - aka are active
   /* const confirmedMentorsNoPause = confirmedMentors.filter(

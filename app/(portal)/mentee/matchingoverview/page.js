@@ -1,9 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMenteeId } from '../../../../database/matches';
-import { getUserById, getUserBySessionToken } from '../../../../database/users';
-import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
-import MentorTableComponent from '../../../components/MentorTableComponent';
+import { getUserBySessionToken } from '../../../../database/users';
 import TopMentorsComponent from './TopMentorsComponent';
 
 export default async function matchingOverviewMentees() {
@@ -19,16 +17,32 @@ export default async function matchingOverviewMentees() {
   // get all Match Requests
 
   const currentUserMatches = await getMatchesByMenteeId(Number(currentUser.id));
+
+  // get only Accepted Matches
+  const currentUserMatchAccepts = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentor accepted match',
+  );
+
+    // get only Match Requests
+    const currentUserMatchRequests = currentUserMatches.filter(
+      (e) => e.statusInternal === 'mentee requested mentor',
+    );
+
+
+    // get only past matches
+/*     const currentUserPastMatches = currentUserMatches.filter(
+      (e) => e.statusInternal === 'mentorship ended',
+    ); */
+
+
+    // get UserData
+
+/*
   const currentUserMatchesData = Promise.all(
     currentUserMatches.map((m) => {
       const mentor = getUserById(m.mentorUserId);
       return mentor;
     }),
-  );
-
-  // get only Accepted Matches
-  const currentUserMatchAccepts = currentUserMatches.filter(
-    (e) => e.statusInternal === 'mentor accepted match',
   );
 
   const currentUserMatchAccceptsData = Promise.all(
@@ -38,11 +52,6 @@ export default async function matchingOverviewMentees() {
     }),
   );
 
-  // get only Match Requests
-  const currentUserMatchRequests = currentUserMatches.filter(
-    (e) => e.statusInternal === 'mentee requested mentor',
-  );
-
   const currentUserMatchRequestsData = Promise.all(
     currentUserMatchRequests.map((m) => {
       const mentee = getUserById(m.menteeUserId);
@@ -50,17 +59,13 @@ export default async function matchingOverviewMentees() {
     }),
   );
 
-  // get only past matches
-  const currentUserPastMatches = currentUserMatches.filter(
-    (e) => e.statusInternal === 'mentorship ended',
-  );
 
   const currentUserPastMatchesData = Promise.all(
     currentUserPastMatches.map((m) => {
       const mentee = getUserById(m.menteeUserId);
       return mentee;
     }),
-  );
+  ); */
 
   return (
     <main id="visibleMENTEES">

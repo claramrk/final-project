@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
 import { getUserById, putUserRole } from '../../../database/users';
 import { UserAll } from '../../../migrations/00008-createTableUsers';
 
@@ -10,10 +9,7 @@ type UserResponseBodyGet =
       error: string;
     };
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Record<string, string | string[]> },
-): Promise<NextResponse<UserResponseBodyGet>> {
+export async function GET(): Promise<NextResponse<UserResponseBodyGet>> {
   const userId = Number(1);
 
   const user = await getUserById(userId);

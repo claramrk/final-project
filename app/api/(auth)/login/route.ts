@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../database/sessions';
 import { getUserWithPasswordHashByEmail } from '../../../../database/users';
-import { Role } from '../../../../migrations/00006-createTableRoles';
 import { secureCookieOptions } from '../../../../util/secureCookieOptions';
 
 const loginSchema = z.object({

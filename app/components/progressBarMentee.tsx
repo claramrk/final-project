@@ -1,15 +1,12 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getRoleByName } from '../../database/roles';
-import { getSubjects } from '../../database/subjects';
-import { getUniversities } from '../../database/universities';
 import { getUserBySessionToken } from '../../database/users';
 
 export default async function menteeMatchingData() {
-  const subjects = await getSubjects();
+  /*  const subjects = await getSubjects();
   const universities = await getUniversities();
   const roleFromDatabase = await getRoleByName('approved mentee');
-
+ */
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
 

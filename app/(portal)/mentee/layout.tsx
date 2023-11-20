@@ -1,4 +1,4 @@
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserBySessionToken } from '../../../database/users';
@@ -10,7 +10,7 @@ type Props = {
 export default async function usersLayout(props: Props) {
   // 1. Check if the sessionToken cookie exit
   const sessionTokenCookie = cookies().get('sessionToken');
-  const headersList = headers();
+  // const headersList = headers();
 
   // 2. check if the sessionToken has a valid session
 

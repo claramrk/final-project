@@ -1,6 +1,5 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
@@ -14,7 +13,7 @@ type Props = {
 
 export default function RootLayout(props: Props) {
   // 1. Checking if the sessionToken cookie exists
-  const headersList = headers();
+  // const headersList = headers();
 
   /*
    const sessionTokenCookie = cookies().get('sessionToken');

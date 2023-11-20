@@ -84,7 +84,7 @@ export function getNavigationPermissions(
 }
 
 export function getRedirectPage(currentUserRole: Role) {
-  const rerouteRoleSubType: any = currentUserRole?.name;
+  const rerouteRoleSubType: any = currentUserRole.name;
 
   let reroutePage;
   if (rerouteRoleSubType === 'incomplete mentor') {

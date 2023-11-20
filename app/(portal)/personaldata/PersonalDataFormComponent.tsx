@@ -60,7 +60,7 @@ export default function PersonalDataFormComponent(props: Props) {
 
   useEffect(() => {
     async function getImageInfo() {
-      const response = imageInfo;
+      const response = await imageInfo;
       // @ts-expect-error secure_url type never
       const responseUrl = response.secure_url;
       setProfilePictureInput(responseUrl);

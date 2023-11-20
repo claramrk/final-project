@@ -1,15 +1,12 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { navigation } from '../../util/pageNavigation';
 
 export default function NavigationComponent(props) {
   const [pageIndexUser, setPageIndexUser] = useState(navigation);
-  const pageIndex = navigation;
   const currentUser = props.currentUser;
-  const pathName = usePathname;
 
-  const pageIndexUserTest = pageIndex.filter((p) =>
+  const pageIndexUserTest = pageIndexUser.filter((p) =>
     p.permissionFor.includes(currentUser.userRolesId[0].name),
   );
 
@@ -19,7 +16,7 @@ export default function NavigationComponent(props) {
 
   useEffect(() => {
     async function runNavigationMap() {
-      const pageIndexUserTestMap = await pageIndex.filter((p) =>
+      const pageIndexUserTestMap = await pageIndexUser.filter((p) =>
         p.permissionFor.includes(currentUser.userRolesId[0].name),
       );
       const pageIndexUserTestSortedMap = pageIndexUserTestMap.sort(
@@ -32,7 +29,7 @@ export default function NavigationComponent(props) {
     runNavigationMap().catch((error) => {
       console.log(error);
     });
-  }, [currentUser.userRolesId, pageIndex]);
+  }, [currentUser.userRolesId, pageIndexUser]);
 
   return (
     <>

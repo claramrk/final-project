@@ -1,10 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Role } from '../../../migrations/00006-createTableRoles';
-import { getRedirectPage, navigation } from '../../../util/pageNavigation';
+import { getRedirectPage } from '../../../util/pageNavigation';
 import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
 import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 

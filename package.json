@@ -10,7 +10,6 @@
     "migrate": "ley --require tsm"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^6.1.4",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
@@ -22,7 +21,6 @@
     "postgres": "^3.4.0",
     "react": "link:@testing/library/react",
     "react-dom": "^18",
-    "sass": "^1.69.3",
     "server-only": "^0.0.1",
     "sharp": "^0.32.6",
     "tsm": "^2.3.0",
@@ -31,7 +29,8 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@playwright/test": "^1.40.0",
-    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
     "@ts-safeql/eslint-plugin": "^2.0.3",
     "@types/bcrypt": "^5.0.1",
     "@types/node": "^20",

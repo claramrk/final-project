@@ -1,9 +1,8 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
-import { getUserById, getUserBySessionToken } from '../../../../database/users';
+import { getUserBySessionToken } from '../../../../database/users';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
-import MatchRequestResponseComponent from './MatchResponseComponent';
 import MatchResponseComponent from './MatchResponseComponent';
 
 export default async function matchingOverviewMentors() {
@@ -24,6 +23,18 @@ export default async function matchingOverviewMentors() {
     (e) => e.statusInternal === 'mentor accepted match',
   );
 
+  // get only Match Requests
+  const currentUserMatchRequests = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentee requested mentor',
+  );
+
+  // get only past matches
+  const currentUserPastMatches = currentUserMatches.filter(
+    (e) => e.statusInternal === 'mentorship ended',
+  );
+
+  /*
+  // get User Data
   const currentUserMatchAccceptsData = Promise.all(
     currentUserMatchAccepts.map((m) => {
       const mentee = getUserById(m.menteeUserId);
@@ -31,10 +42,6 @@ export default async function matchingOverviewMentors() {
     }),
   );
 
-  // get only Match Requests
-  const currentUserMatchRequests = currentUserMatches.filter(
-    (e) => e.statusInternal === 'mentee requested mentor',
-  );
 
   const currentUserMatchRequestsData = Promise.all(
     currentUserMatchRequests.map((m) => {
@@ -43,17 +50,13 @@ export default async function matchingOverviewMentors() {
     }),
   );
 
-  // get only past matches
-  const currentUserPastMatches = currentUserMatches.filter(
-    (e) => e.statusInternal === 'mentorship ended',
-  );
 
   const currentUserPastMatchesData = Promise.all(
     currentUserPastMatches.map((m) => {
       const mentee = getUserById(m.menteeUserId);
       return mentee;
     }),
-  );
+  ); */
 
   return (
     <main>
