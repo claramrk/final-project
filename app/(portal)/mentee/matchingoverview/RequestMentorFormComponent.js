@@ -76,6 +76,9 @@ export default function RequestMentorFormComponent(props) {
               return (
                 <div
                   key={`uniqueID-${d.id}`}
+                  data-testid={`uniqueID-${topThreeMentorsWithPersonalDataListValue.indexOf(
+                    d,
+                  )}-radio`}
                   className={`card blurry ${
                     Number(mentorSelection) === Number(d.id)
                       ? 'border-4	border-neutral	'

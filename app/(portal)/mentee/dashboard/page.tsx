@@ -91,7 +91,10 @@ export default async function dashboard() {
             {currentUserMatchRequests.map(async (u) => {
               const userData = await getUserData(u.mentorUserId);
               return (
-                <div key={`id-${u.id}`}>
+                <div
+                  key={`id-${u.id}`}
+                  data-testId={`id-${currentUserMatchRequests.length}-requested`}
+                >
                   <MentorTableComponent
                     id={userData?.id}
                     badgetext="requested"

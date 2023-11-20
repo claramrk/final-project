@@ -73,7 +73,10 @@ export default async function TopMentorsComponent() {
             );
 
             return (
-              <div key={`uniqueID-${topThreeMentorsList.id}`}>
+              <div
+                key={`uniqueID-${topThreeMentorsList.id}`}
+                data-testid={`uniqueID-${topThreeMentorsList.indexOf(d)}`}
+              >
                 <details className="collapse card blurry collapse-arrow">
                   <summary className="collapse-title text-xl font-medium">
                     <div>
@@ -107,7 +110,12 @@ export default async function TopMentorsComponent() {
                       </div>
                     </div>
                   </summary>
-                  <div className="collapse-content">
+                  <div
+                    className="collapse-content"
+                    data-testid={`uniqueID-${topThreeMentorsList.indexOf(
+                      d,
+                    )}-collapse-content`}
+                  >
                     <div>
                       <table className="table">
                         <thead>

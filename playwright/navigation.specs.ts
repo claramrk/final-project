@@ -18,14 +18,17 @@ function makeEmail(length: number) {
 function getRandomUni() {
   const universityarray = universitylist;
   const max = universityarray.length > 1 ? universityarray.length : 1;
-  const randomUniId = Math.floor(Math.random() * max);
+  const randomUniId = Math.floor(Math.random() * (max - 1) + 1);
+  console.log(String(randomUniId));
+
   return String(randomUniId);
 }
 
 function getRandomSubject() {
   const subjectarray = subjectlist;
   const max = subjectarray.length > 1 ? subjectarray.length : 1;
-  const randomSubjectId = Math.floor(Math.random() * max);
+  const randomSubjectId = Math.floor(Math.random() * (max - 1) + 1);
+  console.log(String(randomSubjectId));
   return String(randomSubjectId);
 }
 
@@ -115,4 +118,26 @@ test('navigation test', async ({ page }) => {
   // navigate to MatchingOverview
   await page.waitForURL('http://localhost:3000/mentee/matchingoverview');
   await expect(page).toHaveURL('http://localhost:3000/mentee/matchingoverview');
+
+  await expect(page.locator('[data-testid="uniqueID-0"]')).toBeVisible();
+
+  await page.locator('[data-testid="uniqueID-0"]').click();
+  await expect(
+    page.locator('[data-testid="uniqueID-0-collapse-content"]'),
+  ).toBeVisible();
+
+  await page.locator('[data-testid="uniqueID-1-radio"]').click();
+  await page.getByPlaceholder('Your message').fill(makeEmail(30));
+  await page.getByRole('button', { name: 'Send mentor request' }).click();
+
+  // navigate to MenteeDashboard
+  await page.waitForURL('http://localhost:3000/mentee/dashboard');
+  await expect(page).toHaveURL('http://localhost:3000/mentee/dashboard');
+
+  await page.locator('[data-testid="id-1-requested"]').click();
+
+  // signOut
+  await page.getByRole('button', { name: 'Sign Out' }).click();
+  await page.waitForURL('http://localhost:3000/signIn');
+  await expect(page).toHaveURL('http://localhost:3000/signIn');
 });
