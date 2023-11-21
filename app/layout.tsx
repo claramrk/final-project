@@ -22,7 +22,7 @@ export default function RootLayout(props: Props) {
     (await getUserBySessionToken(sessionTokenCookie.value)); */
 
   return (
-    <html lang="en" className="">
+    <html lang="en" className="h-screen">
       <body className="h-full flex flex-col">{props.children}</body>
     </html>
   );
