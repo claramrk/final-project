@@ -33,6 +33,7 @@ export default function MentoringEndFormComponent(props: Props) {
       onSubmit={async (event) => {
         event.preventDefault();
         await handleEndMatch();
+        router.refresh();
       }}
     >
       <button

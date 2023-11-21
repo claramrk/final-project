@@ -36,7 +36,7 @@ export default function MatchResponseComponent(props: Props) {
       }}
     >
       {acceptRequest ? (
-        <div>
+        <>
           <label htmlFor="reasonRejection">
             {acceptRequest === 'mentor accepted match'
               ? 'Please write a short message to your mentee:'
@@ -44,19 +44,13 @@ export default function MatchResponseComponent(props: Props) {
             <span id="required">*</span>
           </label>
           <div className="chat chat-start">
-            <div className="chat-bubble bg-gray-200">
-              <textarea
-                id="reasonRejection"
-                className="bg-transparent border-transparent hover:border-transparent leading-6 text-gray-600 text-justify mt-1"
-                onChange={(event) =>
-                  setResponseInput(event.currentTarget.value)
-                }
-              />
-            </div>
+            <textarea
+              id="reasonRejection"
+              className="chat-bubble bg-gray-200"
+              onChange={(event) => setResponseInput(event.currentTarget.value)}
+            />
           </div>
-          {/*           <button className="btn-custom-primary">Submit response</button>
-           */}{' '}
-        </div>
+        </>
       ) : (
         ''
       )}
