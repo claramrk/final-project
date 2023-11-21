@@ -109,6 +109,72 @@ export const getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject =
     return menteeUniversityApplicationsbyUserIDWithUniAndSubject;
   });
 
+export type MenteeUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin = {
+  id: number;
+  userId: number;
+  studylevel: number;
+  universityOneName: string;
+  universityOneCountryId: string;
+  universityTwoName: string;
+  universityTwoCountryId: string;
+  universityThreeName: string;
+  universityThreeCountryId: string;
+  subjectOneName: string;
+  subjectOneDiscipline: string;
+  subjectTwoName: string;
+  subjectTwoDiscipline: string;
+  subjectThreeName: string;
+  subjectThreeDiscipline: string;
+};
+
+export const getMenteeApplicationsByUserIDWithUniAndSubjectInnerJoin = cache(
+  async (userId: number) => {
+    const [mentorUniversityBackgroundbyUserIDWithUniAndSubject] = await sql<
+      MenteeUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin[]
+    >`
+      SELECT
+        mentee_university_applications.id,
+        mentee_university_applications.user_id,
+        mentee_university_applications.studylevel,
+        uni_one.name AS university_one_name,
+        uni_one.country_id AS university_one_country_id,
+        uni_two.name AS university_two_name,
+        uni_two.country_id AS university_two_country_id,
+        uni_three.name AS university_three_name,
+        uni_three.country_id AS university_three_country_id,
+        subjects_one.name AS subject_one_name,
+        subjects_one.discipline AS subject_one_discipline,
+        subjects_two.name AS subject_two_name,
+        subjects_two.discipline AS subject_two_discipline,
+        subjects_three.name AS subject_three_name,
+        subjects_three.discipline AS subject_three_discipline
+      FROM
+        mentee_university_applications
+        INNER JOIN universities uni_one ON (
+          mentee_university_applications.first_university_id = uni_one.id
+        )
+        INNER JOIN universities uni_two ON (
+          mentee_university_applications.second_university_id = uni_two.id
+        )
+        INNER JOIN universities uni_three ON (
+          mentee_university_applications.third_university_id = uni_three.id
+        )
+        INNER JOIN subjects subjects_one ON (
+          mentee_university_applications.first_subject_id = subjects_one.id
+        )
+        INNER JOIN subjects subjects_two ON (
+          mentee_university_applications.second_subject_id = subjects_two.id
+        )
+        INNER JOIN subjects subjects_three ON (
+          mentee_university_applications.third_subject_id = subjects_three.id
+        )
+      WHERE
+        user_id = ${userId}
+    `;
+    return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
+  },
+);
+
 /* export const getMenteeBestMentorMatchesById = cache(async (userId: number) => {
   // return roles;
   const [menteeBestMentorMatches] = await sql<

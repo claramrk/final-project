@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
-import { getUserBySessionToken } from '../../../../database/users';
+import { getUserById, getUserBySessionToken } from '../../../../database/users';
+import MenteeTableComponent from '../../../components/MenteeTableComponent';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
-import MatchResponseComponent from './MatchResponseComponent';
 
 export default async function matchingOverviewMentors() {
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -58,6 +58,11 @@ export default async function matchingOverviewMentors() {
     }),
   ); */
 
+  async function getUserData(id: number) {
+    const user = await getUserById(id);
+    return user;
+  }
+
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
@@ -104,13 +109,22 @@ export default async function matchingOverviewMentors() {
           id="exampleRequestedMatchesList"
           // filter matching list here
         >
-          {currentUserMatchRequests.map((m) => {
+          {currentUserMatchRequests.map(async (m) => {
+            const userData = await getUserData(m.menteeUserId);
+
             return (
-              <div key={`mentee-${m.id}`} className="card sub-blurry">
-                Match request | {m.menteeUserId} Menteename | Mentee contact
-                info | Mentee targetunis | Mentee targetsubjects | mentee
-                targetstudylevel | Match active since: DATE
-                <MatchResponseComponent match={m} />
+              <div key={`mentee-${m.id}`}>
+                <MenteeTableComponent
+                  mentee={m}
+                  id={userData?.id}
+                  badgetext="request"
+                  badgecolor="badge badge-accent badge-outline"
+                  photo={userData?.photo}
+                  email={userData?.email}
+                  firstname={userData?.firstname}
+                  countryId={userData?.countryId}
+                  messageToMentor={m.messageToMentor}
+                />
               </div>
             );
           })}
