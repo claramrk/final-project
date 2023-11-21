@@ -4,6 +4,7 @@ import { getMatchesByMentorId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import MenteeTableComponent from '../../../components/MenteeTableComponent';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
+import MatchResponseComponent from './MatchResponseComponent';
 
 export default async function matchingOverviewMentors() {
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -82,16 +83,26 @@ export default async function matchingOverviewMentors() {
           id="exampleActiveMatchesList"
           // filter matching list here
         >
-          {currentUserMatchAccepts.map((m) => {
+          {currentUserMatchAccepts.map(async (m) => {
+            const userData = await getUserData(m.menteeUserId);
+
             return (
-              <div key={`mentee-${m.id}`} className="card sub-blurry">
-                Active Match #1: | {m.menteeUserId} Menteename | Mentee contact
-                info | Mentee targetunis | Mentee targetsubjects | mentee
-                targetstudylevel | Match active since: DATE
-                <MentoringEndFormComponent
-                  match={m}
-                  buttonText="I am no longer mentoring this mentee"
-                />
+              <div key={`mentee-${m.id}`}>
+                <MenteeTableComponent
+                  id={userData?.id}
+                  badgetext="active"
+                  badgecolor="badge badge-accent badge-outline"
+                  photo={userData?.photo}
+                  email={userData?.email}
+                  firstname={userData?.firstname}
+                  countryId={userData?.countryId}
+                  messageToMentor={m.messageToMentor}
+                >
+                  <MentoringEndFormComponent
+                    match={m}
+                    buttonText="I am no longer mentoring this mentee"
+                  />
+                </MenteeTableComponent>
               </div>
             );
           })}
@@ -115,16 +126,17 @@ export default async function matchingOverviewMentors() {
             return (
               <div key={`mentee-${m.id}`}>
                 <MenteeTableComponent
-                  mentee={m}
                   id={userData?.id}
                   badgetext="request"
-                  badgecolor="badge badge-accent badge-outline"
+                  badgecolor="badge badge-neutral badge-outline"
                   photo={userData?.photo}
                   email={userData?.email}
                   firstname={userData?.firstname}
                   countryId={userData?.countryId}
                   messageToMentor={m.messageToMentor}
-                />
+                >
+                  <MatchResponseComponent match={m} />
+                </MenteeTableComponent>
               </div>
             );
           })}

@@ -1,10 +1,7 @@
-import MatchResponseComponent from '../(portal)/mentor/matchingoverview/MatchResponseComponent';
 import { getDegreeTypeById } from '../../database/degreetype';
 import { getMenteeApplicationsByUserIDWithUniAndSubjectInnerJoin } from '../../database/menteeTargetUniversitySubject';
-import { Match } from '../../migrations/00015-createTableMatches';
 
 type Props = {
-  mentee: Match;
   id: number | undefined;
   badgetext: string | undefined;
   badgecolor: string | undefined;
@@ -13,6 +10,7 @@ type Props = {
   firstname: string | null | undefined;
   countryId: string | null | undefined;
   messageToMentor: string | null | undefined;
+  children: any;
 };
 
 export default async function MenteeTableComponent(props: Props) {
@@ -54,7 +52,9 @@ export default async function MenteeTableComponent(props: Props) {
                       {props.firstname}{' '}
                       <div className={props.badgecolor}>{props.badgetext}</div>
                     </div>
-                    <div className="text-sm opacity-50">{props.countryId} </div>
+                    <div className="text-sm opacity-50">
+                      {props.countryId} | {studylevelName?.name}{' '}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -64,17 +64,17 @@ export default async function MenteeTableComponent(props: Props) {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th>Studylevel</th>
-                      <th>University & Country</th>
-                      <th>Subject & Discipline</th>
-                      <th>Degree & Attendance Type</th>
+                      <th> </th>
+                      <th>First choice</th>
+                      <th>Second Choice</th>
+                      <th>Third Choice</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>
-                        <p className="tablefont-custom-primary">
-                          {studylevelName?.name}
+                        <p className="tablefont-custom-primary font-bold">
+                          Universities
                         </p>
                       </td>
                       <td>
@@ -107,12 +107,14 @@ export default async function MenteeTableComponent(props: Props) {
                     </tr>
                     <tr>
                       <td>
-                        <p className="tablefont-custom-primary"> </p>
+                        <p className="tablefont-custom-primary font-bold">
+                          Subjects
+                        </p>
                       </td>
                       <td>
                         <p className="tablefont-custom-primary">
-                          {uniBackground.subjectOneName.length > 60
-                            ? `${uniBackground.subjectOneName.slice(0, 60)}...`
+                          {uniBackground.subjectOneName.length > 40
+                            ? `${uniBackground.subjectOneName.slice(0, 40)}...`
                             : uniBackground.subjectOneName}
                         </p>
 
@@ -122,8 +124,8 @@ export default async function MenteeTableComponent(props: Props) {
                       </td>
                       <td>
                         <p className="tablefont-custom-primary">
-                          {uniBackground.subjectTwoName.length > 60
-                            ? `${uniBackground.subjectTwoName.slice(0, 60)}...`
+                          {uniBackground.subjectTwoName.length > 40
+                            ? `${uniBackground.subjectTwoName.slice(0, 40)}...`
                             : uniBackground.subjectTwoName}
                         </p>
 
@@ -133,10 +135,10 @@ export default async function MenteeTableComponent(props: Props) {
                       </td>
                       <td>
                         <p className="tablefont-custom-primary">
-                          {uniBackground.subjectThreeName.length > 60
+                          {uniBackground.subjectThreeName.length > 40
                             ? `${uniBackground.subjectThreeName.slice(
                                 0,
-                                60,
+                                40,
                               )}...`
                             : uniBackground.subjectThreeName}
                         </p>
@@ -149,8 +151,7 @@ export default async function MenteeTableComponent(props: Props) {
                   </tbody>
                 </table>
               </div>
-              <MatchResponseComponent match={props.mentee} />
-
+              {props.children}
               <div className="chat chat-end">
                 <div className="chat-image avatar">
                   <div className="w-10 rounded-full">
