@@ -2,11 +2,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getAttendanceTypeById } from '../../../../database/attendancetype';
 import { getDegreeTypeById } from '../../../../database/degreetype';
-import {
-  getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW,
-  getUserById,
-  getUserBySessionToken,
-} from '../../../../database/users';
+import { getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW } from '../../../../database/mentorUniversityBackground';
+import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import { getTopThreeMentors } from '../../../../util/matchingAlgorithm';
 import RequestMentorFormComponent from './RequestMentorFormComponent';
 

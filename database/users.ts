@@ -165,7 +165,7 @@ export const putPersonalDataByUserID = cache(
     return personalDataInfoUsers;
   },
 );
-
+/*
 export type MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG = {
   usersId: number;
   usersRoleId: number;
@@ -285,7 +285,7 @@ export const getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjec
     `;
     return mentorUniversityBackgroundbyUserIDWithUniAndSubject;
   });
-
+ */
 /*
 
 
