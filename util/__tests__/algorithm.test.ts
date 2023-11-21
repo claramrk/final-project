@@ -397,5 +397,5 @@ test('checkTopThreeMentors', () => {
     userWithUniversityApplication,
     userUniversityApplicationOnly,
   );
-  expect(result).toBe(topThreeMentors);
+  expect(result).toStrictEqual(topThreeMentors);
 });
