@@ -92,7 +92,7 @@ export default async function TopMentorsComponent() {
                         </div>
                         <div>
                           <div className="font-bold">
-                            {mentorUserDataWithUniInfoObjectROW.firstname}
+                            {mentorUserDataWithUniInfoObjectROW.firstname}{' '}
                             <div className="badge badge-neutral badge-outline">
                               Match
                             </div>
@@ -117,9 +117,9 @@ export default async function TopMentorsComponent() {
                       <table className="table">
                         <thead>
                           <tr>
-                            <th>University & Degreetype</th>
+                            <th>University & Country</th>
                             <th>Subject & Discipline</th>
-                            <th>Attendance Type</th>
+                            <th>Degree & Attendance</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -135,15 +135,6 @@ export default async function TopMentorsComponent() {
                               <tr key={`uniqueID-${e.id}`}>
                                 <td>
                                   <p className="tablefont-custom-primary">
-                                    {studylevelName.name}
-                                  </p>
-
-                                  <p className="tablefont-custom-secondary">
-                                    {attendancetypeName.name}
-                                  </p>
-                                </td>
-                                <td>
-                                  <p className="tablefont-custom-primary">
                                     {e.universities[0].name}
                                   </p>
 
@@ -153,13 +144,22 @@ export default async function TopMentorsComponent() {
                                 </td>
                                 <td>
                                   <p className="tablefont-custom-primary">
-                                    {e.subjects[0].name.length > 60
-                                      ? `${e.subjects[0].name.slice(0, 60)}...`
+                                    {e.subjects[0].name.length > 40
+                                      ? `${e.subjects[0].name.slice(0, 40)}...`
                                       : e.subjects[0].name}
                                   </p>
 
                                   <p className="tablefont-custom-secondary">
                                     {e.subjects[0].discipline}
+                                  </p>
+                                </td>
+                                <td>
+                                  <p className="tablefont-custom-primary">
+                                    {studylevelName.name}
+                                  </p>
+
+                                  <p className="tablefont-custom-secondary">
+                                    {attendancetypeName.name}
                                   </p>
                                 </td>
                               </tr>

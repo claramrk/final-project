@@ -30,9 +30,9 @@ export default async function dashboard() {
   );
 
   // filter to only past matches
-  /*   const currentUserPastMatches = currentUserMatches.filter(
+  const currentUserPastMatches = currentUserMatches.filter(
     (e) => e.statusInternal === 'mentorship ended',
-  ); */
+  );
 
   // get User Data function
 
@@ -141,22 +141,30 @@ export default async function dashboard() {
               </div>
             );
           })}
-          {/*  {currentUserMatchAccepts.map((m) => {
+        </div>
+      ) : (
+        ''
+      )}
+      {currentUserPastMatches.length > 0 ? (
+        <div id="activeMatchesSection" className="card blurry">
+          <h2 className="h2-custom-primary">Inactive Matches</h2>
+          {currentUserPastMatches.map(async (u) => {
+            const userData = await getUserData(u.mentorUserId);
+
             return (
-              <div key={`mentee-${m.id}`} className="card sub-blurry">
-                <p className="p-custom-primary">
-                  Active Match Mentorphoto | | Mentor contact info | Mentor uni
-                  & subject & studylevel 1 | Mentor uni & subject & studylevel 2
-                  | Mentor uni & subject & studylevel 3 | Match active since:
-                  DATE
-                </p>
-                <MentoringEndFormComponent
-                  match={m}
-                  buttonText="I am no longer being mentored by this mentor"
+              <div key={`id-${u.id}`}>
+                <MentorTableComponent
+                  id={userData?.id}
+                  badgetext="inactive"
+                  badgecolor="badge badge-default badge-outline"
+                  photo={userData?.photo}
+                  email={userData?.email}
+                  firstname={userData?.firstname}
+                  countryId={userData?.countryId}
                 />
               </div>
             );
-          })} */}
+          })}
         </div>
       ) : (
         ''

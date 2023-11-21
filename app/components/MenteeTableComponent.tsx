@@ -1,10 +1,9 @@
 import { getDegreeTypeById } from '../../database/degreetype';
 import { getMenteeApplicationsByUserIDWithUniAndSubjectInnerJoin } from '../../database/menteeTargetUniversitySubject';
 import { getUserById } from '../../database/users';
-import { Match } from '../../migrations/00015-createTableMatches';
 
 type Props = {
-  match: Match;
+  menteeMatchId: number;
   badgetext: string | undefined;
   badgecolor: string | undefined;
   /*   id: number | undefined;
@@ -31,8 +30,8 @@ export default async function MenteeTableComponent(props: Props) {
     return uniBackground;
   }
 
-  const userData = await getUserData(props.match.menteeUserId);
-  const uniBackground = await getUniBackground(props.match.menteeUserId);
+  const userData = await getUserData(props.menteeMatchId);
+  const uniBackground = await getUniBackground(props.menteeMatchId);
 
   if (!userData) {
     return '';

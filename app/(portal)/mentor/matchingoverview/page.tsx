@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
-import { getMenteeApplicationsByUserIDWithUniAndSubjectInnerJoin } from '../../../../database/menteeTargetUniversitySubject';
-import { getUserById, getUserBySessionToken } from '../../../../database/users';
+import { getUserBySessionToken } from '../../../../database/users';
 import MenteeTableComponent from '../../../components/MenteeTableComponent';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
 import MatchResponseComponent from './MatchResponseComponent';
@@ -35,31 +34,6 @@ export default async function matchingOverviewMentors() {
     (e) => e.statusInternal === 'mentorship ended',
   );
 
-  /*
-  // get User Data
-  const currentUserMatchAccceptsData = Promise.all(
-    currentUserMatchAccepts.map((m) => {
-      const mentee = getUserById(m.menteeUserId);
-      return mentee;
-    }),
-  );
-
-
-  const currentUserMatchRequestsData = Promise.all(
-    currentUserMatchRequests.map((m) => {
-      const mentee = getUserById(m.menteeUserId);
-      return mentee;
-    }),
-  );
-
-
-  const currentUserPastMatchesData = Promise.all(
-    currentUserPastMatches.map((m) => {
-      const mentee = getUserById(m.menteeUserId);
-      return mentee;
-    }),
-  ); */
-
   return (
     <main>
       <div id="pageHeaderSection" className="card blurry">
@@ -85,7 +59,7 @@ export default async function matchingOverviewMentors() {
                 <MenteeTableComponent
                   badgetext="request"
                   badgecolor="badge badge-neutral badge-outline"
-                  match={m}
+                  menteeMatchId={m.menteeUserId}
                 />
                 <MatchResponseComponent match={m} />
               </div>
@@ -109,7 +83,7 @@ export default async function matchingOverviewMentors() {
             return (
               <div key={`mentee-${m.id}`} className="card blurry">
                 <MenteeTableComponent
-                  match={m}
+                  menteeMatchId={m.menteeUserId}
                   badgetext="active"
                   badgecolor="badge badge-accent badge-outline"
                 />
@@ -138,7 +112,7 @@ export default async function matchingOverviewMentors() {
                 <MenteeTableComponent
                   badgetext="inactive"
                   badgecolor="badge badge-default badge-outline"
-                  match={m}
+                  menteeMatchId={m.menteeUserId}
                 />
               </div>
             );

@@ -5,6 +5,7 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import MenteeTableComponent from '../../../components/MenteeTableComponent';
 import MenteeMatchingInfoFormComponent from './MenteeMatchingInfoFormComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
 
@@ -71,9 +72,13 @@ export default async function menteeMatchingData() {
               {' '}
               Your target universities and subjects:{' '}
             </h2>
-            <p className="p-custom-primary">
-              Current indications: {JSON.stringify(userTargets)}
-            </p>
+            <div className="card blurry">
+              <MenteeTableComponent
+                badgetext="submitted"
+                badgecolor="badge badge-accent badge-outline"
+                menteeMatchId={currentUser.id}
+              />
+            </div>
           </div>
           <div id="matchingInformationSection">
             <MenteeMatchingInfoFormComponent
