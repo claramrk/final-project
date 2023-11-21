@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import {
   getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
   MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG,
-} from '../../../../database/users';
+} from '../../../../database/mentorUniversityBackgroundTwo';
 
 // get user
 type UserResponseBodyGet =

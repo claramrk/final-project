@@ -6,7 +6,6 @@ const createJestConfig = nextJest({
 });
 
 /** @type {import('jest').Config} */
-
 const config = {
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['<rootDir>/playwright/'],
