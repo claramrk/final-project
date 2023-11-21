@@ -18,6 +18,7 @@ export default async function personaldata() {
   if (!currentUser || !currentUser.userRolesId) redirect('/signIn?returnTo=/#');
 
   const currentUserRole = currentUser.userRolesId[0];
+  if (!currentUserRole) redirect('/signIn?returnTo=/#');
 
   if (!currentUserRole.name) {
     console.log('error');

@@ -7,7 +7,7 @@ import {
   getUserById,
   getUserBySessionToken,
 } from '../../../../database/users';
-import getTopThreeMentors from '../../../../util/matchingAlgorithm';
+import { getTopThreeMentors } from '../../../../util/matchingAlgorithm';
 import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function TopMentorsComponent() {

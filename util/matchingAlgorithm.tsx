@@ -1,68 +1,20 @@
-import { getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject } from '../database/menteeTargetUniversitySubject';
+import {
+  getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject,
+  MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG,
+} from '../database/menteeTargetUniversitySubject';
 import { getRoleByName } from '../database/roles';
-import { getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject } from '../database/users';
+import {
+  getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject,
+  MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG,
+} from '../database/users';
 import { UserAll } from '../migrations/00008-createTableUsers';
+import { MenteeTargetUniversitySubject } from '../migrations/00013-createTableMenteeUniversityApplications';
 
-export default async function getTopThreeMentors(currentUser: UserAll) {
-  const menteeRole = await getRoleByName('approved mentee');
-
-  if (!menteeRole) {
-    console.log('error - no menteerole');
-  }
-
-  if (currentUser.roleId !== menteeRole?.id) {
-    console.log('error - no user role overlap');
-  }
-
-  const userWithUniversityApplication =
-    await getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject(
-      currentUser.id,
-    );
-
-  if (!userWithUniversityApplication) {
-    console.log('error - university application');
-  }
-
-  const userUniversityApplication =
-    userWithUniversityApplication?.userMenteeUniversityApplications;
-
-  if (!userUniversityApplication) {
-    console.log('error - university application');
-  }
-
-  const userUniversityApplicationOnly = userUniversityApplication?.at(0)
-    ? userUniversityApplication[0]
-    : undefined;
-
-  if (!userUniversityApplicationOnly) {
-    console.log('error - no university application');
-  }
-  const usersWithUniversityBackground =
-    await getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject();
-
-  // filter to those who have "confirmed mentor -> id=3" or "confirmed mentee -> id=6" - not specifically necessary but just to make sure
-
-  const confirmedMentors = usersWithUniversityBackground.filter(
-    (user) => user.usersRoleId === 3,
-  );
-
-  /*   const matches = await getAllMatches(); */
-
-  // filter to only those who have  null or undefined in "pause until"  - aka are active
-  /* const confirmedMentorsNoPause = confirmedMentors.filter(
-    (user) => !user.usersPauseUntil,
-  );
- */
-  // filter mentors who have maxcapacity count of active or requested pairings - later!
-
-  /*   const confirmedMentorsWithCapacity = confirmedMentors.filter(
-    (user) => Number(getMatchesCountByID(user.usersId)) < user.usersMaxCapacity,
-  ); */
-
-  // filter mentors to those that do not contain the mentees user id in their "rejected" or "past mentors" column - later
-
-  // check matches of mentor background anad mentee input and assign true and false
-
+export function matching(
+  confirmedMentors: MentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONAGG[],
+  userWithUniversityApplication: MenteeUniversityApplicationsbyUserIDWithUniAndSubjectJSONAGG,
+  userUniversityApplicationOnly: MenteeTargetUniversitySubject,
+) {
   const matchingArray = [
     {
       menteeUserId: 0,
@@ -103,35 +55,33 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
     };
 
     matchingTest.mentorUserId = element.usersId;
-    matchingTest.menteeUserId = Number(userWithUniversityApplication?.usersId);
+    matchingTest.menteeUserId = Number(userWithUniversityApplication.usersId);
 
     if (
-      element.usersCountryId === userWithUniversityApplication?.usersCountryId
+      element.usersCountryId === userWithUniversityApplication.usersCountryId
     ) {
       matchingTest.originCountryMatch = weights.countryMatchWeight;
     }
     element.userMentorUniversityBackgrounds?.forEach((e: any) => {
-      if (e.universityId === userUniversityApplicationOnly?.firstUniversityId) {
+      if (e.universityId === userUniversityApplicationOnly.firstUniversityId) {
         matchingTest.menteeUniOneMatch = weights.universityMatchWeight;
       }
-      if (
-        e.universityId === userUniversityApplicationOnly?.secondUniversityId
-      ) {
+      if (e.universityId === userUniversityApplicationOnly.secondUniversityId) {
         matchingTest.menteeUniTwoMatch = weights.universityMatchWeight;
       }
-      if (e.universityId === userUniversityApplicationOnly?.thirdUniversityId) {
+      if (e.universityId === userUniversityApplicationOnly.thirdUniversityId) {
         matchingTest.menteeUniThreeMatch = weights.universityMatchWeight;
       }
-      if (e.subjectId === userUniversityApplicationOnly?.firstSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly.firstSubjectId) {
         matchingTest.menteeSubjectOneMatch = weights.subjectMatchWeight;
       }
-      if (e.subjectId === userUniversityApplicationOnly?.secondSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly.secondSubjectId) {
         matchingTest.menteeSubjectTwoMatch = weights.subjectMatchWeight;
       }
-      if (e.subjectId === userUniversityApplicationOnly?.thirdSubjectId) {
+      if (e.subjectId === userUniversityApplicationOnly.thirdSubjectId) {
         matchingTest.menteeSubjectThreeMatch = weights.subjectMatchWeight;
       }
-      if (e.studylevel === userUniversityApplicationOnly?.studylevel) {
+      if (e.studylevel === userUniversityApplicationOnly.studylevel) {
         matchingTest.studylevelMatch = weights.studylevelMatchWeight;
       }
     });
@@ -148,8 +98,80 @@ export default async function getTopThreeMentors(currentUser: UserAll) {
 
     return matchingArray;
   });
+  return matchingArray;
+}
 
-  const sortedArray = matchingArray.sort(function (a, b) {
+export async function getTopThreeMentors(currentUser: UserAll) {
+  const menteeRole = await getRoleByName('approved mentee');
+
+  if (!menteeRole) {
+    console.log('error - no menteerole');
+    return [];
+  }
+
+  if (currentUser.roleId !== menteeRole.id) {
+    console.log('error - no user role overlap');
+    return [];
+  }
+
+  const userWithUniversityApplication =
+    await getUserWithMenteeUniversityApplicationsbyIdWithUniAndSubject(
+      currentUser.id,
+    );
+
+  if (!userWithUniversityApplication) {
+    console.log('error - university application');
+    return [];
+  }
+
+  const userUniversityApplication =
+    userWithUniversityApplication.userMenteeUniversityApplications;
+
+  if (!userUniversityApplication) {
+    console.log('error - university application');
+    return [];
+  }
+
+  const userUniversityApplicationOnly = userUniversityApplication.at(0)
+    ? userUniversityApplication[0]
+    : undefined;
+
+  if (!userUniversityApplicationOnly) {
+    console.log('error - no university application');
+    return [];
+  }
+  const usersWithUniversityBackground =
+    await getUsersWithMentorUniversityBackgroundbyUserIDWithUniAndSubject();
+
+  // filter to those who have "confirmed mentor -> id=3" or "confirmed mentee -> id=6" - not specifically necessary but just to make sure
+
+  const confirmedMentors = usersWithUniversityBackground.filter(
+    (user) => user.usersRoleId === 3,
+  );
+
+  /*   const matches = await getAllMatches(); */
+
+  // filter to only those who have  null or undefined in "pause until"  - aka are active
+  /* const confirmedMentorsNoPause = confirmedMentors.filter(
+    (user) => !user.usersPauseUntil,
+  );
+ */
+  // filter mentors who have maxcapacity count of active or requested pairings - later!
+
+  /*   const confirmedMentorsWithCapacity = confirmedMentors.filter(
+    (user) => Number(getMatchesCountByID(user.usersId)) < user.usersMaxCapacity,
+  ); */
+
+  // filter mentors to those that do not contain the mentees user id in their "rejected" or "past mentors" column - later
+
+  // check matches of mentor background anad mentee input and assign true and false
+
+  const matchedArray = matching(
+    confirmedMentors,
+    userWithUniversityApplication,
+    userUniversityApplicationOnly,
+  );
+  const sortedArray = matchedArray.sort(function (a, b) {
     return Number(a.finalSum) - Number(b.finalSum);
   });
 
