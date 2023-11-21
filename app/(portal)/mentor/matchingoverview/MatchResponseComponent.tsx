@@ -35,35 +35,57 @@ export default function MatchResponseComponent(props: Props) {
         router.refresh();
       }}
     >
-      <button
-        type="button"
-        className="btn-custom-primary"
-        onClick={() => setAcceptRequest('mentor accepted match')}
-      >
-        Accept match request
-      </button>
-      <button
-        type="button"
-        className="btn-custom-primary"
-        onClick={() => setAcceptRequest('mentor rejected match')}
-      >
-        Reject match request
-      </button>
       {acceptRequest ? (
-        <>
+        <div>
           <label htmlFor="reasonRejection">
             {acceptRequest === 'mentor accepted match'
               ? 'Please write a short message to your mentee:'
               : 'Please briefly indicate the reason for your acceptance or rejection:'}
             <span id="required">*</span>
           </label>
-          <textarea
-            id="reasonRejection"
-            className="textarea-custom-primary"
-            onChange={(event) => setResponseInput(event.currentTarget.value)}
-          />
-          <button className="btn-custom-primary">Submit response</button>
-        </>
+          <div className="chat chat-start">
+            <div className="chat-bubble bg-gray-200">
+              <textarea
+                id="reasonRejection"
+                className="bg-transparent border-transparent hover:border-transparent leading-6 text-gray-600 text-justify mt-1"
+                onChange={(event) =>
+                  setResponseInput(event.currentTarget.value)
+                }
+              />
+            </div>
+          </div>
+          {/*           <button className="btn-custom-primary">Submit response</button>
+           */}{' '}
+        </div>
+      ) : (
+        ''
+      )}
+      <button
+        type="button"
+        className={`btn-custom-primary ${
+          acceptRequest === 'mentor accepted match'
+            ? 'border-2	border-neutral	'
+            : '	'
+        }`}
+        onClick={() => setAcceptRequest('mentor accepted match')}
+      >
+        Accept match request
+      </button>
+      <button
+        type="button"
+        className={`btn-custom-primary ${
+          acceptRequest === 'mentor rejected match'
+            ? 'border-2	border-neutral'
+            : '	'
+        }`}
+        onClick={() => setAcceptRequest('mentor rejected match')}
+      >
+        Reject match request
+      </button>
+      {acceptRequest ? (
+        <button className="btn-custom-primary bg-neutral">
+          Submit response
+        </button>
       ) : (
         ''
       )}
