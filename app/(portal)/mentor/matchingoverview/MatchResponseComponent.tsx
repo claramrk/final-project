@@ -2,7 +2,6 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Match } from '../../../../migrations/00015-createTableMatches';
-import Timer from '../../../components/Timer';
 
 type Props = {
   match: Match;
