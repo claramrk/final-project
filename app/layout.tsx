@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
+import Footer from './components/Footer';
 
 export const metadata: Metadata = {
   title: 'Mentorship Platform',
@@ -22,8 +23,13 @@ export default function RootLayout(props: Props) {
     (await getUserBySessionToken(sessionTokenCookie.value)); */
 
   return (
-    <html lang="en" className="h-screen">
-      <body className="h-full flex flex-col">{props.children}</body>
+    <html lang="en" className="h-full">
+      <body className="h-full flex flex-col">
+        {props.children}{' '}
+        <div className="static bottom-0">
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }

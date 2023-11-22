@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionByToken } from '../../database/sessions';
-import Footer from '../components/Footer';
 import Navigation from '../components/Navigation';
 
 type Props = {
@@ -27,7 +26,7 @@ export default async function portalLayout(props: Props) {
       <header className="absolute inset-x-0 top-0 z-50">
         <Navigation />
       </header>
-      <div className="h-full isolate px-6 lg:px-8">
+      <div className=" isolate px-6 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60"
           aria-hidden="true"
@@ -47,10 +46,6 @@ export default async function portalLayout(props: Props) {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="static bottom-0">
-        <Footer />
       </div>
     </>
   );

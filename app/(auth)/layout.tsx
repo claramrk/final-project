@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Footer from '../components/Footer';
 
 type Props = {
   children: React.ReactNode;
@@ -185,7 +184,7 @@ export default function authLayout(props: Props) {
           </div>
         </div>
       </header>
-      <div className="h-screen isolate px-6 lg:px-8">
+      <div className="h-full isolate px-6 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60"
           aria-hidden="true"
@@ -205,10 +204,6 @@ export default function authLayout(props: Props) {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="static bottom-0">
-        <Footer />
       </div>
     </>
   );

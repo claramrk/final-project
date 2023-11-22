@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import { getRoles } from '../database/roles';
 import { getUserBySessionToken } from '../database/users';
 import { getRedirectPage } from '../util/pageNavigation';
-import Footer from './components/Footer';
 
 export default async function homePage() {
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -284,10 +283,6 @@ export default async function homePage() {
           </div>
         </div>
       </main>
-
-      <div className="static bottom-0">
-        <Footer />
-      </div>
     </div>
   );
 }
