@@ -30,6 +30,7 @@ export default async function personaldata() {
   }
 
   const menteeIncompleteRoleByName = await getRoleByName('incomplete mentee');
+  const mentorIncompleteRoleByName = await getRoleByName('incomplete mentor');
 
   const menteeCompleteRoleByName = await getRoleByName('complete mentee');
   const mentorCompleteRoleByName = await getRoleByName('complete mentor');
@@ -60,7 +61,20 @@ export default async function personaldata() {
             <li className="step">Apply to your dream uni!</li>
           </ul>
         ) : (
-          ' '
+          ''
+        )}
+        {currentUserRoleByName === mentorIncompleteRoleByName ? (
+          <ul className="steps">
+            <li className="step step-accent">Enter personal information</li>
+            <li className="step ">Enter academic background</li>
+            <li className="step">Submit registration & enter mentor pool</li>
+            <li className="step ">Wait for mentee match request</li>
+
+            <li className="step">Accept request within one week</li>
+            <li className="step">& start your mentorship journey</li>
+          </ul>
+        ) : (
+          ''
         )}
       </div>
       <div id="usersSection">

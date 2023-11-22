@@ -184,9 +184,9 @@ export default function authLayout(props: Props) {
           </div>
         </div>
       </header>
-      <div className="h-full isolate px-6 lg:px-8">
+      <main className="h-full isolate px-6 lg:px-8">
         <div
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60"
+          className="absolute inset-x-0  -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60"
           aria-hidden="true"
         >
           <div
@@ -197,14 +197,17 @@ export default function authLayout(props: Props) {
             }}
           />
         </div>
-        <div className="mx-auto max-w-6xl py-32 sm:py-24 lg:py-28">
-          <div className="hidden sm:mt-20  sm:mb-8 sm:flex sm:justify-center">
+        <div
+          className="mx-auto max-w-6xl py-32 " /* className="mx-auto max-w-6xl py-32 sm:py-24 lg:py-28" */
+        >
+          <div /* className="hidden sm:mt-20  sm:mb-8 sm:flex sm:justify-center" */
+          >
             <div id="main" className="container">
               {props.children}
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

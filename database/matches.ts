@@ -55,6 +55,18 @@ export const getMatchesByMenteeId = cache(async (id: number) => {
   return matches;
 });
 
+export const getMatchById = cache(async (id: number) => {
+  const [match] = await sql<Match[]>`
+    SELECT
+      *
+    FROM
+      matches
+    WHERE
+      id = ${Number(id)}
+  `;
+  return match;
+});
+
 export const putMatchResponse = cache(
   async (id: number, responseFromMentor: string, statusInternal: string) => {
     const [match] = await sql<Match[]>`

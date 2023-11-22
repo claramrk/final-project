@@ -23,7 +23,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
   const router = useRouter();
 
   async function handleCreateMentorUniversityBackground() {
-    const currentUserID =  Number(props.userdata.id);
+    const currentUserID = Number(props.userdata.id);
 
     await fetch('/../../../api/matchingdata/mentorUniversityBackground', {
       method: 'POST',
@@ -35,7 +35,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         subjectId: Number(subjectIdInput),
       }),
     });
-     router.refresh();
+    router.refresh();
   }
 
   return (
@@ -44,7 +44,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         event.preventDefault();
         await handleCreateMentorUniversityBackground();
       }}
-      className="mt-10 mb-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5"
+      className="mt-6 mb-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5"
     >
       <LabelAndSelectComponent
         inputName="selectUniversity"
@@ -123,7 +123,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
       </LabelAndSelectComponent>
 
       <button className="btn-custom-primary" id="submitPersonalDetails">
-        Add degree to my submitted Background
+        Add degree
       </button>
     </form>
   );

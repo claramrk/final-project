@@ -66,7 +66,7 @@ export default function SignUpForm(props: Props) {
             <legend className="label-custom-primary">
               Sign up as:<span id="required">*</span>
             </legend>
-            <div className="flex flex-row">
+            <div className="flex flex-row sm:flex-column">
               {filteredRolesMentee.map((d) => {
                 return (
                   <div
@@ -87,7 +87,7 @@ export default function SignUpForm(props: Props) {
                     >
                       {' '}
                       <div className="avatar">
-                        <div className="w-24 rounded-xl">
+                        <div className="lg:w-24 sm:w-sm rounded-xl">
                           <Image
                             alt="image-select-2"
                             width="60"
@@ -96,8 +96,12 @@ export default function SignUpForm(props: Props) {
                           />
                         </div>
                       </div>
-                      <h3 className="h3-custom-primary">Mentee</h3>
-                      <p className="p-custom-primary">Applying for uni!</p>
+                      <h3 className="h3-custom-primary pt-0">Mentee</h3>
+                      <p className="p-custom-primary text-center">
+                        Applying
+                        <br />
+                        for uni!
+                      </p>
                     </button>
                   </div>
                 );
@@ -106,7 +110,7 @@ export default function SignUpForm(props: Props) {
                 return (
                   <div
                     key={`dataID-radio-${d.id}`}
-                    className={`card blurry ${
+                    className={`card blurry  ${
                       role === d.id
                         ? 'border-4	border-neutral	'
                         : '	border-4	border-transparent	'
@@ -121,7 +125,7 @@ export default function SignUpForm(props: Props) {
                       }}
                     >
                       <div className="avatar">
-                        <div className="w-24 rounded-xl">
+                        <div className="lg:w-24 sm:w-sm rounded-xl">
                           <Image
                             alt="image-select-2"
                             width="60"
@@ -131,8 +135,10 @@ export default function SignUpForm(props: Props) {
                         </div>
                       </div>
 
-                      <h3 className="h3-custom-primary">Mentor</h3>
-                      <p className="p-custom-primary">Support others!</p>
+                      <h3 className="h3-custom-primary pt-0">Mentor</h3>
+                      <p className="p-custom-primary text-center">
+                        Support others!
+                      </p>
                     </button>
                   </div>
                 );

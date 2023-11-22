@@ -6,6 +6,7 @@ import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
 import MentorMatchingInfoFormComponent from './MentorMatchingInfoFormComponent';
+import MentorUniBackgroundTableComponent from './MentorUniBackgroundTableComponent';
 import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroundFormComponent';
 
 export default async function matchingdataMentors() {
@@ -20,8 +21,7 @@ export default async function matchingdataMentors() {
     sessionTokenCookie &&
     (await getUserBySessionToken(sessionTokenCookie.value));
 
-    if (!currentUser) redirect(`../signIn`);
-
+  if (!currentUser) redirect(`../signIn`);
 
   const userBackground = await getMentorUniversityBackgroundbyUserID(
     Number(currentUser.id),
@@ -32,6 +32,29 @@ export default async function matchingdataMentors() {
     <main id="visibleMENTORS">
       <div id="pageHeaderSection" className="card blurry">
         <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
+        {userBackground.length < 1 ? (
+          <ul className="steps">
+            <li className="step step-primary">Enter personal information</li>
+            <li className="step step-accent ">Enter academic background</li>
+            <li className="step">Submit registration & enter mentor pool</li>
+            <li className="step ">Wait for mentee match request</li>
+
+            <li className="step">Accept request within one week</li>
+            <li className="step">& start your mentorship journey</li>
+          </ul>
+        ) : (
+          <ul className="steps">
+            <li className="step step-primary">Enter personal information</li>
+            <li className="step step-primary">Enter academic background</li>
+            <li className="step step-accent">
+              Submit registration & enter mentor pool
+            </li>
+            <li className="step ">Wait for mentee match request</li>
+
+            <li className="step">Accept request within one week</li>
+            <li className="step">& start your mentorship journey</li>
+          </ul>
+        )}
       </div>
       <div
         id="universityInformationSection_visibleMENTORS"
@@ -51,11 +74,9 @@ export default async function matchingdataMentors() {
           />
         </div>
         <div id="showSubmitted">
-          <h3 className="h3-custom-primary">Submitted University Background</h3>
-
           <div className="overflow-x-auto">
-            <table className="table">
-              {/* head */}
+            <MentorUniBackgroundTableComponent id={currentUser.id} />
+            {/*   <table className="table">
               <thead>
                 <tr>
                   <th>University</th>
@@ -103,7 +124,7 @@ export default async function matchingdataMentors() {
                       );
                     })}
               </tbody>
-            </table>
+            </table> */}
           </div>
         </div>
       </div>

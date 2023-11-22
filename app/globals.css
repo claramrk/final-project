@@ -62,7 +62,7 @@
     @apply block text-xl font-semibold leading-6 text-gray-900;
   }
   .h3-custom-primary {
-    @apply block text-lg font-semibold leading-6 text-gray-900;
+    @apply block text-lg font-semibold leading-6 text-gray-900  pt-4;
   }
   .p-custom-primary {
     @apply mt-1 text-sm leading-6 text-gray-600 text-justify;

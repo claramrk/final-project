@@ -74,15 +74,6 @@ export const navigation = [
   },
 ];
 
-export function getNavigationPermissions(
-  userRoleName: string,
-  pageHref: string,
-) {
-  const currentPage = navigation.find((element) => pageHref === element.href);
-  const permissionCheck = currentPage?.permissionFor.includes(userRoleName);
-  return permissionCheck;
-}
-
 export function getRedirectPage(currentUserRole: Role) {
   const rerouteRoleSubType = currentUserRole.name;
 

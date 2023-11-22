@@ -49,7 +49,7 @@ export default function SignInFormComponent(props: Props) {
   }
 
   return (
-    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div className="card w-full max-w-sm shadow-2xl bg-base-100">
       <form
         className="card-body"
         id="signInForm"

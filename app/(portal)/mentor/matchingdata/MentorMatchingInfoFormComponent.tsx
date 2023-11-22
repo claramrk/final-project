@@ -55,6 +55,13 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
       }}
     >
       <div className="card blurry">
+        <h2 className="h2-custom-primary">Matching with your Mentee(s)</h2>
+        <h3 className="h3-custom-primary">Safeguarding</h3>
+        <p className="p-custom-primary">
+          The safety of our mentees is incredibly important to us. Every mentor
+          has to strictly adhere to our safeguarding guidelines, which you will
+          receive before the start of your first mentorship session.
+        </p>
         <h3 className="h3-custom-primary">Maximum Capacity</h3>
         <p className="p-custom-primary">
           We expect mentors to commit around 1-2 hours per month per mentee. You
@@ -82,12 +89,6 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         )}{' '}
       </div>
       <div className="card blurry">
-        <h3 className="h3-custom-primary">Safeguarding</h3>
-        <p className="p-custom-primary">
-          The safety of our mentees is incredibly important to us. Every mentor
-          has to strictly adhere to our safeguarding guidelines, which you will
-          receive before the start of your first mentorship session.
-        </p>
         {/*  <a
         className="link-custom-primary"
         // check how to download a pdf
@@ -107,8 +108,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         // check how to upload a pdf
       /> */}
         <div id="finalizeRegistrationSection">
-          <h3 className="h3-custom-primary">Next Steps:</h3>
-
+          <h2 className="h2-custom-primary">Next Steps:</h2>
           <p className="p-custom-primary">
             After clicking the "Register" button below our team will review your
             registration. After your registration is approved, you will join the
@@ -125,6 +125,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
             buttonText="Submit your matchinginfo"
             // should be available only when other info has been submitted
           />
+          b
         </div>
       </div>
     </form>

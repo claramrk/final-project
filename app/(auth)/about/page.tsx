@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import ButtonGoBack from '../components/ButtonGoBack';
+import ButtonGoBack from '../../components/ButtonGoBack';
 
 export default function about() {
   return (

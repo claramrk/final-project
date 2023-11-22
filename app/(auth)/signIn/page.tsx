@@ -26,7 +26,7 @@ export default async function signInPage() {
 
   return (
     <main>
-      <div className="hero py-2 sm:py-15 lg:py-20">
+      <div className="hero">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Sign In</h1>

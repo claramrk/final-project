@@ -11,6 +11,7 @@ jobs:
       PGDATABASE: next_js_example_fall_2023
       PGUSERNAME: next_js_example_fall_2023
       PGPASSWORD: next_js_example_fall_2023
+      NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: not-configured-in-test-environment
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
