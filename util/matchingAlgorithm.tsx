@@ -75,14 +75,5 @@ export async function getTopThreeMentors(currentUser: UserAll) {
     userUniversityApplicationOnly,
   );
 
-  console.log('const confirmedMentors=');
-  console.log(confirmedMentors);
-  console.log('const userWithUniversityApplication=');
-  console.log(userWithUniversityApplication);
-  console.log('const userUniversityApplicationOnly=');
-  console.log(userUniversityApplicationOnly);
-  console.log('const topThreeMentors=');
-  console.log(topThreeMentors);
-
   return topThreeMentors;
 }

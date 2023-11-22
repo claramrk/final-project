@@ -21,7 +21,7 @@ export default async function personaldata() {
   if (!currentUserRole) redirect('/signIn?returnTo=/#');
 
   if (!currentUserRole.name) {
-    console.log('error');
+    return;
   }
   const currentUserRoleByName = await getRoleByName(currentUserRole.name);
 

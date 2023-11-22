@@ -30,7 +30,6 @@ export default function SignUpForm(props: Props) {
     if (role === 1 || role === 4) {
       setErrors([]);
     } else {
-      console.log(role);
       setErrors([{ message: 'select a role!' }]);
       return;
     }
@@ -45,8 +44,6 @@ export default function SignUpForm(props: Props) {
     });
 
     const data: RegisterResponseBodyPost = await response.json();
-    console.log(data);
-    console.log(role);
 
     if ('errors' in data) {
       setErrors(data.errors);

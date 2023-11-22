@@ -19,7 +19,6 @@ function getRandomUni() {
   const universityarray = universitylist;
   const max = universityarray.length > 1 ? universityarray.length : 1;
   const randomUniId = Math.floor(Math.random() * (max - 1) + 1);
-  console.log(String(randomUniId));
 
   return String(randomUniId);
 }
@@ -28,7 +27,6 @@ function getRandomSubject() {
   const subjectarray = subjectlist;
   const max = subjectarray.length > 1 ? subjectarray.length : 1;
   const randomSubjectId = Math.floor(Math.random() * (max - 1) + 1);
-  console.log(String(randomSubjectId));
   return String(randomSubjectId);
 }
 
