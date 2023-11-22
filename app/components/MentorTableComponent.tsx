@@ -22,8 +22,8 @@ export default async function MentorTableComponent(props: Props) {
       props.id,
     );
   return (
-    <div id="requestedMatchesSection">
-      <div id="requestMentor">
+    <div>
+      <div>
         <div>
           <details className="collapse card blurry collapse-arrow">
             <summary className="collapse-title text-xl font-medium">
@@ -52,7 +52,7 @@ export default async function MentorTableComponent(props: Props) {
               </div>
             </summary>
             <div className="collapse-content">
-              <div>
+              <div className="overflow-x-auto">
                 <table className="table">
                   <thead>
                     <tr>

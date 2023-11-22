@@ -17,7 +17,7 @@ export default async function menteeMatchingData() {
   if (!currentUser) redirect(`../signIn`);
 
   return (
-    <ul className="steps">
+    <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
       <li className="step step-primary">Enter personal information</li>
       <li className="step step-accent">Enter target universities & subjects</li>
       <li className="step">Choose a mentor</li>

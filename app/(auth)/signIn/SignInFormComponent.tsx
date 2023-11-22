@@ -52,7 +52,6 @@ export default function SignInFormComponent(props: Props) {
     <div className="card w-full max-w-sm shadow-2xl bg-base-100">
       <form
         className="card-body"
-        id="signInForm"
         onSubmit={async (event) => await handleSignIn(event)}
       >
         <LabelAndInputComponent
@@ -73,9 +72,7 @@ export default function SignInFormComponent(props: Props) {
         />
 
         <div className="form-control mt-6">
-          <button className="btn btn-primary" id="signUpButton">
-            Sign in
-          </button>
+          <button className="btn btn-primary">Sign in</button>
         </div>
         {/*  <Link className="link-custom-primary" href="/#">
           Forgot password? <span aria-hidden="true">→</span>

@@ -28,7 +28,6 @@ export default function MatchResponseComponent(props: Props) {
   return (
     <form
       key={`mentor-${props.match.id}`}
-      id="exampleRequestedMatch"
       onSubmit={async (event) => {
         event.preventDefault();
         await handleUpdateMatch();
@@ -45,7 +44,7 @@ export default function MatchResponseComponent(props: Props) {
           </label>
           <div className="chat chat-start">
             <textarea
-              id="reasonRejection"
+              name="reasonRejection"
               className="chat-bubble bg-gray-200"
               onChange={(event) => setResponseInput(event.currentTarget.value)}
             />

@@ -32,10 +32,13 @@ export default async function menteeMatchingData() {
   }
 
   return (
-    <main id="visibleMENTEES">
-      <div id="pageHeaderSection" className="card blurry">
+    <main>
+      <div className="card blurry">
         <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
-        <ul className="steps">
+        <ul
+          className="steps hidden sm:mb-1 sm:flex sm:justify-center
+ "
+        >
           <li className="step step-primary">Enter personal information</li>
           <li className="step step-accent">
             Enter target universities & subjects
@@ -49,7 +52,7 @@ export default async function menteeMatchingData() {
         </ul>
       </div>
       {userTargets.length < 1 ? (
-        <div id="universityInformationSection" className="card blurry">
+        <div className="card blurry">
           <h2 className="h2-custom-primary">
             {' '}
             Indicate the universities & subjects you want to apply to!
@@ -67,10 +70,10 @@ export default async function menteeMatchingData() {
         </div>
       ) : (
         <>
-          <div id="universityInformationSection" className="card blurry">
+          <div className="card blurry">
             <h2 className="h2-custom-primary">
               {' '}
-              Your target universities and subjects:{' '}
+              Your submitted target universities & subjects:{' '}
             </h2>
             <div className="card blurry">
               <MenteeTableComponent
@@ -80,7 +83,7 @@ export default async function menteeMatchingData() {
               />
             </div>
           </div>
-          <div id="matchingInformationSection">
+          <div>
             <MenteeMatchingInfoFormComponent
               userdata={currentUser}
               role={roleFromDatabase}

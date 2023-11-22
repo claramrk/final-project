@@ -46,13 +46,13 @@ export default async function personaldata() {
 
   return (
     <main>
-      <div id="pageHeaderSection" className="card sub-blurry">
+      <div className="card sub-blurry">
         <h1 className="h1-custom-primary">
           Welcome! Happy you want to become a {currentUserRoleByName.type}!{' '}
         </h1>
 
         {currentUserRoleByName === menteeIncompleteRoleByName ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-accent">Enter personal information</li>
             <li className="step">Enter target universities & subjects</li>
             <li className="step">Choose your best mentor match</li>
@@ -64,7 +64,7 @@ export default async function personaldata() {
           ''
         )}
         {currentUserRoleByName === mentorIncompleteRoleByName ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-accent">Enter personal information</li>
             <li className="step ">Enter academic background</li>
             <li className="step">Submit registration & enter mentor pool</li>
@@ -77,7 +77,7 @@ export default async function personaldata() {
           ''
         )}
       </div>
-      <div id="usersSection">
+      <div>
         <PersonalDataFormComponent
           countries={countries}
           currentUser={currentUser}

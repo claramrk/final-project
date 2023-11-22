@@ -41,7 +41,7 @@ export default async function matchingOverviewMentors() {
           {currentUser.firstname}s' Matching Overview
         </h1>
         {currentUserMatchRequests.length < 1 ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">Enter academic background</li>
             <li className="step step-primary">
@@ -53,7 +53,7 @@ export default async function matchingOverviewMentors() {
             <li className="step">Start your mentorship journey</li>
           </ul>
         ) : (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">Enter academic background</li>
             <li className="step step-primary">
@@ -66,7 +66,7 @@ export default async function matchingOverviewMentors() {
           </ul>
         )}
         {currentUserMatchAccepts.length > 0 ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">Enter academic background</li>
             <li className="step step-primary">
@@ -100,7 +100,7 @@ export default async function matchingOverviewMentors() {
           ''
         )}
       </div>
-      <div id="requestedMatchesSection" className="card blurry">
+      <div className="card blurry">
         <h2 className="h2-custom-primary">Match Requests</h2>
         <p className="p-custom-primary">
           Unanswered requests from mentees will show up below. You have one week
@@ -109,8 +109,7 @@ export default async function matchingOverviewMentors() {
         </p>
 
         <div
-          id="exampleRequestedMatchesList"
-          // filter matching list here
+        // filter matching list here
         >
           {currentUserMatchRequests.map((m) => {
             return (
@@ -126,7 +125,7 @@ export default async function matchingOverviewMentors() {
           })}
         </div>
       </div>
-      <div id="activeMatchesSection" className="card blurry">
+      <div className="card blurry">
         <h2 className="h2-custom-primary">Active Matches</h2>
         <p className="p-custom-primary">
           Active mentorships with mentees will show up below. Please let us know
@@ -135,8 +134,7 @@ export default async function matchingOverviewMentors() {
         </p>
 
         <div
-          id="exampleActiveMatchesList"
-          // filter matching list here
+        // filter matching list here
         >
           {currentUserMatchAccepts.map((m) => {
             return (
@@ -157,26 +155,21 @@ export default async function matchingOverviewMentors() {
         </div>
       </div>
 
-      <div id="requestedMatchesSection" className="card blurry">
+      <div className="card blurry">
         <h2 className="h2-custom-primary">Past Matches</h2>
         <p className="p-custom-primary">Past matches will show up below.</p>
 
-        <div
-          id="exampleRequestedMatchesList"
-          // filter matching list here
-        >
-          {currentUserPastMatches.map((m) => {
-            return (
-              <div key={`mentee-${m.id}`} className="card blurry">
-                <MenteeTableComponent
-                  badgetext="inactive"
-                  badgecolor="badge badge-default badge-outline"
-                  menteeMatchId={m.menteeUserId}
-                />
-              </div>
-            );
-          })}
-        </div>
+        {currentUserPastMatches.map((m) => {
+          return (
+            <div key={`mentee-${m.id}`} className="card blurry">
+              <MenteeTableComponent
+                badgetext="inactive"
+                badgecolor="badge badge-default badge-outline"
+                menteeMatchId={m.menteeUserId}
+              />
+            </div>
+          );
+        })}
       </div>
     </main>
   );

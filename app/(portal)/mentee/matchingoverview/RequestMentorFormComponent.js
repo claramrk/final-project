@@ -50,28 +50,18 @@ export default function RequestMentorFormComponent(props) {
   }
 
   return (
-    <div
-      id="exampleMentorRequestList"
-      className="card sub-blurry"
-
-      // filter matching list here. can only be one at a time
-    >
+    <div className="card sub-blurry">
       <h2 className="h2-custom-primary">Choose your Mentor</h2>
-      <p className="p-custom-primary">
-        Below you can find three mentors from our pool that are currently
-        available and that fit best to your university and subject indications.
-      </p>
 
       <form
-        className="flex flex-row items-center"
         onSubmit={async (event) => {
           event.preventDefault();
           await handlePostMentorRequest();
           router.push('/mentee/dashboard');
         }}
       >
-        <div className="flex flex-row items-center">
-          <div className="flex flex-row items-center">
+        <div className="lg:flex lg:flex-row items-center ">
+          <div className="lg:flex lg:flex-row items-center ">
             {topThreeMentorsWithPersonalDataListValue.map((d) => {
               return (
                 <div
@@ -87,31 +77,12 @@ export default function RequestMentorFormComponent(props) {
                 >
                   <label>
                     <div className="avatar">
-                      <div className="w-24 rounded-xl">
+                      <div className="lg:w-24 sm:w-5 rounded-xl">
                         <img width="60" height="60" src={d.photo} alt="" />
                       </div>
                     </div>
                     <h3 className="h3-custom-primary">{d.firstname}</h3>
-                    {/* // modal button
-    <button
-        className="btn"
-        onClick={() => document.getElementById('my_modal_5').showModal()}
-      >
-        open modal
-      </button>
-      <dialog id="my_modal_5" className="modal modal-bottom lg:modal-middle">
-        <div className="modal-box">
-          <MentorTableComponent />
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog> */}
+
                     <input
                       className="hidden"
                       type="radio"
@@ -131,12 +102,11 @@ export default function RequestMentorFormComponent(props) {
           <div className="card sub-blurry">
             <label className="label-custom-primary" htmlFor="mentorMessage">
               Please include a short message to{' '}
-              <strong>{mentorSelectionName}</strong>. Explain briefly why you
-              would appreciate for them specifically to become your mentor:{' '}
+              <strong>{mentorSelectionName}</strong>:{' '}
               <span id="required">*</span>{' '}
             </label>
             <textarea
-              id="mentorMessage"
+              name="mentorMessage"
               className="textarea textarea-bordered"
               placeholder="Your message ..."
               value={messageToMentor}
@@ -145,9 +115,9 @@ export default function RequestMentorFormComponent(props) {
               }
               required
             />
+            <button className="btn-custom-primary">Send mentor request</button>
           </div>
         </div>
-        <button className="btn-custom-primary">Send mentor request</button>
       </form>
     </div>
   );

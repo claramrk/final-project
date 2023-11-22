@@ -27,7 +27,7 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
   }
 
   return (
-    <div id="finalizeRegistrationSection" className="card blurry">
+    <div className="card blurry">
       <form
         onSubmit={async (event) => {
           event.preventDefault();
@@ -37,15 +37,20 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
         }}
       >
         <h2 className="h2-custom-primary">Further Information & next Steps</h2>
-        <p className="p-custom-primary">
-          After clicking the "Register" button below our team will review your
-          registration. After your registration is approved, you will then be
-          able to request one mentor from our suggestion of fitting mentors.
+        <p className="p-custom-primary mt-2 mb-2">
+          After clicking the "Register" button below, you will be able to
+          request one mentor from our suggestion of fitting mentors for your
+          application goals.
+          <br />
+          <br />
           After sending your request, mentors will have one week to accept your
           request to start your mentorship journey together. Mentors take their
           time to help mentees on a voluntary basis. We expect that you use this
-          time respectfully. You will also be supported through additional
-          support programs from our internal team - stay tuned!
+          time respectfully.
+          <br />
+          <br />
+          You will also be supported through additional initiatives from our
+          internal team - stay tuned!
         </p>
         <button className="btn-custom-primary" onClick={handleUpdateRole}>
           Complete your registration as a mentee

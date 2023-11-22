@@ -89,25 +89,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         )}{' '}
       </div>
       <div className="card blurry">
-        {/*  <a
-        className="link-custom-primary"
-        // check how to download a pdf
-
-        href="/#"
-      >
-        Safeguarding Contract Download <span aria-hidden="true">→</span>
-      </a>
-      <label htmlFor="safeguarding_upload">
-        Please download the safeguarding contract, read it carefully and upload
-        a signed version here:
-      </label>
-      <input
-        type="file"
-        className="input input-bordered w-full max-w-xs"
-        id="safeguarding_upload"
-        // check how to upload a pdf
-      /> */}
-        <div id="finalizeRegistrationSection">
+        <div>
           <h2 className="h2-custom-primary">Next Steps:</h2>
           <p className="p-custom-primary">
             After clicking the "Register" button below our team will review your

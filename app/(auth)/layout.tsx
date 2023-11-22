@@ -202,9 +202,7 @@ export default function authLayout(props: Props) {
         >
           <div /* className="hidden sm:mt-20  sm:mb-8 sm:flex sm:justify-center" */
           >
-            <div id="main" className="container">
-              {props.children}
-            </div>
+            <div className="container">{props.children}</div>
           </div>
         </div>
       </main>

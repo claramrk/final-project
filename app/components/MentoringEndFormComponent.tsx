@@ -29,7 +29,6 @@ export default function MentoringEndFormComponent(props: Props) {
 
   return (
     <form
-      id="exampleRequestedMatch"
       onSubmit={async (event) => {
         event.preventDefault();
         await handleEndMatch();
@@ -50,7 +49,7 @@ export default function MentoringEndFormComponent(props: Props) {
             <span id="required">*</span>
           </label>
           <textarea
-            id="responseMentor"
+            name="responseMentor"
             className="textarea-custom-primary"
             onChange={(event) =>
               setTerminationResponse(event.currentTarget.value)

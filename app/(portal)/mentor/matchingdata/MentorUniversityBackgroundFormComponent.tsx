@@ -122,9 +122,7 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         })}
       </LabelAndSelectComponent>
 
-      <button className="btn-custom-primary" id="submitPersonalDetails">
-        Add degree
-      </button>
+      <button className="btn-custom-primary">Add degree</button>
     </form>
   );
 }

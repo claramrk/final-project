@@ -52,11 +52,11 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         event.preventDefault();
         await handleCreateMenteeTargetUniversitySubject();
       }}
-      className="mt-10 mb-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5"
+      className="mt-10 mb-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4"
     >
       <LabelAndSelectComponent
         inputName="selectDegreetype"
-        labeltext="Indicate the degree level you will be applying for:"
+        labeltext="Degree level of application:"
         required={true}
         // could be an issue that there is no (number) around this
         onChangeFunction={setStudylevelIdInput}
@@ -185,7 +185,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
         })}
       </LabelAndSelectComponent>
 
-      <button id="submitAllUniInformation" className="btn-custom-primary">
+      <button className="btn-custom-primary">
         Submit all University Information
       </button>
     </form>

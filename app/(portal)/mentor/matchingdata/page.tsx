@@ -29,11 +29,11 @@ export default async function matchingdataMentors() {
   if (!roleFromDatabase) redirect(`../signIn`);
 
   return (
-    <main id="visibleMENTORS">
-      <div id="pageHeaderSection" className="card blurry">
+    <main>
+      <div className="card blurry">
         <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
         {userBackground.length < 1 ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-accent ">Enter academic background</li>
             <li className="step">Submit registration & enter mentor pool</li>
@@ -43,7 +43,7 @@ export default async function matchingdataMentors() {
             <li className="step">& start your mentorship journey</li>
           </ul>
         ) : (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">Enter academic background</li>
             <li className="step step-accent">
@@ -56,13 +56,10 @@ export default async function matchingdataMentors() {
           </ul>
         )}
       </div>
-      <div
-        id="universityInformationSection_visibleMENTORS"
-        className="card blurry"
-      >
+      <div className="card blurry">
         <h2 className="h2-custom-primary">Submit your University Background</h2>
 
-        <div id="submitNew">
+        <div>
           <p className="p-custom-primary">
             Please submit each degree you have completed or have been accepted
             to{' '}
@@ -73,64 +70,13 @@ export default async function matchingdataMentors() {
             userdata={currentUser}
           />
         </div>
-        <div id="showSubmitted">
+        <div>
           <div className="overflow-x-auto">
             <MentorUniBackgroundTableComponent id={currentUser.id} />
-            {/*   <table className="table">
-              <thead>
-                <tr>
-                  <th>University</th>
-                  <th>Degree</th>
-                  <th>Degree Type</th>
-                  <th>Attendance Type</th>
-                  <th>Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userBackground.length < 1
-                  ? ''
-                  : userBackground.map((u) => {
-                      return (
-                        <tr
-                          className="exampleMentorUniversityBackground"
-                          key={`uniqueID-${u.id}`}
-                        >
-                          <td>
-                            <div className="flex items-center space-x-3">
-                              <div className="avatar">{u.universityId}</div>
-                              <div>
-                                <div className="font-bold">University Name</div>
-                                <div className="text-sm opacity-50">
-                                  University Country
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            {u.subjectId} Name
-                            <br />
-                            <span className="badge badge-ghost badge-sm">
-                              Discipline?
-                            </span>
-                          </td>
-                          <td>{u.studylevel}</td>
-                          <td>{u.attendanceType}</td>
-                          <td>
-                            <button className="btn btn-ghost btn-xs">
-                              details
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-              </tbody>
-            </table> */}
           </div>
         </div>
       </div>
-      <div id="matchingInformationSection_visibleMENTORS">
-        {/*         <h2 className="h2-custom-primary">Matching Information</h2>
-         */}{' '}
+      <div>
         <MentorMatchingInfoFormComponent
           userdata={currentUser}
           role={roleFromDatabase}

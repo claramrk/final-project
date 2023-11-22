@@ -59,14 +59,13 @@ export default function SignUpForm(props: Props) {
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
         <form
           className="card-body"
-          id="signUpForm"
           onSubmit={async (event) => await handleRegister(event)}
         >
           <div className="form-control ">
             <legend className="label-custom-primary">
               Sign up as:<span id="required">*</span>
             </legend>
-            <div className="flex flex-row sm:flex-column">
+            <div className="flex flex-row ">
               {filteredRolesMentee.map((d) => {
                 return (
                   <div
@@ -78,7 +77,7 @@ export default function SignUpForm(props: Props) {
                     }`}
                   >
                     <button
-                      name="selectRole"
+                      name={`selectRole-${d.name}`}
                       value={Number(d.id)}
                       onClick={(event) => {
                         event.preventDefault();
@@ -117,7 +116,7 @@ export default function SignUpForm(props: Props) {
                     }`}
                   >
                     <button
-                      name="selectRole"
+                      name={`selectRole-${d.name}`}
                       value={Number(d.id)}
                       onClick={(event) => {
                         event.preventDefault();
@@ -162,10 +161,7 @@ export default function SignUpForm(props: Props) {
             />
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary" id="signUpButton">
-              {' '}
-              Sign up
-            </button>
+            <button className="btn btn-primary"> Sign up</button>
           </div>
         </form>
       </div>

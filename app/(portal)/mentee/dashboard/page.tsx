@@ -42,12 +42,12 @@ export default async function dashboard() {
   }
 
   return (
-    <main id="visibleMENTEES">
-      <div id="pageHeaderSection" className="card blurry">
+    <main>
+      <div className="card blurry">
         <h1 className="h1-custom-primary">Your Matching Overview</h1>
 
         {currentUserMatchRequests.length > 0 ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">
               Enter target universities & subjects
@@ -62,7 +62,7 @@ export default async function dashboard() {
           ''
         )}
         {currentUserMatchAccepts.length > 0 ? (
-          <ul className="steps">
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">
               Enter target universities & subjects
@@ -79,9 +79,9 @@ export default async function dashboard() {
       </div>
 
       {currentUserMatchRequests.length > 0 ? (
-        <div id="requestedMatchesSection" className="card blurry">
+        <div className="card blurry">
           <h2 className="h2-custom-primary">You requested a mentor!</h2>
-          <div id="sentRequests">
+          <div>
             <p className="p-custom-primary">
               We let your mentor know about your request! A mentor has one week
               to accept or reject your match request. In case they do not
@@ -114,7 +114,7 @@ export default async function dashboard() {
       )}
 
       {currentUserMatchAccepts.length > 0 ? (
-        <div id="activeMatchesSection" className="card blurry">
+        <div className="card blurry">
           <h2 className="h2-custom-primary">Your Mentor is confirmed!</h2>
           {currentUserMatchAccepts.map(async (u) => {
             const userData = await getUserData(u.mentorUserId);
@@ -146,7 +146,7 @@ export default async function dashboard() {
         ''
       )}
       {currentUserPastMatches.length > 0 ? (
-        <div id="activeMatchesSection" className="card blurry">
+        <div className="card blurry">
           <h2 className="h2-custom-primary">Inactive Matches</h2>
           {currentUserPastMatches.map(async (u) => {
             const userData = await getUserData(u.mentorUserId);

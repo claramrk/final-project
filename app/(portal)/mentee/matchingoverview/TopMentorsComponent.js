@@ -53,9 +53,9 @@ export default async function TopMentorsComponent() {
 
   return (
     <>
-      <div id="requestedMatchesSection" className="card blurry">
+      <div className="card blurry">
         <h2 className="h2-custom-primary">Your Top Matches</h2>
-        <div id="requestMentor">
+        <div>
           <p className="p-custom-primary">
             Below you can find three mentors from our pool that are currently
             available and that fit best to your university and subject

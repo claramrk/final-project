@@ -6,16 +6,7 @@ type Props = {
   menteeMatchId: number;
   badgetext: string | undefined;
   badgecolor: string | undefined;
-  /*   id: number | undefined;
-  uniBackground:
-    | MenteeUniversityBackgroundbyUserIDWithUniAndSubjectInnerJoin
-    | null
-    | undefined;
 
-  photo: string | null | undefined;
-  email: string | undefined;
-  firstname: string | null | undefined;
-  countryId: string | null | undefined; */
 };
 
 export default async function MenteeTableComponent(props: Props) {
@@ -69,90 +60,92 @@ export default async function MenteeTableComponent(props: Props) {
         </div>
       </summary>
       <div className="collapse-content">
-        <table className="table">
-          <thead>
-            <tr>
-              <th> </th>
-              <th>First choice</th>
-              <th>Second Choice</th>
-              <th>Third Choice</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <p className="tablefont-custom-primary font-bold">
-                  Universities
-                </p>
-              </td>
-              <td>
-                <p className="tablefont-custom-primary">
-                  {uniBackground.universityOneName}
-                </p>
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr>
+                <th> </th>
+                <th>First choice</th>
+                <th>Second Choice</th>
+                <th>Third Choice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p className="tablefont-custom-primary font-bold">
+                    Universities
+                  </p>
+                </td>
+                <td>
+                  <p className="tablefont-custom-primary">
+                    {uniBackground.universityOneName}
+                  </p>
 
-                <p className="tablefont-custom-secondary">
-                  {uniBackground.universityOneCountryId}
-                </p>
-              </td>
-              <td>
-                <p className="tablefont-custom-primary">
-                  {uniBackground.universityTwoName}
-                </p>
+                  <p className="tablefont-custom-secondary">
+                    {uniBackground.universityOneCountryId}
+                  </p>
+                </td>
+                <td>
+                  <p className="tablefont-custom-primary">
+                    {uniBackground.universityTwoName}
+                  </p>
 
-                <p className="tablefont-custom-secondary">
-                  {uniBackground.universityTwoCountryId}
-                </p>
-              </td>
-              <td>
-                <p className="tablefont-custom-primary">
-                  {uniBackground.universityThreeName}
-                </p>
+                  <p className="tablefont-custom-secondary">
+                    {uniBackground.universityTwoCountryId}
+                  </p>
+                </td>
+                <td>
+                  <p className="tablefont-custom-primary">
+                    {uniBackground.universityThreeName}
+                  </p>
 
-                <p className="tablefont-custom-secondary">
-                  {uniBackground.universityThreeCountryId}
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p className="tablefont-custom-primary font-bold">Subjects</p>
-              </td>
-              <td>
-                <p className="tablefont-custom-primary">
-                  {uniBackground.subjectOneName.length > 40
-                    ? `${uniBackground.subjectOneName.slice(0, 40)}...`
-                    : uniBackground.subjectOneName}
-                </p>
+                  <p className="tablefont-custom-secondary">
+                    {uniBackground.universityThreeCountryId}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p className="tablefont-custom-primary font-bold">Subjects</p>
+                </td>
+                <td>
+                  <p className="tablefont-custom-primary">
+                    {uniBackground.subjectOneName.length > 40
+                      ? `${uniBackground.subjectOneName.slice(0, 40)}...`
+                      : uniBackground.subjectOneName}
+                  </p>
 
-                <p className="tablefont-custom-secondary">
-                  {uniBackground.subjectOneDiscipline}
-                </p>
-              </td>
-              <td>
-                <p className="tablefont-custom-primary">
-                  {uniBackground.subjectTwoName.length > 40
-                    ? `${uniBackground.subjectTwoName.slice(0, 40)}...`
-                    : uniBackground.subjectTwoName}
-                </p>
+                  <p className="tablefont-custom-secondary">
+                    {uniBackground.subjectOneDiscipline}
+                  </p>
+                </td>
+                <td>
+                  <p className="tablefont-custom-primary">
+                    {uniBackground.subjectTwoName.length > 40
+                      ? `${uniBackground.subjectTwoName.slice(0, 40)}...`
+                      : uniBackground.subjectTwoName}
+                  </p>
 
-                <p className="tablefont-custom-secondary">
-                  {uniBackground.subjectTwoDiscipline}
-                </p>
-              </td>
-              <td>
-                <p className="tablefont-custom-primary">
-                  {uniBackground.subjectThreeName.length > 40
-                    ? `${uniBackground.subjectThreeName.slice(0, 40)}...`
-                    : uniBackground.subjectThreeName}
-                </p>
+                  <p className="tablefont-custom-secondary">
+                    {uniBackground.subjectTwoDiscipline}
+                  </p>
+                </td>
+                <td>
+                  <p className="tablefont-custom-primary">
+                    {uniBackground.subjectThreeName.length > 40
+                      ? `${uniBackground.subjectThreeName.slice(0, 40)}...`
+                      : uniBackground.subjectThreeName}
+                  </p>
 
-                <p className="tablefont-custom-secondary">
-                  {uniBackground.subjectThreeDiscipline}
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  <p className="tablefont-custom-secondary">
+                    {uniBackground.subjectThreeDiscipline}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </details>
   );
