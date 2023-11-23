@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import Head from 'next/head';
 import { ReactNode } from 'react';
 import Footer from './components/Footer';
 
