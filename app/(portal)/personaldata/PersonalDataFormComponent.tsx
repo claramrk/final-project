@@ -80,20 +80,18 @@ export default function PersonalDataFormComponent(props: Props) {
         await handleUpdateRole();
         router.push(reroute);
       }}
-      className=" space-y-12 "
+      className=" space-y-14 "
     >
       <div className=" card blurry">
-        <h2 className="h2-custom-primary">
-          Please enter your personal data below
-        </h2>
-        <div className=" mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-          <div className="col-span-full">
+        <h2 className="h2-custom-primary">Please tell us more about you.</h2>
+        <div className=" my-10 grid gap-x-6 gap-y-8 lg:grid-cols-6 sm:auto-cols-auto">
+          <div className="lg:col-span-full sm:col-span-1">
             <div className="mt-2 flex items-center gap-x-3">
               <label
                 htmlFor="photo"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Upload a profile photo:
+                Your profile photo:
               </label>
 
               <div className="avatar mr-4">
@@ -122,9 +120,8 @@ export default function PersonalDataFormComponent(props: Props) {
               </div>
             </div>
           </div>
-          <div className={`col-span-2`}>
+          <div className="lg:col-span-2 sm:col-span-1">
             <LabelAndInputComponent
-              colSpan="4"
               inputName="firstnameInput"
               labeltext="Your first name:"
               required={true}
@@ -133,9 +130,8 @@ export default function PersonalDataFormComponent(props: Props) {
               onChangeFunction={setFirstnameInput}
             />
           </div>
-          <div className={`col-span-2`}>
+          <div className="lg:col-span-2 sm:col-span-1">
             <LabelAndInputComponent
-              colSpan="3"
               inputName="lastnameInput"
               labeltext="Your last name:"
               required={true}
@@ -144,9 +140,8 @@ export default function PersonalDataFormComponent(props: Props) {
               onChangeFunction={setLastnameInput}
             />
           </div>
-          <div className={`col-span-2`}>
+          <div className="lg:col-span-2 sm:col-span-1">
             <LabelAndSelectComponent
-              colSpan="3"
               inputName="pronounsInput"
               labeltext="Your pronouns:"
               required={true}
@@ -165,9 +160,8 @@ export default function PersonalDataFormComponent(props: Props) {
               })}
             </LabelAndSelectComponent>
           </div>
-          <div className={`col-span-4`}>
+          <div className="lg:col-span-4 sm:col-span-1">
             <LabelAndInputComponent
-              colSpan="3"
               inputName="phoneNumber"
               labeltext="Your phone number"
               required={true}
@@ -177,9 +171,8 @@ export default function PersonalDataFormComponent(props: Props) {
             />
           </div>
 
-          <div className={`col-span-3`}>
+          <div className="col-span-3">
             <LabelAndInputComponent
-              colSpan="3"
               inputName="birthdateInput"
               labeltext="Your birthdate"
               required={true}
@@ -188,9 +181,8 @@ export default function PersonalDataFormComponent(props: Props) {
               onChangeFunction={setBirthdateInput}
             />
           </div>
-          <div className={`col-span-3`}>
+          <div className="col-span-3">
             <LabelAndSelectComponent
-              colSpan="3"
               inputName="countryOriginInput"
               labeltext="Your country of origin:"
               required={true}
@@ -209,16 +201,19 @@ export default function PersonalDataFormComponent(props: Props) {
             </LabelAndSelectComponent>
           </div>
         </div>
+        <div className="flex justify-end	mb-5 mx-5">
+          <UpdateRolesButtonComponent
+            userdata={props.currentUser}
+            roleFromDatabase={Number(props.currentUserRole.id)}
+            buttonText={
+              'Continue →'
+              /*   props.currentUserRole.type === 'mentor'
+                  ? `Enter your university background on the next page`
+                  : `Enter your target universities and subjects on the next page` */
+            }
+          />
+        </div>
       </div>
-      <UpdateRolesButtonComponent
-        userdata={props.currentUser}
-        roleFromDatabase={Number(props.currentUserRole.id)}
-        buttonText={
-          props.currentUserRole.type === 'mentor'
-            ? `Enter your university background on the next page`
-            : `Enter your target universities and subjects on the next page`
-        }
-      />
     </form>
   );
 }

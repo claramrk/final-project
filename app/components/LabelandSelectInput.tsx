@@ -2,7 +2,7 @@
 
 export default function LabelAndSelectComponent(props: any) {
   return (
-    <div className={`sm:col-span-${props.colSpan}`}>
+    <div>
       <label htmlFor={props.inputName} className="label-custom-primary">
         {props.labeltext}{' '}
         {props.required === true ? <span id="required">*</span> : ''}

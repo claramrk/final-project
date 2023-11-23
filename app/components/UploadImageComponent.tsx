@@ -16,7 +16,7 @@ export default function UploadImageComponent(props: any) {
         }
         return (
           <button className="button" onClick={handleOnClick}>
-            Upload an Image
+            Upload
           </button>
         );
       }}

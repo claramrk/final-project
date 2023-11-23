@@ -5,6 +5,7 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import MenteeHeaderComponent from '../../../components/MenteeHeaderComponent';
 import MenteeTableComponent from '../../../components/MenteeTableComponent';
 import MenteeMatchingInfoFormComponent from './MenteeMatchingInfoFormComponent';
 import MenteeTargetUniversitySubjectFormComponent from './MenteeTargetUniversitySubjectFormComponent';
@@ -33,7 +34,13 @@ export default async function menteeMatchingData() {
 
   return (
     <main>
-      <div className="card blurry">
+      <MenteeHeaderComponent
+        step={2}
+        titleBold="Great"
+        titleNormal="to meet you,"
+        titleUnderlined={`${currentUser.firstname}.`}
+      />
+      {/*   <div className="card blurry">
         <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
         <ul
           className="steps hidden sm:mb-1 sm:flex sm:justify-center
@@ -50,7 +57,7 @@ export default async function menteeMatchingData() {
           <li className="step">Start your mentorship journey</li>
           <li className="step">Apply to your dream uni!</li>
         </ul>
-      </div>
+      </div> */}
       {userTargets.length < 1 ? (
         <div className="card blurry">
           <h2 className="h2-custom-primary">
