@@ -80,7 +80,7 @@ export default function PersonalDataFormComponent(props: Props) {
         await handleUpdateRole();
         router.push(reroute);
       }}
-      className=" space-y-12 border-b border-gray-900/10 "
+      className=" space-y-12 "
     >
       <div className=" card blurry">
         <h2 className="h2-custom-primary">
