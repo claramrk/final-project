@@ -28,11 +28,6 @@ export default async function matchingOverviewMentees() {
     (e) => e.statusInternal === 'mentee requested mentor',
   );
 
-  // get only past matches
-  /*     const currentUserPastMatches = currentUserMatches.filter(
-      (e) => e.statusInternal === 'mentorship ended',
-    ); */
-
   return (
     <main>
       <div className="card blurry">
@@ -79,6 +74,7 @@ export default async function matchingOverviewMentees() {
           ''
         )}
       </div>
+
       {!currentUserMatchRequests.length ? <TopMentorsComponent /> : ''}
     </main>
   );

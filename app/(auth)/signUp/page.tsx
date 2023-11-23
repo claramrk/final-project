@@ -27,11 +27,11 @@ export default async function signUpPage() {
   return (
     <main>
       <div className="hero">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Sign Up</h1>
+        <div className="hero-content flex-col lg:flex-row-reverse  gap-x-12 ">
+          <div className="text-center lg:text-left ">
+            <h1 className="text-6xl font-bold">Sign Up </h1>
 
-            <p className="p-custom-primary">
+            <p className="p-custom-primary mt-2">
               You want to apply to a top university? The Project Access programs
               are providing free mentorships helping less privileged students
               apply for degrees at leading universities. When you join the

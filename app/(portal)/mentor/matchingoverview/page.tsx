@@ -40,7 +40,9 @@ export default async function matchingOverviewMentors() {
         <h1 className="h1-custom-primary">
           {currentUser.firstname}s' Matching Overview
         </h1>
-        {currentUserMatchRequests.length < 1 ? (
+        {currentUserMatchRequests.length < 1 &&
+        currentUserMatchAccepts.length < 1 &&
+        currentUserPastMatches.length < 1 ? (
           <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">Enter academic background</li>
@@ -53,17 +55,7 @@ export default async function matchingOverviewMentors() {
             <li className="step">Start your mentorship journey</li>
           </ul>
         ) : (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">Enter academic background</li>
-            <li className="step step-primary">
-              Submit registration & enter mentor pool
-            </li>
-            <li className="step step-primary">Wait for mentee match request</li>
-
-            <li className="step step-accent">Accept request within one week</li>
-            <li className="step">Start your mentorship journey</li>
-          </ul>
+          ''
         )}
         {currentUserMatchAccepts.length > 0 ? (
           <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
@@ -82,7 +74,25 @@ export default async function matchingOverviewMentors() {
         ) : (
           ''
         )}
-        {currentUserPastMatches.length > 0 ? (
+        {currentUserMatchRequests.length > 0 &&
+        currentUserMatchAccepts.length < 1 ? (
+          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
+            <li className="step step-primary">Enter personal information</li>
+            <li className="step step-primary">Enter academic background</li>
+            <li className="step step-primary">
+              Submit registration & enter mentor pool
+            </li>
+            <li className="step step-primary">Wait for mentee match request</li>
+
+            <li className="step step-accent">Accept request within one week</li>
+            <li className="step">Start your mentorship journey</li>
+          </ul>
+        ) : (
+          ''
+        )}
+        {currentUserPastMatches.length > 0 &&
+        currentUserMatchAccepts.length < 1 &&
+        currentUserMatchRequests.length < 1 ? (
           <ul className="steps">
             <li className="step step-primary">Enter personal information</li>
             <li className="step step-primary">Enter academic background</li>

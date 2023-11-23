@@ -86,7 +86,7 @@ export default function PersonalDataFormComponent(props: Props) {
         <h2 className="h2-custom-primary">
           Please enter your personal data below
         </h2>
-        <div className=" mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div className=" mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-full">
             <div className="mt-2 flex items-center gap-x-3">
               <label
@@ -122,80 +122,92 @@ export default function PersonalDataFormComponent(props: Props) {
               </div>
             </div>
           </div>
-          <LabelAndInputComponent
-            colSpan="4"
-            inputName="firstnameInput"
-            labeltext="Your first name:"
-            required={true}
-            type="text"
-            placeholder="Jane"
-            onChangeFunction={setFirstnameInput}
-          />
-          <LabelAndInputComponent
-            colSpan="3"
-            inputName="lastnameInput"
-            labeltext="Your last name:"
-            required={true}
-            type="text"
-            placeholder="Doe"
-            onChangeFunction={setLastnameInput}
-          />
-          <LabelAndInputComponent
-            colSpan="3"
-            inputName="phoneNumber"
-            labeltext="Your phone number"
-            required={true}
-            type="tel"
-            placeholder="+43 664 5829837"
-            onChangeFunction={setPhoneNumberInput}
-          />
-          <LabelAndSelectComponent
-            colSpan="3"
-            inputName="pronounsInput"
-            labeltext="Your pronouns:"
-            required={true}
-            onChangeFunction={setPronounsInput}
-            optionlist={pronountypes}
-          >
-            <option key="dataID-default-select" value="default-select">
-              --Choose pronouns--
-            </option>
-            {pronountypes.map((d) => {
-              return (
-                <option key={`dataID-select-${d.name}`} value={d.name}>
-                  {d.name}
-                </option>
-              );
-            })}
-          </LabelAndSelectComponent>
-          <LabelAndInputComponent
-            colSpan="3"
-            inputName="birthdateInput"
-            labeltext="Your birthdate"
-            required={true}
-            type="date"
-            placeholder="Doe"
-            onChangeFunction={setBirthdateInput}
-          />
+          <div className={`col-span-2`}>
+            <LabelAndInputComponent
+              colSpan="4"
+              inputName="firstnameInput"
+              labeltext="Your first name:"
+              required={true}
+              type="text"
+              placeholder="Jane"
+              onChangeFunction={setFirstnameInput}
+            />
+          </div>
+          <div className={`col-span-2`}>
+            <LabelAndInputComponent
+              colSpan="3"
+              inputName="lastnameInput"
+              labeltext="Your last name:"
+              required={true}
+              type="text"
+              placeholder="Doe"
+              onChangeFunction={setLastnameInput}
+            />
+          </div>
+          <div className={`col-span-2`}>
+            <LabelAndSelectComponent
+              colSpan="3"
+              inputName="pronounsInput"
+              labeltext="Your pronouns:"
+              required={true}
+              onChangeFunction={setPronounsInput}
+              optionlist={pronountypes}
+            >
+              <option key="dataID-default-select" value="default-select">
+                --Choose pronouns--
+              </option>
+              {pronountypes.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.name}`} value={d.name}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </LabelAndSelectComponent>
+          </div>
+          <div className={`col-span-4`}>
+            <LabelAndInputComponent
+              colSpan="3"
+              inputName="phoneNumber"
+              labeltext="Your phone number"
+              required={true}
+              type="tel"
+              placeholder="+43 664 5829837"
+              onChangeFunction={setPhoneNumberInput}
+            />
+          </div>
 
-          <LabelAndSelectComponent
-            colSpan="3"
-            inputName="countryOriginInput"
-            labeltext="Your country of origin:"
-            required={true}
-            onChangeFunction={setOriginCountryInput}
-          >
-            <option key="dataID-default-select" value="default-select">
-              --Choose country--
-            </option>
-            {countries.map((d) => {
-              return (
-                <option key={`dataID-select-${d.id}`} value={d.id}>
-                  {d.name}
-                </option>
-              );
-            })}
-          </LabelAndSelectComponent>
+          <div className={`col-span-3`}>
+            <LabelAndInputComponent
+              colSpan="3"
+              inputName="birthdateInput"
+              labeltext="Your birthdate"
+              required={true}
+              type="date"
+              placeholder="Doe"
+              onChangeFunction={setBirthdateInput}
+            />
+          </div>
+          <div className={`col-span-3`}>
+            <LabelAndSelectComponent
+              colSpan="3"
+              inputName="countryOriginInput"
+              labeltext="Your country of origin:"
+              required={true}
+              onChangeFunction={setOriginCountryInput}
+            >
+              <option key="dataID-default-select" value="default-select">
+                --Choose country--
+              </option>
+              {countries.map((d) => {
+                return (
+                  <option key={`dataID-select-${d.id}`} value={d.id}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </LabelAndSelectComponent>
+          </div>
         </div>
       </div>
       <UpdateRolesButtonComponent

@@ -5,6 +5,7 @@ import { getDegreeTypeById } from '../../../../database/degreetype';
 import { getSingleUserWithMentorUniversityBackgroundbyUserIDWithUniAndSubjectJSONROW } from '../../../../database/mentorUniversityBackground';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import { getTopThreeMentors } from '../../../../util/matchingAlgorithm';
+import LoaderComponent from '../loadingPage/LoaderComponent';
 import RequestMentorFormComponent from './RequestMentorFormComponent';
 
 export default async function TopMentorsComponent() {

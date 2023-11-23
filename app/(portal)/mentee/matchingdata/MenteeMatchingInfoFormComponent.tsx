@@ -12,7 +12,7 @@ type Props = {
 export default function MenteeMatchingInfoFormComponent(props: Props) {
   const router = useRouter();
 
-  const reroute: any = '/mentee/matchingoverview';
+  const reroute: any = '/mentee/loadingPage';
 
   async function handleUpdateRole() {
     await fetch('/../../../api/users', {

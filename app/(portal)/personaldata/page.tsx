@@ -46,9 +46,17 @@ export default async function personaldata() {
 
   return (
     <main>
-      <div className="card sub-blurry">
-        <h1 className="h1-custom-primary">
-          Welcome! Happy you want to become a {currentUserRoleByName.type}!{' '}
+      <div className="card blurry">
+        <h1 className="mt-10 mb-7 mx-2 border-custom-primary">
+          <span className="lg:text-6xl font-bold tracking-tight text-900 text-accent sm:text-6xl ">
+            Welcome.{' '}
+          </span>
+          <span className="lg:text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl ">
+            Happy you want to become a{' '}
+          </span>
+          <span className="lg:text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl decoration-accent decoration-4 underline underline-offset-4">
+            {currentUserRoleByName.type}!
+          </span>
         </h1>
 
         {currentUserRoleByName === menteeIncompleteRoleByName ? (
