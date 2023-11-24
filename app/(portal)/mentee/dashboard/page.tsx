@@ -48,7 +48,7 @@ export default async function dashboard() {
         <MenteeHeaderComponent
           step={[1, 2, 3, 4, 5]}
           titleBold="Time"
-          titleNormal="to wait for your mentors"
+          titleNormal="to wait for your mentor's"
           titleUnderlined="answer."
         />
       ) : (
@@ -59,6 +59,16 @@ export default async function dashboard() {
           step={[1, 2, 3, 4, 5, 6]}
           titleBold="Let's"
           titleNormal="start your journey to your"
+          titleUnderlined="dream uni."
+        />
+      ) : (
+        ''
+      )}
+      {currentUserPastMatches.length > 0 ? (
+        <MenteeHeaderComponent
+          step={[1, 2, 3, 4, 5, 6, 7]}
+          titleBold="Congrats!"
+          titleNormal="Have the best time at your"
           titleUnderlined="dream uni."
         />
       ) : (
