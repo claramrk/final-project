@@ -6,7 +6,6 @@ type Props = {
   menteeMatchId: number;
   badgetext: string | undefined;
   badgecolor: string | undefined;
-
 };
 
 export default async function MenteeTableComponent(props: Props) {
@@ -33,7 +32,7 @@ export default async function MenteeTableComponent(props: Props) {
   const studylevelName = getDegreeTypeById(Number(uniBackground.studylevel));
 
   return (
-    <details className="collapse collapse-arrow">
+    <details className="collapse collapse-arrow card blurry">
       <summary className="collapse-title text-xl font-medium">
         <div className="flex items-center space-x-3">
           <div className="avatar mr-4">

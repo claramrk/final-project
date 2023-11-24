@@ -17,7 +17,9 @@ export default async function MentorUniBackgroundTableComponent(props: Props) {
     );
   return (
     <div className=" card blurry">
-      <h3 className="h3-custom-primary">Submitted University Background</h3>
+      <h3 className="h3-custom-primary pt-0 pb-5">
+        Submitted University Background
+      </h3>
 
       <table className="table">
         <thead>

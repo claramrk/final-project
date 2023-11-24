@@ -101,17 +101,16 @@ export default function RequestMentorFormComponent(props) {
               );
             })}
           </div>
-          <div className="card third-blurry p-6">
+          <div className="card third-blurry py-5 items-center">
             <label className="label-custom-primary" htmlFor="mentorMessage">
-              Please include a short message to{' '}
-              <strong>{mentorSelectionName}</strong>:{' '}
+              Include a short message to <strong>{mentorSelectionName}</strong>:{' '}
               <span id="required">*</span>{' '}
             </label>
             <textarea
               name="mentorMessage"
-              className="textarea textarea-bordered"
+              className="textarea-custom-primary"
               placeholder="Your message ..."
-              rows={3}
+              rows={4}
               value={messageToMentor}
               onChange={(event) =>
                 setMessageToMentor(event.currentTarget.value)

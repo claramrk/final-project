@@ -35,33 +35,43 @@ export default function MentoringEndFormComponent(props: Props) {
         router.refresh();
       }}
     >
-      <button
-        type="button"
-        className="btn-custom-primary"
-        onClick={() => setEndMentoring(true)}
-      >
-        {props.buttonText}{' '}
-      </button>
-      {endMentoring ? (
-        <>
-          <label htmlFor="responseMentor">
-            Please briefly explain why the mentorship has ended:
-            <span id="required">*</span>
-          </label>
-          <textarea
-            name="responseMentor"
-            className="textarea-custom-primary"
-            onChange={(event) =>
-              setTerminationResponse(event.currentTarget.value)
-            }
-          />
-          <button className="btn-custom-primary">
-            confirm mentorship termination
-          </button>
-        </>
-      ) : (
-        ''
-      )}
+      <div className="">
+        {endMentoring ? (
+          <>
+            <label htmlFor="responseMentor" className="label-custom-primary">
+              Please explain briefly why the mentorship has ended:
+              <span id="required">*</span>
+            </label>
+            <textarea
+              name="responseMentor"
+              className="textarea-custom-primary"
+              onChange={(event) =>
+                setTerminationResponse(event.currentTarget.value)
+              }
+            />
+            <div className="flex items-center  gap-x-2 justify-end">
+              <button
+                type="button"
+                className="btn-custom-primary"
+                onClick={() => setEndMentoring(false)}
+              >
+                Cancel
+              </button>
+              <button className="btn-custom-primary">Confirm</button>
+            </div>
+          </>
+        ) : (
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="btn-custom-third"
+              onClick={() => setEndMentoring(true)}
+            >
+              {props.buttonText}{' '}
+            </button>
+          </div>
+        )}
+      </div>
     </form>
   );
 }

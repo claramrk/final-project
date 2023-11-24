@@ -5,6 +5,7 @@ import { getRoleByName } from '../../../../database/roles';
 import { getSubjects } from '../../../../database/subjects';
 import { getUniversities } from '../../../../database/universities';
 import { getUserBySessionToken } from '../../../../database/users';
+import MentorHeaderComponent from '../../../components/MentorHeaderComponent';
 import MentorMatchingInfoFormComponent from './MentorMatchingInfoFormComponent';
 import MentorUniBackgroundTableComponent from './MentorUniBackgroundTableComponent';
 import MentorUniversityBackgroundFormComponent from './MentorUniversityBackgroundFormComponent';
@@ -30,32 +31,21 @@ export default async function matchingdataMentors() {
 
   return (
     <main>
-      <div className="card blurry">
-        <h1 className="h1-custom-primary">Hi, {currentUser.firstname}!</h1>
-        {userBackground.length < 1 ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-accent ">Enter academic background</li>
-            <li className="step">Submit registration & enter mentor pool</li>
-            <li className="step ">Wait for mentee match request</li>
-
-            <li className="step">Accept request within one week</li>
-            <li className="step">& start your mentorship journey</li>
-          </ul>
-        ) : (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">Enter academic background</li>
-            <li className="step step-accent">
-              Submit registration & enter mentor pool
-            </li>
-            <li className="step ">Wait for mentee match request</li>
-
-            <li className="step">Accept request within one week</li>
-            <li className="step">& start your mentorship journey</li>
-          </ul>
-        )}
-      </div>
+      {userBackground.length < 1 ? (
+        <MentorHeaderComponent
+          step={[1, 2]}
+          titleBold="Great"
+          titleNormal="to meet you,"
+          titleUnderlined={`${currentUser.firstname}.`}
+        />
+      ) : (
+        <MentorHeaderComponent
+          step={[1, 2, 3]}
+          titleBold="Great"
+          titleNormal="to meet you,"
+          titleUnderlined={`${currentUser.firstname}.`}
+        />
+      )}
       <div className="card blurry">
         <h2 className="h2-custom-primary">Submit your University Background</h2>
 
@@ -70,16 +60,21 @@ export default async function matchingdataMentors() {
             userdata={currentUser}
           />
         </div>
-        <div>
-          <div className="overflow-x-auto">
-            <MentorUniBackgroundTableComponent id={currentUser.id} />
+        {userBackground.length > 0 ? (
+          <div>
+            <div className="overflow-x-auto">
+              <MentorUniBackgroundTableComponent id={currentUser.id} />
+            </div>
           </div>
-        </div>
+        ) : (
+          ''
+        )}
       </div>
       <div>
         <MentorMatchingInfoFormComponent
           userdata={currentUser}
           role={roleFromDatabase}
+          uniBackground={userBackground.length > 0 ? true : false}
         />
       </div>
     </main>

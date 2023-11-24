@@ -123,7 +123,7 @@ export default async function matchingOverviewMentors() {
         >
           {currentUserMatchRequests.map((m) => {
             return (
-              <div key={`mentee-${m.id}`} className="card blurry">
+              <div key={`mentee-${m.id}`} className="mb-10">
                 <MenteeTableComponent
                   badgetext="request"
                   badgecolor="badge badge-neutral badge-outline"
@@ -139,8 +139,7 @@ export default async function matchingOverviewMentors() {
         <h2 className="h2-custom-primary">Active Matches</h2>
         <p className="p-custom-primary">
           Active mentorships with mentees will show up below. Please let us know
-          when a mentorship has ended so we can rematch you. Indicated max.
-          capacity: {currentUser.maxCapacity}
+          when a mentorship has ended so we can rematch you.
         </p>
 
         <div
@@ -148,7 +147,7 @@ export default async function matchingOverviewMentors() {
         >
           {currentUserMatchAccepts.map((m) => {
             return (
-              <div key={`mentee-${m.id}`} className="card blurry">
+              <div key={`mentee-${m.id}`} className="mb-10">
                 <MenteeTableComponent
                   menteeMatchId={m.menteeUserId}
                   badgetext="active"
@@ -157,7 +156,7 @@ export default async function matchingOverviewMentors() {
 
                 <MentoringEndFormComponent
                   match={m}
-                  buttonText="I am no longer mentoring this mentee"
+                  buttonText="Mentorship has ended"
                 />
               </div>
             );
@@ -165,22 +164,25 @@ export default async function matchingOverviewMentors() {
         </div>
       </div>
 
-      <div className="card blurry">
-        <h2 className="h2-custom-primary">Past Matches</h2>
-        <p className="p-custom-primary">Past matches will show up below.</p>
+      {currentUserPastMatches.length > 0 ? (
+        <div className="card blurry">
+          <h2 className="h2-custom-primary">Inactive Matches</h2>
 
-        {currentUserPastMatches.map((m) => {
-          return (
-            <div key={`mentee-${m.id}`} className="card blurry">
-              <MenteeTableComponent
-                badgetext="inactive"
-                badgecolor="badge badge-default badge-outline"
-                menteeMatchId={m.menteeUserId}
-              />
-            </div>
-          );
-        })}
-      </div>
+          {currentUserPastMatches.map((m) => {
+            return (
+              <div key={`mentee-${m.id}`}>
+                <MenteeTableComponent
+                  badgetext="inactive"
+                  badgecolor="badge badge-default badge-outline"
+                  menteeMatchId={m.menteeUserId}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        ''
+      )}
     </main>
   );
 }

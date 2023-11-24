@@ -36,51 +36,45 @@ export default function MatchResponseComponent(props: Props) {
     >
       {acceptRequest ? (
         <>
-          <label htmlFor="reasonRejection">
+          <label htmlFor="reasonRejection" className="label-custom-primary">
             {acceptRequest === 'mentor accepted match'
-              ? 'Please write a short message to your mentee:'
-              : 'Please briefly indicate the reason for your acceptance or rejection:'}
+              ? 'Write a short message to your mentee:'
+              : 'Indicate the reason for decision:'}
             <span id="required">*</span>
           </label>
-          <div className="chat chat-start">
-            <textarea
-              name="reasonRejection"
-              className="chat-bubble bg-gray-200"
-              onChange={(event) => setResponseInput(event.currentTarget.value)}
-            />
+          <textarea
+            name="reasonRejection"
+            className="textarea-custom-primary"
+            onChange={(event) => setResponseInput(event.currentTarget.value)}
+          />
+          <div className="flex items-center  gap-x-2 justify-end">
+            <button
+              type="button"
+              className="btn-custom-primary"
+              onClick={() => setAcceptRequest('')}
+            >
+              Cancel
+            </button>
+            <button className="btn-custom-primary">Submit response</button>{' '}
           </div>
         </>
       ) : (
-        ''
-      )}
-      <button
-        type="button"
-        className={`btn-custom-primary ${
-          acceptRequest === 'mentor accepted match'
-            ? 'border-2	border-neutral	'
-            : '	'
-        }`}
-        onClick={() => setAcceptRequest('mentor accepted match')}
-      >
-        Accept match request
-      </button>
-      <button
-        type="button"
-        className={`btn-custom-primary ${
-          acceptRequest === 'mentor rejected match'
-            ? 'border-2	border-neutral'
-            : '	'
-        }`}
-        onClick={() => setAcceptRequest('mentor rejected match')}
-      >
-        Reject match request
-      </button>
-      {acceptRequest ? (
-        <button className="btn-custom-primary bg-neutral">
-          Submit response
-        </button>
-      ) : (
-        ''
+        <div className="flex  gap-x-2 justify-end">
+          <button
+            type="button"
+            className="btn-custom-fourth"
+            onClick={() => setAcceptRequest('mentor rejected match')}
+          >
+            Reject match request
+          </button>
+          <button
+            type="button"
+            className="btn-custom-third"
+            onClick={() => setAcceptRequest('mentor accepted match')}
+          >
+            Accept match request
+          </button>
+        </div>
       )}
     </form>
   );

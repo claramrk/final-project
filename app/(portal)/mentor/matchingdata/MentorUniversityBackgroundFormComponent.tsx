@@ -15,10 +15,10 @@ type Props = {
 };
 
 export default function MentorUniversityBackgroundFormComponent(props: Props) {
-  const [universityIdInput, setUniversityIdInput] = useState(1);
-  const [subjectIdInput, setSubjectIdInput] = useState(1);
-  const [attendanceTypeIdInput, setAttendanceTypeIdInput] = useState(1);
-  const [studylevelIdInput, setStudylevelIdInput] = useState(1);
+  const [universityIdInput, setUniversityIdInput] = useState('');
+  const [subjectIdInput, setSubjectIdInput] = useState('');
+  const [attendanceTypeIdInput, setAttendanceTypeIdInput] = useState('');
+  const [studylevelIdInput, setStudylevelIdInput] = useState('');
 
   const router = useRouter();
 
@@ -44,85 +44,96 @@ export default function MentorUniversityBackgroundFormComponent(props: Props) {
         event.preventDefault();
         await handleCreateMentorUniversityBackground();
       }}
-      className="mt-6 mb-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5"
     >
-      <LabelAndSelectComponent
-        inputName="selectUniversity"
-        labeltext=" Name of the university:"
-        required={true}
-        // could be an issue that there is no (number) around this
-        onChangeFunction={setUniversityIdInput}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose university--
-        </option>
-        {props.universities.map((d) => {
-          return (
-            <option key={`dataID-select-${d.id}`} value={d.id}>
-              {d.name}
+      <div className=" mt-10 mb-5 grid gap-x-8 gap-y-8 lg:grid-cols-4 sm:auto-cols-auto">
+        <div className="">
+          <LabelAndSelectComponent
+            inputName="selectDegreetype"
+            labeltext="Select the type of degree:"
+            required={true}
+            // could be an issue that there is no (number) around this
+            onChangeFunction={setStudylevelIdInput}
+          >
+            <option key="dataID-default-select" value="default-select">
+              --Choose degreetype--
             </option>
-          );
-        })}
-      </LabelAndSelectComponent>
-      <LabelAndSelectComponent
-        inputName="selectSubject"
-        labeltext=" Name of the subject:"
-        required={true}
-        // could be an issue that there is no (number) around this
-        onChangeFunction={setSubjectIdInput}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose subject--
-        </option>
 
-        {props.subjects.map((d) => {
-          return (
-            <option key={`dataID-select-${d.id}`} value={d.id}>
-              {d.name}
+            {degreetype.map((d) => {
+              return (
+                <option key={`dataID-select-${d.id}`} value={d.id}>
+                  {d.name}
+                </option>
+              );
+            })}
+          </LabelAndSelectComponent>
+        </div>
+        <div className="">
+          <LabelAndSelectComponent
+            inputName="selectUniversity"
+            labeltext=" Name of the university:"
+            required={true}
+            // could be an issue that there is no (number) around this
+            onChangeFunction={setUniversityIdInput}
+          >
+            <option key="dataID-default-select" value="default-select">
+              --Choose university--
             </option>
-          );
-        })}
-      </LabelAndSelectComponent>
-      <LabelAndSelectComponent
-        inputName="selectDegreetype"
-        labeltext="Select the type of degree:"
-        required={true}
-        // could be an issue that there is no (number) around this
-        onChangeFunction={setStudylevelIdInput}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose degreetype--
-        </option>
-
-        {degreetype.map((d) => {
-          return (
-            <option key={`dataID-select-${d.id}`} value={d.id}>
-              {d.name}
+            {props.universities.map((d) => {
+              return (
+                <option key={`dataID-select-${d.id}`} value={d.id}>
+                  {d.name}
+                </option>
+              );
+            })}
+          </LabelAndSelectComponent>
+        </div>
+        <div className="">
+          <LabelAndSelectComponent
+            inputName="selectSubject"
+            labeltext=" Name of the subject:"
+            required={true}
+            // could be an issue that there is no (number) around this
+            onChangeFunction={setSubjectIdInput}
+          >
+            <option key="dataID-default-select" value="default-select">
+              --Choose subject--
             </option>
-          );
-        })}
-      </LabelAndSelectComponent>
-      <LabelAndSelectComponent
-        inputName="selectAttendancetype"
-        labeltext="Select type of attendance:"
-        required={true}
-        // could be an issue that there is no (number) around this
-        onChangeFunction={setAttendanceTypeIdInput}
-      >
-        <option key="dataID-default-select" value="default-select">
-          --Choose attendancetype--
-        </option>
 
-        {attendancetype.map((d) => {
-          return (
-            <option key={`dataID-select-${d.id}`} value={d.id}>
-              {d.name}
+            {props.subjects.map((d) => {
+              return (
+                <option key={`dataID-select-${d.id}`} value={d.id}>
+                  {d.name}
+                </option>
+              );
+            })}
+          </LabelAndSelectComponent>
+        </div>
+
+        <div className="">
+          <LabelAndSelectComponent
+            inputName="selectAttendancetype"
+            labeltext="Select type of attendance:"
+            required={true}
+            // could be an issue that there is no (number) around this
+            onChangeFunction={setAttendanceTypeIdInput}
+          >
+            <option key="dataID-default-select" value="default-select">
+              --Choose attendancetype--
             </option>
-          );
-        })}
-      </LabelAndSelectComponent>
 
-      <button className="btn-custom-primary">Add degree</button>
+            {attendancetype.map((d) => {
+              return (
+                <option key={`dataID-select-${d.id}`} value={d.id}>
+                  {d.name}
+                </option>
+              );
+            })}
+          </LabelAndSelectComponent>
+        </div>
+      </div>
+      <div className="flex justify-end	mb-5 ">
+        <button className="btn-custom-third">Add degree</button>
+      </div>
     </form>
   );
 }

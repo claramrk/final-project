@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getMatchesByMenteeId } from '../../../../database/matches';
 import { getUserById, getUserBySessionToken } from '../../../../database/users';
+import MenteeHeaderComponent from '../../../components/MenteeHeaderComponent';
 import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
 import MentorTableComponent from '../../../components/MentorTableComponent';
 
@@ -43,40 +44,26 @@ export default async function dashboard() {
 
   return (
     <main>
-      <div className="card blurry">
-        <h1 className="h1-custom-primary">Your Matching Overview</h1>
-
-        {currentUserMatchRequests.length > 0 ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">
-              Enter target universities & subjects
-            </li>
-            <li className="step step-primary">Choose your best mentor match</li>
-            <li className="step step-accent">Wait for mentor acceptance</li>
-
-            <li className="step">Start your mentorship journey</li>
-            <li className="step">Apply to your dream uni!</li>
-          </ul>
-        ) : (
-          ''
-        )}
-        {currentUserMatchAccepts.length > 0 ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">
-              Enter target universities & subjects
-            </li>
-            <li className="step step-primary">Choose your best mentor match</li>
-            <li className="step step-primary">Wait for mentor acceptance</li>
-
-            <li className="step step-accent">Start your mentorship journey</li>
-            <li className="step">Apply to your dream uni!</li>
-          </ul>
-        ) : (
-          ''
-        )}
-      </div>
+      {currentUserMatchRequests.length > 0 ? (
+        <MenteeHeaderComponent
+          step={[1, 2, 3, 4, 5]}
+          titleBold="Time"
+          titleNormal="to wait for your mentors"
+          titleUnderlined="answer."
+        />
+      ) : (
+        ''
+      )}
+      {currentUserMatchAccepts.length > 0 ? (
+        <MenteeHeaderComponent
+          step={[1, 2, 3, 4, 5, 6]}
+          titleBold="Let's"
+          titleNormal="start your journey to your"
+          titleUnderlined="dream uni."
+        />
+      ) : (
+        ''
+      )}
 
       {currentUserMatchRequests.length > 0 ? (
         <div className="card blurry">
@@ -115,12 +102,16 @@ export default async function dashboard() {
 
       {currentUserMatchAccepts.length > 0 ? (
         <div className="card blurry">
-          <h2 className="h2-custom-primary">Your Mentor is confirmed!</h2>
+          <h2 className="h2-custom-primary">Your Mentor has confirmed!</h2>
           {currentUserMatchAccepts.map(async (u) => {
             const userData = await getUserData(u.mentorUserId);
 
             return (
               <div key={`id-${u.id}`}>
+                <p className="p-custom-primary">
+                  {userData?.firstname}'s contact information will be sent to
+                  you via Email{' '}
+                </p>
                 <MentorTableComponent
                   id={userData?.id}
                   badgetext="accepted"
@@ -130,13 +121,9 @@ export default async function dashboard() {
                   firstname={userData?.firstname}
                   countryId={userData?.countryId}
                 />
-                <p className="p-custom-primary">
-                  {userData?.firstname}'s contact information will be sent to
-                  you via Email{' '}
-                </p>
                 <MentoringEndFormComponent
                   match={u}
-                  buttonText="I am no longer being mentored by this mentor"
+                  buttonText="Mentorship has ended"
                 />
               </div>
             );
