@@ -26,56 +26,58 @@ export default function MatchResponseComponent(props: Props) {
   }
 
   return (
-    <form
-      key={`mentor-${props.match.id}`}
-      onSubmit={async (event) => {
-        event.preventDefault();
-        await handleUpdateMatch();
-        router.refresh();
-      }}
-    >
-      {acceptRequest ? (
-        <>
-          <label htmlFor="reasonRejection" className="label-custom-primary">
-            {acceptRequest === 'mentor accepted match'
-              ? 'Write a short message to your mentee:'
-              : 'Indicate the reason for decision:'}
-            <span id="required">*</span>
-          </label>
-          <textarea
-            name="reasonRejection"
-            className="textarea-custom-primary"
-            onChange={(event) => setResponseInput(event.currentTarget.value)}
-          />
-          <div className="flex items-center  gap-x-2 justify-end">
+    <div>
+      <form
+        key={`mentor-${props.match.id}`}
+        onSubmit={async (event) => {
+          event.preventDefault();
+          await handleUpdateMatch();
+          router.refresh();
+        }}
+      >
+        {acceptRequest ? (
+          <div className="card sub-blurry">
+            <label htmlFor="reasonRejection" className="label-custom-primary">
+              {acceptRequest === 'mentor accepted match'
+                ? 'Write a short message to your mentee:'
+                : 'Indicate the reason for decision:'}
+              <span id="required">*</span>
+            </label>
+            <textarea
+              name="reasonRejection"
+              className="textarea-custom-primary"
+              onChange={(event) => setResponseInput(event.currentTarget.value)}
+            />
+            <div className="flex items-center  gap-x-2 justify-end">
+              <button
+                type="button"
+                className="btn-custom-primary"
+                onClick={() => setAcceptRequest('')}
+              >
+                Cancel
+              </button>
+              <button className="btn-custom-primary">Submit</button>{' '}
+            </div>
+          </div>
+        ) : (
+          <div className="flex  gap-x-2 justify-end mt-6">
             <button
               type="button"
-              className="btn-custom-primary"
-              onClick={() => setAcceptRequest('')}
+              className="btn-custom-fourth"
+              onClick={() => setAcceptRequest('mentor rejected match')}
             >
-              Cancel
+              Reject request
             </button>
-            <button className="btn-custom-primary">Submit response</button>{' '}
+            <button
+              type="button"
+              className="btn-custom-third"
+              onClick={() => setAcceptRequest('mentor accepted match')}
+            >
+              Accept request
+            </button>
           </div>
-        </>
-      ) : (
-        <div className="flex  gap-x-2 justify-end">
-          <button
-            type="button"
-            className="btn-custom-fourth"
-            onClick={() => setAcceptRequest('mentor rejected match')}
-          >
-            Reject match request
-          </button>
-          <button
-            type="button"
-            className="btn-custom-third"
-            onClick={() => setAcceptRequest('mentor accepted match')}
-          >
-            Accept match request
-          </button>
-        </div>
-      )}
-    </form>
+        )}
+      </form>
+    </div>
   );
 }

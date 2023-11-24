@@ -37,7 +37,7 @@ export default function MentoringEndFormComponent(props: Props) {
     >
       <div className="">
         {endMentoring ? (
-          <>
+          <div className="card sub-blurry">
             <label htmlFor="responseMentor" className="label-custom-primary">
               Please explain briefly why the mentorship has ended:
               <span id="required">*</span>
@@ -59,7 +59,7 @@ export default function MentoringEndFormComponent(props: Props) {
               </button>
               <button className="btn-custom-primary">Confirm</button>
             </div>
-          </>
+          </div>
         ) : (
           <div className="flex justify-end">
             <button

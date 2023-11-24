@@ -3,8 +3,9 @@ import { redirect } from 'next/navigation';
 import { getMatchesByMentorId } from '../../../../database/matches';
 import { getUserBySessionToken } from '../../../../database/users';
 import MenteeTableComponent from '../../../components/MenteeTableComponent';
-import MentoringEndFormComponent from '../../../components/MentoringEndFormComponent';
-import MatchResponseComponent from './MatchResponseComponent';
+import MentorHeaderComponent from '../../../components/MentorHeaderComponent';
+import MenteeCardActiveComponent from './MenteeCardActiveComponent';
+import MenteeCardComponent from './MenteeCardComponent';
 
 export default async function matchingOverviewMentors() {
   const sessionTokenCookie = cookies().get('sessionToken');
@@ -36,100 +37,69 @@ export default async function matchingOverviewMentors() {
 
   return (
     <main>
-      <div id="pageHeaderSection" className="card blurry">
-        <h1 className="h1-custom-primary">
-          {currentUser.firstname}s' Matching Overview
-        </h1>
-        {currentUserMatchRequests.length < 1 &&
-        currentUserMatchAccepts.length < 1 &&
-        currentUserPastMatches.length < 1 ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">Enter academic background</li>
-            <li className="step step-primary">
-              Submit registration & enter mentor pool
-            </li>
-            <li className="step step-accent">Wait for mentee match request</li>
-
-            <li className="step">Accept request within one week</li>
-            <li className="step">Start your mentorship journey</li>
-          </ul>
-        ) : (
-          ''
-        )}
-        {currentUserMatchAccepts.length > 0 ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">Enter academic background</li>
-            <li className="step step-primary">
-              Submit registration & enter mentor pool
-            </li>
-            <li className="step step-primary">Wait for mentee match request</li>
-
-            <li className="step step-primary">
-              Accept request within one week
-            </li>
-            <li className="step step-accent">Start your mentorship journey</li>
-          </ul>
-        ) : (
-          ''
-        )}
-        {currentUserMatchRequests.length > 0 &&
-        currentUserMatchAccepts.length < 1 ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">Enter academic background</li>
-            <li className="step step-primary">
-              Submit registration & enter mentor pool
-            </li>
-            <li className="step step-primary">Wait for mentee match request</li>
-
-            <li className="step step-accent">Accept request within one week</li>
-            <li className="step">Start your mentorship journey</li>
-          </ul>
-        ) : (
-          ''
-        )}
-        {currentUserPastMatches.length > 0 &&
-        currentUserMatchAccepts.length < 1 &&
-        currentUserMatchRequests.length < 1 ? (
-          <ul className="steps">
-            <li className="step step-primary">Enter personal information</li>
-            <li className="step step-primary">Enter academic background</li>
-            <li className="step step-primary">
-              Submit registration & enter mentor pool
-            </li>
-            <li className="step step-accent">
-              Wait for another mentee match request
-            </li>
-
-            <li className="step">Accept request within one week</li>
-            <li className="step">Start your mentorship journey</li>
-          </ul>
-        ) : (
-          ''
-        )}
-      </div>
+      {currentUserMatchRequests.length < 1 &&
+      currentUserMatchAccepts.length < 1 &&
+      currentUserPastMatches.length < 1 ? (
+        <MentorHeaderComponent
+          step={[1, 2, 3, 4, 5]}
+          titleBold="Check"
+          titleNormal="our your current"
+          titleUnderlined="matches."
+        />
+      ) : (
+        ''
+      )}
+      {currentUserMatchAccepts.length > 0 ? (
+        <MentorHeaderComponent
+          step={[1, 2, 3, 4, 5, 6, 7]}
+          titleBold="Check"
+          titleNormal="our your "
+          titleUnderlined="current matches."
+        />
+      ) : (
+        ''
+      )}
+      {currentUserMatchRequests.length > 0 &&
+      currentUserMatchAccepts.length < 1 ? (
+        <MentorHeaderComponent
+          step={[1, 2, 3, 4, 5, 6]}
+          titleBold="Check"
+          titleNormal="our your "
+          titleUnderlined="current matches."
+        />
+      ) : (
+        ''
+      )}
+      {currentUserPastMatches.length > 0 &&
+      currentUserMatchAccepts.length < 1 &&
+      currentUserMatchRequests.length < 1 ? (
+        <MentorHeaderComponent
+          step={[1, 2, 3, 4, 5]}
+          titleBold="Check"
+          titleNormal="our your "
+          titleUnderlined="current matches."
+        />
+      ) : (
+        ''
+      )}
       <div className="card blurry">
         <h2 className="h2-custom-primary">Match Requests</h2>
-        <p className="p-custom-primary">
+        <p className="p-custom-primary ">
           Unanswered requests from mentees will show up below. You have one week
           to respond to a match request. Afterwards, the request will
           automatically be rejected.
         </p>
 
-        <div
-        // filter matching list here
-        >
+        <div>
           {currentUserMatchRequests.map((m) => {
             return (
-              <div key={`mentee-${m.id}`} className="mb-10">
-                <MenteeTableComponent
+              <div key={`mentee-${m.id}`} className="">
+                <MenteeCardComponent
                   badgetext="request"
                   badgecolor="badge badge-neutral badge-outline"
                   menteeMatchId={m.menteeUserId}
+                  match={m}
                 />
-                <MatchResponseComponent match={m} />
               </div>
             );
           })}
@@ -142,21 +112,15 @@ export default async function matchingOverviewMentors() {
           when a mentorship has ended so we can rematch you.
         </p>
 
-        <div
-        // filter matching list here
-        >
+        <div>
           {currentUserMatchAccepts.map((m) => {
             return (
               <div key={`mentee-${m.id}`} className="mb-10">
-                <MenteeTableComponent
+                <MenteeCardActiveComponent
                   menteeMatchId={m.menteeUserId}
                   badgetext="active"
                   badgecolor="badge badge-accent badge-outline"
-                />
-
-                <MentoringEndFormComponent
                   match={m}
-                  buttonText="Mentorship has ended"
                 />
               </div>
             );

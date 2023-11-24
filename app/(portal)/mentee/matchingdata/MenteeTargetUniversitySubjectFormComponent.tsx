@@ -200,7 +200,7 @@ export default function MenteeTargetUniversitySubjectFormComponent(
           </LabelAndSelectComponent>
         </div>
       </div>
-      <button className="btn-custom-third animate-bounce">Next ↓ </button>
+      <button className="btn-custom-third hover:animate-bounce">Next ↓ </button>
     </form>
   );
 }

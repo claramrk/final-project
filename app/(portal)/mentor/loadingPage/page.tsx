@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getUserBySessionToken } from '../../../../database/users';
-import MenteeHeaderComponent from '../../../components/MenteeHeaderComponent';
+import MentorHeaderComponent from '../../../components/MentorHeaderComponent';
 import LoadingComponentMentors from './LoadingComponentMentors';
 
 export default async function loadingPageMentors() {
@@ -16,8 +16,8 @@ export default async function loadingPageMentors() {
 
   return (
     <main>
-      <MenteeHeaderComponent
-        step={[1, 2, 3]}
+      <MentorHeaderComponent
+        step={[1, 2, 3, 4]}
         titleBold="Adding"
         titleNormal="you to the"
         titleUnderlined="mentor pool."
