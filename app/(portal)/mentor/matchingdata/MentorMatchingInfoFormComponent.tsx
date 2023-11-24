@@ -8,12 +8,13 @@ import UpdateRolesButtonComponent from '../../../components/UpdateRolesButtonCom
 type Props = {
   userdata: UserAll;
   role: Role;
-  uniBackground: boolean;
+  uniBackground: string;
 };
 
 export default function MentorMatchingInfoFormComponent(props: Props) {
   const [maxCapacityInput, setMaxCapacityInput] = useState(0);
-  const [nextInput, setNextInput] = useState('');
+  const [nextInput, setNextInput] = useState('false');
+  const [nextInputTwo, setNextInputTwo] = useState('false');
 
   const currentUser = props.userdata;
 
@@ -55,18 +56,114 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
         router.push(reroute);
       }}
     >
-      <button
-        className="btn-custom-third animate-bounce justify-end"
-        onClick={() => setNextInput('true')}
-      >
-        Next ↓{' '}
-      </button>
+      {props.uniBackground === 'true' &&
+      nextInput === 'false' &&
+      nextInputTwo === 'false' ? (
+        <>
+          <button
+            type="button"
+            className="btn-custom-third hover:animate-bounce justify-end mx-6 mt-4"
+            onClick={() => setNextInput('true')}
+          >
+            Next ↓{' '}
+          </button>
+          <div className="card blurry opacity-20">
+            <span>
+              <strong className="font-semibold text-accent">
+                Maximum Capacity:{' '}
+              </strong>{' '}
+              ...
+            </span>
+          </div>
+        </>
+      ) : (
+        ''
+      )}
 
-      {nextInput === 'true' && props.uniBackground ? (
-        <div className="card blurry">
-          <div>
-            <h2 className="h2-custom-primary">Next Steps:</h2>
-            <ul className="mt-8 mb-8 space-y-8 text-gray-600">
+      {props.uniBackground === 'true' && nextInput === 'true' ? (
+        <>
+          <button
+            type="button"
+            className="btn-custom-third justify-end mx-6 mt-4 opacity-10"
+            onClick={() => setNextInput('true')}
+          >
+            Next ↓{' '}
+          </button>
+          <div className="card blurry">
+            <span>
+              <strong className="font-semibold text-accent">
+                Maximum Capacity:{' '}
+              </strong>{' '}
+              We expect mentors to commit around 1-2 hours per month per mentee.
+              You can change this number any time.
+            </span>
+
+            <label
+              htmlFor="maximumCapacityInput"
+              className="label-custom-primary"
+            >
+              Indicate the maximum number of mentees you would like to mentor at
+              the same time:
+              <span id="required">*</span>
+            </label>
+            <div className="mt-2">
+              <div className="input-text-frame-custom-primary">
+                <input
+                  name="maximumCapacityInput"
+                  required
+                  type="number"
+                  placeholder="3"
+                  defaultValue={
+                    props.userdata.maxCapacity ? props.userdata.maxCapacity : 1
+                  }
+                  min={1}
+                  onChange={(event) =>
+                    setMaxCapacityInput(Number(event.currentTarget.value))
+                  }
+                  className="input-text-custom-primary "
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        ''
+      )}
+      {props.uniBackground === 'true' &&
+      nextInput === 'true' &&
+      nextInputTwo === 'false' ? (
+        <>
+          <button
+            type="button"
+            className="btn-custom-third hover:animate-bounce justify-end mx-6 mt-4"
+            onClick={() => setNextInputTwo('true')}
+          >
+            Next ↓{' '}
+          </button>
+          <div className="card blurry opacity-20">
+            <h2 className="h2-custom-primary ">Next Steps:</h2>
+          </div>
+        </>
+      ) : (
+        ''
+      )}
+      {props.uniBackground === 'true' &&
+      nextInput === 'true' &&
+      nextInputTwo === 'true' ? (
+        <>
+          <button
+            type="button"
+            className="btn-custom-third justify-end mx-6 mt-4 opacity-10"
+            onClick={() => setNextInput('true')}
+          >
+            {' '}
+            Next ↓{' '}
+          </button>
+          <div className="card blurry">
+            <div>
+              <h2 className="h2-custom-primary ">Next Steps:</h2>
+            </div>
+            <ul className="mt-8 mb-4 space-y-8 text-gray-600">
               <li className="flex gap-x-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +215,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
                 </span>
 
                 <div
-                  className="bg-accent-content border-t-4 border-accent rounded-b text-default px-4 py-3 shadow-md"
+                  className="bg-accent-content border-t-4 border-accent rounded-b text-default px-4 py-3 shadow-md mr-6 ml-6"
                   role="alert"
                 >
                   <div className="flex">
@@ -142,60 +239,7 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
                   </div>
                 </div>
               </li>
-              <li className="flex gap-x-3">
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="mt-1 h-5 w-5 flex-none text-neutral"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                    />
-                  </svg>
-                  <span>
-                    <strong className="font-semibold text-gray-900">
-                      Maximum Capacity:{' '}
-                    </strong>{' '}
-                    We expect mentors to commit around 1-2 hours per month per
-                    mentee. You can change this number any time.
-                  </span>
 
-                  <label
-                    htmlFor="maximumCapacityInput"
-                    className="label-custom-primary"
-                  >
-                    Indicate the maximum number of mentees you would like to
-                    mentor at the same time:
-                    <span id="required">*</span>
-                  </label>
-                  <div className="mt-2">
-                    <div className="input-text-frame-custom-primary max-w-sm">
-                      <input
-                        name="maximumCapacityInput"
-                        required
-                        type="number"
-                        placeholder="3"
-                        defaultValue={
-                          props.userdata.maxCapacity
-                            ? props.userdata.maxCapacity
-                            : 1
-                        }
-                        min={1}
-                        onChange={(event) =>
-                          setMaxCapacityInput(Number(event.currentTarget.value))
-                        }
-                        className="input-text-custom-primary max-w-sm"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </li>
               <li className="flex gap-x-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -220,15 +264,15 @@ export default function MentorMatchingInfoFormComponent(props: Props) {
                 </span>
               </li>
             </ul>
-
-            <UpdateRolesButtonComponent
-              userdata={currentUser}
-              roleFromDatabase={Number(props.role.id)}
-              buttonText="Submit your matchinginfo"
-              // should be available only when other info has been submitted
-            />
+            <div className="flex justify-end	mb-5 mx-5">
+              <UpdateRolesButtonComponent
+                userdata={currentUser}
+                roleFromDatabase={Number(props.role.id)}
+                buttonText="Register as a mentor"
+              />
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         ''
       )}

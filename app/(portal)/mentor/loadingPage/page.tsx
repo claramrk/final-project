@@ -2,9 +2,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getUserBySessionToken } from '../../../../database/users';
 import MenteeHeaderComponent from '../../../components/MenteeHeaderComponent';
-import LoaderComponent from './LoaderComponent';
+import LoadingComponentMentors from './LoadingComponentMentors';
 
-export default async function loadingPageMentees() {
+export default async function loadingPageMentors() {
   // 1. Checking if the sessionToken cookie exists
   const sessionTokenCookie = cookies().get('sessionToken');
 
@@ -18,13 +18,13 @@ export default async function loadingPageMentees() {
     <main>
       <MenteeHeaderComponent
         step={[1, 2, 3]}
-        titleBold="Let's"
-        titleNormal="find you a"
-        titleUnderlined="mentor."
+        titleBold="Adding"
+        titleNormal="you to the"
+        titleUnderlined="mentor pool."
       />
       <div className="card blurry">
         <h2 className="h2-custom-primary">Your Top Matches</h2>
-        <LoaderComponent />
+        <LoadingComponentMentors />
       </div>
     </main>
   );

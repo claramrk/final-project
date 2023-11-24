@@ -74,7 +74,7 @@ export default async function matchingdataMentors() {
         <MentorMatchingInfoFormComponent
           userdata={currentUser}
           role={roleFromDatabase}
-          uniBackground={userBackground.length > 0 ? true : false}
+          uniBackground={userBackground.length > 0 ? 'true' : 'false'}
         />
       </div>
     </main>
