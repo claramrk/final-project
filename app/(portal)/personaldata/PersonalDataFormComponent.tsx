@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { pronountypes } from '../../../database/pronouns';
@@ -97,7 +98,12 @@ export default function PersonalDataFormComponent(props: Props) {
               <div className="avatar mr-4">
                 <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                   {profilePictureInput ? (
-                    <img src={profilePictureInput} alt="" />
+                    <Image
+                      src={profilePictureInput}
+                      alt=""
+                      height="100"
+                      width="100"
+                    />
                   ) : (
                     <svg
                       className="h-12 w-12 text-gray-300"

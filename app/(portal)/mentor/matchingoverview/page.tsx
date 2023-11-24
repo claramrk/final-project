@@ -43,7 +43,7 @@ export default async function matchingOverviewMentors() {
         <MentorHeaderComponent
           step={[1, 2, 3, 4, 5]}
           titleBold="Check"
-          titleNormal="our your current"
+          titleNormal="out your current"
           titleUnderlined="matches."
         />
       ) : (
@@ -53,7 +53,7 @@ export default async function matchingOverviewMentors() {
         <MentorHeaderComponent
           step={[1, 2, 3, 4, 5, 6, 7]}
           titleBold="Check"
-          titleNormal="our your "
+          titleNormal="out your"
           titleUnderlined="current matches."
         />
       ) : (
@@ -64,7 +64,7 @@ export default async function matchingOverviewMentors() {
         <MentorHeaderComponent
           step={[1, 2, 3, 4, 5, 6]}
           titleBold="Check"
-          titleNormal="our your "
+          titleNormal="out your"
           titleUnderlined="current matches."
         />
       ) : (
@@ -76,7 +76,7 @@ export default async function matchingOverviewMentors() {
         <MentorHeaderComponent
           step={[1, 2, 3, 4, 5]}
           titleBold="Check"
-          titleNormal="our your "
+          titleNormal="out your "
           titleUnderlined="current matches."
         />
       ) : (
