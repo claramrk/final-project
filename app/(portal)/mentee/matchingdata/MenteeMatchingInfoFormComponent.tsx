@@ -27,6 +27,7 @@ export default function MenteeMatchingInfoFormComponent(props: Props) {
   }
 
   return (
+
     <div className="card blurry">
       <form
         onSubmit={async (event) => {

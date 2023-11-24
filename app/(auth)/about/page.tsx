@@ -182,7 +182,7 @@ export default function about() {
           </div>
         </div>
       </header>
-      <div className=" isolate px-6 lg:px-8">
+      <div className="mt-60 isolate px-6 lg:px-8">
         <div className="mx-auto max-w-6xl py-32 sm:py-15 lg:py-35">
           <div className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
             <div className="absolute inset-0 -z-10 overflow-hidden">

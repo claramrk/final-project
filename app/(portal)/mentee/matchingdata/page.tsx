@@ -64,13 +64,11 @@ export default async function menteeMatchingData() {
               {' '}
               Your submitted target universities & subjects:{' '}
             </h2>
-            <div className="card blurry">
-              <MenteeTableComponent
-                badgetext="submitted"
-                badgecolor="badge badge-accent badge-outline"
-                menteeMatchId={currentUser.id}
-              />
-            </div>
+            <MenteeTableComponent
+              badgetext="submitted"
+              badgecolor="badge badge-accent badge-outline"
+              menteeMatchId={currentUser.id}
+            />
           </div>
           <div>
             <MenteeMatchingInfoFormComponent

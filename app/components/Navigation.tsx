@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Image from 'next/image';
 import Link from 'next/link';
 import SignOutButton from '../(auth)/signOut/signOutFormComponent';
 import { getUserBySessionToken } from '../../database/users';
@@ -190,7 +191,9 @@ export default async function Navigation() {
             {currentUser ? (
               <div className="avatar mr-4">
                 <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img
+                  <Image
+                    width="100"
+                    height="100"
                     src={
                       currentUser.photo
                         ? currentUser.photo
