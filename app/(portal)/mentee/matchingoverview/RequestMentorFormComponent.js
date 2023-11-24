@@ -60,7 +60,7 @@ export default function RequestMentorFormComponent(props) {
           router.push('/mentee/dashboard');
         }}
       >
-        <div className="lg:flex lg:flex-row items-center ">
+        <div className="lg:flex lg:flex-column items-end ">
           <div className="lg:flex lg:flex-row items-center ">
             {topThreeMentorsWithPersonalDataListValue.map((d) => {
               return (
@@ -101,7 +101,7 @@ export default function RequestMentorFormComponent(props) {
               );
             })}
           </div>
-          <div className="card sub-blurry">
+          <div className="card third-blurry p-6">
             <label className="label-custom-primary" htmlFor="mentorMessage">
               Please include a short message to{' '}
               <strong>{mentorSelectionName}</strong>:{' '}
@@ -111,6 +111,7 @@ export default function RequestMentorFormComponent(props) {
               name="mentorMessage"
               className="textarea textarea-bordered"
               placeholder="Your message ..."
+              rows={3}
               value={messageToMentor}
               onChange={(event) =>
                 setMessageToMentor(event.currentTarget.value)
@@ -118,7 +119,9 @@ export default function RequestMentorFormComponent(props) {
               required
             />
           </div>
-          <button className="btn-custom-third">Send request</button>
+          <div className="flex mb-4">
+            <button className="btn-custom-third">Send →</button>
+          </div>
         </div>
       </form>
     </div>

@@ -207,7 +207,7 @@ export default async function homePage() {
           <div className=" mx-auto max-w-4xl mt-20 py-32 sm:py-48 lg:py-56 ">
             <div className="mb-8 flex justify-center">
               <div className=" relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                To become a mentor{' '}
+                To find out more{' '}
                 <Link
                   className="max-w-md rounded-full py-1 text-base leading-6  ring-gray-900/10 hover:ring-gray-900/20 font-semibold text-accent mt-2"
                   href="/about"

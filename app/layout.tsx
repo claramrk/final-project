@@ -42,7 +42,7 @@ export default function RootLayout(props: Props) {
             }}
           />
         </div>
-        <div className="bottom-0 mt-60">
+        <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
       </body>
