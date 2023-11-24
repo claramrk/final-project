@@ -69,9 +69,9 @@ export default function RequestMentorFormComponent(props) {
                   data-testid={`uniqueID-${topThreeMentorsWithPersonalDataListValue.indexOf(
                     d,
                   )}-radio`}
-                  className={`card blurry ${
+                  className={`card third-blurry transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 ${
                     Number(mentorSelection) === Number(d.id)
-                      ? 'border-4	border-neutral	'
+                      ? 'border-4	border-accent	'
                       : '	border-4	border-transparent	'
                   }`}
                 >
@@ -81,7 +81,9 @@ export default function RequestMentorFormComponent(props) {
                         <img width="60" height="60" src={d.photo} alt="" />
                       </div>
                     </div>
-                    <h3 className="h3-custom-primary">{d.firstname}</h3>
+                    <h3 className="h3-custom-primary text-center">
+                      {d.firstname}
+                    </h3>
 
                     <input
                       className="hidden"
@@ -115,8 +117,8 @@ export default function RequestMentorFormComponent(props) {
               }
               required
             />
-            <button className="btn-custom-primary">Send mentor request</button>
           </div>
+          <button className="btn-custom-third">Send request</button>
         </div>
       </form>
     </div>

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getCountries } from '../../../database/countries';
 import { getRoleByName } from '../../../database/roles';
 import { getUserBySessionToken } from '../../../database/users';
+import MenteeHeaderComponent from '../../components/MenteeHeaderComponent';
 import PersonalDataFormComponent from './PersonalDataFormComponent';
 
 export default async function personaldata() {
@@ -46,32 +47,29 @@ export default async function personaldata() {
 
   return (
     <main>
-      <div className="card blurry">
-        <h1 className="mt-10 mb-7 mx-2 border-custom-primary">
-          <span className="lg:text-6xl font-bold tracking-tight text-900 text-accent sm:text-3xl ">
-            Welcome.{' '}
-          </span>
-          <span className="lg:text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl ">
-            Happy you want to become a{' '}
-          </span>
-          <span className="lg:text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl decoration-accent decoration-4 underline underline-offset-4">
-            {currentUserRoleByName.type}.
-          </span>
-        </h1>
-
-        {currentUserRoleByName === menteeIncompleteRoleByName ? (
-          <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
-            <li className="step step-accent">Enter personal information</li>
-            <li className="step">Enter target universities & subjects</li>
-            <li className="step">Choose your best mentor match</li>
-            <li className="step">Wait for mentor acceptance</li>
-            <li className="step">Start your mentorship journey</li>
-            <li className="step">Apply to your dream uni!</li>
-          </ul>
-        ) : (
-          ''
-        )}
-        {currentUserRoleByName === mentorIncompleteRoleByName ? (
+      {currentUserRoleByName === menteeIncompleteRoleByName ? (
+        <MenteeHeaderComponent
+          step={[1]}
+          titleBold="Welcome."
+          titleNormal="Happy you want to become a"
+          titleUnderlined={`${currentUserRoleByName.type}.`}
+        />
+      ) : (
+        ''
+      )}
+      {currentUserRoleByName === mentorIncompleteRoleByName ? (
+        <div className="card blurry">
+          <h1 className="mt-10 mb-7 mx-2 border-custom-primary">
+            <span className="lg:text-6xl font-bold tracking-tight text-900 text-accent sm:text-3xl ">
+              Welcome.{' '}
+            </span>
+            <span className="lg:text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl ">
+              Happy you want to become a{' '}
+            </span>
+            <span className="lg:text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl decoration-accent decoration-4 underline underline-offset-4">
+              {currentUserRoleByName.type}.
+            </span>
+          </h1>
           <ul className="steps hidden sm:mb-1 sm:flex sm:justify-center">
             <li className="step step-accent">Enter personal information</li>
             <li className="step ">Enter academic background</li>
@@ -81,10 +79,11 @@ export default async function personaldata() {
             <li className="step">Accept request within one week</li>
             <li className="step">& start your mentorship journey</li>
           </ul>
-        ) : (
-          ''
-        )}
-      </div>
+        </div>
+      ) : (
+        ''
+      )}
+
       <div>
         <PersonalDataFormComponent
           countries={countries}

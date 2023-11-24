@@ -70,7 +70,7 @@ export default function SignUpForm(props: Props) {
                 return (
                   <div
                     key={`dataID-radio-${d.id}`}
-                    className={`card sub-blurry ${
+                    className={`card third-blurry ${
                       role === d.id
                         ? 'border-4	border-accent	transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110'
                         : '	border-4	border-transparent	transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110'
@@ -109,7 +109,7 @@ export default function SignUpForm(props: Props) {
                 return (
                   <div
                     key={`dataID-radio-${d.id}`}
-                    className={`card sub-blurry  ${
+                    className={`card third-blurry  ${
                       role === d.id
                         ? 'border-4	border-accent	transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110'
                         : '	border-4	border-transparent	transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110'

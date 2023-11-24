@@ -21,7 +21,7 @@ export default function UpdateRolesButtonComponent(props: Props) {
       }),
     });
 
-    await router.refresh();
+    router.refresh();
   }
 
   return (
