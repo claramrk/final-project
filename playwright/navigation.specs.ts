@@ -65,15 +65,33 @@ test('navigation test', async ({ page }) => {
 
   await page.getByPlaceholder('Jane').fill('Testfirstname');
   await page.getByRole('textbox', { name: 'Doe' }).fill('Testlastname');
-  await page.getByPlaceholder('+43 664').fill('219289182');
-  await page.getByPlaceholder('+43 664').fill('219289182');
+  await page.getByPlaceholder('00436645829837').fill('219289182');
   await page
     .locator('select[name="pronounsInput"]')
     .selectOption('she/her/hers');
   await page.locator('input[name="birthdateInput"]').fill('1998-01-12');
   await page.locator('select[name="countryOriginInput"]').selectOption('CAN');
-
-  await page.getByRole('button', { name: 'Enter your target' }).click();
+  await page.getByRole('button', { name: 'Upload' }).click();
+  await page
+    .frameLocator('[data-test="uw-iframe"]')
+    .locator('[data-test="url-btn"]')
+    .click();
+  await page
+    .frameLocator('[data-test="uw-iframe"]')
+    .locator('[data-test="search-input-box"]')
+    .fill(
+      'https://res.cloudinary.com/dqmhbukkm/image/upload/v1701093283/fkjxfjioxmuitb9ew7ah.png',
+    );
+  await page
+    .frameLocator('[data-test="uw-iframe"]')
+    .locator('[data-test="upload-from-link-btn"]')
+    .click();
+  await page.frameLocator('[data-test="uw-iframe"]').getByText('Done').click();
+  /* const fileChooserPromise = page.waitForEvent('filechooser');
+   await page.getByText('Upload file').click();
+  const fileChooser = await fileChooserPromise;
+  await fileChooser.setFiles(path.join(__dirname, 'myfile.pdf')); */
+  await page.getByRole('button', { name: 'Continue →' }).click();
 
   // navigate to Personal Data Page
   await page.waitForURL('http://localhost:3000/mentee/matchingdata');
@@ -99,19 +117,13 @@ test('navigation test', async ({ page }) => {
     .locator('select[name="selectSubjectThree"]')
     .selectOption(getRandomSubject());
   await expect(
-    page.getByRole('button', {
-      name: 'Complete your registration as a mentee',
-    }),
+    page.getByRole('button', { name: 'Register as a mentee' }),
   ).not.toBeVisible();
-  await page.getByRole('button', { name: 'Submit all University' }).click();
+  await page.getByRole('button', { name: 'Next ↓' }).click();
   await expect(
-    page.getByRole('button', {
-      name: 'Complete your registration as a mentee',
-    }),
+    page.getByRole('button', { name: 'Register as a mentee' }),
   ).toBeVisible();
-  await page
-    .getByRole('button', { name: 'Complete your registration as a mentee' })
-    .click();
+  await page.getByRole('button', { name: 'Register as a mentee' }).click();
 
   // navigate to MatchingOverview
   await page.waitForURL('http://localhost:3000/mentee/matchingoverview');
@@ -126,7 +138,7 @@ test('navigation test', async ({ page }) => {
 
   await page.locator('[data-testid="uniqueID-1-radio"]').click();
   await page.getByPlaceholder('Your message').fill(makeEmail(30));
-  await page.getByRole('button', { name: 'Send mentor request' }).click();
+  await page.getByRole('button', { name: 'Send →' }).click();
 
   // navigate to MenteeDashboard
   await page.waitForURL('http://localhost:3000/mentee/dashboard');
