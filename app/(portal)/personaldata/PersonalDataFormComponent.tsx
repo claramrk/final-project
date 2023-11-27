@@ -6,6 +6,7 @@ import { pronountypes } from '../../../database/pronouns';
 import { Country } from '../../../migrations/00000-createTableCountries';
 import { Role } from '../../../migrations/00006-createTableRoles';
 import { UserAll } from '../../../migrations/00008-createTableUsers';
+import { PersonalDataBodyPost } from '../../api/users/personaldata/route';
 import LabelAndInputComponent from '../../components/LabelAndInputComponent';
 import LabelAndSelectComponent from '../../components/LabelandSelectInput';
 import UpdateRolesButtonComponent from '../../components/UpdateRolesButtonComponent';
@@ -27,26 +28,11 @@ export default function PersonalDataFormComponent(props: Props) {
   const [originCountryInput, setOriginCountryInput] = useState('');
   const [profilePictureInput, setProfilePictureInput] = useState('');
   const [imageInfo, setImageInfo] = useState([]);
+  const [errors, setErrors] = useState<{ message: string | number }[]>([]);
+
   const router = useRouter();
 
-  async function handlePutPersonalData() {
-    const currentUserID = Number(props.currentUser.id);
-
-    await fetch('/../../api/users/personaldata', {
-      method: 'PUT',
-      body: JSON.stringify({
-        userId: Number(currentUserID),
-        firstname: firstnameInput,
-        lastname: lastnameInput,
-        pronouns: pronounsInput,
-        phone_number: phoneNumberInput,
-        birthdate: birthdateInput,
-        country_id: originCountryInput,
-        photo: profilePictureInput,
-      }),
-    });
-    router.refresh();
-  }
+  const reroute: any = `/${props.currentUserRole.type}/matchingdata`;
 
   async function handleUpdateRole() {
     await fetch('/../../../api/users', {
@@ -56,6 +42,38 @@ export default function PersonalDataFormComponent(props: Props) {
         roleId: Number(props.currentUserRole.id),
       }),
     });
+    router.refresh();
+  }
+
+  async function handlePutPersonalData(
+    event: React.FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
+
+    const currentUserID = Number(props.currentUser.id);
+
+    const response = await fetch('/../../api/users/personaldata', {
+      method: 'PUT',
+      body: JSON.stringify({
+        userId: Number(currentUserID),
+        firstname: firstnameInput,
+        lastname: lastnameInput,
+        pronouns: pronounsInput,
+        phoneNumber: Number(phoneNumberInput),
+        birthdate: new Date(birthdateInput),
+        countryId: originCountryInput,
+        photo: profilePictureInput,
+      }),
+    });
+    const data: PersonalDataBodyPost = await response.json();
+
+    if ('errors' in data) {
+      setErrors(data.errors);
+      return;
+    }
+
+    await handleUpdateRole();
+    router.push(reroute);
     router.refresh();
   }
 
@@ -71,16 +89,9 @@ export default function PersonalDataFormComponent(props: Props) {
     });
   }, [imageInfo]);
 
-  const reroute: any = `/${props.currentUserRole.type}/matchingdata`;
-
   return (
     <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-        await handlePutPersonalData();
-        await handleUpdateRole();
-        router.push(reroute);
-      }}
+      onSubmit={async (event) => await handlePutPersonalData(event)}
       className=" space-y-14 "
     >
       <div className=" card blurry">
@@ -219,6 +230,26 @@ export default function PersonalDataFormComponent(props: Props) {
             }
           />
         </div>
+        {errors.map((error) => (
+          <div className="error" key={`error-${error.message}`}>
+            <div role="alert" className="alert fixed max-w-xs">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="stroke-info shrink-0 w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Error: {error.message}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </form>
   );

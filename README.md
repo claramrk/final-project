@@ -44,4 +44,4 @@ MentorMatch offers an array of features to facilitate mentorship and support for
 
 ## Additional Information
 
-Thank you for your interest in MentorMatch! For an in-depth exploration, I invite you to check out my repository!
+Thank you for your interest in MentorMatch! For an in-depth exploration of the application, take a look at the deployed page. For an in depth look into the code, I invite you to check out my repository!

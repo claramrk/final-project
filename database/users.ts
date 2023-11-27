@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { Role } from '../migrations/00006-createTableRoles';
 import {
   UserAll,
+  UserAllNoPassword,
   UserIdEmailPassword,
   UserIdEmailRole,
 } from '../migrations/00008-createTableUsers';
@@ -105,9 +106,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
       users.max_capacity,
       (
         SELECT
-          json_agg (
-            roles.*
-          )
+          json_agg (roles.*)
         FROM
           roles
         WHERE
@@ -149,7 +148,7 @@ export const putPersonalDataByUserID = cache(
     photo: string,
   ) => {
     // return roles;
-    const personalDataInfoUsers = await sql<UserAll[]>`
+    const [personalDataInfoUsers] = await sql<UserAllNoPassword[]>`
       UPDATE users
       SET
         firstname = ${firstname},
@@ -160,7 +159,17 @@ export const putPersonalDataByUserID = cache(
         country_id = ${countryId},
         photo = ${photo}
       WHERE
-        id = ${userId} RETURNING *
+        id = ${userId} RETURNING id,
+        email,
+        role_id,
+        firstname,
+        lastname,
+        pronouns,
+        phone_number,
+        birthdate,
+        country_id,
+        photo,
+        max_capacity
     `;
     return personalDataInfoUsers;
   },
