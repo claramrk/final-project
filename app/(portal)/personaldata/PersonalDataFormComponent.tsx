@@ -183,7 +183,7 @@ export default function PersonalDataFormComponent(props: Props) {
               labeltext="Your phone number"
               required={true}
               type="tel"
-              placeholder="+43 664 5829837"
+              placeholder="00436645829837"
               onChangeFunction={setPhoneNumberInput}
             />
           </div>
