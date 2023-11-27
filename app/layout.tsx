@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import Footer from './components/Footer';
 
@@ -9,13 +10,19 @@ export const metadata: Metadata = {
     'Helping disadvantaged students apply to their dream universities through 1:1 mentoring',
 };
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
 type Props = {
   children: ReactNode;
 };
 
 export default function RootLayout(props: Props) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full ${inter.variable}`}>
       <body className="h-full flex flex-col">
         <div
           className="fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60 "

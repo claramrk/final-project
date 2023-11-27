@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -24,6 +25,10 @@ export default async function homePage() {
   }
   return (
     <div className="h-full">
+      <Head>
+        <title>MentorMatch</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </Head>
       <header>
         <div className="absolute inset-x-0 top-0 z-50">
           <div className="navbar  bg-transparent">

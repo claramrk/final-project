@@ -52,7 +52,7 @@ export async function PUT(
 
   if (!updatedUserWithPersonalInfo) {
     return NextResponse.json(
-      { errors: [{ message: 'Error creating the new user' }] },
+      { errors: [{ message: 'Error adding info to the user' }] },
       { status: 406 },
     );
   }
