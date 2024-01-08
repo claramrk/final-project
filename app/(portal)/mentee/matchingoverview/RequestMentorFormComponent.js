@@ -60,13 +60,13 @@ export default function RequestMentorFormComponent(props) {
           router.push('/mentee/dashboard');
         }}
       >
-        <div className="lg:flex lg:flex-column items-end ">
-          <div className="lg:flex lg:flex-row items-center ">
+        <div className="items-end lg:flex lg:flex-column ">
+          <div className="items-center lg:flex lg:flex-row ">
             {topThreeMentorsWithPersonalDataListValue.map((d) => {
               return (
                 <div
                   key={`uniqueID-${d.id}`}
-                  data-testid={`uniqueID-${topThreeMentorsWithPersonalDataListValue.indexOf(
+                  data-test-id={`uniqueID-${topThreeMentorsWithPersonalDataListValue.indexOf(
                     d,
                   )}-radio`}
                   className={`card third-blurry transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 ${
@@ -81,7 +81,7 @@ export default function RequestMentorFormComponent(props) {
                         <img width="60" height="60" src={d.photo} alt="" />
                       </div>
                     </div>
-                    <h3 className="h3-custom-primary text-center">
+                    <h3 className="text-center h3-custom-primary">
                       {d.firstname}
                     </h3>
 
@@ -101,7 +101,7 @@ export default function RequestMentorFormComponent(props) {
               );
             })}
           </div>
-          <div className="card third-blurry py-5 items-center">
+          <div className="items-center py-5 card third-blurry">
             <label className="label-custom-primary" htmlFor="mentorMessage">
               Include a short message to <strong>{mentorSelectionName}</strong>:{' '}
               <span id="required">*</span>{' '}

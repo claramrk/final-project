@@ -16,6 +16,7 @@ const config: PlaywrightTestConfig = {
     testIdAttribute: 'data-test-id',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    baseURL: 'http://localhost:3000',
   },
 };
 

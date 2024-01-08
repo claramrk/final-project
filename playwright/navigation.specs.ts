@@ -31,7 +31,7 @@ function getRandomSubject() {
 }
 
 test('navigation test', async ({ page }) => {
-  await page.goto('http://localhost:3000');
+  await page.goto('');
   await expect(page.getByRole('link', { name: 'Sign Up' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Sign In' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Sign Out' })).not.toBeVisible();
@@ -39,8 +39,8 @@ test('navigation test', async ({ page }) => {
   await page.getByRole('link', { name: 'Sign Up' }).click();
 
   // navigate to Sign Up Page
-  await page.waitForURL('http://localhost:3000/signUp');
-  await expect(page).toHaveURL('http://localhost:3000/signUp');
+  await page.waitForURL('/signUp');
+  await expect(page).toHaveURL('/signUp');
 
   await expect(page.getByRole('link', { name: 'Sign In' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Main Page' })).toBeVisible();
@@ -62,8 +62,8 @@ test('navigation test', async ({ page }) => {
   await page.getByRole('button', { name: 'Sign up' }).click();
 
   // navigate to Personal Data Page & fill in data
-  await page.waitForURL('http://localhost:3000/personaldata');
-  await expect(page).toHaveURL('http://localhost:3000/personaldata');
+  await page.waitForURL('/personaldata');
+  await expect(page).toHaveURL('/personaldata');
 
   await page.getByPlaceholder('Jane').fill('Testfirstname');
   await page.getByRole('textbox', { name: 'Doe' }).fill('Testlastname');
@@ -97,9 +97,9 @@ test('navigation test', async ({ page }) => {
   await page.frameLocator('[data-test="uw-iframe"]').getByText('Done').click();
   await page.getByRole('button', { name: 'Continue →' }).click();
 
-  // navigate to Personal Data Page & fill in data
-  await page.waitForURL('http://localhost:3000/mentee/matchingdata');
-  await expect(page).toHaveURL('http://localhost:3000/mentee/matchingdata');
+  // navigate to Matching Data Page & fill in data
+  await page.waitForURL('/mentee/matchingdata');
+  await expect(page).toHaveURL('/mentee/matchingdata');
 
   await page.locator('select[name="selectDegreetype"]').selectOption('1');
   await page
@@ -130,28 +130,31 @@ test('navigation test', async ({ page }) => {
   await page.getByRole('button', { name: 'Register as a mentee' }).click();
 
   // navigate to MatchingOverview, select mentor & send request
-  await page.waitForURL('http://localhost:3000/mentee/matchingoverview');
-  await expect(page).toHaveURL('http://localhost:3000/mentee/matchingoverview');
+  await page.waitForURL('/mentee/loadingPage', { timeout: 20000 });
+  await expect(page).toHaveURL('/mentee/loadingPage');
 
-  await expect(page.locator('[data-testid="uniqueID-0"]')).toBeVisible();
+  // navigate to MatchingOverview, select mentor & send request
+  await page.waitForURL('/mentee/matchingoverview');
 
-  await page.locator('[data-testid="uniqueID-0"]').click();
-  await expect(
-    page.locator('[data-testid="uniqueID-0-collapse-content"]'),
-  ).toBeVisible();
+  await expect(page.getByTestId('uniqueID-0').locator('summary')).toBeVisible();
 
-  await page.locator('[data-testid="uniqueID-1-radio"]').click();
+  await page.getByTestId('uniqueID-0').locator('summary').click();
+  await expect(page.getByTestId('uniqueID-0-collapse-content')).toBeVisible();
+
+  await page.getByTestId('uniqueID-1-radio').click();
   await page.getByPlaceholder('Your message').fill(makeEmail(30));
   await page.getByRole('button', { name: 'Send →' }).click();
 
   // navigate to MenteeDashboard & check if mentor requested
-  await page.waitForURL('http://localhost:3000/mentee/dashboard');
-  await expect(page).toHaveURL('http://localhost:3000/mentee/dashboard');
+  await page.waitForURL('/mentee/dashboard', { timeout: 20000 });
+  await expect(page).toHaveURL('/mentee/dashboard');
 
-  await page.locator('[data-testid="id-1-requested"]').click();
+  await expect(page.getByTestId('requested-match')).toBeVisible();
+
+  await page.getByTestId('requested-match').click();
 
   // signOut
   await page.getByRole('button', { name: 'Sign Out' }).click();
-  await page.waitForURL('http://localhost:3000/signIn');
-  await expect(page).toHaveURL('http://localhost:3000/signIn');
+  await page.waitForURL('/signIn');
+  await expect(page).toHaveURL('/signIn');
 });
