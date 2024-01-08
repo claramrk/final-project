@@ -46,6 +46,8 @@ test('navigation test', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Main Page' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Sign Out' })).not.toBeVisible();
 
+  // Sign up
+
   await expect(page.getByText('Sign up as:*')).toBeVisible();
   await page.getByRole('button', { name: 'image-select-2 Mentee' }).click();
 
@@ -59,7 +61,7 @@ test('navigation test', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Sign up' }).click();
 
-  // navigate to Personal Data Page
+  // navigate to Personal Data Page & fill in data
   await page.waitForURL('http://localhost:3000/personaldata');
   await expect(page).toHaveURL('http://localhost:3000/personaldata');
 
@@ -71,7 +73,13 @@ test('navigation test', async ({ page }) => {
     .selectOption('she/her/hers');
   await page.locator('input[name="birthdateInput"]').fill('1998-01-12');
   await page.locator('select[name="countryOriginInput"]').selectOption('CAN');
-  await page.getByRole('button', { name: 'Upload' }).click();
+  await page.mouse.wheel(0, 150);
+  await page.locator('[data-test-id="upload-button"]').click();
+  await expect(
+    page
+      .frameLocator('[data-test="uw-iframe"]')
+      .locator('[data-test="url-btn"]'),
+  ).toBeVisible();
   await page
     .frameLocator('[data-test="uw-iframe"]')
     .locator('[data-test="url-btn"]')
@@ -87,13 +95,9 @@ test('navigation test', async ({ page }) => {
     .locator('[data-test="upload-from-link-btn"]')
     .click();
   await page.frameLocator('[data-test="uw-iframe"]').getByText('Done').click();
-  /* const fileChooserPromise = page.waitForEvent('filechooser');
-   await page.getByText('Upload file').click();
-  const fileChooser = await fileChooserPromise;
-  await fileChooser.setFiles(path.join(__dirname, 'myfile.pdf')); */
   await page.getByRole('button', { name: 'Continue →' }).click();
 
-  // navigate to Personal Data Page
+  // navigate to Personal Data Page & fill in data
   await page.waitForURL('http://localhost:3000/mentee/matchingdata');
   await expect(page).toHaveURL('http://localhost:3000/mentee/matchingdata');
 
@@ -125,7 +129,7 @@ test('navigation test', async ({ page }) => {
   ).toBeVisible();
   await page.getByRole('button', { name: 'Register as a mentee' }).click();
 
-  // navigate to MatchingOverview
+  // navigate to MatchingOverview, select mentor & send request
   await page.waitForURL('http://localhost:3000/mentee/matchingoverview');
   await expect(page).toHaveURL('http://localhost:3000/mentee/matchingoverview');
 
@@ -140,7 +144,7 @@ test('navigation test', async ({ page }) => {
   await page.getByPlaceholder('Your message').fill(makeEmail(30));
   await page.getByRole('button', { name: 'Send →' }).click();
 
-  // navigate to MenteeDashboard
+  // navigate to MenteeDashboard & check if mentor requested
   await page.waitForURL('http://localhost:3000/mentee/dashboard');
   await expect(page).toHaveURL('http://localhost:3000/mentee/dashboard');
 

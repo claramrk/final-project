@@ -15,7 +15,11 @@ export default function UploadImageComponent(props: any) {
           open();
         }
         return (
-          <button className="button" onClick={handleOnClick}>
+          <button
+            data-test-id="upload-button"
+            className="button"
+            onClick={handleOnClick}
+          >
             Upload
           </button>
         );
