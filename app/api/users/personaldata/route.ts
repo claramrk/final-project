@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
 import { putPersonalDataByUserID } from '../../../../database/users';
 import { UserAllNoPassword } from '../../../../migrations/00008-createTableUsers';
 
