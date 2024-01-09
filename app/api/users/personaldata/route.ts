@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { putPersonalDataByUserID } from '../../../../database/users';
 import { UserAllNoPassword } from '../../../../migrations/00008-createTableUsers';
 
@@ -23,6 +24,9 @@ export type PersonalDataBodyPost =
   photo: z.string(),
 }); */
 
+const userIdParser = z.number();
+const firstnameParser = z.string();
+
 export async function PUT(
   request: NextRequest,
 ): Promise<NextResponse<PersonalDataBodyPost>> {
@@ -30,14 +34,33 @@ export async function PUT(
   const body = await request.json();
 
   // Validate the user data
-  /*   const result = putPersonalDataSchema.safeParse(body);
+  const userIdZod = userIdParser.safeParse(body.userId);
 
-  if (!result.success) {
+  if (!userIdZod.success) {
+    return NextResponse.json(
+      { errors: [{ message: 'error adding userId' }] },
+      { status: 403 },
+    );
+  }
+
+  const firstnameZod = firstnameParser.safeParse(body.firstname);
+
+  if (!firstnameZod.success) {
+    return NextResponse.json(
+      { errors: [{ message: 'error adding firstname' }] },
+      { status: 403 },
+    );
+  }
+
+  /*
+const result = putPersonalDataSchema.safeParse(body);
+if (!result.success) {
     return NextResponse.json(
       { errors: [{ message: 'error adding personal data' }] },
       { status: 403 },
     );
-  } */
+  }  */
+
   const updatedUserWithPersonalInfo = await putPersonalDataByUserID(
     Number(body.userId),
     body.firstname,

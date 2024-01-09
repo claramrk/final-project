@@ -31,7 +31,7 @@ function getRandomSubject() {
 }
 
 test('navigation test', async ({ page }) => {
-  await page.goto('');
+  await page.goto('/');
   await expect(page.getByRole('link', { name: 'Sign Up' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Sign In' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Sign Out' })).not.toBeVisible();
