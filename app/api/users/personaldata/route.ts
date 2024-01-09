@@ -31,23 +31,23 @@ export async function PUT(
   const body = await request.json();
 
   // Validate the user data
-  const result = putPersonalDataSchema.safeParse(body);
+  /*   const result = putPersonalDataSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
       { errors: [{ message: 'error adding personal data' }] },
       { status: 403 },
     );
-  }
+  } */
   const updatedUserWithPersonalInfo = await putPersonalDataByUserID(
-    Number(result.data.userId),
-    result.data.firstname,
-    result.data.lastname,
-    result.data.pronouns,
-    result.data.phoneNumber,
-    result.data.birthdate,
-    result.data.countryId,
-    result.data.photo,
+    Number(body.userId),
+    body.firstname,
+    body.lastname,
+    body.pronouns,
+    body.phoneNumber,
+    body.birthdate,
+    body.countryId,
+    body.photo,
   );
 
   if (!updatedUserWithPersonalInfo) {
