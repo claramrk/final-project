@@ -13,7 +13,7 @@ export type PersonalDataBodyPost =
       errors: { message: string | number }[];
     };
 
-const putPersonalDataSchema = z.object({
+/* const putPersonalDataSchema = z.object({
   userId: z.number(),
   firstname: z.string(),
   lastname: z.string(),
@@ -22,7 +22,7 @@ const putPersonalDataSchema = z.object({
   birthdate: z.coerce.date(),
   countryId: z.string(),
   photo: z.string(),
-});
+}); */
 
 export async function PUT(
   request: NextRequest,
