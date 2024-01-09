@@ -36,15 +36,15 @@ export default async function MenteeCardComponent(props: Props) {
 
   return (
     <details className="collapse collapse-arrow card blurry">
-      <summary className="collapse-title text-xl font-medium">
+      <summary className="text-xl font-medium collapse-title">
         <div className="flex items-center space-x-3">
-          <div className="avatar mr-4">
+          <div className="mr-4 avatar">
             <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
                 src={
                   userData.photo
                     ? userData.photo
-                    : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
+                    : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1700478300/ytlqy4gubosyfp9vpts7.png'
                 }
                 alt={userData.email}
               />
@@ -92,7 +92,7 @@ export default async function MenteeCardComponent(props: Props) {
             <tbody>
               <tr>
                 <td>
-                  <p className="tablefont-custom-primary font-bold">
+                  <p className="font-bold tablefont-custom-primary">
                     Universities
                   </p>
                 </td>
@@ -126,7 +126,7 @@ export default async function MenteeCardComponent(props: Props) {
               </tr>
               <tr>
                 <td>
-                  <p className="tablefont-custom-primary font-bold">Subjects</p>
+                  <p className="font-bold tablefont-custom-primary">Subjects</p>
                 </td>
                 <td>
                   <p className="tablefont-custom-primary">

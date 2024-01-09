@@ -87,9 +87,7 @@ test('navigation test', async ({ page }) => {
   await page
     .frameLocator('[data-test="uw-iframe"]')
     .locator('[data-test="search-input-box"]')
-    .fill(
-      'https://res.cloudinary.com/dqmhbukkm/image/upload/v1701093283/fkjxfjioxmuitb9ew7ah.png',
-    );
+    .fill('https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg');
   await page
     .frameLocator('[data-test="uw-iframe"]')
     .locator('[data-test="upload-from-link-btn"]')

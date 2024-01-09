@@ -17,7 +17,6 @@ const config: PlaywrightTestConfig = {
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     baseURL: 'http://localhost:3000',
-    headless: true,
   },
 };
 
