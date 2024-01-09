@@ -38,7 +38,7 @@ test('navigation test', async ({ page }) => {
 
   await page.getByRole('link', { name: 'Sign Up' }).click();
 
-  // navigate to Sign Up Page
+  // navigate to Sign Up Page - test
   await page.waitForURL('/signUp');
   await expect(page).toHaveURL('/signUp');
 
