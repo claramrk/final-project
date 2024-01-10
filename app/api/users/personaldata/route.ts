@@ -51,6 +51,7 @@ export async function PUT(
       { status: 403 },
     );
   }
+  console.log(firstnameZod);
 
   /*
 const result = putPersonalDataSchema.safeParse(body);
