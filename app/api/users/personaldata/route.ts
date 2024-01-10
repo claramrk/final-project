@@ -24,7 +24,7 @@ export type PersonalDataBodyPost =
   photo: z.string(),
 }); */
 
-const userIdParser = z.number();
+// const userIdParser = z.number();
 const firstnameParser = z.string();
 
 export async function PUT(
@@ -34,14 +34,6 @@ export async function PUT(
   const body = await request.json();
 
   // Validate the user data
-  const userIdZod = userIdParser.safeParse(body.userId);
-
-  if (!userIdZod.success) {
-    return NextResponse.json(
-      { errors: [{ message: 'error adding userId' }] },
-      { status: 403 },
-    );
-  }
 
   const firstnameZod = firstnameParser.safeParse(body.firstname);
 
