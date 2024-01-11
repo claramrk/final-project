@@ -72,19 +72,19 @@ export default async function TopMentorsComponent() {
             return (
               <div
                 key={`uniqueID-${topThreeMentorsList.id}`}
-                data-testid={`uniqueID-${topThreeMentorsList.indexOf(d)}`}
+                data-test-id={`uniqueID-${topThreeMentorsList.indexOf(d)}`}
               >
                 <details className="collapse card blurry collapse-arrow">
-                  <summary className="collapse-title text-xl font-medium">
+                  <summary className="text-xl font-medium collapse-title">
                     <div>
                       <div className="flex items-center space-x-3">
-                        <div className="avatar mr-4">
+                        <div className="mr-4 avatar">
                           <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             <img
                               src={
                                 mentorUserDataWithUniInfoObjectROW.photo
                                   ? mentorUserDataWithUniInfoObjectROW.photo
-                                  : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
+                                  : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1700478300/ytlqy4gubosyfp9vpts7.png'
                               }
                               alt={mentorUserDataWithUniInfoObjectROW.email}
                             />
@@ -109,7 +109,7 @@ export default async function TopMentorsComponent() {
                   </summary>
                   <div
                     className="collapse-content"
-                    data-testid={`uniqueID-${topThreeMentorsList.indexOf(
+                    data-test-id={`uniqueID-${topThreeMentorsList.indexOf(
                       d,
                     )}-collapse-content`}
                   >

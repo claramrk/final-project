@@ -41,7 +41,7 @@ export default async function MenteeTableComponent(props: Props) {
                 src={
                   userData.photo
                     ? userData.photo
-                    : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1699615635/dy8a7psy7ltcm3bqm5zl.png'
+                    : 'https://res.cloudinary.com/dqmhbukkm/image/upload/v1700478300/ytlqy4gubosyfp9vpts7.png'
                 }
                 alt={userData.email}
               />

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
 import { putPersonalDataByUserID } from '../../../../database/users';
 import { UserAllNoPassword } from '../../../../migrations/00008-createTableUsers';
 
@@ -13,7 +12,7 @@ export type PersonalDataBodyPost =
       errors: { message: string | number }[];
     };
 
-const putPersonalDataSchema = z.object({
+/* const putPersonalDataSchema = z.object({
   userId: z.number(),
   firstname: z.string(),
   lastname: z.string(),
@@ -22,7 +21,7 @@ const putPersonalDataSchema = z.object({
   birthdate: z.coerce.date(),
   countryId: z.string(),
   photo: z.string(),
-});
+}); */
 
 export async function PUT(
   request: NextRequest,
@@ -31,23 +30,23 @@ export async function PUT(
   const body = await request.json();
 
   // Validate the user data
-  const result = putPersonalDataSchema.safeParse(body);
+  /*   const result = putPersonalDataSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
       { errors: [{ message: 'error adding personal data' }] },
       { status: 403 },
     );
-  }
+  } */
   const updatedUserWithPersonalInfo = await putPersonalDataByUserID(
-    Number(result.data.userId),
-    result.data.firstname,
-    result.data.lastname,
-    result.data.pronouns,
-    result.data.phoneNumber,
-    result.data.birthdate,
-    result.data.countryId,
-    result.data.photo,
+    Number(body.userId),
+    body.firstname,
+    body.lastname,
+    body.pronouns,
+    body.phoneNumber,
+    body.birthdate,
+    body.countryId,
+    body.photo,
   );
 
   if (!updatedUserWithPersonalInfo) {
