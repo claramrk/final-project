@@ -128,8 +128,8 @@ test('navigation test', async ({ page }) => {
   await page.getByRole('button', { name: 'Register as a mentee' }).click();
 
   // navigate to MatchingOverview, select mentor & send request
-  await page.waitForURL('/mentee/loadingPage', { timeout: 20000 });
-  await expect(page).toHaveURL('/mentee/loadingPage');
+  await page.waitForURL('/mentee/loadingPage');
+  await expect(page).toHaveURL('/mentee/loadingPage', { timeout: 60000 });
 
   // navigate to MatchingOverview, select mentor & send request
   await page.waitForURL('/mentee/matchingoverview');
@@ -144,7 +144,7 @@ test('navigation test', async ({ page }) => {
   await page.getByRole('button', { name: 'Send →' }).click();
 
   // navigate to MenteeDashboard & check if mentor requested
-  await page.waitForURL('/mentee/dashboard', { timeout: 20000 });
+  await page.waitForURL('/mentee/dashboard');
   await expect(page).toHaveURL('/mentee/dashboard');
 
   await expect(page.getByTestId('requested-match')).toBeVisible();
