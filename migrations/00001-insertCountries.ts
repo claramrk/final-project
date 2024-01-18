@@ -202,18 +202,23 @@ const countrylist = [
 export async function up(sql: Sql) {
   for (const country of countrylist) {
     await sql`
-  INSERT INTO countries (
-    id, name
-    )VALUES
-    (${country.abbreviation}, ${country.name});
-  `;
+      INSERT INTO
+        countries (id, name)
+      VALUES
+        (
+          ${country.abbreviation},
+          ${country.name}
+        );
+    `;
   }
 }
 
 export async function down(sql: Sql) {
   for (const country of countrylist) {
     await sql`
-      DELETE FROM countries WHERE id = ${country.abbreviation}
-`;
+      DELETE FROM countries
+      WHERE
+        id = ${country.abbreviation}
+    `;
   }
 }
