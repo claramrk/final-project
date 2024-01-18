@@ -1,4 +1,4 @@
-app = "nextjs-final-project"
+app = "mentor-match"
 primary_region = "otp"
 
 # Apps without volume: Comment out the [mounts] configuration below
